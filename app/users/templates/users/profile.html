@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile | E-Learn</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h2>Welcome, {{ user.username }}</h2>
+        <p>Email: {{ user.email }}</p>
+        <p>Member since: {{ user.date_joined|date:"F j, Y" }}</p>
+        <!-- <a href="{% url 'users:logout' %}">Logout</a> -->
+        <a href="{% url 'users:logout' %}">Logout</a>
+
+    </div>
+</body>
+</html>
