@@ -128,13 +128,24 @@
 
 
 
-# config/urls.py
+# # config/urls.py
+# from django.contrib import admin
+# from django.urls import path, include
+# from django.views.generic import TemplateView
+
+# urlpatterns = [
+#     path('admin/', admin.site.urls),
+#     path('users/', include('app.users.urls', namespace='users')),  # ✅ your namespace
+#     path('', TemplateView.as_view(template_name='home.html'), name='home'),  # ✅ homepage route
+# ]
+
+
 from django.contrib import admin
 from django.urls import path, include
-from django.views.generic import TemplateView
+from app.users import views   # ✅ import your views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('users/', include('app.users.urls', namespace='users')),  # ✅ your namespace
-    path('', TemplateView.as_view(template_name='home.html'), name='home'),  # ✅ homepage route
+    path('users/', include('app.users.urls', namespace='users')),
+    path('', views.home, name='home'),  # ✅ fix: use your home view
 ]
