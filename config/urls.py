@@ -149,3 +149,6 @@ urlpatterns = [
     path('users/', include('app.users.urls', namespace='users')),
     path('', views.home, name='home'),  # ✅ fix: use your home view
 ]
+
+
+

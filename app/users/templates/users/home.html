@@ -1,4 +1,4 @@
-{% load static %}
+<!-- {% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +10,7 @@
         body {
             margin: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #f5f7fa, #e4ecf7);
+            background: linear-gradient(135deg, #f5f7fa, #e4f7e4); /* greenish gradient */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -34,6 +34,10 @@
             color: #1a202c;
         }
 
+        h1 span {
+            color: #32CD32; /* Lawngreen */
+        }
+
         p {
             margin-top: 1rem;
             font-size: 1rem;
@@ -51,24 +55,24 @@
         }
 
         .btn-primary {
-            background-color: #2563eb;
+            background-color: #32CD32; /* Lawngreen */
             color: white;
         }
 
         .btn-primary:hover {
-            background-color: #1e40af;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+            background-color: #28a428;
+            box-shadow: 0 4px 12px rgba(50, 205, 50, 0.4);
         }
 
         .btn-outline {
-            border: 2px solid #2563eb;
-            color: #2563eb;
+            border: 2px solid #32CD32;
+            color: #32CD32;
         }
 
         .btn-outline:hover {
-            background-color: #2563eb;
+            background-color: #32CD32;
             color: white;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+            box-shadow: 0 4px 12px rgba(50, 205, 50, 0.4);
         }
 
         @keyframes fadeIn {
@@ -79,11 +83,273 @@
 </head>
 <body>
     <div class="home-container">
-        <h1>Welcome to <span style="color:#2563eb;">E-Learn</span> 🎓</h1>
+        <h1>Welcome to <span>E-Learn</span> 🎓</h1>
         <p>Empower your learning journey with interactive courses and progress tracking.</p>
         
         <a href="{% url 'users:signup' %}" class="btn btn-primary">Sign Up</a>
         <a href="{% url 'users:login' %}" class="btn btn-outline">Login</a>
     </div>
+</body>
+</html> -->
+
+
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Learn | Home</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        /* Global Styles */
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa, #e4f7e4);
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        /* Navbar */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            background-color: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        nav .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #32CD32;
+        }
+
+        nav .nav-links a {
+            margin: 0 1rem;
+            color: #1a202c;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav .nav-links a:hover {
+            color: #32CD32;
+        }
+
+        nav .auth-buttons a {
+            margin-left: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .btn-primary { background-color: #32CD32; color: white; }
+        .btn-primary:hover { background-color: #28a428; }
+        .btn-outline { border: 2px solid #32CD32; color: #32CD32; }
+        .btn-outline:hover { background-color: #32CD32; color: white; }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 4rem 1rem;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero h1 span { color: #32CD32; }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #4a5568;
+            margin-bottom: 2rem;
+        }
+
+        .hero .cta-buttons a {
+            margin: 0.5rem;
+        }
+
+        /* Featured Courses */
+        .courses {
+            padding: 4rem 0;
+            background-color: #f0fdf4;
+        }
+
+        .courses h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            color: #1a202c;
+        }
+
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .course-card {
+            background: white;
+            padding: 1rem;
+            border-radius: 1rem;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .course-card h3 { margin-top: 0.5rem; color: #1a202c; }
+        .course-card p { color: #4a5568; font-size: 0.9rem; margin: 0.5rem 0; }
+        .course-card a { margin-top: 0.5rem; display: inline-block; }
+
+        /* Categories Section */
+        .categories {
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .categories h2 { font-size: 2rem; margin-bottom: 2rem; }
+        .category-buttons a {
+            margin: 0.5rem;
+            padding: 0.6rem 1.2rem;
+            border-radius: 9999px;
+            border: 2px solid #32CD32;
+            color: #32CD32;
+            display: inline-block;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        .category-buttons a:hover { background-color: #32CD32; color: white; }
+
+        /* Testimonials Section */
+        .testimonials {
+            background-color: #f0fdf4;
+            padding: 4rem 1rem;
+            text-align: center;
+        }
+        .testimonials h2 { font-size: 2rem; margin-bottom: 2rem; }
+        .testimonial-card {
+            display: inline-block;
+            width: 250px;
+            background: white;
+            margin: 1rem;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+        }
+        .testimonial-card p { color: #4a5568; font-size: 0.95rem; }
+        .testimonial-card h4 { margin-top: 1rem; color: #1a202c; }
+
+        /* Footer */
+        footer {
+            background-color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: 0 -2px 8px rgba(0,0,0,0.05);
+        }
+        footer p { color: #4a5568; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="container">
+        <div class="logo">E-Learn</div>
+        <div class="nav-links">
+            <a href="#">Home</a>
+            <a href="#">Courses</a>
+            <a href="#">Exams</a>
+            <a href="#">Progress</a>
+        </div>
+        <div class="auth-buttons">
+            <a href="{% url 'users:signup' %}" class="btn-primary">Sign Up</a>
+            <a href="{% url 'users:login' %}" class="btn-outline">Login</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Welcome to <span>E-Learn</span> 🎓</h1>
+        <p>Empower your learning journey with interactive courses and progress tracking.</p>
+        <div class="cta-buttons">
+            <a href="#" class="btn-primary">Explore Courses</a>
+            <a href="{% url 'users:signup' %}" class="btn-outline">Join Now</a>
+        </div>
+    </section>
+
+    <!-- Featured Courses -->
+    <section class="courses container">
+        <h2>Featured Courses</h2>
+        <div class="course-grid">
+            <div class="course-card">
+                <h3>Python Programming</h3>
+                <p>Learn Python from scratch with hands-on projects.</p>
+                <a href="#" class="btn-primary">Enroll Now</a>
+            </div>
+            <div class="course-card">
+                <h3>Web Development</h3>
+                <p>HTML, CSS, JavaScript, Django full-stack course.</p>
+                <a href="#" class="btn-primary">Enroll Now</a>
+            </div>
+            <div class="course-card">
+                <h3>Data Science</h3>
+                <p>Statistics, Python, and ML algorithms explained.</p>
+                <a href="#" class="btn-primary">Enroll Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="categories">
+        <h2>Explore by Categories</h2>
+        <div class="category-buttons">
+            <a href="#">Lessons</a>
+            <a href="#">Exams</a>
+            <a href="#">Payments</a>
+            <a href="#">Progress</a>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <h2>What Our Students Say</h2>
+        <div class="testimonial-card">
+            <p>"E-Learn transformed my coding skills. Highly recommended!"</p>
+            <h4>- Sarah J.</h4>
+        </div>
+        <div class="testimonial-card">
+            <p>"Courses are interactive and easy to follow. Love it!"</p>
+            <h4>- Mark T.</h4>
+        </div>
+        <div class="testimonial-card">
+            <p>"I could track my progress and stay motivated all the time."</p>
+            <h4>- Priya S.</h4>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 E-Learn. All rights reserved.</p>
+    </footer>
+
 </body>
 </html>
