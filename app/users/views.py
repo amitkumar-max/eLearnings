@@ -135,7 +135,7 @@ from django.contrib.auth import logout
 def home(request):
     return render(request, 'users/home.html')
 
-# Signup page
+# Signup pages
 def signup_view(request):
     return render(request, 'users/signup.html')
 
