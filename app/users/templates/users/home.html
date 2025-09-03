@@ -2,287 +2,249 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-Learn | Home</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <style>
-        /* Global Styles */
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #f5f7fa, #e4f7e4);
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-Learn | Home</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <style>
+    /* Global Styles */
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #f5f7fa, #e4f7e4);
+      scroll-behavior: smooth; /* ✅ smooth scrolling */
+    }
+    a { text-decoration: none; }
+    .container {
+      width: 92%;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: block;
+    }
 
-        a {
-            text-decoration: none;
-        }
+    /* Navbar */
+    nav {
+      background-color: white;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #32CD32;
+    }
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+    .nav-links a {
+      color: #1a202c;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: #32CD32; }
+    .auth-buttons a {
+      margin-left: 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      font-weight: 500;
+      transition: all 0.3s;
+    }
+    .btn-primary { background-color: #32CD32; color: white; }
+    .btn-primary:hover { background-color: #28a428; }
+    .btn-outline { border: 2px solid #32CD32; color: #32CD32; }
+    .btn-outline:hover { background-color: #32CD32; color: white; }
 
-        .container {
-            width: 92%;
-            max-width: 1200px;
-            margin: auto;
-        }
+    /* Sections */
+    section { padding: 3rem 0; }
+    .hero {
+      text-align: center;
+      padding: 4rem 1rem 3rem;
+    }
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    .hero h1 span { color: #32CD32; }
+    .hero p {
+      font-size: 1.2rem;
+      color: #4a5568;
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+    .cta-buttons a { margin: 0.5rem; display: inline-block; }
 
-        /* Navbar */
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 0;
-            background-color: white;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            position: sticky;
-            top: 0;
-            z-index: 10;
-        }
+    /* Courses Section */
+    .courses { background-color: #f0fdf4; text-align: center; }
+    .courses h2 { font-size: 2rem; margin-bottom: 2rem; }
+    .course-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .course-card {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 1rem;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+      transition: transform 0.3s;
+    }
+    .course-card:hover { transform: translateY(-5px); }
 
-        nav .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #32CD32;
-        }
+    /* Categories Section */
+    .categories { text-align: center; }
+    .categories h2 { font-size: 2rem; margin-bottom: 2rem; }
+    .category-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+    }
+    .category-buttons a {
+      padding: 0.6rem 1.2rem;
+      border-radius: 9999px;
+      border: 2px solid #32CD32;
+      color: #32CD32;
+      font-weight: 500;
+      transition: all 0.3s;
+    }
+    .category-buttons a:hover { background-color: #32CD32; color: white; }
 
-        nav .nav-links {
-            display: flex;
-            gap: 1.5rem;
-        }
+    /* Testimonials Section */
+    .testimonials { background-color: #f0fdf4; text-align: center; }
+    .testimonials h2 { font-size: 2rem; margin-bottom: 2rem; }
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .testimonial-card {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 1rem;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+    }
+    .testimonial-card p { color: #4a5568; font-size: 0.95rem; }
+    .testimonial-card h4 { margin-top: 1rem; color: #1a202c; }
 
-        nav .nav-links a {
-            color: #1a202c;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
+    /* Footer */
+    footer {
+      background-color: white;
+      padding: 1.5rem 1rem;
+      text-align: center;
+      box-shadow: 0 -2px 8px rgba(0,0,0,0.05);
+    }
+    footer p { color: #4a5568; font-size: 0.9rem; }
 
-        nav .nav-links a:hover {
-            color: #32CD32;
-        }
-
-        nav .auth-buttons a {
-            margin-left: 0.5rem;
-            padding: 0.5rem 1rem;
-            border-radius: 9999px;
-            font-weight: 500;
-            transition: all 0.3s;
-        }
-
-        .btn-primary { background-color: #32CD32; color: white; }
-        .btn-primary:hover { background-color: #28a428; }
-        .btn-outline { border: 2px solid #32CD32; color: #32CD32; }
-        .btn-outline:hover { background-color: #32CD32; color: white; }
-
-        /* Hero Section */
-        .hero {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            padding: 4rem 1rem 3rem;
-        }
-
-        .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .hero h1 span { color: #32CD32; }
-
-        .hero p {
-            font-size: 1.2rem;
-            color: #4a5568;
-            max-width: 600px;
-            margin-bottom: 2rem;
-        }
-
-        .hero .cta-buttons a {
-            margin: 0.5rem;
-            display: inline-block;
-        }
-
-        /* Featured Courses */
-        .courses {
-            padding: 3rem 0;
-            background-color: #f0fdf4;
-            text-align: center;
-        }
-
-        .courses h2 {
-            margin-bottom: 2rem;
-            font-size: 2rem;
-            color: #1a202c;
-        }
-
-        .course-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .course-card {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 1rem;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
-            transition: transform 0.3s;
-        }
-
-        .course-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .course-card h3 { margin-top: 0; color: #1a202c; }
-        .course-card p { color: #4a5568; font-size: 0.95rem; margin: 0.5rem 0; }
-
-        /* Categories Section */
-        .categories {
-            padding: 3rem 0;
-            text-align: center;
-        }
-
-        .categories h2 { font-size: 2rem; margin-bottom: 2rem; }
-
-        .category-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 1rem;
-        }
-
-        .category-buttons a {
-            padding: 0.6rem 1.2rem;
-            border-radius: 9999px;
-            border: 2px solid #32CD32;
-            color: #32CD32;
-            font-weight: 500;
-            transition: all 0.3s;
-        }
-        .category-buttons a:hover { background-color: #32CD32; color: white; }
-
-        /* Testimonials Section */
-        .testimonials {
-            background-color: #f0fdf4;
-            padding: 3rem 1rem;
-            text-align: center;
-        }
-        .testimonials h2 { font-size: 2rem; margin-bottom: 2rem; }
-        .testimonial-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-        .testimonial-card {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 1rem;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
-        }
-        .testimonial-card p { color: #4a5568; font-size: 0.95rem; margin: 0; }
-        .testimonial-card h4 { margin-top: 1rem; color: #1a202c; }
-
-        /* Footer */
-        footer {
-            background-color: white;
-            padding: 1.5rem 1rem;
-            text-align: center;
-            box-shadow: 0 -2px 8px rgba(0,0,0,0.05);
-        }
-        footer p { color: #4a5568; font-size: 0.9rem; }
-
-        /* Responsive Fix */
-        @media (max-width: 768px) {
-            nav .nav-links { display: none; } /* can replace with hamburger later */
-            .hero h1 { font-size: 2rem; }
-            .hero p { font-size: 1rem; }
-        }
-    </style>
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hero h1 { font-size: 2rem; }
+      .hero p { font-size: 1rem; }
+    }
+  </style>
 </head>
 <body>
 
-    <!-- Navbar -->
-    <nav class="container">
-        <div class="logo">E-Learn</div>
-        <div class="nav-links">
-            <a href="#">Home</a>
-            <a href="#">Courses</a>
-            <a href="#">Exams</a>
-            <a href="#">Progress</a>
-        </div>
-        <div class="auth-buttons">
-            <a href="{% url 'users:signup' %}" class="btn-primary">Sign Up</a>
-            <a href="{% url 'users:login' %}" class="btn-outline">Login</a>
-        </div>
-    </nav>
+  <!-- Navbar -->
+  <nav>
+    <div class="container nav-container">
+      <div class="logo">E-Learn</div>
+      <div class="nav-links">
+        <a href="#hero">Home</a>
+        <a href="#courses">Courses</a>
+        <a href="#categories">Categories</a>
+        <a href="#testimonials">Testimonials</a>
+      </div>
+      <div class="auth-buttons">
+        <a href="{% url 'users:signup' %}" class="btn-primary">Sign Up</a>
+        <a href="{% url 'users:login' %}" class="btn-outline">Login</a>
+      </div>
+    </div>
+  </nav>
 
-    <!-- Hero Section -->
-    <section class="hero container">
-        <h1>Welcome to <span>E-Learn</span> 🎓</h1>
-        <p>Empower your learning journey with interactive courses and progress tracking.</p>
-        <div class="cta-buttons">
-            <a href="#" class="btn-primary">Explore Courses</a>
-            <a href="{% url 'users:signup' %}" class="btn-outline">Join Now</a>
-        </div>
-    </section>
+  <!-- Hero Section -->
+  <section id="hero" class="hero container">
+    <h1>Welcome to <span>E-Learn</span> 🎓</h1>
+    <p>Empower your learning journey with interactive courses and progress tracking.</p>
+    <div class="cta-buttons">
+      <a href="#courses" class="btn-primary">Explore Courses</a>
+      <a href="{% url 'users:signup' %}" class="btn-outline">Join Now</a>
+    </div>
+  </section>
 
-    <!-- Featured Courses -->
-    <section class="courses">
-        <h2>Featured Courses</h2>
-        <div class="course-grid">
-            <div class="course-card">
-                <h3>Python Programming</h3>
-                <p>Learn Python from scratch with hands-on projects.</p>
-                <a href="#" class="btn-primary">Enroll Now</a>
-            </div>
-            <div class="course-card">
-                <h3>Web Development</h3>
-                <p>HTML, CSS, JavaScript, Django full-stack course.</p>
-                <a href="#" class="btn-primary">Enroll Now</a>
-            </div>
-            <div class="course-card">
-                <h3>Data Science</h3>
-                <p>Statistics, Python, and ML algorithms explained.</p>
-                <a href="#" class="btn-primary">Enroll Now</a>
-            </div>
+  <!-- Featured Courses -->
+  <section id="courses" class="courses">
+    <div class="container">
+      <h2>Featured Courses</h2>
+      <div class="course-grid">
+        <div class="course-card">
+          <h3>Python Programming</h3>
+          <p>Learn Python from scratch with hands-on projects.</p>
+          <a href="#" class="btn-primary">Enroll Now</a>
         </div>
-    </section>
-
-    <!-- Categories -->
-    <section class="categories container">
-        <h2>Explore by Categories</h2>
-        <div class="category-buttons">
-            <a href="#">Lessons</a>
-            <a href="#">Exams</a>
-            <a href="#">Payments</a>
-            <a href="#">Progress</a>
+        <div class="course-card">
+          <h3>Web Development</h3>
+          <p>HTML, CSS, JavaScript, Django full-stack course.</p>
+          <a href="#" class="btn-primary">Enroll Now</a>
         </div>
-    </section>
-
-    <!-- Testimonials -->
-    <section class="testimonials">
-        <h2>What Our Students Say</h2>
-        <div class="testimonial-grid">
-            <div class="testimonial-card">
-                <p>"E-Learn transformed my coding skills. Highly recommended!"</p>
-                <h4>- Sarah J.</h4>
-            </div>
-            <div class="testimonial-card">
-                <p>"Courses are interactive and easy to follow. Love it!"</p>
-                <h4>- Mark T.</h4>
-            </div>
-            <div class="testimonial-card">
-                <p>"I could track my progress and stay motivated all the time."</p>
-                <h4>- Priya S.</h4>
-            </div>
+        <div class="course-card">
+          <h3>Data Science</h3>
+          <p>Statistics, Python, and ML algorithms explained.</p>
+          <a href="#" class="btn-primary">Enroll Now</a>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2025 E-Learn. All rights reserved.</p>
-    </footer>
+  <!-- Categories -->
+  <section id="categories" class="categories container">
+    <h2>Explore by Categories</h2>
+    <div class="category-buttons">
+      <a href="#">Lessons</a>
+      <a href="#">Exams</a>
+      <a href="#">Payments</a>
+      <a href="#">Progress</a>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section id="testimonials" class="testimonials">
+    <div class="container">
+      <h2>What Our Students Say</h2>
+      <div class="testimonial-grid">
+        <div class="testimonial-card">
+          <p>"E-Learn transformed my coding skills. Highly recommended!"</p>
+          <h4>- Sarah J.</h4>
+        </div>
+        <div class="testimonial-card">
+          <p>"Courses are interactive and easy to follow. Love it!"</p>
+          <h4>- Mark T.</h4>
+        </div>
+        <div class="testimonial-card">
+          <p>"I could track my progress and stay motivated all the time."</p>
+          <h4>- Priya S.</h4>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 E-Learn. All rights reserved.</p>
+  </footer>
 
 </body>
 </html>
