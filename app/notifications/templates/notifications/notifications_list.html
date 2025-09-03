@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Notifications | E-Learn{% endblock %}
+{% block content %}
+<h2>Notifications</h2>
+<ul>
+    {% for notification in notifications %}
+        <li>{{ notification.message }} - {{ notification.date }}</li>
+    {% empty %}
+        <li>No notifications yet.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

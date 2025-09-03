@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Checkout | E-Learn{% endblock %}
+{% block content %}
+<h2>Checkout</h2>
+<p>Course: {{ course.title }}</p>
+<p>Price: ₹{{ course.price }}</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Pay Now</button>
+</form>
+{% endblock %}

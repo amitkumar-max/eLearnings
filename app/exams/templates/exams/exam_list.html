@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Exams | E-Learn{% endblock %}
+{% block content %}
+<h2>Exams</h2>
+<ul>
+    {% for exam in exams %}
+        <li><a href="{% url 'exam_detail' exam.id %}">{{ exam.title }}</a></li>
+    {% empty %}
+        <li>No exams scheduled.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

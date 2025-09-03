@@ -1,14 +1,37 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | E-Learn</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-    <h1>Login Page</h1>
-    <p>
-    <a href="{% url 'users:signup' %}">Go to Sign Up</a>
-</p>
+<body class="bg-gray-50 flex items-center justify-center min-h-screen">
+    <div class="bg-white shadow-xl rounded-2xl p-8 w-full max-w-md">
+        <h1 class="text-2xl font-bold text-center text-gray-800 mb-6">Welcome Back 👋</h1>
+        
+        <form method="POST" class="space-y-4">
+            {% csrf_token %}
+            <div>
+                <label for="username" class="block text-gray-700 font-medium mb-1">Username</label>
+                <input type="text" id="username" name="username" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none">
+            </div>
 
+            <div>
+                <label for="password" class="block text-gray-700 font-medium mb-1">Password</label>
+                <input type="password" id="password" name="password" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none">
+            </div>
+
+            <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
+                Log In
+            </button>
+        </form>
+
+        <p class="text-center text-gray-600 text-sm mt-4">
+            Don’t have an account? 
+            <a href="{% url 'users:signup' %}" class="text-blue-600 font-semibold hover:underline">Sign Up</a>
+        </p>
+    </div>
 </body>
 </html>
