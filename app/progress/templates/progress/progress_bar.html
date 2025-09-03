@@ -1,6 +1,74 @@
+{% extends 'base.html' %}
+{% block title %}Progress | E-Learn{% endblock %}
+{% block content %}
+<style>
+    .progress-container {
+        max-width: 700px;
+        margin: 2.5rem auto;
+        background: white;
+        border-radius: 1rem;
+        padding: 2rem;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    }
+
+    .progress-title {
+        font-size: 1.8rem;
+        font-weight: 700;
+        text-align: center;
+        color: #047857;
+        margin-bottom: 1.5rem;
+    }
+
+    .progress-item {
+        margin-bottom: 1.5rem;
+    }
+
+    .progress-label {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #374151;
+        margin-bottom: 0.5rem;
+    }
+
+    .progress-bar {
+        width: 100%;
+        background: #e5e7eb;
+        border-radius: 1rem;
+        overflow: hidden;
+        height: 1rem;
+    }
+
+    .progress-fill {
+        height: 100%;
+        background: #16a34a;
+        transition: width 0.5s ease-in-out;
+    }
+
+    .progress-empty {
+        text-align: center;
+        font-size: 1rem;
+        color: #6b7280;
+        margin-top: 1rem;
+    }
+</style>
+
 <div class="progress-container">
-    <p>Progress: {{ progress }}%</p>
-    <div class="progress-bar">
-        <div class="progress" style="width: {{ progress }}%;"></div>
-    </div>
+    <h2 class="progress-title">📊 Your Learning Progress</h2>
+
+    {% if progress %}
+        {% for item in progress %}
+            <div class="progress-item">
+                <p class="progress-label">{{ item.course.title }}</p>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: {{ item.completion_percent }}%;"></div>
+                </div>
+                <p class="text-right text-sm text-gray-600 mt-1">
+                    {{ item.completion_percent }}% Complete
+                </p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p class="progress-empty">No progress to show yet. Start a course to track your learning!</p>
+    {% endif %}
 </div>
+{% endblock %}

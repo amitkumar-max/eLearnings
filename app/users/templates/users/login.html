@@ -1,37 +1,76 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | E-Learn</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | E-Learn</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f8f9fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .card {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+      width: 350px;
+      text-align: center;
+    }
+    h2 {
+      margin-bottom: 1rem;
+      color: #15803d;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      font-size: 14px;
+    }
+    button {
+      background: #16a34a;
+      color: white;
+      border: none;
+      padding: 10px;
+      width: 100%;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 10px;
+      transition: 0.2s ease;
+    }
+    button:hover {
+      background: #15803d;
+    }
+    .links {
+      margin-top: 10px;
+      font-size: 14px;
+    }
+    .links a {
+      text-decoration: none;
+      color: #15803d;
+    }
+  </style>
 </head>
-<body class="bg-gray-50 flex items-center justify-center min-h-screen">
-    <div class="bg-white shadow-xl rounded-2xl p-8 w-full max-w-md">
-        <h1 class="text-2xl font-bold text-center text-gray-800 mb-6">Welcome Back 👋</h1>
-        
-        <form method="POST" class="space-y-4">
-            {% csrf_token %}
-            <div>
-                <label for="username" class="block text-gray-700 font-medium mb-1">Username</label>
-                <input type="text" id="username" name="username" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none">
-            </div>
-
-            <div>
-                <label for="password" class="block text-gray-700 font-medium mb-1">Password</label>
-                <input type="password" id="password" name="password" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none">
-            </div>
-
-            <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
-                Log In
-            </button>
-        </form>
-
-        <p class="text-center text-gray-600 text-sm mt-4">
-            Don’t have an account? 
-            <a href="{% url 'users:signup' %}" class="text-blue-600 font-semibold hover:underline">Sign Up</a>
-        </p>
+<body>
+  <div class="card">
+    <h2>Login</h2>
+    <form>
+      <input type="email" placeholder="Email" required>
+      <input type="password" placeholder="Password" required>
+      <button type="submit">Login</button>
+    </form>
+    <div class="links">
+      <a href="#">Forgot Password?</a> | 
+      <a href="signup.html">Create Account</a>
     </div>
+  </div>
 </body>
 </html>

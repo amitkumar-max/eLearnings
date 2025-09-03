@@ -1,43 +1,154 @@
-<!-- {% extends 'base.html' %}
-{% block title %}Exams | E-Learn{% endblock %}
-{% block content %}
-<h2>Exams</h2>
-<ul>
-    {% for exam in exams %}
-        <li><a href="{% url 'exam_detail' exam.id %}">{{ exam.title }}</a></li>
-    {% empty %}
-        <li>No exams scheduled.</li>
-    {% endfor %}
-</ul>
-{% endblock %} -->
-
-
-
 {% extends 'base.html' %}
 {% block title %}Exams | E-Learn{% endblock %}
 {% block content %}
-<div class="max-w-3xl mx-auto py-10">
-    <h2 class="text-3xl font-bold text-green-700 text-center mb-6">Upcoming Exams 📚</h2>
-    
+
+<style>
+/* ====== Exam Page Common Styles ====== */
+.exam-card {
+    background: #ffffff;
+    border-radius: 1rem;
+    padding: 1.25rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: all 0.3s ease-in-out;
+}
+.exam-card:hover {
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    transform: translateY(-3px);
+}
+.exam-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.exam-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 0.25rem;
+}
+.exam-meta {
+    font-size: 0.9rem;
+    color: #6b7280;
+}
+.exam-meta span {
+    font-weight: 600;
+    color: #111827;
+}
+.exam-btn {
+    background: #16a34a;
+    color: white;
+    padding: 0.5rem 1.2rem;
+    border-radius: 0.75rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.3s, box-shadow 0.3s;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+.exam-btn:hover {
+    background: #15803d;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+.no-exam-text {
+    text-align: center;
+    color: #6b7280;
+    font-size: 1rem;
+    margin-top: 2rem;
+}
+/* ====== Exam Detail Page Styles ====== */
+.exam-detail-card {
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 1.25rem;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    text-align: center;
+}
+.exam-detail-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #16a34a;
+    margin-bottom: 1rem;
+}
+.exam-detail-meta {
+    font-size: 1.1rem;
+    color: #374151;
+    margin-bottom: 0.75rem;
+}
+.exam-detail-meta span {
+    font-weight: 600;
+}
+.exam-instructions {
+    color: #6b7280;
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+}
+.exam-start-btn {
+    display: block;
+    background: #16a34a;
+    color: white;
+    font-weight: 600;
+    padding: 0.8rem;
+    border-radius: 0.75rem;
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: background 0.3s, box-shadow 0.3s;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+.exam-start-btn:hover {
+    background: #15803d;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+.exam-back-link {
+    display: inline-block;
+    margin-top: 1rem;
+    color: #15803d;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+.exam-back-link:hover {
+    color: #14532d;
+    text-decoration: underline;
+}
+/* ===== Responsive Design ===== */
+@media (max-width: 640px) {
+    .exam-card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    .exam-btn {
+        width: 100%;
+        text-align: center;
+    }
+}
+</style>
+
+<!-- ===== EXAM LIST PAGE ===== -->
+<div class="max-w-4xl mx-auto py-10 px-4">
+    <h2 class="text-3xl font-bold text-green-700 text-center mb-8">Upcoming Exams 📚</h2>
+
     {% if exams %}
-        <ul class="space-y-4">
+        <div class="space-y-5">
             {% for exam in exams %}
-                <li class="bg-white shadow-md rounded-xl p-4 hover:shadow-lg transition">
-                    <div class="flex justify-between items-center">
+                <div class="exam-card">
+                    <div class="exam-card-header">
                         <div>
-                            <h3 class="text-xl font-semibold text-gray-800">{{ exam.title }}</h3>
-                            <p class="text-gray-500 text-sm">Total Marks: {{ exam.total_marks }}</p>
+                            <h3 class="exam-title">{{ exam.title }}</h3>
+                            <p class="exam-meta">
+                                Total Marks: <span>{{ exam.total_marks }}</span>
+                            </p>
                         </div>
-                        <a href="{% url 'exam_detail' exam.id %}" 
-                           class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition">
+                        <a href="{% url 'exam_detail' exam.id %}" class="exam-btn">
                             View Details
                         </a>
                     </div>
-                </li>
+                </div>
             {% endfor %}
-        </ul>
+        </div>
     {% else %}
-        <p class="text-center text-gray-600">No exams scheduled at the moment.</p>
+        <p class="no-exam-text">No exams scheduled at the moment.</p>
     {% endif %}
 </div>
+
 {% endblock %}

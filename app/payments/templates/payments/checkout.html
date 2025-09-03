@@ -1,11 +1,112 @@
 {% extends 'base.html' %}
 {% block title %}Checkout | E-Learn{% endblock %}
 {% block content %}
-<h2>Checkout</h2>
-<p>Course: {{ course.title }}</p>
-<p>Price: ₹{{ course.price }}</p>
-<form method="post">
-    {% csrf_token %}
-    <button type="submit">Pay Now</button>
-</form>
+<style>
+    /* ---- Checkout Container ---- */
+    .checkout-container {
+        max-width: 700px;
+        margin: 2.5rem auto;
+        background: white;
+        border-radius: 1rem;
+        padding: 2rem;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    /* ---- Page Title ---- */
+    .checkout-title {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #047857;
+        text-align: center;
+        margin-bottom: 1.5rem;
+    }
+
+    /* ---- Course Info ---- */
+    .course-summary {
+        background: #f0fdf4;
+        border: 1px solid #bbf7d0;
+        border-radius: 0.75rem;
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+    }
+    .course-title {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #065f46;
+        margin-bottom: 0.3rem;
+    }
+    .course-price {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #15803d;
+    }
+
+    /* ---- Form ---- */
+    .checkout-form label {
+        display: block;
+        font-size: 0.95rem;
+        font-weight: 600;
+        margin-bottom: 0.3rem;
+        color: #374151;
+    }
+    .checkout-form input {
+        width: 100%;
+        padding: 0.7rem 0.9rem;
+        border: 1px solid #d1d5db;
+        border-radius: 0.5rem;
+        margin-bottom: 1rem;
+        font-size: 0.95rem;
+    }
+    .checkout-form input:focus {
+        outline: none;
+        border-color: #16a34a;
+        box-shadow: 0 0 0 3px rgba(34,197,94,0.2);
+    }
+
+    /* ---- Button ---- */
+    .checkout-btn {
+        display: block;
+        width: 100%;
+        background: #16a34a;
+        color: white;
+        font-weight: 600;
+        padding: 0.8rem;
+        border-radius: 0.75rem;
+        text-align: center;
+        transition: 0.3s ease;
+    }
+    .checkout-btn:hover {
+        background: #15803d;
+        box-shadow: 0 4px 10px rgba(22,163,74,0.3);
+    }
+</style>
+
+<div class="checkout-container">
+    <h2 class="checkout-title">🧾 Checkout</h2>
+
+    <div class="course-summary">
+        <h3 class="course-title">{{ course.title }}</h3>
+        <p class="course-price">Price: ₹{{ course.price }}</p>
+    </div>
+
+    <form method="POST" class="checkout-form">
+        {% csrf_token %}
+        <label for="name">Full Name</label>
+        <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+        <label for="card">Card Number</label>
+        <input type="text" id="card" name="card" placeholder="1234 5678 9101 1121" required>
+
+        <label for="expiry">Expiry Date</label>
+        <input type="text" id="expiry" name="expiry" placeholder="MM/YY" required>
+
+        <label for="cvv">CVV</label>
+        <input type="password" id="cvv" name="cvv" placeholder="***" required>
+
+        <button type="submit" class="checkout-btn">💳 Complete Payment</button>
+    </form>
+</div>
 {% endblock %}

@@ -1,7 +1,53 @@
 {% extends 'base.html' %}
-{% block title %}Payment Success | E-Learn{% endblock %}
+{% block title %}Payment Successful | E-Learn{% endblock %}
 {% block content %}
-<h2>Payment Successful!</h2>
-<p>You are now enrolled in {{ course.title }}.</p>
-<a href="/courses/">Go to Courses</a>
+<style>
+    .success-container {
+        max-width: 600px;
+        margin: 3rem auto;
+        background: white;
+        border-radius: 1rem;
+        text-align: center;
+        padding: 2rem;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    }
+    .success-icon {
+        font-size: 3rem;
+        color: #16a34a;
+        margin-bottom: 1rem;
+    }
+    .success-title {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #065f46;
+        margin-bottom: 0.5rem;
+    }
+    .success-message {
+        font-size: 1rem;
+        color: #374151;
+        margin-bottom: 1.5rem;
+    }
+    .go-back-btn {
+        display: inline-block;
+        padding: 0.7rem 1.2rem;
+        background: #16a34a;
+        color: white;
+        border-radius: 0.75rem;
+        font-weight: 600;
+        transition: 0.3s ease;
+    }
+    .go-back-btn:hover {
+        background: #15803d;
+        box-shadow: 0 4px 10px rgba(22,163,74,0.3);
+    }
+</style>
+
+<div class="success-container">
+    <div class="success-icon">✅</div>
+    <h2 class="success-title">Payment Successful!</h2>
+    <p class="success-message">Your payment has been received and your enrollment is confirmed.  
+    You can now access your course content.</p>
+
+    <a href="{% url 'course_list' %}" class="go-back-btn">📚 Go to My Courses</a>
+</div>
 {% endblock %}

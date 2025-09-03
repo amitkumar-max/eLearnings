@@ -1,19 +1,110 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile | E-Learn</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-</head>
-<body>
-    <div class="container">
-        <h2>Welcome, {{ user.username }}</h2>
-        <p>Email: {{ user.email }}</p>
-        <p>Member since: {{ user.date_joined|date:"F j, Y" }}</p>
-        <!-- <a href="{% url 'users:logout' %}">Logout</a> -->
-        <a href="{% url 'users:logout' %}">Logout</a>
+{% extends 'base.html' %}
+{% block title %}Profile | E-Learn{% endblock %}
+{% block content %}
+<style>
+    .profile-container {
+        max-width: 700px;
+        margin: 2.5rem auto;
+        background: white;
+        border-radius: 1rem;
+        padding: 2rem;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    }
 
+    .profile-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .profile-avatar {
+        width: 80px;
+        height: 80px;
+        background: #d1fae5;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        font-weight: bold;
+        color: #065f46;
+    }
+
+    .profile-name {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #047857;
+    }
+
+    .profile-email {
+        font-size: 0.95rem;
+        color: #6b7280;
+    }
+
+    .profile-section {
+        margin-top: 1.5rem;
+    }
+
+    .profile-section h3 {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #374151;
+        margin-bottom: 0.5rem;
+    }
+
+    .profile-section p {
+        font-size: 1rem;
+        color: #4b5563;
+        margin-bottom: 0.5rem;
+    }
+
+    .edit-profile-btn {
+        display: inline-block;
+        margin-top: 1rem;
+        padding: 0.6rem 1.2rem;
+        background: #16a34a;
+        color: white;
+        border-radius: 0.75rem;
+        font-weight: 600;
+        transition: 0.3s ease;
+    }
+
+    .edit-profile-btn:hover {
+        background: #15803d;
+        box-shadow: 0 3px 10px rgba(22,163,74,0.3);
+    }
+</style>
+
+<div class="profile-container">
+    <div class="profile-header">
+        <div class="profile-avatar">
+            {{ user.first_name|slice:":1"|default:"U" }}
+        </div>
+        <div>
+            <h2 class="profile-name">{{ user.get_full_name }}</h2>
+            <p class="profile-email">{{ user.email }}</p>
+        </div>
     </div>
-</body>
-</html>
+
+    <div class="profile-section">
+        <h3>Bio</h3>
+        <p>{{ user.profile.bio|default:"No bio added yet." }}</p>
+    </div>
+
+    <div class="profile-section">
+        <h3>Enrolled Courses</h3>
+        {% if enrolled_courses %}
+            <ul>
+                {% for course in enrolled_courses %}
+                    <li class="mb-1">✅ {{ course.title }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>You haven't enrolled in any courses yet.</p>
+        {% endif %}
+    </div>
+
+    <a href="{% url 'edit_profile' %}" class="edit-profile-btn">✏️ Edit Profile</a>
+</div>
+{% endblock %}
