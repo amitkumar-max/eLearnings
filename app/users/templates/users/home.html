@@ -15,12 +15,57 @@
       scroll-behavior: smooth; /* ✅ smooth scrolling */
     }
     a { text-decoration: none; }
-    .container {
+
+    /* .container {
       width: 92%;
       max-width: 1200px;
       margin: 0 auto;
       display: block;
-    }
+    } */
+
+    /* FIX: Section ko consistent layout dena */
+section {
+  width: 100%;
+  display: block;
+  padding: 3rem 0;
+  box-sizing: border-box;
+}
+
+/* FIX: Container ka display block + center align (already hai, keep it) */
+.container {
+  width: 92%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: block;
+}
+
+/* FIX: Course cards ke liye equal height + gap */
+.course-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem; /* ✅ extra space after heading */
+}
+
+/* FIX: Category section ko bhi background + spacing */
+.categories {
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
+  padding: 3rem 1rem;
+  margin: 2rem auto;
+  text-align: center;
+}
+
+/* FIX: Buttons ko thoda spacing */
+.category-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem; /* ✅ add breathing room */
+}
+
 
     /* Navbar */
     nav {
