@@ -132,8 +132,11 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import logout
 
 # Homepage
+# def home(request):
+#     return render(request, 'users/home.html')
+
 def home(request):
-    return render(request, 'users/home.html')
+    return render(request, 'users/home.html')  # ya bas 'home.html' agar DIRS use ho raha
 
 # Signup pages
 def signup_view(request):
