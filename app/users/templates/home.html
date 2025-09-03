@@ -5,15 +5,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>E-Learn | Home</title>
-  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- ✅ Favicon -->
+    <!-- <link rel="icon" href="https://static.vecteezy.com/system/resources/thumbnails/011/473/288/small/education-tech-logo-design-digital-school-logo-concept-free-vector.jpg" type="image/png" /> -->
+  
+  <link rel="icon" href="{% static 'images/favicon.jpg' %}" type="image/png">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
   <style>
     /* Global Styles */
     body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #f5f7fa, #e4f7e4);
-      scroll-behavior: smooth; /* ✅ smooth scrolling */
+      margin: 0;font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #f5f7fa, #e4f7e4);scroll-behavior: smooth; /* ✅ smooth scrolling */
     }
+
     a { text-decoration: none; }
 
     /* .container {
@@ -200,6 +203,89 @@ section {
       .hero p { font-size: 1rem; }
     }
   </style>
+  <style>
+    /* Dark Mode Styles */
+body.dark-mode {
+  background: #1a1a1a;
+  color: #f0f0f0;
+}
+
+body.dark-mode .nav-links a,
+body.dark-mode footer p,
+body.dark-mode .testimonial-card p,
+body.dark-mode .course-card p,
+body.dark-mode .categories h2,
+body.dark-mode .courses h2,
+body.dark-mode .testimonials h2 {
+  color: #f0f0f0;
+}
+
+body.dark-mode nav {
+  background-color: #121212;
+  box-shadow: 0 2px 8px rgba(255,255,255,0.05);
+}
+
+body.dark-mode .course-card,
+body.dark-mode .testimonial-card,
+body.dark-mode .categories {
+  background-color: #1f1f1f;
+  box-shadow: 0 6px 15px rgba(255,255,255,0.05);
+}
+
+body.dark-mode .btn-outline {
+  border-color: #f0f0f0;
+  color: #f0f0f0;
+}
+
+body.dark-mode .btn-outline:hover {
+  background-color: #f0f0f0;
+  color: #1a1a1a;
+}
+/* Scroll To Top Button */
+#scrollTopBtn {
+  display: none; /* Hidden by default */
+  position: fixed;
+  bottom: 2.5rem;
+  right: 2.5rem;
+  z-index: 100;
+  font-size: 1.8rem;
+  padding: 0.8rem 1rem;
+  border: none;
+  border-radius: 50%;
+  background-color: #32CD32;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  transition: all 0.3s ease-in-out;
+  transform: translateY(50px);
+  opacity: 0;
+}
+
+/* Hover effect */
+#scrollTopBtn:hover {
+  background-color: #28a428;
+  transform: translateY(0) scale(1.1);
+}
+
+/* Show animation */
+#scrollTopBtn.show {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  #scrollTopBtn {
+    bottom: 1.5rem;
+    right: 1.5rem;
+    font-size: 1.5rem;
+    padding: 0.6rem 0.8rem;
+  }
+}
+
+
+  </style>
 </head>
 <body>
 
@@ -213,6 +299,37 @@ section {
         <a href="#categories">Categories</a>
         <a href="#testimonials">Testimonials</a>
       </div>
+
+      <!-- Dark/Light Mode Toggle -->
+<div class="mode-toggle">
+  <button id="mode-btn" class="btn-outline">🌙</button>
+</div>
+
+
+<script>
+  const modeBtn = document.getElementById('mode-btn');
+  const body = document.body;
+
+  // Check localStorage for saved mode
+  if(localStorage.getItem('mode') === 'dark') {
+    body.classList.add('dark-mode');
+    modeBtn.textContent = '☀️';
+  }
+
+  modeBtn.addEventListener('click', () => {
+    body.classList.toggle('dark-mode');
+
+    if(body.classList.contains('dark-mode')) {
+      modeBtn.textContent = '☀️';
+      localStorage.setItem('mode', 'dark');
+    } else {
+      modeBtn.textContent = '🌙';
+      localStorage.setItem('mode', 'light');
+    }
+  });
+</script>
+
+
       <div class="auth-buttons">
         <a href="{% url 'users:signup' %}" class="btn-primary">Sign Up</a>
         <a href="{% url 'users:login' %}" class="btn-outline">Login</a>
@@ -229,6 +346,11 @@ section {
       <a href="{% url 'users:signup' %}" class="btn-outline">Join Now</a>
     </div>
   </section>
+  
+
+  
+
+
 
   <!-- Featured Courses -->
   <section id="courses" class="courses">
@@ -290,6 +412,28 @@ section {
   <footer>
     <p>&copy; 2025 E-Learn. All rights reserved.</p>
   </footer>
+
+<!-- Scroll To Top Button -->
+<button id="scrollTopBtn" aria-label="Scroll to top">↑</button>
+
+<script>
+const scrollBtn = document.getElementById("scrollTopBtn");
+
+// Show/hide button with smooth animation
+window.addEventListener("scroll", () => {
+  if (window.scrollY > 200) {
+    scrollBtn.classList.add("show");
+  } else {
+    scrollBtn.classList.remove("show");
+  }
+});
+
+// Smooth scroll to top on click
+scrollBtn.addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+</script>
+  
 
 </body>
 </html>

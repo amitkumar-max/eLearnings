@@ -2,107 +2,160 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ course.title }}</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #f5f7fa, #e4f7e4);
-            color: #1a202c;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ course.title }}</title>
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<style>
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #f5f7fa, #e4f7e4);
+    color: #1a202c;
+    scroll-behavior: smooth;
+  }
 
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 0;
-            background-color: white;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            position: sticky;
-            top: 0;
-            z-index: 10;
-            margin-bottom: 2rem;
-        }
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    position: sticky;
+    top: 0;
+    z-index: 999;
+  }
+  nav .logo { font-size: 1.7rem; font-weight: bold; color: #32CD32; }
+  nav .nav-links { display: flex; gap: 1.8rem; }
+  nav .nav-links a { color: #1a202c; font-weight: 500; transition: 0.3s; }
+  nav .nav-links a:hover { color: #32CD32; }
 
-        nav .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #32CD32;
-        }
+  .container { width: 92%; max-width: 1100px; margin: 2rem auto; }
 
-        nav .nav-links {
-            display: flex;
-            gap: 1.5rem;
-        }
+  .back-link {
+    color: #32CD32;
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+    transition: 0.3s;
+  }
+  .back-link:hover { text-decoration: underline; }
 
-        nav .nav-links a {
-            color: #1a202c;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
+  .course-box {
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    overflow: hidden;
+    max-width: 800px;
+    margin: 0 auto;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .course-box:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
 
-        nav .nav-links a:hover {
-            color: #32CD32;
-        }
+  .course-image {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+  }
 
-        .btn-primary {
-            background-color: #32CD32;
-            color: white;
-            padding: 0.7rem 1.5rem;
-            border-radius: 9999px;
-            font-weight: bold;
-            transition: background 0.3s;
-            text-decoration: none;
-            display: inline-block;
-        }
+  .course-content {
+    padding: 2rem;
+    text-align: center;
+  }
 
-        .btn-primary:hover {
-            background-color: #28a428;
-        }
+  .course-content h1 { margin-bottom: 0.5rem; font-size: 2.2rem; }
+  .course-content p { color: #4a5568; margin-bottom: 1.5rem; font-size: 1.05rem; line-height: 1.6; }
 
-        .course-box {
-            background: white;
-            padding: 2rem;
-            border-radius: 1rem;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
-            max-width: 700px;
-            margin: 0 auto;
-        }
+  .course-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  .price {
+    color: #32CD32;
+    font-weight: bold;
+    font-size: 1.7rem;
+  }
+  .btn-primary {
+    background-color: #32CD32;
+    color: white;
+    padding: 0.8rem 1.8rem;
+    border-radius: 9999px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: 0.3s;
+  }
+  .btn-primary:hover { background-color: #28a428; }
 
-        .price {
-            color: #32CD32;
-            font-weight: bold;
-            font-size: 1.5rem;
-        }
-    </style>
+  /* Optional: Instructor Info */
+  .instructor {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
+    justify-content: center;
+  }
+  .instructor img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .instructor span { font-weight: 500; }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .course-footer { flex-direction: column; }
+    .course-content h1 { font-size: 1.8rem; }
+    .course-content p { font-size: 1rem; }
+  }
+</style>
 </head>
 <body>
 
-    <!-- Navbar -->
-    <nav class="container">
-        <div class="logo">E-Learn</div>
-        <div class="nav-links">
-            <a href="{% url 'home' %}">Home</a>
-            <a href="{% url 'course_list' %}">Courses</a>
-        </div>
-    </nav>
+<!-- Navbar -->
+<nav>
+  <div class="logo">E-Learn</div>
+  <div class="nav-links">
+    <a href="{% url 'home' %}">Home</a>
+    <a href="{% url 'course_list' %}">Courses</a>
+  </div>
+</nav>
 
-    <div class="container">
-        <a href="{% url 'course_list' %}" style="color:#32CD32; text-decoration:none; display:inline-block; margin-bottom:1rem;">&larr; Back to Courses</a>
+<div class="container">
+  <a href="{% url 'course_list' %}" class="back-link">&larr; Back to Courses</a>
 
-        <div class="course-box">
-            <h1 style="margin-bottom:0.5rem;">{{ course.title }}</h1>
-            <p style="color:#4a5568; margin-bottom:1.5rem;">{{ course.description }}</p>
+  <div class="course-box">
+    <!-- Course Image -->
+    <img src="{{ course.image.url }}" alt="{{ course.title }}" class="course-image">
 
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-                <span class="price">₹{{ course.price }}</span>
-                <a href="#" class="btn-primary">Enroll Now</a>
-            </div>
-        </div>
+    <div class="course-content">
+      <h1>{{ course.title }}</h1>
+      <p>{{ course.description }}</p>
+
+      <div class="course-footer">
+        <span class="price">₹{{ course.price }}</span>
+        <a href="#" class="btn-primary">Enroll Now</a>
+      </div>
+
+      <!-- Optional Instructor Info -->
+      {% if course.instructor %}
+      <div class="instructor">
+        <img src="{{ course.instructor.profile_image.url }}" alt="{{ course.instructor.name }}">
+        <span>Instructor: {{ course.instructor.name }}</span>
+      </div>
+      {% endif %}
     </div>
+  </div>
+</div>
+
 
 </body>
 </html>
