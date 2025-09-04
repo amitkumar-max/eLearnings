@@ -1,5 +1,11 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.views import View
+from .models import Order, Transaction
 
-def payment_home(request):
-    return HttpResponse("Payments Home Page")
+class CheckoutView(View):
+    def get(self, request):
+        return render(request, 'payments/checkout.html')
+
+    def post(self, request):
+        # Payment gateway integration logic here
+        return render(request, 'payments/success.html')

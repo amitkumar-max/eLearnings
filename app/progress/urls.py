@@ -1,6 +1,6 @@
 from django.urls import path
-from . import views  # ye ensure karo ke views import ho raha hai
+from .views import ProgressView
 
 urlpatterns = [
-    path('', views.home, name='home'),  # home function aapke views.py me hona chahiye
+    path('', ProgressView.as_view(), name='progress'),
 ]

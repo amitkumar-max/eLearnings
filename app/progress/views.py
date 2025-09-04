@@ -1,4 +1,8 @@
 from django.shortcuts import render
+from django.views import View
+from .models import Progress
 
-def home(request):
-    return render(request, 'home.html')  # home.html aapke templates folder me hona chahiye
+class ProgressView(View):
+    def get(self, request):
+        user_progress = Progress.objects.filter(user=request.user)
+        return render(request, 'progress/progress_list.html', {'progress': user_progress})
