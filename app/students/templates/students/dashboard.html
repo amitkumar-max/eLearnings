@@ -1,0 +1,271 @@
+{% extends "base.html" %}
+{% block title %}Student Dashboard{% endblock %}
+{% block content %}
+
+<div class="flex">
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="w-64 bg-green-200 dark:bg-green-900 h-screen p-4 space-y-4 fixed md:relative transform -translate-x-full md:translate-x-0 transition-transform duration-300 shadow-lg">
+        <h2 class="text-xl font-bold text-green-800 dark:text-green-300 mb-4">📚 Student Panel</h2>
+        <nav class="space-y-2">
+            <a href="#" class="block px-4 py-2 rounded-lg bg-green-100 dark:bg-green-800 hover:bg-green-300 dark:hover:bg-green-700 transition">🏠 Dashboard</a>
+            <a href="#" class="block px-4 py-2 rounded-lg hover:bg-green-300 dark:hover:bg-green-700 transition">📖 My Courses</a>
+            <a href="#" class="block px-4 py-2 rounded-lg hover:bg-green-300 dark:hover:bg-green-700 transition">📝 Assignments</a>
+            <a href="#" class="block px-4 py-2 rounded-lg hover:bg-green-300 dark:hover:bg-green-700 transition">📊 Progress</a>
+            <a href="#" class="block px-4 py-2 rounded-lg hover:bg-green-300 dark:hover:bg-green-700 transition">💬 Discussions</a>
+            <a href="#" class="block px-4 py-2 rounded-lg hover:bg-green-300 dark:hover:bg-green-700 transition">⚙️ Settings</a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 ml-0 md:ml-64 p-6 transition-all duration-300">
+
+        <!-- Navbar -->
+        <header class="flex justify-between items-center px-6 py-4 mb-6 bg-white dark:bg-gray-800 shadow-md rounded-xl">
+            <div class="flex items-center space-x-3">
+                <button id="sidebarToggle" class="p-2 rounded-lg bg-green-200 dark:bg-green-700 hover:bg-green-300 dark:hover:bg-green-600">
+                    ☰
+                </button>
+                <h1 class="text-2xl font-bold text-green-700 dark:text-green-300">Student Dashboard</h1>
+            </div>
+            <div class="flex items-center space-x-4">
+                <button onclick="toggleTheme()" class="p-2 rounded-lg bg-green-200 dark:bg-green-700 hover:bg-green-300 dark:hover:bg-green-600">
+                    🌗
+                </button>
+                <img src="{% static 'images/student-avatar.png' %}" alt="Student Avatar" class="w-10 h-10 rounded-full">
+            </div>
+        </header>
+
+        <!-- Stats Section -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+            <div class="p-4 bg-white dark:bg-gray-800 rounded-xl shadow hover:scale-105 transition">
+                <h3 class="text-gray-500 dark:text-gray-400 text-sm">📖 Courses Enrolled</h3>
+                <p class="text-2xl font-bold text-green-600 dark:text-green-400">08</p>
+            </div>
+            <div class="p-4 bg-white dark:bg-gray-800 rounded-xl shadow hover:scale-105 transition">
+                <h3 class="text-gray-500 dark:text-gray-400 text-sm">✅ Completed Lessons</h3>
+                <p class="text-2xl font-bold text-green-600 dark:text-green-400">120</p>
+            </div>
+            <div class="p-4 bg-white dark:bg-gray-800 rounded-xl shadow hover:scale-105 transition">
+                <h3 class="text-gray-500 dark:text-gray-400 text-sm">📊 Progress</h3>
+                <p class="text-2xl font-bold text-green-600 dark:text-green-400">75%</p>
+            </div>
+            <div class="p-4 bg-white dark:bg-gray-800 rounded-xl shadow hover:scale-105 transition">
+                <h3 class="text-gray-500 dark:text-gray-400 text-sm">⏳ Pending Assignments</h3>
+                <p class="text-2xl font-bold text-red-600 dark:text-red-400">3</p>
+            </div>
+        </div>
+
+        <!-- Interactive Cards Section -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <a href="#" class="p-6 bg-white dark:bg-gray-800 rounded-xl shadow hover:-translate-y-1 hover:shadow-xl transition">
+                <h3 class="text-lg font-semibold text-green-700 dark:text-green-400">📚 View All Courses</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-400">Browse your enrolled and available courses.</p>
+            </a>
+
+            <a href="#" class="p-6 bg-white dark:bg-gray-800 rounded-xl shadow hover:-translate-y-1 hover:shadow-xl transition">
+                <h3 class="text-lg font-semibold text-green-700 dark:text-green-400">📝 Submit Assignment</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-400">Upload and track your assignments.</p>
+            </a>
+
+            <a href="#" class="p-6 bg-white dark:bg-gray-800 rounded-xl shadow hover:-translate-y-1 hover:shadow-xl transition">
+                <h3 class="text-lg font-semibold text-green-700 dark:text-green-400">📊 Track Progress</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-400">Check performance & view detailed analytics.</p>
+            </a>
+        </div>
+
+    </main>
+</div>
+
+<style>
+/* ===== Global Styles ===== */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+  color: #333;
+  transition: background 0.3s, color 0.3s;
+}
+
+/* ===== Layout ===== */
+.dashboard-container {
+  display: flex;
+}
+
+/* ===== Sidebar ===== */
+.sidebar {
+  width: 250px;
+  background: #d4f3d4;
+  padding: 1rem;
+  min-height: 100vh;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  left: 0;
+  top: 0;
+  transition: transform 0.3s ease;
+}
+
+.sidebar-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  color: #256d26;
+}
+
+.sidebar-nav a {
+  display: block;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 0.5rem;
+  color: #256d26;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.sidebar-nav a:hover {
+  background: #a9e8a9;
+}
+
+/* ===== Main Content ===== */
+.main-content {
+  margin-left: 260px;
+  padding: 2rem;
+  flex: 1;
+}
+
+/* ===== Navbar ===== */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  margin-bottom: 2rem;
+}
+
+.navbar-left h1 {
+  font-size: 1.5rem;
+  color: #256d26;
+  margin-left: 0.5rem;
+}
+
+.btn {
+  background: #d4f3d4;
+  border: none;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s ease;
+}
+
+.btn:hover {
+  background: #a9e8a9;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+/* ===== Stats Section ===== */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: white;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: scale(1.05);
+}
+
+.stat-value {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.green { color: #256d26; }
+.red { color: #e53e3e; }
+
+/* ===== Dashboard Cards ===== */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.dashboard-card {
+  display: block;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+  text-decoration: none;
+  color: #333;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* ===== Dark Mode ===== */
+body.dark-mode {
+  background: #1a202c;
+  color: #e4e4e4;
+}
+
+body.dark-mode .sidebar {
+  background: #1f3d1f;
+}
+
+body.dark-mode .sidebar-nav a {
+  color: #d4f3d4;
+}
+
+body.dark-mode .navbar {
+  background: #2d3748;
+}
+
+body.dark-mode .stat-card,
+body.dark-mode .dashboard-card {
+  background: #2d3748;
+  color: #e4e4e4;
+}
+</style>
+
+<script>
+document.getElementById("sidebarToggle").addEventListener("click", () => {
+    document.getElementById("sidebar").classList.toggle("hidden");
+});
+
+function toggleTheme() {
+    document.body.classList.toggle("dark-mode");
+    localStorage.setItem("theme", document.body.classList.contains("dark-mode") ? "dark" : "light");
+}
+if (localStorage.getItem("theme") === "dark") {
+    document.body.classList.add("dark-mode");
+}
+</script>
+
+{% endblock %}
+
+
+
+
+

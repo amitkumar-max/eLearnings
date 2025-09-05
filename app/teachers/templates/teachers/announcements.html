@@ -1,0 +1,24 @@
+{% extends "teachers/base_teachers.html" %}
+{% block title %}Announcements{% endblock %}
+{% block content %}
+<h2 class="text-2xl font-bold mb-4">Announcements</h2>
+
+<section class="mb-6">
+    <h3 class="font-semibold mb-2">Post New Announcement</h3>
+    <form method="post" class="bg-white dark:bg-gray-700 p-4 rounded-xl shadow">
+        {% csrf_token %}
+        <input type="text" name="title" placeholder="Announcement Title" class="p-2 w-full mb-2 rounded">
+        <textarea name="content" placeholder="Write your announcement..." class="p-2 w-full mb-2 rounded"></textarea>
+        <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded">Post</button>
+    </form>
+</section>
+
+<h3 class="font-semibold mb-2">Latest Announcements</h3>
+<ul class="bg-white dark:bg-gray-700 p-4 rounded-xl shadow divide-y divide-gray-300 dark:divide-gray-600">
+    {% for ann in announcements %}
+        <li class="py-2">{{ ann.title }} - {{ ann.date }}</li>
+    {% empty %}
+        <li>No announcements yet.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

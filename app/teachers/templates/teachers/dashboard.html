@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+{% block title %}Teacher Dashboard{% endblock %}
+{% block content %}
+
+<style>
+
+    body.dark-mode .stat-card {
+    background: #1c1c1c;
+    color: #e4e4e4;
+}
+body.dark-mode .dashboard-card {
+    background: #1c1c1c;
+    color: #e4e4e4;
+}
+
+/* ===== Teacher Dashboard Styling ===== */
+.dashboard-container {
+  width: 92%;
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+.dashboard-title {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #1a202c;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: #f8f8f8;
+  border-radius: 1rem;
+  padding: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: scale(1.05);
+}
+
+body.dark-mode .stat-card {
+  background: #1c1c1c;
+  color: #e4e4e4;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.dashboard-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+body.dark-mode .dashboard-card {
+  background: #1c1c1c;
+  color: #e4e4e4;
+}
+</style>
+
+<div class="flex">
+    <!-- Sidebar -->
+    <aside id="sidebar" class="w-64 bg-gray-200 dark:bg-gray-800 h-screen p-4 space-y-4 fixed md:relative transform -translate-x-full md:translate-x-0 transition-transform duration-300">
+        <nav class="space-y-2">
+            <a href="#" class="block px-4 py-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-700">🏠 Dashboard</a>
+            <a href="#" class="block px-4 py-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-700">📚 My Courses</a>
+            <a href="#" class="block px-4 py-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-700">📝 Assignments</a>
+            <a href="#" class="block px-4 py-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-700">📅 Schedule</a>
+            <a href="#" class="block px-4 py-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-700">📊 Reports</a>
+            <a href="#" class="block px-4 py-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-700">💬 Messages</a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 ml-0 md:ml-64 p-6 transition-all duration-300">
+        <header class="flex justify-between items-center px-6 py-4 bg-white dark:bg-gray-800 shadow-md">
+            <div class="flex items-center space-x-3">
+
+                <button id="sidebarToggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600">☰</button>
+                <h1 class="text-2xl font-bold">Teacher Dashboard</h1>
+            </div>
+            <div class="flex items-center space-x-4">
+               
+               <button onclick="toggleTheme()" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600">🌗</button>
+
+                <!-- <button onclick="toggleTheme()" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600">🌗</button> -->
+                <img src="{% static 'images/teacher-avatar.png' %}" alt="Teacher Avatar" class="w-10 h-10 rounded-full">
+            </div>
+        </header>
+
+        <!-- Teacher Stats -->
+        <div class="stats-grid mt-6">
+            <div class="stat-card"><h3>📚 Courses</h3><p class="stat-value">12</p></div>
+            <div class="stat-card"><h3>👥 Active Students</h3><p class="stat-value">320</p></div>
+            <div class="stat-card"><h3>📝 Pending Assignments</h3><p class="stat-value">18</p></div>
+            <div class="stat-card"><h3>📊 Avg. Class Score</h3><p class="stat-value">82%</p></div>
+        </div>
+
+        <!-- Main Cards -->
+        <div class="dashboard-grid">
+            <a href="#" class="dashboard-card">
+                <h3>📚 Manage Courses</h3>
+                <p>Create, edit, and update lessons for your students.</p>
+            </a>
+            <a href="#" class="dashboard-card">
+                <h3>📝 Grade Assignments</h3>
+                <p>Review and provide feedback on student submissions.</p>
+            </a>
+            <a href="#" class="dashboard-card">
+                <h3>📅 Schedule Classes</h3>
+                <p>Plan your live sessions and deadlines with ease.</p>
+            </a>
+            <a href="#" class="dashboard-card">
+                <h3>📊 Generate Reports</h3>
+                <p>View analytics of student performance and attendance.</p>
+            </a>
+            <a href="#" class="dashboard-card">
+                <h3>💬 Student Messages</h3>
+                <p>Communicate with students and resolve their doubts.</p>
+            </a>
+            <a href="#" class="dashboard-card">
+                <h3>🔔 Announcements</h3>
+                <p>Post updates, notices, and important information.</p>
+            </a>
+        </div>
+    </main>
+</div>
+
+<script>
+    document.getElementById("sidebarToggle").addEventListener("click", () => {
+        document.getElementById("sidebar").classList.toggle("-translate-x-full");
+    });
+
+    function toggleTheme() {
+    document.documentElement.classList.toggle("dark");
+    localStorage.setItem("theme", document.documentElement.classList.contains("dark") ? "dark" : "light");
+}
+if (localStorage.getItem("theme") === "light") {
+    document.documentElement.classList.remove("dark");
+}
+
+
+</script>
+
+
+
+{% endblock %}
+
+
+
+
+

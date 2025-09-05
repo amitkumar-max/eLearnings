@@ -1,0 +1,350 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block content %}
+
+
+{% extends "base.html" %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block content %}
+
+
+
+<style>
+/* ===== Dashboard Styling ===== */
+.dashboard-container {
+  width: 92%;
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+.dashboard-title {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #1a202c;
+}
+
+/* Top Stats Section */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: #f8f8f8;
+  border-radius: 1rem;
+  padding: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.stat-card h3 {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #2c5282;
+}
+
+.stat-card:hover {
+  transform: scale(1.05);
+}
+
+/* Main Cards Section */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.dashboard-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+  text-align: left;
+  text-decoration: none;
+  color: #333;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dashboard-card h3 {
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+}
+
+.dashboard-card p {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Dark Mode Support */
+body.dark-mode .stat-card {
+  background: #1c1c1c;
+  color: #e4e4e4;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode .dashboard-card {
+  background: #1c1c1c;
+  color: #e4e4e4;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+}
+
+body.dark-mode .dashboard-title {
+  color: #fff;
+}
+
+body.dark-mode .dashboard-card p {
+  color: #c0c0c0;
+}
+</style>
+
+
+
+<!-- ================= ADMIN DASHBOARD ================= -->
+<div class="flex">
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="w-64 bg-gray-200 dark:bg-gray-800 h-screen p-4 space-y-4 fixed md:relative transform -translate-x-full md:translate-x-0 transition-transform duration-300">
+        <nav class="space-y-2">
+            <a href="#" class="block px-4 py-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-700">🏠 Dashboard</a>
+            <a href="{% url 'admins:users_management' %}" class="block px-4 py-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-700">👥 Users</a>
+            <a href="#" class="block px-4 py-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-700">📚 Courses</a>
+            <a href="#" class="block px-4 py-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-700">💰 Payments</a>
+            <a href="#" class="block px-4 py-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-700">📊 Reports</a>
+            <a href="{% url 'admins:site_settings' %}" class="block px-4 py-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-700">⚙️ Settings</a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 ml-0 md:ml-64 p-6 transition-all duration-300">
+
+        <!-- Navbar -->
+ 
+          <!-- Navbar -->
+    <header class="flex justify-between items-center px-6 py-4 bg-white dark:bg-gray-800 shadow-md">
+        <div class="flex items-center space-x-3">
+            <!-- Sidebar Toggle Button -->
+            <button id="sidebarToggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600">
+                ☰
+            </button>
+            <h1 class="text-2xl font-bold">Admin Dashboard</h1>
+        </div>
+        <div class="flex items-center space-x-4">
+            <button onclick="toggleTheme()" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600">
+                🌗
+            </button>
+            <img src="{% static 'images/admin-avatar.png' %}" alt="Admin Avatar" class="w-10 h-10 rounded-full">
+        </div>
+    </header>
+
+
+        <!-- Top Stats Section -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+            <div class="p-4 bg-white dark:bg-gray-800 rounded-xl shadow hover:scale-105 transition">
+                <h3 class="text-gray-500 dark:text-gray-400 text-sm">👥 Total Users</h3>
+                <p class="text-2xl font-bold text-blue-600 dark:text-blue-400">1,245</p>
+            </div>
+            <div class="p-4 bg-white dark:bg-gray-800 rounded-xl shadow hover:scale-105 transition">
+                <h3 class="text-gray-500 dark:text-gray-400 text-sm">📚 Active Courses</h3>
+                <p class="text-2xl font-bold text-blue-600 dark:text-blue-400">58</p>
+            </div>
+            <div class="p-4 bg-white dark:bg-gray-800 rounded-xl shadow hover:scale-105 transition">
+                <h3 class="text-gray-500 dark:text-gray-400 text-sm">💰 Monthly Revenue</h3>
+                <p class="text-2xl font-bold text-green-600 dark:text-green-400">₹ 1.2L</p>
+            </div>
+            <div class="p-4 bg-white dark:bg-gray-800 rounded-xl shadow hover:scale-105 transition">
+                <h3 class="text-gray-500 dark:text-gray-400 text-sm">🛠 Pending Tickets</h3>
+                <p class="text-2xl font-bold text-red-600 dark:text-red-400">7</p>
+            </div>
+        </div>
+
+        <!-- Main Dashboard Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <a href="{% url 'admins:users_management' %}" class="p-6 bg-white dark:bg-gray-800 rounded-xl shadow hover:-translate-y-1 hover:shadow-xl transition">
+                <h3 class="text-lg font-semibold">👥 Manage Users</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-400">Add, edit, delete users & assign roles.</p>
+            </a>
+
+            <a href="{% url 'admins:site_settings' %}" class="p-6 bg-white dark:bg-gray-800 rounded-xl shadow hover:-translate-y-1 hover:shadow-xl transition">
+                <h3 class="text-lg font-semibold">⚙️ Site Settings</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-400">Configure logo, themes, and global preferences.</p>
+            </a>
+
+            <a href="#" class="p-6 bg-white dark:bg-gray-800 rounded-xl shadow hover:-translate-y-1 hover:shadow-xl transition">
+                <h3 class="text-lg font-semibold">📚 Manage Courses</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-400">Create, edit, delete courses and lessons.</p>
+            </a>
+
+            <a href="#" class="p-6 bg-white dark:bg-gray-800 rounded-xl shadow hover:-translate-y-1 hover:shadow-xl transition">
+                <h3 class="text-lg font-semibold">💰 Payments</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-400">Track revenue, invoices, and pending payments.</p>
+            </a>
+
+            <a href="#" class="p-6 bg-white dark:bg-gray-800 rounded-xl shadow hover:-translate-y-1 hover:shadow-xl transition">
+                <h3 class="text-lg font-semibold">📊 Reports</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-400">Analytics of users, courses, and growth trends.</p>
+            </a>
+
+            <a href="#" class="p-6 bg-white dark:bg-gray-800 rounded-xl shadow hover:-translate-y-1 hover:shadow-xl transition">
+                <h3 class="text-lg font-semibold">📩 Support Tickets</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-400">Respond to issues raised by students & teachers.</p>
+            </a>
+        </div>
+
+        <div class="dashboard-container">
+  <!-- Top Stats Section -->
+  <h2 class="dashboard-title">Admin Dashboard</h2>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <h3>👥 Total Users</h3>
+      <p class="stat-value">1,245</p>
+    </div>
+    <div class="stat-card">
+      <h3>📚 Active Courses</h3>
+      <p class="stat-value">58</p>
+    </div>
+    <div class="stat-card">
+      <h3>💰 Monthly Revenue</h3>
+      <p class="stat-value">₹ 1.2L</p>
+    </div>
+    <div class="stat-card">
+      <h3>🛠 Pending Tickets</h3>
+      <p class="stat-value">7</p>
+    </div>
+  </div>
+  <!-- Main Dashboard Cards -->
+  <div class="dashboard-grid">
+    <a href="{% url 'admins:users_management' %}" class="dashboard-card">
+      <h3>👥 Manage Users</h3>
+      <p>Add, edit, delete users & assign roles.</p>
+    </a>
+
+    <a href="{% url 'admins:site_settings' %}" class="dashboard-card">
+      <h3>⚙️ Site Settings</h3>
+      <p>Configure logo, themes, and global preferences.</p>
+    </a>
+
+    <a href="#" class="dashboard-card">
+      <h3>📚 Manage Courses</h3>
+      <p>Create, edit, delete courses and lessons.</p>
+    </a>
+
+    <a href="#" class="dashboard-card">
+      <h3>💰 Payments</h3>
+      <p>Track revenue, invoices, and pending payments.</p>
+    </a>
+
+    <a href="#" class="dashboard-card">
+      <h3>📊 Reports</h3>
+      <p>Analytics of users, courses, and growth trends.</p>
+    </a>
+
+    <a href="#" class="dashboard-card">
+      <h3>📩 Support Tickets</h3>
+      <p>Respond to issues raised by students & teachers.</p>
+    </a>
+  </div>
+
+</div>
+
+    </main>
+
+
+
+</div>
+
+<script>
+    // Sidebar Toggle
+    document.getElementById("sidebarToggle").addEventListener("click", () => {
+        document.getElementById("sidebar").classList.toggle("-translate-x-full");
+    });
+
+    // Dark Mode Toggle
+    function toggleTheme() {
+        document.documentElement.classList.toggle("dark");
+        localStorage.setItem("theme", document.documentElement.classList.contains("dark") ? "dark" : "light");
+    }
+    if (localStorage.getItem("theme") === "light") {
+        document.documentElement.classList.remove("dark");
+    }
+</script>
+
+{% endblock %}
+
+
+
+
+
+
+{% endblock %}
+
+
+
+
+
+
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        // Dark/Light Mode Toggle
+        function toggleTheme() {
+            document.documentElement.classList.toggle("dark");
+            localStorage.setItem("theme", document.documentElement.classList.contains("dark") ? "dark" : "light");
+        }
+        // Load saved theme
+        if (localStorage.getItem("theme") === "light") {
+            document.documentElement.classList.remove("dark");
+        }
+    </script>
+
+
+</head>
+
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+
+  
+
+
+    <script>
+        // Sidebar Toggle Functionality
+        document.getElementById("sidebarToggle").addEventListener("click", function () {
+            const sidebar = document.getElementById("sidebar");
+            sidebar.classList.toggle("-translate-x-full");
+        });
+    </script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+

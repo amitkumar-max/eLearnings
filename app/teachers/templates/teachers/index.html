@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" x-data="{ darkMode: false }" :class="{ 'dark': darkMode }" class="transition-colors">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Teachers Panel{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-blue-600 dark:bg-blue-800 p-4 flex justify-between items-center shadow">
+        <h1 class="text-2xl font-bold">Teacher Panel</h1>
+        <button @click="darkMode = !darkMode" class="px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded">
+            Toggle {{ darkMode ? 'Light' : 'Dark' }} Mode
+        </button>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="bg-gray-200 dark:bg-gray-800 flex justify-center gap-6 p-3">
+        <a href="{% url 'teachers:dashboard' %}">Dashboard</a>
+        <a href="{% url 'teachers:manage_students' %}">Students</a>
+        <a href="{% url 'teachers:assignments' %}">Assignments</a>
+        <a href="{% url 'teachers:announcements' %}">Announcements</a>
+        <a href="{% url 'teachers:reports' %}">Reports</a>
+    </nav>
+
+    <!-- Content -->
+    <main class="flex-grow p-6 max-w-6xl mx-auto">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-200 dark:bg-gray-800 text-center p-3">
+        &copy; 2025 My App — Teachers Portal
+    </footer>
+    
+</body>
+</html>

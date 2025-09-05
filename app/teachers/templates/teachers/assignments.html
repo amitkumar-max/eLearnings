@@ -1,0 +1,24 @@
+{% extends "teachers/base_teachers.html" %}
+{% block title %}Assignments{% endblock %}
+{% block content %}
+<h2 class="text-2xl font-bold mb-4">Assignments</h2>
+
+<section class="mb-6">
+    <h3 class="font-semibold mb-2">Create New Assignment</h3>
+    <form method="post" class="bg-white dark:bg-gray-700 p-4 rounded-xl shadow">
+        {% csrf_token %}
+        <input type="text" name="title" placeholder="Assignment Title" class="p-2 w-full mb-2 rounded">
+        <textarea name="description" placeholder="Description" class="p-2 w-full mb-2 rounded"></textarea>
+        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Create</button>
+    </form>
+</section>
+
+<h3 class="font-semibold mb-2">Existing Assignments</h3>
+<ul class="bg-white dark:bg-gray-700 p-4 rounded-xl shadow divide-y divide-gray-300 dark:divide-gray-600">
+    {% for assignment in assignments %}
+        <li class="py-2">{{ assignment.title }} - Due {{ assignment.due_date }}</li>
+    {% empty %}
+        <li>No assignments yet.</li>
+    {% endfor %}
+</ul>
+{% endblock %}
