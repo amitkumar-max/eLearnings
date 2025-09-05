@@ -3,172 +3,202 @@
 {% block content %}
 
 <style>
-
-    body.dark-mode .stat-card {
-    background: #1c1c1c;
-    color: #e4e4e4;
+:root {
+  --primary: #2563eb;
+  --primary-light: #3b82f6;
+  --primary-dark: #1e40af;
+  --bg-light: #f8fafc;
+  --bg-dark: #0f172a;
+  --text-dark: #1e293b;
+  --text-light: #e2e8f0;
+  font-family: 'Poppins', sans-serif;
 }
-body.dark-mode .dashboard-card {
-    background: #1c1c1c;
-    color: #e4e4e4;
+
+/* Overall Page */
+body {
+  background: var(--bg-light);
+  color: var(--text-dark);
+}
+body.dark-mode {
+  background: var(--bg-dark);
+  color: var(--text-light);
 }
 
-/* ===== Teacher Dashboard Styling ===== */
+/* Sidebar */
+#sidebar {
+  background: linear-gradient(180deg, var(--primary), var(--primary-dark));
+  color: white;
+  font-weight: 500;
+  box-shadow: 2px 0 15px rgba(0, 0, 0, 0.2);
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+}
+#sidebar a {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: white;
+  padding: 0.8rem 1rem;
+  border-radius: 0.6rem;
+  transition: all 0.3s ease;
+}
+#sidebar a:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateX(4px);
+}
+
+/* Header */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: white;
+  border-radius: 0.6rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+body.dark-mode header {
+  background: #1e293b;
+}
+
+/* Container */
 .dashboard-container {
   width: 92%;
   max-width: 1200px;
   margin: 2rem auto;
   padding: 1rem;
 }
-
 .dashboard-title {
   font-size: 2rem;
-  font-weight: bold;
+  font-weight: 700;
   text-align: center;
   margin-bottom: 2rem;
-  color: #1a202c;
+  color: var(--primary-dark);
 }
 
+/* Stats Section */
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 1.5rem;
   margin-bottom: 2rem;
 }
-
 .stat-card {
-  background: #f8f8f8;
+  background: white;
   border-radius: 1rem;
-  padding: 1rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  padding: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
   text-align: center;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-
 .stat-card:hover {
-  transform: scale(1.05);
+  transform: scale(1.04);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+.stat-value {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: var(--primary);
 }
 
-body.dark-mode .stat-card {
-  background: #1c1c1c;
-  color: #e4e4e4;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-}
-
+/* Dashboard Cards */
 .dashboard-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
 }
-
 .dashboard-card {
   background: white;
   padding: 1.5rem;
   border-radius: 1rem;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+  border-top: 4px solid var(--primary);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.08);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-decoration: none;
+  color: var(--text-dark);
 }
-
+.dashboard-card h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.dashboard-card p {
+  font-size: 0.95rem;
+  color: #6b7280;
+}
 .dashboard-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(-6px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.12);
 }
 
+/* Dark Mode Support */
+body.dark-mode .stat-card,
 body.dark-mode .dashboard-card {
-  background: #1c1c1c;
-  color: #e4e4e4;
+  background: #1e293b;
+  color: var(--text-light);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+}
+body.dark-mode .dashboard-card p {
+  color: #cbd5e1;
 }
 </style>
 
 <div class="flex">
-    <!-- Sidebar -->
-    <aside id="sidebar" class="w-64 bg-gray-200 dark:bg-gray-800 h-screen p-4 space-y-4 fixed md:relative transform -translate-x-full md:translate-x-0 transition-transform duration-300">
-        <nav class="space-y-2">
-            <a href="#" class="block px-4 py-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-700">🏠 Dashboard</a>
-            <a href="#" class="block px-4 py-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-700">📚 My Courses</a>
-            <a href="#" class="block px-4 py-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-700">📝 Assignments</a>
-            <a href="#" class="block px-4 py-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-700">📅 Schedule</a>
-            <a href="#" class="block px-4 py-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-700">📊 Reports</a>
-            <a href="#" class="block px-4 py-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-700">💬 Messages</a>
-        </nav>
-    </aside>
+  <!-- Sidebar -->
+  <aside id="sidebar" class="w-64 h-screen p-4 space-y-4 fixed md:relative transform -translate-x-full md:translate-x-0 transition-transform duration-300">
+    <nav class="space-y-2">
+      <a href="#">🏠 Dashboard</a>
+      <a href="#">📚 My Courses</a>
+      <a href="#">📝 Assignments</a>
+      <a href="#">📅 Schedule</a>
+      <a href="#">📊 Reports</a>
+      <a href="#">💬 Messages</a>
+    </nav>
+  </aside>
 
-    <!-- Main Content -->
-    <main class="flex-1 ml-0 md:ml-64 p-6 transition-all duration-300">
-        <header class="flex justify-between items-center px-6 py-4 bg-white dark:bg-gray-800 shadow-md">
-            <div class="flex items-center space-x-3">
+  <!-- Main Content -->
+  <main class="flex-1 ml-0 md:ml-64 p-6 transition-all duration-300">
+    <header class="flex justify-between items-center px-6 py-4">
+      <div class="flex items-center space-x-3">
+        <button id="sidebarToggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600">☰</button>
+        <h1 class="text-2xl font-bold">Teacher Dashboard</h1>
+      </div>
+      <div class="flex items-center space-x-4">
+        <button onclick="toggleTheme()" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600">🌗</button>
+        <img src="{% static 'images/teacher-avatar.png' %}" alt="Teacher Avatar" class="w-10 h-10 rounded-full shadow-md">
+      </div>
+    </header>
 
-                <button id="sidebarToggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600">☰</button>
-                <h1 class="text-2xl font-bold">Teacher Dashboard</h1>
-            </div>
-            <div class="flex items-center space-x-4">
-               
-               <button onclick="toggleTheme()" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600">🌗</button>
+    <!-- Stats Section -->
+    <div class="stats-grid mt-6">
+      <div class="stat-card"><h3>📚 Courses</h3><p class="stat-value">12</p></div>
+      <div class="stat-card"><h3>👥 Active Students</h3><p class="stat-value">320</p></div>
+      <div class="stat-card"><h3>📝 Pending Assignments</h3><p class="stat-value">18</p></div>
+      <div class="stat-card"><h3>📊 Avg. Class Score</h3><p class="stat-value">82%</p></div>
+    </div>
 
-                <!-- <button onclick="toggleTheme()" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600">🌗</button> -->
-                <img src="{% static 'images/teacher-avatar.png' %}" alt="Teacher Avatar" class="w-10 h-10 rounded-full">
-            </div>
-        </header>
-
-        <!-- Teacher Stats -->
-        <div class="stats-grid mt-6">
-            <div class="stat-card"><h3>📚 Courses</h3><p class="stat-value">12</p></div>
-            <div class="stat-card"><h3>👥 Active Students</h3><p class="stat-value">320</p></div>
-            <div class="stat-card"><h3>📝 Pending Assignments</h3><p class="stat-value">18</p></div>
-            <div class="stat-card"><h3>📊 Avg. Class Score</h3><p class="stat-value">82%</p></div>
-        </div>
-
-        <!-- Main Cards -->
-        <div class="dashboard-grid">
-            <a href="#" class="dashboard-card">
-                <h3>📚 Manage Courses</h3>
-                <p>Create, edit, and update lessons for your students.</p>
-            </a>
-            <a href="#" class="dashboard-card">
-                <h3>📝 Grade Assignments</h3>
-                <p>Review and provide feedback on student submissions.</p>
-            </a>
-            <a href="#" class="dashboard-card">
-                <h3>📅 Schedule Classes</h3>
-                <p>Plan your live sessions and deadlines with ease.</p>
-            </a>
-            <a href="#" class="dashboard-card">
-                <h3>📊 Generate Reports</h3>
-                <p>View analytics of student performance and attendance.</p>
-            </a>
-            <a href="#" class="dashboard-card">
-                <h3>💬 Student Messages</h3>
-                <p>Communicate with students and resolve their doubts.</p>
-            </a>
-            <a href="#" class="dashboard-card">
-                <h3>🔔 Announcements</h3>
-                <p>Post updates, notices, and important information.</p>
-            </a>
-        </div>
-    </main>
+    <!-- Main Cards -->
+    <div class="dashboard-grid">
+      <a href="#" class="dashboard-card"><h3>📚 Manage Courses</h3><p>Create, edit, and update lessons for your students.</p></a>
+      <a href="#" class="dashboard-card"><h3>📝 Grade Assignments</h3><p>Review and provide feedback on student submissions.</p></a>
+      <a href="#" class="dashboard-card"><h3>📅 Schedule Classes</h3><p>Plan your live sessions and deadlines with ease.</p></a>
+      <a href="#" class="dashboard-card"><h3>📊 Generate Reports</h3><p>View analytics of student performance and attendance.</p></a>
+      <a href="#" class="dashboard-card"><h3>💬 Student Messages</h3><p>Communicate with students and resolve their doubts.</p></a>
+      <a href="#" class="dashboard-card"><h3>🔔 Announcements</h3><p>Post updates, notices, and important information.</p></a>
+    </div>
+  </main>
 </div>
 
 <script>
-    document.getElementById("sidebarToggle").addEventListener("click", () => {
-        document.getElementById("sidebar").classList.toggle("-translate-x-full");
-    });
-
-    function toggleTheme() {
-    document.documentElement.classList.toggle("dark");
-    localStorage.setItem("theme", document.documentElement.classList.contains("dark") ? "dark" : "light");
+document.getElementById("sidebarToggle").addEventListener("click", () => {
+  document.getElementById("sidebar").classList.toggle("-translate-x-full");
+});
+function toggleTheme() {
+  document.documentElement.classList.toggle("dark-mode");
+  localStorage.setItem("theme", document.documentElement.classList.contains("dark-mode") ? "dark" : "light");
 }
 if (localStorage.getItem("theme") === "light") {
-    document.documentElement.classList.remove("dark");
+  document.documentElement.classList.remove("dark-mode");
 }
-
-
 </script>
 
-
-
 {% endblock %}
-
-
-
-
-

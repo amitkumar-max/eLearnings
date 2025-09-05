@@ -2,81 +2,6 @@
 {% block title %}Student Dashboard{% endblock %}
 {% block content %}
 
-<div class="flex">
-
-    <!-- Sidebar -->
-    <aside id="sidebar" class="w-64 bg-green-200 dark:bg-green-900 h-screen p-4 space-y-4 fixed md:relative transform -translate-x-full md:translate-x-0 transition-transform duration-300 shadow-lg">
-        <h2 class="text-xl font-bold text-green-800 dark:text-green-300 mb-4">📚 Student Panel</h2>
-        <nav class="space-y-2">
-            <a href="#" class="block px-4 py-2 rounded-lg bg-green-100 dark:bg-green-800 hover:bg-green-300 dark:hover:bg-green-700 transition">🏠 Dashboard</a>
-            <a href="#" class="block px-4 py-2 rounded-lg hover:bg-green-300 dark:hover:bg-green-700 transition">📖 My Courses</a>
-            <a href="#" class="block px-4 py-2 rounded-lg hover:bg-green-300 dark:hover:bg-green-700 transition">📝 Assignments</a>
-            <a href="#" class="block px-4 py-2 rounded-lg hover:bg-green-300 dark:hover:bg-green-700 transition">📊 Progress</a>
-            <a href="#" class="block px-4 py-2 rounded-lg hover:bg-green-300 dark:hover:bg-green-700 transition">💬 Discussions</a>
-            <a href="#" class="block px-4 py-2 rounded-lg hover:bg-green-300 dark:hover:bg-green-700 transition">⚙️ Settings</a>
-        </nav>
-    </aside>
-
-    <!-- Main Content -->
-    <main class="flex-1 ml-0 md:ml-64 p-6 transition-all duration-300">
-
-        <!-- Navbar -->
-        <header class="flex justify-between items-center px-6 py-4 mb-6 bg-white dark:bg-gray-800 shadow-md rounded-xl">
-            <div class="flex items-center space-x-3">
-                <button id="sidebarToggle" class="p-2 rounded-lg bg-green-200 dark:bg-green-700 hover:bg-green-300 dark:hover:bg-green-600">
-                    ☰
-                </button>
-                <h1 class="text-2xl font-bold text-green-700 dark:text-green-300">Student Dashboard</h1>
-            </div>
-            <div class="flex items-center space-x-4">
-                <button onclick="toggleTheme()" class="p-2 rounded-lg bg-green-200 dark:bg-green-700 hover:bg-green-300 dark:hover:bg-green-600">
-                    🌗
-                </button>
-                <img src="{% static 'images/student-avatar.png' %}" alt="Student Avatar" class="w-10 h-10 rounded-full">
-            </div>
-        </header>
-
-        <!-- Stats Section -->
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-            <div class="p-4 bg-white dark:bg-gray-800 rounded-xl shadow hover:scale-105 transition">
-                <h3 class="text-gray-500 dark:text-gray-400 text-sm">📖 Courses Enrolled</h3>
-                <p class="text-2xl font-bold text-green-600 dark:text-green-400">08</p>
-            </div>
-            <div class="p-4 bg-white dark:bg-gray-800 rounded-xl shadow hover:scale-105 transition">
-                <h3 class="text-gray-500 dark:text-gray-400 text-sm">✅ Completed Lessons</h3>
-                <p class="text-2xl font-bold text-green-600 dark:text-green-400">120</p>
-            </div>
-            <div class="p-4 bg-white dark:bg-gray-800 rounded-xl shadow hover:scale-105 transition">
-                <h3 class="text-gray-500 dark:text-gray-400 text-sm">📊 Progress</h3>
-                <p class="text-2xl font-bold text-green-600 dark:text-green-400">75%</p>
-            </div>
-            <div class="p-4 bg-white dark:bg-gray-800 rounded-xl shadow hover:scale-105 transition">
-                <h3 class="text-gray-500 dark:text-gray-400 text-sm">⏳ Pending Assignments</h3>
-                <p class="text-2xl font-bold text-red-600 dark:text-red-400">3</p>
-            </div>
-        </div>
-
-        <!-- Interactive Cards Section -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <a href="#" class="p-6 bg-white dark:bg-gray-800 rounded-xl shadow hover:-translate-y-1 hover:shadow-xl transition">
-                <h3 class="text-lg font-semibold text-green-700 dark:text-green-400">📚 View All Courses</h3>
-                <p class="text-sm text-gray-600 dark:text-gray-400">Browse your enrolled and available courses.</p>
-            </a>
-
-            <a href="#" class="p-6 bg-white dark:bg-gray-800 rounded-xl shadow hover:-translate-y-1 hover:shadow-xl transition">
-                <h3 class="text-lg font-semibold text-green-700 dark:text-green-400">📝 Submit Assignment</h3>
-                <p class="text-sm text-gray-600 dark:text-gray-400">Upload and track your assignments.</p>
-            </a>
-
-            <a href="#" class="p-6 bg-white dark:bg-gray-800 rounded-xl shadow hover:-translate-y-1 hover:shadow-xl transition">
-                <h3 class="text-lg font-semibold text-green-700 dark:text-green-400">📊 Track Progress</h3>
-                <p class="text-sm text-gray-600 dark:text-gray-400">Check performance & view detailed analytics.</p>
-            </a>
-        </div>
-
-    </main>
-</div>
-
 <style>
 /* ===== Global Styles ===== */
 body {
@@ -87,11 +12,6 @@ body {
   transition: background 0.3s, color 0.3s;
 }
 
-/* ===== Layout ===== */
-.dashboard-container {
-  display: flex;
-}
-
 /* ===== Sidebar ===== */
 .sidebar {
   width: 250px;
@@ -100,8 +20,8 @@ body {
   min-height: 100vh;
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
   position: fixed;
-  left: 0;
   top: 0;
+  left: 0;
   transition: transform 0.3s ease;
 }
 
@@ -122,7 +42,6 @@ body {
   text-decoration: none;
   transition: background 0.3s ease;
 }
-
 .sidebar-nav a:hover {
   background: #a9e8a9;
 }
@@ -161,10 +80,7 @@ body {
   font-size: 1rem;
   transition: background 0.3s ease;
 }
-
-.btn:hover {
-  background: #a9e8a9;
-}
+.btn:hover { background: #a9e8a9; }
 
 .avatar {
   width: 40px;
@@ -188,16 +104,9 @@ body {
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   transition: transform 0.3s ease;
 }
+.stat-card:hover { transform: scale(1.05); }
 
-.stat-card:hover {
-  transform: scale(1.05);
-}
-
-.stat-value {
-  font-size: 1.8rem;
-  font-weight: bold;
-}
-
+.stat-value { font-size: 1.8rem; font-weight: bold; }
 .green { color: #256d26; }
 .red { color: #e53e3e; }
 
@@ -207,7 +116,6 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
 }
-
 .dashboard-card {
   display: block;
   background: white;
@@ -218,30 +126,16 @@ body {
   color: #333;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-
 .dashboard-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 20px rgba(0,0,0,0.15);
 }
 
 /* ===== Dark Mode ===== */
-body.dark-mode {
-  background: #1a202c;
-  color: #e4e4e4;
-}
-
-body.dark-mode .sidebar {
-  background: #1f3d1f;
-}
-
-body.dark-mode .sidebar-nav a {
-  color: #d4f3d4;
-}
-
-body.dark-mode .navbar {
-  background: #2d3748;
-}
-
+body.dark-mode { background: #1a202c; color: #e4e4e4; }
+body.dark-mode .sidebar { background: #1f3d1f; }
+body.dark-mode .sidebar-nav a { color: #d4f3d4; }
+body.dark-mode .navbar { background: #2d3748; }
 body.dark-mode .stat-card,
 body.dark-mode .dashboard-card {
   background: #2d3748;
@@ -249,23 +143,87 @@ body.dark-mode .dashboard-card {
 }
 </style>
 
+<div class="dashboard-container">
+  
+  <!-- Sidebar -->
+  <aside id="sidebar" class="sidebar">
+    <h2 class="sidebar-title">📚 Student Panel</h2>
+    <nav class="sidebar-nav">
+      <a href="#">🏠 Dashboard</a>
+      <a href="#">📖 My Courses</a>
+      <a href="#">📝 Assignments</a>
+      <a href="#">📊 Progress</a>
+      <a href="#">💬 Discussions</a>
+      <a href="#">⚙️ Settings</a>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    
+    <!-- Navbar -->
+    <header class="navbar">
+      <div class="navbar-left">
+        <button id="sidebarToggle" class="btn">☰</button>
+        <h1>Student Dashboard</h1>
+      </div>
+      <div class="navbar-right">
+        <button onclick="toggleTheme()" class="btn">🌗</button>
+        <img src="{% static 'images/student-avatar.png' %}" alt="Student Avatar" class="avatar">
+      </div>
+    </header>
+
+    <!-- Stats Section -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <h3>📖 Courses Enrolled</h3>
+        <p class="stat-value green">08</p>
+      </div>
+      <div class="stat-card">
+        <h3>✅ Completed Lessons</h3>
+        <p class="stat-value green">120</p>
+      </div>
+      <div class="stat-card">
+        <h3>📊 Progress</h3>
+        <p class="stat-value green">75%</p>
+      </div>
+      <div class="stat-card">
+        <h3>⏳ Pending Assignments</h3>
+        <p class="stat-value red">3</p>
+      </div>
+    </div>
+
+    <!-- Dashboard Cards -->
+    <div class="cards-grid">
+      <a href="#" class="dashboard-card">
+        <h3>📚 View All Courses</h3>
+        <p>Browse your enrolled and available courses.</p>
+      </a>
+      <a href="#" class="dashboard-card">
+        <h3>📝 Submit Assignment</h3>
+        <p>Upload and track your assignments.</p>
+      </a>
+      <a href="#" class="dashboard-card">
+        <h3>📊 Track Progress</h3>
+        <p>Check performance & view detailed analytics.</p>
+      </a>
+    </div>
+
+  </main>
+</div>
+
 <script>
 document.getElementById("sidebarToggle").addEventListener("click", () => {
-    document.getElementById("sidebar").classList.toggle("hidden");
+  document.getElementById("sidebar").classList.toggle("hidden");
 });
 
 function toggleTheme() {
-    document.body.classList.toggle("dark-mode");
-    localStorage.setItem("theme", document.body.classList.contains("dark-mode") ? "dark" : "light");
+  document.body.classList.toggle("dark-mode");
+  localStorage.setItem("theme", document.body.classList.contains("dark-mode") ? "dark" : "light");
 }
 if (localStorage.getItem("theme") === "dark") {
-    document.body.classList.add("dark-mode");
+  document.body.classList.add("dark-mode");
 }
 </script>
 
 {% endblock %}
-
-
-
-
-
