@@ -1,31 +1,81 @@
-{% extends "teachers/base_teachers.html" %}
-{% block title %}Manage Students{% endblock %}
-{% block content %}
-<h2 class="text-2xl font-bold mb-4">Manage Students</h2>
 
-<table class="w-full bg-white dark:bg-gray-700 rounded-xl shadow">
-    <thead>
-        <tr class="bg-gray-200 dark:bg-gray-600">
-            <th class="p-3 text-left">Name</th>
-            <th class="p-3 text-left">Course</th>
-            <th class="p-3 text-left">Progress</th>
-            <th class="p-3 text-left">Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for student in students %}
-        <tr class="border-b dark:border-gray-600">
-            <td class="p-3">{{ student.name }}</td>
-            <td class="p-3">{{ student.course }}</td>
-            <td class="p-3">{{ student.progress }}%</td>
-            <td class="p-3">
-                <a href="#" class="text-blue-600">View</a> | 
-                <a href="#" class="text-red-500">Remove</a>
-            </td>
-        </tr>
-        {% empty %}
-        <tr><td colspan="4" class="text-center p-3">No students found</td></tr>
-        {% endfor %}
-    </tbody>
-</table>
+
+<!-- File: manage_students.html -->
+{% raw %}{% extends "base.html" %}
+{% block title %}Manage Students - Teacher{% endblock %}
+{% block content %}
+
+<style>
+:root{--primary:#2563eb}
+body{font-family:Poppins,system-ui}
+.container{display:flex}
+#sidebar{width:240px;position:fixed;height:100vh;padding:1rem;background:linear-gradient(180deg,var(--primary),#1e40af);color:#fff}
+main{margin-left:260px;padding:24px}
+.card{background:#fff;padding:16px;border-radius:12px;box-shadow:0 12px 30px rgba(16,24,40,.06)}
+.search-row{display:flex;gap:12px;align-items:center}
+.table{width:100%;border-collapse:collapse;margin-top:12px}
+.table th,.table td{padding:10px;border-bottom:1px solid #eef2ff;text-align:left}
+.avatar{width:36px;height:36px;border-radius:999px;background:#dbeafe;display:inline-block}
+.btn{background:var(--primary);color:#fff;padding:.5rem .7rem;border-radius:8px;border:none}
+</style>
+
+<div class="container">
+  <aside id="sidebar">
+    <div class="brand" style="margin-bottom:1rem"><strong>Teachly</strong></div>
+    <nav>
+      <a href="/teacher/dashboard">🏠 Dashboard</a>
+      <a href="/teacher/assignments">📝 Assignments</a>
+      <a href="/teacher/manage_students">👥 Students</a>
+      <a href="/teacher/reports">📊 Reports</a>
+      <a href="/teacher/announcements">🔔 Announcements</a>
+    </nav>
+  </aside>
+
+  <main>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+      <div>
+        <h2 style="margin:0">Manage Students</h2>
+        <div style="color:#6b7280;font-size:13px">View student list, quick actions & bulk uploads</div>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button class="btn" onclick="document.getElementById('bulkUpload').style.display='block'">Bulk Upload</button>
+        <button class="btn" style="background:#10b981">Invite</button>
+      </div>
+    </div>
+
+    <div id="bulkUpload" class="card" style="display:none;margin-bottom:12px">
+      <form method="post" action="{% raw %}{% url 'teacher:bulk_upload_students' %}{% endraw %}" enctype="multipart/form-data">
+        {% raw %}{% csrf_token %}{% endraw %}
+        <div style="display:flex;gap:12px">
+          <input type="file" name="csv" accept=".csv" required>
+          <button class="btn" type="submit">Upload</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="card">
+      <div class="search-row">
+        <input placeholder="Search by name, roll no or email" style="flex:1;padding:10px;border-radius:8px;border:1px solid #eef2ff">
+        <select style="padding:10px;border-radius:8px;border:1px solid #eef2ff"><option>All Classes</option></select>
+      </div>
+
+      <table class="table">
+        <thead><tr><th>Student</th><th>Class</th><th>Roll</th><th>Email</th><th>Actions</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><div style="display:flex;gap:8px;align-items:center"><div class="avatar"></div><div><strong>Riya Singh</strong><div style="font-size:12px;color:#6b7280">ID: S102</div></div></div></td>
+            <td>Class A</td>
+            <td>12</td>
+            <td>riya@example.com</td>
+            <td style="text-align:right"><button class="btn" style="background:#f59e0b">Profile</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>
+
 {% endblock %}
+{% endraw %}
+
+

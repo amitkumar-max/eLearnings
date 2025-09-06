@@ -1,14 +1,85 @@
-{% extends "teachers/base_teachers.html" %}
-{% block title %}Reports{% endblock %}
-{% block content %}
-<h2 class="text-2xl font-bold mb-4">Reports</h2>
 
-<section>
-    <h3 class="font-semibold mb-3">Student Performance</h3>
-    <div class="bg-white dark:bg-gray-700 p-4 rounded-xl shadow">
-        <p>Download reports as:</p>
-        <a href="#" class="bg-blue-600 text-white px-3 py-1 rounded">PDF</a>
-        <a href="#" class="bg-green-600 text-white px-3 py-1 rounded">Excel</a>
+
+
+
+<!-- File: reports.html -->
+{% raw %}{% extends "base.html" %}
+{% block title %}Reports - Teacher{% endblock %}
+{% block content %}
+
+<style>
+:root{--primary:#2563eb}
+body{font-family:Poppins,system-ui}
+#sidebar{width:240px;position:fixed;height:100vh;padding:1rem;background:linear-gradient(180deg,var(--primary),#1e40af);color:#fff}
+main{margin-left:260px;padding:24px}
+.card{background:#fff;padding:16px;border-radius:12px;box-shadow:0 12px 30px rgba(16,24,40,.06)}
+.grid-2{display:grid;grid-template-columns:1fr 420px;gap:16px}
+.stat{display:flex;flex-direction:column;padding:12px;border-radius:10px;background:linear-gradient(180deg,#fff,#fbfdff);box-shadow:0 6px 18px rgba(16,24,40,.04)}
+.small{font-size:13px;color:#6b7280}
+.table{width:100%;border-collapse:collapse;margin-top:12px}
+.table th,.table td{padding:10px;border-bottom:1px solid #eef2ff;text-align:left}
+</style>
+
+<div style="display:flex">
+  <aside id="sidebar">
+    <div class="brand" style="margin-bottom:1rem"><strong>Teachly</strong></div>
+    <nav>
+      <a href="/teacher/dashboard">🏠 Dashboard</a>
+      <a href="/teacher/assignments">📝 Assignments</a>
+      <a href="/teacher/manage_students">👥 Students</a>
+      <a href="/teacher/reports">📊 Reports</a>
+      <a href="/teacher/announcements">🔔 Announcements</a>
+    </nav>
+  </aside>
+
+  <main>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+      <div>
+        <h2 style="margin:0">Reports</h2>
+        <div class="small">Quick analytics & exportable summaries</div>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button class="btn" style="background:#10b981">Export CSV</button>
+      </div>
     </div>
-</section>
+
+    <div class="grid-2">
+      <div>
+        <div class="card" style="margin-bottom:12px">
+          <h3 style="margin:0 0 8px">Class Performance</h3>
+          <canvas id="classChart" width="600" height="260"></canvas>
+        </div>
+
+        <div class="card">
+          <h3 style="margin:0 0 8px">Recent Activity</h3>
+          <table class="table">
+            <thead><tr><th>Event</th><th>Date</th><th>By</th></tr></thead>
+            <tbody>
+              <tr><td>Assignment graded: Chapter 2</td><td>Aug 28, 2025</td><td>Mr. Sharma</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <aside>
+        <div class="stat card" style="margin-bottom:12px">
+          <div style="font-size:13px;color:#6b7280">Average Score</div>
+          <div style="font-weight:800;font-size:28px">79%</div>
+        </div>
+        <div class="stat card">
+          <div style="font-size:13px;color:#6b7280">Students at Risk</div>
+          <div style="font-weight:800;font-size:20px;color:#ef4444">12</div>
+        </div>
+      </aside>
+    </div>
+
+  </main>
+</div>
+
+<script>
+// Minimal chart demo (uses Chart.js CDN in base.html or include separately)
+if(window.Chart){const ctx=document.getElementById('classChart').getContext('2d');new Chart(ctx,{type:'bar',data:{labels:['Week1','Week2','Week3','Week4'],datasets:[{label:'Avg Score',data:[72,78,80,79]}]},options:{responsive:true,plugins:{legend:{display:false}}}})}
+</script>
+
 {% endblock %}
+{% endraw %}

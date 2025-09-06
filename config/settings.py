@@ -94,13 +94,44 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # ----------------------------
 # Database (PostgreSQL)
 # ----------------------------
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default=os.environ.get('DATABASE_URL'),
+#         conn_max_age=600,
+#         ssl_require=True
+#     )
+# }
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'elearning_db_uk14',
+#         'USER': 'elearning_admin',
+#         'PASSWORD': 'oHQNTBaEcrlyKkhfP20mKpfq4aVwpu5z',
+#         'HOST': 'dpg-d2r3ivl6ubrc73e637d0-a.render.com',  # Render ka external hostname
+#         'PORT': '5043',  # Tumne diya hua custom port
+#     }
+# }
+
+
+
+import os
+from dotenv import load_dotenv
+
+load_dotenv()  # .env file load karega
+
 DATABASES = {
-    'default': dj_database_url.config(
-        default=os.environ.get('DATABASE_URL'),
-        conn_max_age=600,
-        ssl_require=True
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST'),
+        'PORT': os.getenv('DB_PORT'),
+    }
 }
+
 
 # ----------------------------
 # Password validation

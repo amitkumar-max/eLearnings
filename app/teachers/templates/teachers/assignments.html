@@ -1,24 +1,96 @@
-{% extends "teachers/base_teachers.html" %}
-{% block title %}Assignments{% endblock %}
+
+<!-- File: assignments.html -->
+{% raw %}{% extends "base.html" %}
+{% block title %}Assignments - Teacher{% endblock %}
 {% block content %}
-<h2 class="text-2xl font-bold mb-4">Assignments</h2>
 
-<section class="mb-6">
-    <h3 class="font-semibold mb-2">Create New Assignment</h3>
-    <form method="post" class="bg-white dark:bg-gray-700 p-4 rounded-xl shadow">
-        {% csrf_token %}
-        <input type="text" name="title" placeholder="Assignment Title" class="p-2 w-full mb-2 rounded">
-        <textarea name="description" placeholder="Description" class="p-2 w-full mb-2 rounded"></textarea>
-        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Create</button>
-    </form>
-</section>
+<style>
+:root{--primary:#2563eb;--card:#fff}
+body{font-family:Poppins,system-ui}
+.container{display:flex}
+#sidebar{width:240px;position:fixed;height:100vh;padding:1rem;background:linear-gradient(180deg,var(--primary),#1e40af);color:#fff;border-top-right-radius:12px}
+main{margin-left:260px;padding:24px}
+.header{display:flex;justify-content:space-between;align-items:center}
+.card{background:var(--card);padding:16px;border-radius:12px;box-shadow:0 8px 24px rgba(16,24,40,.06)}
+.table{width:100%;border-collapse:collapse;margin-top:12px}
+.table th,.table td{padding:10px;border-bottom:1px solid #eef2ff;text-align:left}
+.kv{font-weight:700;color:#374151}
+.filters{display:flex;gap:8px;align-items:center}
+.small{font-size:13px;color:#6b7280}
+.btn{background:var(--primary);color:#fff;padding:.5rem .7rem;border-radius:8px;border:none;cursor:pointer}
+</style>
 
-<h3 class="font-semibold mb-2">Existing Assignments</h3>
-<ul class="bg-white dark:bg-gray-700 p-4 rounded-xl shadow divide-y divide-gray-300 dark:divide-gray-600">
-    {% for assignment in assignments %}
-        <li class="py-2">{{ assignment.title }} - Due {{ assignment.due_date }}</li>
-    {% empty %}
-        <li>No assignments yet.</li>
-    {% endfor %}
-</ul>
+<div class="container">
+  <aside id="sidebar">
+    <div class="brand" style="margin-bottom:1rem"><strong>Teachly</strong></div>
+    <nav>
+      <a href="/teacher/dashboard">🏠 Dashboard</a>
+      <a href="/teacher/assignments">📝 Assignments</a>
+      <a href="/teacher/manage_students">👥 Students</a>
+      <a href="/teacher/reports">📊 Reports</a>
+      <a href="/teacher/announcements">🔔 Announcements</a>
+    </nav>
+  </aside>
+
+  <main>
+    <div class="header" style="margin-bottom:16px">
+      <div>
+        <h2 style="margin:0">Assignments</h2>
+        <div class="small">Create, schedule and track submissions</div>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button class="btn" onclick="document.getElementById('createAssign').style.display='block'">+ New Assignment</button>
+        <button class="btn" style="background:#10b981">Export</button>
+      </div>
+    </div>
+
+    <div id="createAssign" class="card" style="display:none;margin-bottom:12px">
+      <form method="post" action="{% raw %}{% url 'teacher:create_assignment' %}{% endraw %}" enctype="multipart/form-data">
+        {% raw %}{% csrf_token %}{% endraw %}
+        <div style="display:grid;grid-template-columns:1fr 140px;gap:12px">
+          <input name="title" placeholder="Assignment title" required style="padding:10px;border-radius:8px;border:1px solid #eef2ff">
+          <input name="due_date" type="date" required style="padding:10px;border-radius:8px;border:1px solid #eef2ff">
+        </div>
+        <textarea name="description" rows="4" placeholder="Instructions & resources" style="width:100%;margin-top:10px;padding:10px;border-radius:8px;border:1px solid #eef2ff"></textarea>
+        <div style="margin-top:10px;display:flex;justify-content:flex-end;gap:8px">
+          <button type="button" class="btn" style="background:#ef4444" onclick="document.getElementById('createAssign').style.display='none'">Cancel</button>
+          <button class="btn" type="submit">Publish</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div class="filters">
+          <label class="small">Filter:</label>
+          <select><option>All</option><option>Pending</option><option>Graded</option></select>
+        </div>
+        <div class="small">Showing 6 assignments</div>
+      </div>
+
+      <table class="table">
+        <thead>
+          <tr><th>Title</th><th>Due Date</th><th>Submissions</th><th>Status</th><th></th></tr>
+        </thead>
+        <tbody>
+          <!-- loop assignments -->
+          <tr>
+            <td class="kv">Chapter 3 Exercises</td>
+            <td>Sep 10, 2025</td>
+            <td>28 / 32</td>
+            <td><span style="color:#f59e0b">Open</span></td>
+            <td style="text-align:right"><a class="small" href="#">View</a> • <a class="small" href="#">Grade</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>
+
+<script>
+// small helpers
+</script>
+
 {% endblock %}
+{% endraw %}
+
