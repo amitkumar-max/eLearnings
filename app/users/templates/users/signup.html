@@ -58,21 +58,30 @@
       color: #15803d;
     }
   </style>
+
 </head>
+
+
 <body>
   <div class="card">
     <h2>Create Account</h2>
-    <form>
-      <input type="text" placeholder="Full Name" required>
-      <input type="email" placeholder="Email" required>
-      <input type="password" placeholder="Password" required>
-      <input type="password" placeholder="Confirm Password" required>
+
+    <form method="POST">
+      {% csrf_token %}
+      <input type="text" name="full_name" placeholder="Full Name" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="password" name="password" placeholder="Password" required>
+      <input type="password" name="confirm_password" placeholder="Confirm Password" required>
       <button type="submit">Sign Up</button>
     </form>
-    
+
     <div class="links">
-      <a href="login.html">Already have an account? Login</a>
+      <a href="{% url 'users:login' %}">Already have an account? Login</a>
     </div>
   </div>
 </body>
+
+
+
+
 </html>

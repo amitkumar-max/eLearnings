@@ -352,9 +352,8 @@ body.dark-mode h6 {
     <a href="{% url 'courses:list' %}">Courses</a>
     <a href="{% url 'courses:categories' %}">Categories</a>
     <a href="{% url 'testimonials:list' %}">Testimonials</a>
-</div>
 
-
+  </div>
 
       <!-- Dark/Light Mode Toggle -->
 <div class="mode-toggle">
@@ -385,7 +384,6 @@ body.dark-mode h6 {
   });
 </script>
 
-
       <div class="auth-buttons">
 <!--         
         <a href="{% url 'users:signup' %}" class="btn-primary">Sign Up</a>
@@ -395,10 +393,10 @@ body.dark-mode h6 {
 <a href="{% url 'users:signup' %}" class="btn-primary">Sign Up</a>
 <a href="{% url 'users:login' %}" class="btn-outline">Login</a>
 
-
       </div>
     </div>
   </nav>
+
 <!-- ✅ 1. Search & Filter Section (Navbar ke just niche) -->
   <section class="search-bar container" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
   <input type="text" placeholder="Search for courses..." />
@@ -482,6 +480,7 @@ body.dark-mode h6 {
     <p>Countries</p>
   </div>
 </section>
+
 <!-- ✅ 4. Course Pricing & Subscription Plans -->
 <section class="pricing container" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
   <h2>Choose Your Plan</h2>
@@ -500,12 +499,14 @@ body.dark-mode h6 {
     </div>
   </div>
 </section>
+
 <!-- 6. Student Dashboard Preview -->
 <section id="dashboard" class="py-12 text-center" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
   <h2 class="text-2xl font-bold mb-6">🎯 Your Learning Dashboard</h2>
   <img src="{% static 'images/dashboard-preview.png' %}" alt="Student Dashboard" class="mx-auto shadow-lg rounded-xl">
   <p class="mt-4 text-gray-600">Track progress, earn certificates, and stay motivated!</p>
 </section>
+
   <!-- Testimonials -->
   <section id="testimonials" class="testimonials">
     <div class="container">
@@ -526,6 +527,7 @@ body.dark-mode h6 {
       </div>
     </div>
   </section>
+
   <!-- ✅ 5. Newsletter Signup / Lead Magnet -->
   <section class="newsletter container" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
   <h2>Stay Updated</h2>
@@ -533,6 +535,7 @@ body.dark-mode h6 {
   <input type="email" placeholder="Enter your email" />
   <button class="btn-primary">Subscribe</button>
 </section>
+
 <!-- 7. Blog / Articles Section -->
 <section id="blog" class="py-12" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
   <h2 class="text-2xl font-bold text-center mb-6">📝 Latest Articles</h2>
@@ -550,6 +553,7 @@ body.dark-mode h6 {
     <!-- Do 2-3 aur articles add kar do -->
   </div>
 </section>
+
 <!-- 9. FAQ Section -->
 <section id="faq" class="py-12" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
   <h2 class="text-2xl font-bold text-center mb-6">❓ Frequently Asked Questions</h2>
@@ -586,6 +590,7 @@ body.dark-mode h6 {
   </div>
   <p class="mt-4 text-gray-700 font-semibold">✅ Trusted by 50,000+ learners</p>
 </section>
+
   <!-- Footer -->
 <!-- <footer class="bg-gray-900 text-white py-8">
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6 px-6">
