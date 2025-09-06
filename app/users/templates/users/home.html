@@ -340,12 +340,21 @@ body.dark-mode h6 {
   <nav>
     <div class="container nav-container">
       <div class="logo">E-Learn</div>
-      <div class="nav-links">
+      <!-- <div class="nav-links">
         <a href="#hero">Home</a>
         <a href="#courses">Courses</a>
         <a href="#categories">Categories</a>
         <a href="#testimonials">Testimonials</a>
-      </div>
+      </div> -->
+
+      <div class="nav-links">
+    <a href="{% url 'home' %}">Home</a>
+    <a href="{% url 'courses:list' %}">Courses</a>
+    <a href="{% url 'courses:categories' %}">Categories</a>
+    <a href="{% url 'testimonials:list' %}">Testimonials</a>
+</div>
+
+
 
       <!-- Dark/Light Mode Toggle -->
 <div class="mode-toggle">
@@ -378,8 +387,15 @@ body.dark-mode h6 {
 
 
       <div class="auth-buttons">
+<!--         
         <a href="{% url 'users:signup' %}" class="btn-primary">Sign Up</a>
-        <a href="{% url 'users:login' %}" class="btn-outline">Login</a>
+        <a href="{% url 'users:login' %}" class="btn-outline">Login</a> -->
+
+        <!-- Authentication buttons (wherever you want them in navbar/hero) -->
+<a href="{% url 'users:signup' %}" class="btn-primary">Sign Up</a>
+<a href="{% url 'users:login' %}" class="btn-outline">Login</a>
+
+
       </div>
     </div>
   </nav>
@@ -439,16 +455,18 @@ body.dark-mode h6 {
       </div>
     </div>
   </section>
-  <!-- Categories -->
-  <section id="categories" class="categories container">
-    <h2>Explore by Categories</h2>
-    <div class="category-buttons">
-      <a href="#">Lessons</a>
-      <a href="#">Exams</a>
-      <a href="#">Payments</a>
-      <a href="#">Progress</a>
-    </div>
-  </section>
+
+<!-- Categories -->
+<section id="categories" class="categories container">
+  <h2>Explore by Categories</h2>
+  <div class="category-buttons">
+    <a href="{% url 'lessons:list' %}">Lessons</a>
+    <a href="{% url 'exams:list' %}">Exams</a>
+    <a href="{% url 'payments:history' %}">Payments</a>
+    <a href="{% url 'progress:dashboard' %}">Progress</a>
+  </div>
+</section>
+
   <!-- ✅ 3. Achievements / Stats Section -->
   <section class="stats container" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
   <div class="stat-box">
@@ -519,11 +537,16 @@ body.dark-mode h6 {
 <section id="blog" class="py-12" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
   <h2 class="text-2xl font-bold text-center mb-6">📝 Latest Articles</h2>
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6 px-6">
-    <article class="bg-white p-4 rounded-lg shadow">
+    <!-- <article class="bg-white p-4 rounded-lg shadow">
       <h3 class="font-semibold text-lg mb-2">Top 5 Tips for Faster Learning</h3>
       <p class="text-gray-600">Discover scientifically proven strategies to study smarter...</p>
       <a href="#" class="text-blue-500 mt-2 inline-block">Read More →</a>
-    </article>
+    </article> -->
+    <article class="bg-white p-4 rounded-lg shadow">
+  <h3 class="font-semibold text-lg mb-2">Top 5 Tips for Faster Learning</h3>
+  <p class="text-gray-600">Discover scientifically proven strategies to study smarter...</p>
+  <a href="{% url 'blog:detail' slug='top-5-tips' %}" class="text-blue-500 mt-2 inline-block">Read More →</a>
+</article>
     <!-- Do 2-3 aur articles add kar do -->
   </div>
 </section>
@@ -541,15 +564,17 @@ body.dark-mode h6 {
     </details>
   </div>
 </section>
+
 <!-- 10. Mobile App Promotion -->
 <section id="mobile-app" class="bg-blue-50 py-12 text-center" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
   <h2 class="text-2xl font-bold mb-6">📱 Learn Anywhere</h2>
   <p class="mb-6">Download our app and study on the go!</p>
   <div class="flex justify-center gap-4">
-    <a href="#"><img src="{% static 'images/playstore.png' %}" alt="Play Store" class="h-12"></a>
-    <a href="#"><img src="{% static 'images/appstore.png' %}" alt="App Store" class="h-12"></a>
+    <a href="{% url 'downloads:playstore' %}"><img src="{% static 'images/playstore.png' %}" alt="Play Store" class="h-12"></a>
+    <a href="{% url 'downloads:appstore' %}"><img src="{% static 'images/appstore.png' %}" alt="App Store" class="h-12"></a>
   </div>
 </section>
+
 <!-- 8. Social Proof & Badges -->
 <section id="social-proof" class="bg-gray-100 py-10 text-center" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
   <h2 class="text-2xl font-bold mb-6">🌟 Trusted by Thousands</h2>
@@ -562,7 +587,7 @@ body.dark-mode h6 {
   <p class="mt-4 text-gray-700 font-semibold">✅ Trusted by 50,000+ learners</p>
 </section>
   <!-- Footer -->
-<footer class="bg-gray-900 text-white py-8">
+<!-- <footer class="bg-gray-900 text-white py-8">
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6 px-6">
     <div>
       <h3 class="font-bold mb-2">Quick Links</h3>
@@ -590,8 +615,38 @@ body.dark-mode h6 {
     </div>
   </div>
   <p class="text-center mt-6 text-gray-400">© 2025 Your Website. All Rights Reserved.</p>
-</footer>
+</footer> -->
 
+<!-- Footer -->
+<footer class="bg-gray-900 text-white py-8">
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 px-6">
+    <div>
+      <h3 class="font-bold mb-2">Quick Links</h3>
+      <ul>
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li><a href="{% url 'courses:list' %}">Courses</a></li>
+        <li><a href="{% url 'contact' %}">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="font-bold mb-2">Support</h3>
+      <ul>
+        <li><a href="{% url 'support:faq' %}">FAQ</a></li>
+        <li><a href="{% url 'support:refund_policy' %}">Refund Policy</a></li>
+        <li><a href="{% url 'support:privacy_policy' %}">Privacy Policy</a></li>
+      </ul>
+    </div>
+    <div class="text-center md:text-left">
+      <h3 class="font-bold mb-2">Follow Us</h3>
+      <div class="flex gap-3 justify-center md:justify-start">
+        <a href="https://facebook.com/yourpage" target="_blank"><img src="{% static 'images/facebook.png' %}" class="h-6"></a>
+        <a href="https://twitter.com/yourpage" target="_blank"><img src="{% static 'images/twitter.png' %}" class="h-6"></a>
+        <a href="https://linkedin.com/yourpage" target="_blank"><img src="{% static 'images/linkedin.png' %}" class="h-6"></a>
+      </div>
+    </div>
+  </div>
+  <p class="text-center mt-6 text-gray-400">© 2025 Your Website. All Rights Reserved.</p>
+</footer>
 
 <!-- Scroll To Top Button -->
 <button id="scrollTopBtn" aria-label="Scroll to top">↑</button>
