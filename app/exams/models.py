@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils.text import slugify
+# from courses.models import Course, TimeStampedModel, PublishableModel
 from courses.models import Course, TimeStampedModel, PublishableModel
+
 
 class Exam(TimeStampedModel, PublishableModel):
     EXAM_TYPE = [
@@ -41,6 +43,8 @@ class Question(TimeStampedModel):
         ("text", "Text"),
         ("boolean", "True/False"),
     ]
+    
+    
     exam = models.ForeignKey(Exam, on_delete=models.CASCADE, related_name="questions")
     text = models.TextField()
     question_type = models.CharField(max_length=20, choices=QUESTION_TYPE, default="single")

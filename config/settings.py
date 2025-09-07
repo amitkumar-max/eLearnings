@@ -251,6 +251,8 @@ INSTALLED_APPS = [
     "app.users",
     
 ]
+# ✅ settings.py
+AUTH_USER_MODEL = "users.CustomUser"
 
 # ----------------------------
 # Middleware
@@ -346,3 +348,12 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # Default auto field
 # ----------------------------
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+
+
+
+
+
+

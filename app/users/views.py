@@ -186,58 +186,258 @@
 
 
 
+# # app/users/views.py
+# from django.shortcuts import render, redirect
+# from django.contrib.auth.models import User
+# from django.contrib import messages
+# from django.contrib.auth import authenticate, login, logout
+
+# def signup_view(request):
+#     if request.method == "POST":
+#         full_name = request.POST.get("full_name")
+#         email = request.POST.get("email")
+#         password = request.POST.get("password")
+#         confirm_password = request.POST.get("confirm_password")
+
+#         if password != confirm_password:
+#             messages.error(request, "Passwords do not match!")
+#             return redirect("users:signup")
+
+#         if User.objects.filter(username=email).exists():
+#             messages.error(request, "User with this email already exists.")
+#             return redirect("users:signup")
+
+#         user = User.objects.create_user(
+#             username=email,
+#             email=email,
+#             password=password,
+#             first_name=full_name
+#         )
+#         messages.success(request, "Account created successfully! Please log in.")
+#         return redirect("users:login")
+
+#     return render(request, "users/signup.html")
+
+
+# def login_view(request):
+#     if request.method == "POST":
+#         email = request.POST.get("email")
+#         password = request.POST.get("password")
+#         user = authenticate(request, username=email, password=password)
+
+#         if user is not None:
+#             login(request, user)
+#             return redirect("home")
+#         else:
+#             messages.error(request, "Invalid email or password.")
+#             return redirect("users:login")
+
+#     return render(request, "users/login.html")
+
+
+# def logout_view(request):
+#     logout(request)
+#     return redirect("users:login")
+
+
+
+
+
+# from django.shortcuts import render, redirect
+# from django.contrib.auth import login, authenticate, logout
+# from django.contrib.auth.forms import AuthenticationForm
+# from django.contrib import messages
+# from .forms import CustomSignupForm
+# from .models import User
+
+# def signup_view(request):
+#     if request.method == 'POST':
+#         form = CustomSignupForm(request.POST)
+#         if form.is_valid():
+#             user = form.save(commit=False)
+#             user.username = user.email  # email as username
+#             user.save()
+#             login(request, user)
+#             return redirect('users:role_redirect')
+#         else:
+#             messages.error(request, "Please correct the errors below.")
+#     else:
+#         form = CustomSignupForm()
+#     return render(request, 'users/signup.html', {'form': form})
+
+# def login_view(request):
+#     if request.method == 'POST':
+#         form = AuthenticationForm(data=request.POST)
+#         if form.is_valid():
+#             user = form.get_user()
+#             login(request, user)
+#             return redirect('users:role_redirect')
+#         else:
+#             messages.error(request, "Invalid credentials")
+#     else:
+#         form = AuthenticationForm()
+#     return render(request, 'users/login.html', {'form': form})
+
+# def logout_view(request):
+#     logout(request)
+#     return redirect('users:login')
+
+# def role_redirect(request):
+#     """Redirect users based on their role after login/signup"""
+#     if not request.user.is_authenticated:
+#         return redirect('users:login')
+
+#     if request.user.role == "admin":
+#         return redirect('admins:dashboard')
+#     elif request.user.role == "teacher":
+#         return redirect('teachers:dashboard')
+#     else:
+#         return redirect('students:dashboard')
+
+
+
+
+# from django.shortcuts import render, redirect
+# from django.contrib.auth import login, authenticate, logout
+# from django.contrib.auth.forms import AuthenticationForm
+# from django.contrib import messages
+# from .forms import CustomSignupForm
+
+# def signup_view(request):
+#     if request.method == 'POST':
+#         form = CustomSignupForm(request.POST)
+#         if form.is_valid():
+#             user = form.save(commit=False)
+#             user.username = user.email  # email as username
+#             user.save()
+#             login(request, user)
+#             return redirect('users:role_redirect')
+#         else:
+#             messages.error(request, "Please correct the errors below.")
+#     else:
+#         form = CustomSignupForm()
+#     return render(request, 'users/signup.html', {'form': form})
+
+# def login_view(request):
+#     if request.method == 'POST':
+#         form = AuthenticationForm(request, data=request.POST)
+#         if form.is_valid():
+#             user = form.get_user()
+#             login(request, user)
+#             return redirect('users:role_redirect')
+#         else:
+#             messages.error(request, "Invalid credentials")
+#     else:
+#         form = AuthenticationForm()
+#     return render(request, 'users/login.html', {'form': form})
+
+# def logout_view(request):
+#     logout(request)
+#     return redirect('users:login')
+
+# def role_redirect(request):
+#     if not request.user.is_authenticated:
+#         return redirect('users:login')
+
+#     if request.user.role == "admin":
+#         return redirect('admins:dashboard')
+#     elif request.user.role == "teacher":
+#         return redirect('teachers:dashboard')
+#     return redirect('students:dashboard')
+
+
+
+
 # app/users/views.py
 from django.shortcuts import render, redirect
-from django.contrib.auth.models import User
-from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
+from django.contrib.auth import get_user_model
+from django.urls import reverse
 
+User = get_user_model()
+
+# ✅ Signup View
 def signup_view(request):
     if request.method == "POST":
         full_name = request.POST.get("full_name")
         email = request.POST.get("email")
         password = request.POST.get("password")
         confirm_password = request.POST.get("confirm_password")
+        role = request.POST.get("role")
 
         if password != confirm_password:
-            messages.error(request, "Passwords do not match!")
-            return redirect("users:signup")
+            messages.error(request, "Passwords do not match.")
+            return render(request, "signup.html")
 
-        if User.objects.filter(username=email).exists():
-            messages.error(request, "User with this email already exists.")
-            return redirect("users:signup")
+        if User.objects.filter(email=email).exists():
+            messages.error(request, "Email is already registered.")
+            return render(request, "signup.html")
 
         user = User.objects.create_user(
-            username=email,
+            username=email,  # AbstractUser ke liye zaroori
             email=email,
             password=password,
-            first_name=full_name
+            full_name=full_name,
+            role=role
         )
-        messages.success(request, "Account created successfully! Please log in.")
-        return redirect("users:login")
+        login(request, user)
+        return redirect_user_based_on_role(user)
 
-    return render(request, "users/signup.html")
+    return render(request, "signup.html")
 
 
+# ✅ Login View
 def login_view(request):
     if request.method == "POST":
         email = request.POST.get("email")
         password = request.POST.get("password")
+
         user = authenticate(request, username=email, password=password)
 
-        if user is not None:
+        if user:
             login(request, user)
-            return redirect("home")
+            return redirect_user_based_on_role(user)
         else:
             messages.error(request, "Invalid email or password.")
-            return redirect("users:login")
+            return render(request, "login.html")
 
-    return render(request, "users/login.html")
+    return render(request, "login.html")
 
 
+# ✅ Logout View
 def logout_view(request):
     logout(request)
     return redirect("users:login")
+
+
+# ✅ Role-based Redirect Function
+def redirect_user_based_on_role(user):
+    if user.role == "student":
+        return redirect(reverse("students:dashboard"))
+    elif user.role == "teacher":
+        return redirect(reverse("teachers:dashboard"))
+    elif user.role == "admin":
+        return redirect(reverse("admins:dashboard"))
+    return redirect("/")  # fallback
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

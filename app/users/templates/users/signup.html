@@ -63,25 +63,32 @@
 
 
 <body>
-  <div class="card">
-    <h2>Create Account</h2>
+<div class="card">
+  <h2>Create Account</h2>
+  
+  <form method="POST">
+    {% csrf_token %}
+    <input type="text" name="full_name" placeholder="Full Name" required>
+    <input type="email" name="email" placeholder="Email" required>
+    <input type="password" name="password" placeholder="Password" required>
+    <input type="password" name="confirm_password" placeholder="Confirm Password" required>
 
-    <form method="POST">
-      {% csrf_token %}
-      <input type="text" name="full_name" placeholder="Full Name" required>
-      <input type="email" name="email" placeholder="Email" required>
-      <input type="password" name="password" placeholder="Password" required>
-      <input type="password" name="confirm_password" placeholder="Confirm Password" required>
-      <button type="submit">Sign Up</button>
-    </form>
+    <!-- 🎯 Role Selection -->
+    <select name="role" required>
+      <option value="" disabled selected>Select Role</option>
+      <option value="student">Student</option>
+      <option value="teacher">Teacher</option>
+      <option value="admin">Admin</option>
+    </select>
 
-    <div class="links">
-      <a href="{% url 'users:login' %}">Already have an account? Login</a>
-    </div>
+    <button type="submit">Sign Up</button>
+  </form>
+
+  <div class="links">
+    <a href="{% url 'users:login' %}">Already have an account? Login</a>
   </div>
+</div>
+
+
 </body>
-
-
-
-
 </html>
