@@ -346,14 +346,15 @@
 #     return redirect('students:dashboard')
 
 
-
-
 # app/users/views.py
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.urls import reverse
+from django.core.exceptions import ValidationError
+
+from app.users.services.user_service import create_user
 
 User = get_user_model()
 
@@ -366,25 +367,28 @@ def signup_view(request):
         confirm_password = request.POST.get("confirm_password")
         role = request.POST.get("role")
 
+        # Password Match Check
         if password != confirm_password:
             messages.error(request, "Passwords do not match.")
-            return render(request, "signup.html")
+            return render(request, "users/signup.html")
 
-        if User.objects.filter(email=email).exists():
-            messages.error(request, "Email is already registered.")
-            return render(request, "signup.html")
+        try:
+            # ✅ Call Service Layer Function
+            user = create_user(full_name, email, password)
+            user.role = role  # role assign karo
+            user.save()
 
-        user = User.objects.create_user(
-            username=email,  # AbstractUser ke liye zaroori
-            email=email,
-            password=password,
-            full_name=full_name,
-            role=role
-        )
-        login(request, user)
-        return redirect_user_based_on_role(user)
+            login(request, user)
+            return redirect_user_based_on_role(user)
 
-    return render(request, "signup.html")
+        except ValidationError as e:
+            messages.error(request, str(e))
+            return render(request, "users/signup.html")
+        except Exception as e:
+            messages.error(request, "An unexpected error occurred.")
+            return render(request, "users/signup.html")
+
+    return render(request, "users/signup.html")
 
 
 # ✅ Login View
@@ -400,9 +404,9 @@ def login_view(request):
             return redirect_user_based_on_role(user)
         else:
             messages.error(request, "Invalid email or password.")
-            return render(request, "login.html")
+            return render(request, "users/login.html")
 
-    return render(request, "login.html")
+    return render(request, "users/login.html")
 
 
 # ✅ Logout View
@@ -413,31 +417,9 @@ def logout_view(request):
 
 # ✅ Role-based Redirect Function
 def redirect_user_based_on_role(user):
-    if user.role == "student":
-        return redirect(reverse("students:dashboard"))
-    elif user.role == "teacher":
-        return redirect(reverse("teachers:dashboard"))
-    elif user.role == "admin":
-        return redirect(reverse("admins:dashboard"))
-    return redirect("/")  # fallback
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    role_routes = {
+        "student": "students:dashboard",
+        "teacher": "teachers:dashboard",
+        "admin": "admins:dashboard",
+    }
+    return redirect(reverse(role_routes.get(user.role, "home")))

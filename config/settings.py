@@ -251,7 +251,7 @@ INSTALLED_APPS = [
     "app.users",
     
 ]
-# ✅ settings.py
+# ✅ settings.py 
 AUTH_USER_MODEL = "users.CustomUser"
 
 # ----------------------------
