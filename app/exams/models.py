@@ -1,8 +1,9 @@
 from django.db import models
 from django.utils.text import slugify
 # from courses.models import Course, TimeStampedModel, PublishableModel
-from courses.models import Course, TimeStampedModel, PublishableModel
 
+# exams/models.py
+from app.courses.models import Course, TimeStampedModel, PublishableModel
 
 class Exam(TimeStampedModel, PublishableModel):
     EXAM_TYPE = [
