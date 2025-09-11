@@ -1,5 +1,6 @@
 Django>=5.0
 gunicorn
-psycopg2-binary>=2.9
-dj-database-url
 whitenoise
+dj-database-url
+psycopg2-binary>=2.9
+python-decouple
