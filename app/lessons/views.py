@@ -6,3 +6,9 @@ class LessonDetailView(View):
     def get(self, request, pk):
         lesson = get_object_or_404(Lesson, pk=pk)
         return render(request, 'lessons/lesson_detail.html', {'lesson': lesson})
+
+
+
+
+
+

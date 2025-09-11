@@ -1,7 +1,14 @@
 # app/users/services/user_service.py
+
+
+
+
+
+
+
 from django.contrib.auth.hashers import make_password
 from django.core.exceptions import ValidationError
-from app.users.models import User
+from app.users.templates.users.models import User
 
 def create_user(full_name, email, password):
     """
@@ -17,3 +24,19 @@ def create_user(full_name, email, password):
     )
     user.save()
     return user
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

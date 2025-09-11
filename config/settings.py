@@ -253,6 +253,7 @@ INSTALLED_APPS = [
 ]
 # ✅ settings.py 
 AUTH_USER_MODEL = "users.CustomUser"
+# user authorised layers ... " 
 
 # ----------------------------
 # Middleware
@@ -274,7 +275,7 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'config.urls'
 
 # ----------------------------
-# Templates
+# Templates   
 # ----------------------------
 TEMPLATES = [
     {
@@ -322,7 +323,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # ----------------------------
-# Internationalization
+# Internationalization  
 # ----------------------------
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'Asia/Kolkata'
@@ -348,6 +349,38 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # Default auto field
 # ----------------------------
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
