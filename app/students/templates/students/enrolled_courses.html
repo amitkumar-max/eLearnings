@@ -1,13 +1,52 @@
-
-
 <!-- enrolled_courses.html -->
 {% extends 'base_student.html' %}
+
 {% block title %}My Courses{% endblock %}
+
+{% block extra_head %}
+<style>
+  .enrolled-container {
+    max-width: 900px;
+    margin: 2rem auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+  }
+  .course-card {
+    background: #ffffff;
+    padding: 1.2rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+    text-align: center;
+  }
+  .course-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+  }
+  .course-card a {
+    text-decoration: none;
+    color: #2563eb;
+    font-weight: 600;
+    font-size: 1.1rem;
+    display: inline-block;
+    transition: color 0.2s ease;
+  }
+  .course-card a:hover {
+    color: #1e40af;
+  }
+</style>
+{% endblock %}
+
 {% block content %}
-<h2 class="text-xl font-semibold mb-4">Enrolled Courses</h2>
-<ul>
-{% for course in enrolled_courses %}
-<li><a href="{% url 'course_detail' course.id %}">{{ course.name }}</a></li>
-{% endfor %}
-</ul>
+<h2 class="text-2xl font-bold text-center mb-6">My Courses</h2>
+<div class="enrolled-container">
+  {% for course in enrolled_courses %}
+  <div class="course-card">
+    <a href="{% url 'course_detail' course.id %}">{{ course.name }}</a>
+  </div>
+  {% empty %}
+  <p class="text-center text-gray-500 col-span-full">You are not enrolled in any courses yet.</p>
+  {% endfor %}
+</div>
 {% endblock %}

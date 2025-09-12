@@ -1,168 +1,62 @@
 <!-- templates/admin/settings.html -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Settings</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f6f8;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            max-width: 900px;
-            margin: 50px auto;
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        h2 {
-            text-align: center;
-            color: #333;
-        }
-        .tabs {
-            display: flex;
-            justify-content: space-around;
-            margin-bottom: 30px;
-            border-bottom: 1px solid #ccc;
-        }
-        .tab {
-            padding: 10px 20px;
-            cursor: pointer;
-            font-weight: bold;
-            color: #555;
-            border-bottom: 3px solid transparent;
-            transition: 0.3s;
-        }
-        .tab.active {
-            border-bottom: 3px solid #007bff;
-            color: #007bff;
-        }
-        .tab-content {
-            display: none;
-        }
-        .tab-content.active {
-            display: block;
-        }
-        label {
-            display: block;
-            margin-top: 15px;
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: #555;
-        }
-        input[type="text"],
-        input[type="email"],
-        input[type="password"],
-        select {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        button {
-            margin-top: 20px;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 5px;
-            background-color: #007bff;
-            color: #fff;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        .logout-btn {
-            background-color: #dc3545;
-        }
-        .logout-btn:hover {
-            background-color: #a71d2a;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h2>Admin Settings</h2>
+{% extends 'base_admin.html' %}
 
-        <!-- Tabs -->
-        <div class="tabs">
-            <div class="tab active" onclick="showTab('profile')">Profile</div>
-            <div class="tab" onclick="showTab('edit')">Edit Profile</div>
-            <div class="tab" onclick="showTab('appearance')">Appearance</div>
-            <div class="tab" onclick="showTab('logout')">Logout</div>
-        </div>
+{% block title %}Admin Settings{% endblock %}
 
-        <!-- Profile Tab -->
-        <div id="profile" class="tab-content active">
-            <p><strong>Admin Name:</strong> {{ admin.name }}</p>
-            <p><strong>Email:</strong> {{ admin.email }}</p>
-            <p><strong>Role:</strong> Admin</p>
-        </div>
+{% block extra_head %}
+<style>
+  .settings-container {
+    max-width: 700px;
+    margin: 2rem auto;
+    background: #ffffff;
+    padding: 3rem;
+    border-radius: 16px;
+    box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+  }
+  .settings-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #111827;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  .settings-menu {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .settings-menu li {
+    background: #f9fafb;
+    border: 1px solid #d1d5db;
+    border-radius: 12px;
+    padding: 16px 20px;
+    transition: background 0.2s ease, transform 0.1s ease;
+  }
+  .settings-menu li:hover {
+    background-color: #e5e7eb;
+    transform: translateX(2px);
+  }
+  .settings-menu a {
+    text-decoration: none;
+    color: #1e3a8a;
+    font-weight: 600;
+  }
+</style>
+{% endblock %}
 
-        <!-- Edit Profile Tab -->
-        <div id="edit" class="tab-content">
-            <form method="POST">
-                {% csrf_token %}
-                <label for="name">Full Name</label>
-                <input type="text" id="name" name="name" value="{{ admin.name }}" placeholder="Enter full name">
-
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" value="{{ admin.email }}" placeholder="Enter email">
-
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" placeholder="Enter new password">
-
-                <button type="submit">Save Changes</button>
-            </form>
-        </div>
-
-        <!-- Appearance Tab -->
-        <div id="appearance" class="tab-content">
-            <form method="POST">
-                {% csrf_token %}
-                <label for="theme">Theme</label>
-                <select id="theme" name="theme">
-                    <option value="light" {% if admin.theme == 'light' %}selected{% endif %}>Light</option>
-                    <option value="dark" {% if admin.theme == 'dark' %}selected{% endif %}>Dark</option>
-                </select>
-
-                <label for="sidebar">Sidebar Style</label>
-                <select id="sidebar" name="sidebar">
-                    <option value="default" {% if admin.sidebar == 'default' %}selected{% endif %}>Default</option>
-                    <option value="compact" {% if admin.sidebar == 'compact' %}selected{% endif %}>Compact</option>
-                </select>
-
-                <button type="submit">Save Appearance</button>
-            </form>
-        </div>
-
-        <!-- Logout Tab -->
-        <div id="logout" class="tab-content">
-            <p>Click below to logout from the admin panel:</p>
-            <form action="{% url 'logout' %}" method="POST">
-                {% csrf_token %}
-                <button type="submit" class="logout-btn">Logout</button>
-            </form>
-        </div>
-    </div>
-
-    <script>
-        function showTab(tabId) {
-            const tabs = document.querySelectorAll('.tab');
-            const contents = document.querySelectorAll('.tab-content');
-            tabs.forEach(tab => tab.classList.remove('active'));
-            contents.forEach(content => content.classList.remove('active'));
-
-            document.querySelector(`.tab[onclick="showTab('${tabId}')"]`).classList.add('active');
-            document.getElementById(tabId).classList.add('active');
-        }
-    </script>
-</body>
-</html>
+{% block content %}
+<div class="settings-container">
+  <h2 class="settings-title">Admin Settings</h2>
+  <ul class="settings-menu">
+    <li><a href="{% url 'edit_profile_admin' %}">Edit Profile</a></li>
+    <li><a href="{% url 'manage_users' %}">Manage Users</a></li>
+    <li><a href="{% url 'manage_courses_admin' %}">Manage Courses</a></li>
+    <li><a href="{% url 'system_settings' %}">System Settings</a></li>
+    <li><a href="{% url 'change_password' %}">Change Password</a></li>
+    <li><a href="{% url 'logout' %}">Logout</a></li>
+    <li><a href="{% url 'dashboard_admin' %}">Back to Dashboard</a></li>
+  </ul>
+</div>
+{% endblock %}

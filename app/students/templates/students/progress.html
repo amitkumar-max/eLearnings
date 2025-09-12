@@ -1,7 +1,41 @@
-{% extends "base.html" %}
+<!-- templates/student/progress.html -->
+{% extends "base_student.html" %}
+
 {% block title %}Progress{% endblock %}
+
+{% block extra_head %}
+<style>
+  .progress-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    text-align: center;
+  }
+  .progress-container h2 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #1f2937;
+    margin-bottom: 1.5rem;
+  }
+  .progress-detail {
+    font-size: 1.1rem;
+    color: #374151;
+    margin-bottom: 1rem;
+  }
+  .progress-value {
+    font-weight: 600;
+    color: #2563eb;
+  }
+</style>
+{% endblock %}
+
 {% block content %}
-<h2 class="text-xl font-bold mb-4">Your Progress</h2>
-<p>Completed Lessons: {{ completed_lessons }}</p>
-<p>Score: {{ score }}%</p>
+<div class="progress-container">
+  <h2>Your Progress</h2>
+  <p class="progress-detail">Completed Lessons: <span class="progress-value">{{ completed_lessons }}</span></p>
+  <p class="progress-detail">Score: <span class="progress-value">{{ score }}%</span></p>
+</div>
 {% endblock %}

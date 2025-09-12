@@ -1,11 +1,57 @@
-<!-- notifications.html -->
+<!-- templates/student/notifications.html -->
 {% extends 'base_student.html' %}
+
 {% block title %}Notifications{% endblock %}
-{% block content %}
-<h2 class="text-xl font-semibold mb-4">Notifications</h2>
-<ul>
-{% for notification in notifications %}
-<li>{{ notification.text }}</li>
-{% endfor %}
-</ul>
+
+{% block extra_head %}
+<style>
+  .notifications-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  }
+  .notifications-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #1f2937;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  .notifications-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .notification-card {
+    background-color: #f9fafb;
+    padding: 14px 16px;
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+    font-size: 1rem;
+    color: #374151;
+    transition: background 0.2s ease, transform 0.1s ease;
+  }
+  .notification-card:hover {
+    background-color: #f3f4f6;
+    transform: translateX(2px);
+  }
+  .empty-msg {
+    text-align: center;
+    padding: 16px;
+    color: #6b7280;
+    font-style: italic;
+  }
+</style>
 {% endblock %}
+
+{% block content %}
+<div class="notifications-container">
+  <h2 class="notifications-title">Notifications</h2>
+  <div class="notifications-list">
+    {% for notification in notifications %}
+      <div class="notification-card">{{ notification.text }}</div>
+    {% empty %}
+      <div class="empty-msg">No notifications available

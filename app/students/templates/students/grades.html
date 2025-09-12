@@ -1,12 +1,74 @@
-<!-- grades.html -->
+<!-- templates/student/grades.html -->
 {% extends 'base_student.html' %}
+
 {% block title %}Grades{% endblock %}
+
+{% block extra_head %}
+<style>
+  .grades-container {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  }
+  .grades-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #1f2937;
+    margin-bottom: 20px;
+  }
+  .grades-table {
+    width: 100%;
+    border-collapse: collapse;
+    overflow: hidden;
+    border-radius: 12px;
+  }
+  .grades-table thead {
+    background-color: #2563eb;
+    color: white;
+  }
+  .grades-table th, 
+  .grades-table td {
+    padding: 12px 16px;
+    text-align: left;
+  }
+  .grades-table tbody tr:nth-child(even) {
+    background-color: #f9fafb;
+  }
+  .grades-table tbody tr:hover {
+    background-color: #f3f4f6;
+  }
+  .empty-msg {
+    text-align: center;
+    padding: 16px;
+    color: #6b7280;
+    font-style: italic;
+  }
+</style>
+{% endblock %}
+
 {% block content %}
-<h2 class="text-xl font-semibold mb-4">My Grades</h2>
-<table class="table">
-<tr><th>Course</th><th>Grade</th></tr>
-{% for grade in grades %}
-<tr><td>{{ grade.course.name }}</td><td>{{ grade.value }}</td></tr>
-{% endfor %}
-</table>
+<div class="grades-container">
+  <h2 class="grades-title">My Grades</h2>
+  <table class="grades-table">
+    <thead>
+      <tr>
+        <th>Course</th>
+        <th>Grade</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for grade in grades %}
+      <tr>
+        <td>{{ grade.course.name }}</td>
+        <td><strong>{{ grade.value }}</strong></td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="2" class="empty-msg">No grades available yet.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
 {% endblock %}

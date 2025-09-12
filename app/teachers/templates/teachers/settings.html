@@ -1,23 +1,23 @@
-<!-- templates/student/settings.html -->
-{% extends 'base_student.html' %}
+<!-- templates/teacher/settings.html -->
+{% extends 'base_teacher.html' %}
 
 {% block title %}Settings{% endblock %}
 
 {% block extra_head %}
 <style>
   .settings-container {
-    max-width: 600px;
+    max-width: 650px;
     margin: 2rem auto;
     background: #ffffff;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    padding: 2.5rem;
+    border-radius: 14px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.06);
   }
   .settings-title {
-    font-size: 1.8rem;
+    font-size: 2rem;
     font-weight: bold;
     color: #1f2937;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.8rem;
     text-align: center;
   }
   .settings-menu {
@@ -25,22 +25,22 @@
     padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 14px;
   }
   .settings-menu li {
-    background: #f9fafb;
-    border: 1px solid #e5e7eb;
+    background: #f3f4f6;
+    border: 1px solid #d1d5db;
     border-radius: 10px;
-    padding: 12px 16px;
+    padding: 14px 18px;
     transition: background 0.2s ease, transform 0.1s ease;
   }
   .settings-menu li:hover {
-    background-color: #f3f4f6;
+    background-color: #e5e7eb;
     transform: translateX(2px);
   }
   .settings-menu a {
     text-decoration: none;
-    color: #2563eb;
+    color: #1d4ed8;
     font-weight: 600;
   }
 </style>
@@ -50,10 +50,11 @@
 <div class="settings-container">
   <h2 class="settings-title">Settings</h2>
   <ul class="settings-menu">
-    <li><a href="{% url 'edit_profile' %}">Edit Profile</a></li>
-    <li><a href="{% url 'logout' %}">Logout</a></li>
+    <li><a href="{% url 'edit_profile_teacher' %}">Edit Profile</a></li>
+    <li><a href="{% url 'manage_courses' %}">Manage Courses</a></li>
     <li><a href="{% url 'change_password' %}">Change Password</a></li>
-    <li><a href="{% url 'dashboard' %}">Back to Dashboard</a></li>
+    <li><a href="{% url 'logout' %}">Logout</a></li>
+    <li><a href="{% url 'dashboard_teacher' %}">Back to Dashboard</a></li>
   </ul>
 </div>
 {% endblock %}
