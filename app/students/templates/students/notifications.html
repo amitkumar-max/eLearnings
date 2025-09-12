@@ -1,0 +1,11 @@
+<!-- notifications.html -->
+{% extends 'base_student.html' %}
+{% block title %}Notifications{% endblock %}
+{% block content %}
+<h2 class="text-xl font-semibold mb-4">Notifications</h2>
+<ul>
+{% for notification in notifications %}
+<li>{{ notification.text }}</li>
+{% endfor %}
+</ul>
+{% endblock %}

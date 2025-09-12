@@ -1,0 +1,11 @@
+<!-- messages.html -->
+{% extends 'base_student.html' %}
+{% block title %}Messages{% endblock %}
+{% block content %}
+<h2 class="text-xl font-semibold mb-4">Messages</h2>
+<div class="messages">
+{% for message in messages %}
+<div class="message-card">{{ message.content }}</div>
+{% endfor %}
+</div>
+{% endblock %}

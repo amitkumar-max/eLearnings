@@ -1,0 +1,54 @@
+<!-- course_detail.html -->
+{% extends 'base_student.html' %}
+
+{% block title %}{{ course.name }}{% endblock %}
+
+{% block extra_head %}
+<style>
+  .course-detail {
+    background: #ffffff;
+    max-width: 700px;
+    margin: 2rem auto;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  }
+  .course-detail h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #1e293b;
+    text-align: center;
+  }
+  .course-detail p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #475569;
+    margin-bottom: 2rem;
+    text-align: justify;
+  }
+  .course-detail .btn-primary {
+    display: block;
+    width: 100%;
+    background: #2563eb;
+    color: white;
+    text-align: center;
+    font-weight: 600;
+    padding: 0.8rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    transition: background 0.3s ease;
+  }
+  .course-detail .btn-primary:hover {
+    background: #1e40af;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="course-detail">
+  <h2>{{ course.name }}</h2>
+  <p>{{ course.description }}</p>
+  <a href="{% url 'enroll_course' course.id %}" class="btn-primary">Enroll Now</a>
+</div>
+{% endblock %}

@@ -1,0 +1,59 @@
+<!-- announcements.html -->
+{% extends 'base_student.html' %}
+
+{% block title %}Announcements{% endblock %}
+
+{% block extra_head %}
+<style>
+  .announcements-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .announcement-card {
+    background: #ffffff;
+    border-left: 5px solid #2563eb;
+    padding: 1rem 1.5rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06);
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+  }
+  .announcement-card:hover {
+    transform: translateX(5px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+  }
+  .announcement-card h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 0.25rem;
+  }
+  .announcement-card .date {
+    font-size: 0.85rem;
+    color: #64748b;
+    margin-bottom: 0.5rem;
+  }
+  .announcement-card p {
+    font-size: 0.95rem;
+    color: #475569;
+    line-height: 1.5;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<h2 class="text-2xl font-bold text-center mb-6">Announcements</h2>
+<div class="announcements-container">
+  {% for ann in announcements %}
+  <div class="announcement-card">
+    <h3>{{ ann.title }}</h3>
+    <div class="date">📅 {{ ann.date }}</div>
+    <p>{{ ann.content|default:"No description provided." }}</p>
+  </div>
+  {% empty %}
+  <p class="text-center text-gray-500">No announcements at the moment.</p>
+  {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,75 @@
+<!-- assignments.html -->
+{% extends 'base_student.html' %}
+
+{% block title %}Assignments{% endblock %}
+
+{% block extra_head %}
+<style>
+  .assignments-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+  .assignment-card {
+    background: #ffffff;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .assignment-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  }
+  .assignment-card h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 0.5rem;
+  }
+  .assignment-card p {
+    font-size: 0.9rem;
+    color: #475569;
+    margin-bottom: 1rem;
+  }
+  .assignment-card .due-date {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #dc2626;
+    margin-bottom: 1rem;
+  }
+  .assignment-card a {
+    text-align: center;
+    background: #2563eb;
+    color: white;
+    padding: 0.6rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.3s ease;
+  }
+  .assignment-card a:hover {
+    background: #1e40af;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<h2 class="text-2xl font-bold text-center">Assignments</h2>
+<div class="assignments-container">
+  {% for assignment in assignments %}
+  <div class="assignment-card">
+    <h3>{{ assignment.title }}</h3>
+    <p>{{ assignment.description|truncatewords:15 }}</p>
+    <div class="due-date">Due: {{ assignment.due_date }}</div>
+    <a href="{% url 'assignment_detail' assignment.id %}">View Details</a>
+  </div>
+  {% empty %}
+  <p class="text-center text-gray-500 col-span-full">No assignments available.</p>
+  {% endfor %}
+</div>
+{% endblock %}

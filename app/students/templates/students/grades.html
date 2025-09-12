@@ -1,0 +1,12 @@
+<!-- grades.html -->
+{% extends 'base_student.html' %}
+{% block title %}Grades{% endblock %}
+{% block content %}
+<h2 class="text-xl font-semibold mb-4">My Grades</h2>
+<table class="table">
+<tr><th>Course</th><th>Grade</th></tr>
+{% for grade in grades %}
+<tr><td>{{ grade.course.name }}</td><td>{{ grade.value }}</td></tr>
+{% endfor %}
+</table>
+{% endblock %}

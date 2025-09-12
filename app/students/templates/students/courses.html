@@ -1,12 +1,84 @@
-{% extends "base.html" %}
+{% extends "base/base_student.html" %}
+
 {% block title %}My Courses{% endblock %}
+
+{% block extra_head %}
+<style>
+  .courses-container {
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    padding: 1rem;
+  }
+  .course-card {
+    background: #ffffff;
+    border-radius: 1rem;
+    padding: 1.2rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .course-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+  }
+  .course-card h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 0.5rem;
+  }
+  .course-status {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #475569;
+    margin-bottom: 1rem;
+  }
+  .btn-secondary {
+    background: #e2e8f0;
+    color: #0f172a;
+    text-align: center;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    transition: background 0.3s ease;
+  }
+  .btn-secondary:hover {
+    background: #cbd5e1;
+  }
+  .empty-state {
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #475569;
+    background: #f1f5f9;
+    padding: 2rem;
+    border-radius: 0.8rem;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+  }
+</style>
+{% endblock %}
+
 {% block content %}
-<h2 class="text-xl font-bold mb-4">Enrolled Courses</h2>
-<ul>
-    {% for course in courses %}
-        <li>{{ course.name }} - {{ course.status }}</li>
-    {% empty %}
-        <li>No courses enrolled yet.</li>
-    {% endfor %}
-</ul>
+<h2 class="text-2xl font-bold mb-6 text-center">My Courses</h2>
+
+{% if courses %}
+<div class="courses-container">
+  {% for course in courses %}
+    <div class="course-card">
+      <h3>{{ course.name }}</h3>
+      <p class="course-status">Status: {{ course.status }}</p>
+      <a href="{% url 'course_detail' course.id %}" class="btn-secondary">View Details</a>
+    </div>
+  {% endfor %}
+</div>
+{% else %}
+  <div class="empty-state">
+    <p>No courses enrolled yet.</p>
+  </div>
+{% endif %}
 {% endblock %}

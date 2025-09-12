@@ -1,0 +1,69 @@
+<!-- templates/base/base_student.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Student Panel{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/student.css' %}">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f1f5f9;
+      color: #1e293b;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    main {
+      flex: 1;
+      padding: 1.5rem;
+      background: #f8fafc;
+      border-top-left-radius: 1rem;
+      border-bottom-left-radius: 1rem;
+      box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.05);
+    }
+    /* Smooth hover effects for sidebar links */
+    .sidebar a {
+      display: block;
+      padding: 0.75rem 1rem;
+      color: #334155;
+      border-radius: 0.5rem;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    .sidebar a:hover, .sidebar a.active {
+      background: #2563eb;
+      color: #ffffff;
+    }
+    /* Responsive layout */
+    .flex {
+      display: flex;
+      flex: 1;
+    }
+    @media (max-width: 768px) {
+      .flex {
+        flex-direction: column;
+      }
+      main {
+        border-radius: 0;
+      }
+    }
+  </style>
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+  {% include 'partials/navbar.html' %}
+
+  <div class="flex">
+    {% include 'partials/sidebar.html' %}
+    <main>
+      {% block content %}{% endblock %}
+    </main>
+  </div>
+
+  {% include 'partials/footer.html' %}
+  {% block extra_js %}{% endblock %}
+</body>
+</html>

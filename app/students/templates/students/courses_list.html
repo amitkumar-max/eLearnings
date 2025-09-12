@@ -1,0 +1,70 @@
+<!-- courses_list.html -->
+{% extends 'base_student.html' %}
+
+{% block title %}Available Courses{% endblock %}
+
+{% block extra_head %}
+<style>
+  .courses-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+  .course-card {
+    background: #ffffff;
+    border-radius: 1rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+  }
+  .course-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+  }
+  .course-card h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #1e293b;
+  }
+  .course-card p {
+    font-size: 0.95rem;
+    color: #475569;
+    margin-bottom: 1rem;
+    flex-grow: 1;
+  }
+  .course-card .btn {
+    display: inline-block;
+    text-align: center;
+    background: #2563eb;
+    color: white;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    transition: background 0.3s ease;
+  }
+  .course-card .btn:hover {
+    background: #1e40af;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<h2 class="text-2xl font-bold text-center">Available Courses</h2>
+<div class="courses-container">
+  {% for course in courses %}
+  <div class="course-card">
+    <h3>{{ course.name }}</h3>
+    <p>{{ course.description|truncatewords:20 }}</p>
+    <a href="{% url 'course_detail' course.id %}" class="btn">View Details</a>
+  </div>
+  {% empty %}
+  <p class="text-center text-gray-500 col-span-full">No courses available right now.</p>
+  {% endfor %}
+</div>
+{% endblock %}
