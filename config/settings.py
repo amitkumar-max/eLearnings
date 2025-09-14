@@ -45,12 +45,12 @@ INSTALLED_APPS = [
     # 'app.courses',  # ✅ ye hona chahiye exact path ke sath
       # ✅ Custom Apps
     "app.admins",
-    "app.courses",
-    "app.exams",
-    "app.lessons",
-    "app.notifications",
-    "app.payments",
-    "app.progress",
+    # "app.courses",
+    # "app.exams",
+    # "app.lessons",
+    # "app.notifications",
+    # "app.payments",
+    # "app.progress",
     "app.students",
     "app.teachers",
     "app.users",
