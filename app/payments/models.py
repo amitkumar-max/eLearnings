@@ -1,7 +1,9 @@
 from django.db import models
 from django.conf import settings
 from django.utils import timezone
-from courses.models import Course, TimeStampedModel
+
+# Corrected import path
+from app.courses.models import Course, TimeStampedModel
 
 class Order(TimeStampedModel):
     ORDER_STATUS = [
@@ -41,7 +43,7 @@ class Transaction(TimeStampedModel):
     processed_at = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
-        return f"Txn #{self.pk} • Order {self.order_id} • {self.status}"
+        return f"Txn #{self.pk} • Order {self.order.pk} • {self.status}"
 
     def mark_success(self, payload=None):
         self.status = "success"

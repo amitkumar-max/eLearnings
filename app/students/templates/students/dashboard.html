@@ -148,14 +148,25 @@ body.dark-mode .dashboard-card {
   <!-- Sidebar -->
   <aside id="sidebar" class="sidebar">
     <h2 class="sidebar-title">📚 Student Panel</h2>
-    <nav class="sidebar-nav">
+    <!-- <nav class="sidebar-nav">
       <a href="#">🏠 Dashboard</a>
       <a href="#">📖 My Courses</a>
       <a href="#">📝 Assignments</a>
       <a href="#">📊 Progress</a>
       <a href="#">💬 Discussions</a>
       <a href="#">⚙️ Settings</a>
-    </nav>
+    </nav> -->
+ 
+<nav class="sidebar-nav">
+    <a href="{% url 'students:dashboard' %}">🏠 Dashboard</a>
+    <a href="{% url 'students:my_courses' %}">📖 My Courses</a>
+    <a href="{% url 'students:assignments' %}">📝 Assignments</a>
+    <a href="{% url 'students:progress' %}">📊 Progress</a>
+    <a href="{% url 'students:discussions' %}">💬 Discussions</a>
+    <a href="{% url 'students:settings' %}">⚙️ Settings</a>
+</nav>
+
+  
   </aside>
 
   <!-- Main Content -->

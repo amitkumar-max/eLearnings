@@ -1,0 +1,73 @@
+{% extends "base_teacher.html" %}
+{% block title %}Profile{% endblock %}
+{% block content %}
+<style>
+    .profile-container {
+        max-width: 600px;
+        margin: 0 auto;
+        background: #ffffff;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .profile-header {
+        text-align: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .profile-header h2 {
+        font-size: 1.8rem;
+        font-weight: bold;
+        color: #2c3e50;
+    }
+
+    .profile-info {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .profile-info p {
+        font-size: 1rem;
+        color: #444;
+    }
+
+    .profile-info strong {
+        color: #1e293b;
+    }
+
+    .edit-btn {
+        display: block;
+        text-align: center;
+        background: #2563eb;
+        color: white;
+        padding: 0.7rem 1rem;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: background 0.3s ease;
+    }
+
+    .edit-btn:hover {
+        background: #1e40af;
+    }
+</style>
+
+<div class="profile-container">
+    <div class="profile-header">
+        <h2>My Profile</h2>
+    </div>
+
+    <div class="profile-info">
+        <p><strong>Name:</strong> {{ user.first_name }} {{ user.last_name }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Role:</strong> {{ user.role }}</p>
+        <p><strong>Department:</strong> {{ user.teacher_profile.department }}</p>
+    </div>
+
+    <a href="{% url 'teacher_edit_profile' %}" class="edit-btn">Edit Profile</a>
+</div>
+{% endblock %}

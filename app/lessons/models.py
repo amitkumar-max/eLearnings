@@ -1,6 +1,9 @@
+# lessons/models.py
 from django.db import models
 from django.utils.text import slugify
-from courses.models import Course, TimeStampedModel, PublishableModel
+
+# Corrected import path
+from app.courses.models import Course, TimeStampedModel, PublishableModel
 
 class Lesson(TimeStampedModel, PublishableModel):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="lessons")
@@ -28,3 +31,6 @@ class Lesson(TimeStampedModel, PublishableModel):
                 slug = f"{base}-{i}"
             self.slug = slug
         super().save(*args, **kwargs)
+
+
+

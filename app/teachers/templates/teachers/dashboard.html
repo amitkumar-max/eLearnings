@@ -145,14 +145,26 @@ body.dark-mode .dashboard-card p {
 <div class="flex">
   <!-- Sidebar -->
   <aside id="sidebar" class="w-64 h-screen p-4 space-y-4 fixed md:relative transform -translate-x-full md:translate-x-0 transition-transform duration-300">
-    <nav class="space-y-2">
+    <!-- <nav class="space-y-2">
       <a href="#">🏠 Dashboard</a>
       <a href="#">📚 My Courses</a>
       <a href="#">📝 Assignments</a>
       <a href="#">📅 Schedule</a>
       <a href="#">📊 Reports</a>
       <a href="#">💬 Messages</a>
-    </nav>
+    </nav> -->
+ 
+
+    <nav class="space-y-2">
+    <a href="{% url 'teachers:dashboard' %}">🏠 Dashboard</a>
+    <a href="{% url 'teachers:my_courses' %}">📚 My Courses</a>
+    <a href="{% url 'teachers:assignments' %}">📝 Assignments</a>
+    <a href="{% url 'teachers:schedule' %}">📅 Schedule</a>
+    <a href="{% url 'teachers:reports' %}">📊 Reports</a>
+    <a href="{% url 'teachers:messages' %}">💬 Messages</a>
+</nav>
+
+ 
   </aside>
 
   <!-- Main Content -->

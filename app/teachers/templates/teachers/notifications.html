@@ -1,0 +1,70 @@
+{% extends "base_teacher.html" %}
+{% block title %}Notifications{% endblock %}
+{% block content %}
+<style>
+    .notifications-container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: #ffffff;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        font-size: 1.6rem;
+        font-weight: bold;
+        margin-bottom: 20px;
+        text-align: center;
+        color: #2c3e50;
+    }
+
+    .notification-card {
+        background: #f8f9fa;
+        border: 1px solid #ddd;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        transition: background 0.3s ease;
+    }
+
+    .notification-card:hover {
+        background: #eef3f7;
+    }
+
+    .notification-meta {
+        font-size: 0.85rem;
+        color: #777;
+        margin-bottom: 6px;
+    }
+
+    .notification-text {
+        font-size: 1rem;
+        color: #333;
+    }
+
+    .no-notifications {
+        text-align: center;
+        color: #666;
+        font-style: italic;
+        padding: 20px 0;
+    }
+</style>
+
+<div class="notifications-container">
+    <h2>Notifications</h2>
+
+    {% if notifications %}
+        {% for notification in notifications %}
+        <div class="notification-card">
+            <div class="notification-meta">
+                <strong>Date:</strong> {{ notification.timestamp|date:"M d, Y H:i" }}
+            </div>
+            <div class="notification-text">{{ notification.text }}</div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p class="no-notifications">No notifications available.</p>
+    {% endif %}
+</div>
+{% endblock %}

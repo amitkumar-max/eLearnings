@@ -1,0 +1,63 @@
+{% extends 'base_teacher.html' %}
+{% block title %}Course Details{% endblock %}
+
+{% block extra_head %}
+<style>
+.teacher-course-detail {
+  max-width: 800px;
+  margin: 0 auto;
+  background: #f8fafc;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.teacher-course-detail h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 0.8rem;
+  color: #0f172a;
+}
+
+.teacher-course-detail p {
+  font-size: 1rem;
+  color: #475569;
+  margin-bottom: 1rem;
+}
+
+.teacher-actions {
+  display: flex;
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.teacher-actions a {
+  display: inline-block;
+  background-color: #2563eb;
+  color: white;
+  padding: 0.6rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.teacher-actions a.edit-btn { background-color: #16a34a; }
+.teacher-actions a.delete-btn { background-color: #dc2626; }
+
+.teacher-actions a:hover { filter: brightness(0.9); }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="teacher-course-detail">
+  <h2>{{ course.name }}</h2>
+  <p>{{ course.description }}</p>
+
+  <div class="teacher-actions">
+    <a href="{% url 'edit_course' course.id %}" class="edit-btn">Edit</a>
+    <a href="{% url 'delete_course' course.id %}" class="delete-btn">Delete</a>
+    <a href="{% url 'manage_students' course.id %}">Manage Students</a>
+  </div>
+</div>
+{% endblock %}

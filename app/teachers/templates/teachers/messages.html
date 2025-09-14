@@ -1,0 +1,70 @@
+{% extends "base_teacher.html" %}
+{% block title %}Messages{% endblock %}
+{% block content %}
+<style>
+    .messages-container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: #ffffff;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        font-size: 1.6rem;
+        font-weight: bold;
+        margin-bottom: 20px;
+        text-align: center;
+        color: #2c3e50;
+    }
+
+    .message-card {
+        background: #f8f9fa;
+        border: 1px solid #ddd;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        transition: background 0.3s ease;
+    }
+
+    .message-card:hover {
+        background: #eef3f7;
+    }
+
+    .message-meta {
+        font-size: 0.9rem;
+        color: #555;
+        margin-bottom: 6px;
+    }
+
+    .message-content {
+        font-size: 1rem;
+        color: #333;
+    }
+
+    .no-messages {
+        text-align: center;
+        color: #666;
+        font-style: italic;
+    }
+</style>
+
+<div class="messages-container">
+    <h2>Messages</h2>
+
+    {% if messages %}
+        {% for message in messages %}
+        <div class="message-card">
+            <div class="message-meta">
+                <strong>From:</strong> {{ message.sender }} | 
+                <strong>Date:</strong> {{ message.timestamp|date:"M d, Y H:i" }}
+            </div>
+            <div class="message-content">{{ message.content }}</div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p class="no-messages">No messages available.</p>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,89 @@
+{% extends "base_teacher.html" %}
+{% block title %}My Courses{% endblock %}
+{% block content %}
+<style>
+    .courses-container {
+        max-width: 900px;
+        margin: 0 auto;
+        background: #ffffff;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        font-size: 1.6rem;
+        font-weight: bold;
+        margin-bottom: 20px;
+        text-align: center;
+        color: #2c3e50;
+    }
+
+    .course-card {
+        background: #f8f9fa;
+        border: 1px solid #ddd;
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 12px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: background 0.3s ease;
+    }
+
+    .course-card:hover {
+        background: #eef3f7;
+    }
+
+    .course-info h3 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        color: #1e293b;
+        margin-bottom: 4px;
+    }
+
+    .course-info p {
+        font-size: 0.95rem;
+        color: #555;
+    }
+
+    a.btn {
+        background: #007bff;
+        color: white;
+        padding: 6px 14px;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        text-decoration: none;
+        transition: background 0.3s ease;
+    }
+
+    a.btn:hover {
+        background: #0056b3;
+    }
+
+    .no-courses {
+        text-align: center;
+        color: #666;
+        font-style: italic;
+        padding: 20px 0;
+    }
+</style>
+
+<div class="courses-container">
+    <h2>My Courses</h2>
+
+    {% if courses %}
+        {% for course in courses %}
+        <div class="course-card">
+            <div class="course-info">
+                <h3>{{ course.name }}</h3>
+                <p>{{ course.description|truncatewords:20 }}</p>
+            </div>
+            <a href="{% url 'course_detail_teacher' course.id %}" class="btn">View</a>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p class="no-courses">You haven't created any courses yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

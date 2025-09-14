@@ -1,0 +1,32 @@
+<style>
+.teacher-navbar {
+  background-color: #1e3a8a;
+  color: white;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.teacher-navbar a {
+  color: white;
+  text-decoration: none;
+  margin: 0 10px;
+  font-weight: 500;
+}
+.teacher-navbar a:hover {
+  text-decoration: underline;
+}
+</style>
+
+<nav class="teacher-navbar">
+  <div class="text-xl font-bold">
+    <a href="{% url 'teacher_dashboard' %}">Teacher Panel</a>
+  </div>
+  <div>
+    <a href="{% url 'teacher_dashboard' %}">Dashboard</a>
+    <a href="{% url 'teacher_courses' %}">Courses</a>
+    <a href="{% url 'teacher_assignments' %}">Assignments</a>
+    <a href="{% url 'teacher_messages' %}">Messages</a>
+    <a href="{% url 'teacher_settings' %}">Settings</a>
+  </div>
+</nav>

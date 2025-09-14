@@ -1,9 +1,31 @@
+# exams/models.py
 from django.db import models
 from django.utils.text import slugify
-# from courses.models import Course, TimeStampedModel, PublishableModel
 
-# exams/models.py
-from app.courses.models import Course, TimeStampedModel, PublishableModel
+# Courses models ke liye placeholder definitions
+# Agar tumhare courses/models.py me ye already hai to remove kar sakte ho
+class TimeStampedModel(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
+
+class PublishableModel(models.Model):
+    is_published = models.BooleanField(default=False)
+    published_at = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        abstract = True
+
+# Agar Course model abhi define nahi hai to simple placeholder
+class Course(TimeStampedModel, PublishableModel):
+    title = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.title
+
+# --- Exam Models ---
 
 class Exam(TimeStampedModel, PublishableModel):
     EXAM_TYPE = [
@@ -44,8 +66,7 @@ class Question(TimeStampedModel):
         ("text", "Text"),
         ("boolean", "True/False"),
     ]
-    
-    
+
     exam = models.ForeignKey(Exam, on_delete=models.CASCADE, related_name="questions")
     text = models.TextField()
     question_type = models.CharField(max_length=20, choices=QUESTION_TYPE, default="single")

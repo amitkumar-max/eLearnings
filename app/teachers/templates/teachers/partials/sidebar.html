@@ -1,0 +1,38 @@
+<style>
+.teacher-sidebar {
+  width: 250px;
+  background-color: #f3f4f6;
+  min-height: 100vh;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.05);
+  padding: 1rem;
+}
+.teacher-sidebar h3 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+.teacher-sidebar a {
+  display: block;
+  padding: 8px 10px;
+  border-radius: 8px;
+  color: #374151;
+  font-weight: 500;
+  margin-bottom: 5px;
+  transition: all 0.2s ease-in-out;
+}
+.teacher-sidebar a:hover {
+  background-color: #e5e7eb;
+  transform: translateX(3px);
+}
+</style>
+
+<aside class="teacher-sidebar">
+  <h3>Menu</h3>
+  <a href="{% url 'teacher_dashboard' %}">📊 Dashboard</a>
+  <a href="{% url 'teacher_courses' %}">📚 Courses</a>
+  <a href="{% url 'teacher_assignments' %}">📝 Assignments</a>
+  <a href="{% url 'teacher_students' %}">👥 Students</a>
+  <a href="{% url 'teacher_announcements' %}">📢 Announcements</a>
+  <a href="{% url 'teacher_settings' %}">⚙️ Settings</a>
+  <a href="{% url 'logout' %}" style="color:red;">🚪 Logout</a>
+</aside>
