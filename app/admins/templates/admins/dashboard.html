@@ -118,15 +118,14 @@ body.dark-mode .dashboard-card p {
 
 <!-- ================= ADMIN DASHBOARD ================= -->
 <div class="flex">
-
-    <!-- Sidebar -->
+ <!-- Sidebar -->
     <aside id="sidebar" class="w-64 bg-gray-200 dark:bg-gray-800 h-screen p-4 space-y-4 fixed md:relative transform -translate-x-full md:translate-x-0 transition-transform duration-300">
         <nav class="space-y-2">
             <a href="#" class="block px-4 py-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-700">🏠 Dashboard</a>
             <a href="{% url 'admins:users_management' %}" class="block px-4 py-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-700">👥 Users</a>
-            <a href="#" class="block px-4 py-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-700">📚 Courses</a>
-            <a href="#" class="block px-4 py-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-700">💰 Payments</a>
-            <a href="#" class="block px-4 py-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-700">📊 Reports</a>
+            <a href="{% url 'admins:users_management' %}" class="block px-4 py-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-700">📚 Courses</a>
+            <a href="{% url 'admins:users_management' %}" class="block px-4 py-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-700">💰 Payments</a>
+            <a href="{% url 'admins:users_management' %}" class="block px-4 py-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-700">📊 Reports</a>
             <a href="{% url 'admins:site_settings' %}" class="block px-4 py-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-700">⚙️ Settings</a>
         </nav>
     </aside>

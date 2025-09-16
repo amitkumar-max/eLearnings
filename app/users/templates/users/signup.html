@@ -26,13 +26,26 @@
       margin-bottom: 1rem;
       color: #15803d;
     }
-    input {
+    input, select {
       width: 100%;
       padding: 10px;
       margin: 10px 0;
       border-radius: 8px;
       border: 1px solid #ddd;
       font-size: 14px;
+      box-sizing: border-box;
+    }
+    .password-wrapper {
+      position: relative;
+    }
+    .toggle-password {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      font-size: 12px;
+      color: #15803d;
     }
     button {
       background: #16a34a;
@@ -57,39 +70,94 @@
       text-decoration: none;
       color: #15803d;
     }
+    .error {
+      color: red;
+      font-size: 13px;
+      margin-top: -5px;
+      margin-bottom: 8px;
+      text-align: left;
+    }
   </style>
-
 </head>
-
 
 <body>
 <div class="card">
   <h2>Create Account</h2>
   
+  <!-- Messages Display -->
+{% if messages %}
+  <div class="messages" style="text-align: left; margin-bottom: 10px;">
+    {% for message in messages %}
+    <p style="color: {% if 'error' in message.tags %}red{% else %}green{% endif %};
+          font-size: 13px;
+          margin: 3px 0;">
+  {{ message }}
+</p>
+    {% endfor %}
+  </div>
+{% endif %}
+
+
+
   <form method="POST">
     {% csrf_token %}
-    <input type="text" name="full_name" placeholder="Full Name" required>
-    <input type="email" name="email" placeholder="Email" required>
-    <input type="password" name="password" placeholder="Password" required>
-    <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+    
+    <!-- Full Name -->
+    <input type="text" name="full_name" placeholder="Full Name" value="{{ request.POST.full_name }}">
+    {% if form.full_name.errors %}
+      <div class="error">{{ form.full_name.errors.0 }}</div>
+    {% endif %}
+
+    <!-- Email -->
+    <input type="email" name="email" placeholder="Email" value="{{ request.POST.email }}">
+    {% if form.email.errors %}
+      <div class="error">{{ form.email.errors.0 }}</div>
+    {% endif %}
+
+    <!-- Password -->
+    <div class="password-wrapper">
+      <input type="password" name="password" placeholder="Password" id="password">
+      <span class="toggle-password" onclick="togglePass('password')">Show</span>
+    </div>
+
+    <!-- Confirm Password -->
+    <div class="password-wrapper">
+      <input type="password" name="confirm_password" placeholder="Confirm Password" id="confirm_password">
+      <span class="toggle-password" onclick="togglePass('confirm_password')">Show</span>
+    </div>
+    {% if form.non_field_errors %}
+      <div class="error">{{ form.non_field_errors.0 }}</div>
+    {% endif %}
 
     <!-- 🎯 Role Selection -->
     <select name="role" required>
-      <option value="" disabled selected>Select Role</option>
-      <option value="student">Student</option>
-      <option value="teacher">Teacher</option>
-      <option value="admin">Admin</option>
+      <option value="" disabled {% if not request.POST.role %}selected{% endif %}>Select Role</option>
+      <option value="student" {% if request.POST.role == "student" %}selected{% endif %}>Student</option>
+      <option value="teacher" {% if request.POST.role == "teacher" %}selected{% endif %}>Teacher</option>
+      <option value="admin" {% if request.POST.role == "admin" %}selected{% endif %}>Admin</option>
     </select>
 
     <button type="submit">Sign Up</button>
-    
   </form>
 
   <div class="links">
     <a href="{% url 'users:login' %}">Already have an account? Login</a>
   </div>
-
-
 </div>
+
+<script>
+  function togglePass(id) {
+    const input = document.getElementById(id);
+    const toggle = input.nextElementSibling;
+    if (input.type === "password") {
+      input.type = "text";
+      toggle.innerText = "Hide";
+    } else {
+      input.type = "password";
+      toggle.innerText = "Show";
+    }
+  }
+</script>
+
 </body>
 </html>

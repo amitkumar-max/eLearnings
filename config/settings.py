@@ -28,6 +28,20 @@ ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="localhost").split(",")
 # ----------------------------
 CSRF_TRUSTED_ORIGINS = ['https://elearnings.onrender.com']
 
+
+from django.contrib.messages import constants as messages
+
+# Messages framework tags mapping (optional but recommended)
+MESSAGE_TAGS = {
+    messages.DEBUG: 'debug',
+    messages.INFO: 'info',
+    messages.SUCCESS: 'success',
+    messages.WARNING: 'warning',
+    messages.ERROR: 'error',
+}
+
+
+
 # ----------------------------
 # Installed apps
 # ----------------------------
@@ -42,12 +56,16 @@ INSTALLED_APPS = [
     # 'app.courses',  # ✅ ye hona chahiye exact path ke sath
       # ✅ Custom Apps
     "app.admins",
+ 
+ 
     # "app.courses",
     # "app.exams",
     # "app.lessons",
     # "app.notifications",
     # "app.payments",
     # "app.progress",
+ 
+ 
     "app.students",
     "app.teachers",
     "app.users",
@@ -151,44 +169,5 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # Default auto field
 # ----------------------------
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
