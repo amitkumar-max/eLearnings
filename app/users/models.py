@@ -1,13 +1,14 @@
-
-
 # users/models.py
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
 
+
 class CustomUserManager(BaseUserManager):
+    """Manager for custom user model using email as username"""
+
     def create_user(self, email, password=None, **extra_fields):
         if not email:
-            raise ValueError("Users must have an email address")
+            raise ValueError("An email address is required")
         email = self.normalize_email(email)
         user = self.model(email=email, **extra_fields)
         user.set_password(password)
@@ -22,16 +23,13 @@ class CustomUserManager(BaseUserManager):
 
 
 class CustomUser(AbstractUser):
-    username = None  # remove username
+    """Custom User model with email login and role field"""
+    username = None
     email = models.EmailField(unique=True)
     full_name = models.CharField(max_length=255)
     role = models.CharField(
         max_length=20,
-        choices=[
-            ("student", "Student"),
-            ("teacher", "Teacher"),
-            ("admin", "Admin"),
-        ],
+        choices=[("student", "Student"), ("teacher", "Teacher"), ("admin", "Admin")],
         default="student",
     )
 
@@ -42,4 +40,3 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.email
-
