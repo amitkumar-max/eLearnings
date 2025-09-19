@@ -19,4 +19,6 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", views.home, name="home"),  # 👈 ab error nahi aayega
     path("users/", include("app.users.urls")),
+    path("courses/", include("app.courses.urls")),  # courses namespace
+
 ]

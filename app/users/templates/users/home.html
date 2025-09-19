@@ -416,14 +416,25 @@
         <!-- Hamburger for Mobile -->
         <button class="menu-toggle" id="menuToggle">☰</button>
 
-        <div class="nav-links">
+        <!-- <div class="nav-links">
           <a href="{% url 'home' %}">Home</a>
           <a href="{% url 'courses:course_details' %}">Courses</a>
           <a href="{% url 'courses:categories' %}">Categories</a>
           <a href="{% url 'testimonials:list' %}">Testimonials</a>
           <a href="{% url 'users:signup' %}" class="btn-primary">Sign Up</a>
           <a href="{% url 'users:login' %}" class="btn-outline">Login</a>
-        </div>
+        </div> -->
+
+
+        <div class="nav-links">
+  <a href="{% url 'home' %}">Home</a>
+  <a href="{% url 'courses:course_list' %}">Courses</a>
+  <!-- <a href="{% url 'courses:categories' %}">Categories</a> --> {# Abhi ye exist nahi karta #}
+  <a href="{% url 'testimonials:list' %}">Testimonials</a>
+  <a href="{% url 'users:signup' %}" class="btn-primary">Sign Up</a>
+  <a href="{% url 'users:login' %}" class="btn-outline">Login</a>
+</div>
+
 
         <!-- Dark/Light Mode Toggle -->
         <div class="mode-toggle">
