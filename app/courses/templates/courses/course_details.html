@@ -125,9 +125,13 @@
   <div class="logo">E-Learn</div>
   <div class="nav-links">
     <a href="{% url 'home' %}">Home</a>
-    <a href="{% url 'course_list' %}">Courses</a>
+    <!-- galat tha -->
+    <!-- <a href="{% url 'course_list' %}">Courses</a> -->
+    <!-- fix -->
+    <a href="{% url 'courses:course_list' %}">Courses</a>
   </div>
 </nav>
+
 
 <div class="container">
   <a href="{% url 'course_list' %}" class="back-link">&larr; Back to Courses</a>
