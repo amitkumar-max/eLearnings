@@ -162,7 +162,9 @@
         <div class="logo">E-Learn</div>
         <div class="nav-links">
             <a href="{% url 'home' %}">Home</a>
-            <a href="#">Courses</a>
+            <!-- <a href="#">Courses</a> -->
+            <a href="{% url 'courses:course_list' %}">All Courses</a>
+
             <a href="#">Exams</a>
             <a href="#">Progress</a>
             <a href="#">Contact</a>

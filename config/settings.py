@@ -342,6 +342,8 @@ INSTALLED_APPS = [
     "app.students",
     "app.teachers",
     "app.users.apps.UsersConfig",
+    "app.courses",   # <-- ye add karo
+
 ]
 
 # ----------------------------
