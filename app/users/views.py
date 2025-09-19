@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.core.exceptions import ValidationError
 from django.urls import reverse
+from django.http import HttpResponse
 
 from .services.user_service import create_user
 
@@ -13,6 +14,11 @@ User = get_user_model()
 
 def home(request):
     return render(request, "users/home.html")
+# users/views.py
+
+
+def placeholder(request):
+    return HttpResponse("This is a placeholder page. ✅")
 
 
 def signup_view(request):
