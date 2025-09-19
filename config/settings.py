@@ -297,8 +297,6 @@
 
 
 
-
-
 from pathlib import Path
 from decouple import config
 import dj_database_url
@@ -351,23 +349,6 @@ INSTALLED_APPS = [
 # ----------------------------
 AUTH_USER_MODEL = "users.CustomUser"
 
-
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',  # Must have
-        'DIRS': [BASE_DIR / 'templates'],  # Custom templates directory (optional)
-        'APP_DIRS': True,  # Must be True for admin
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',  # Must include for admin
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
-        },
-    },
-]
-
 # ----------------------------
 # Middleware
 # ----------------------------
@@ -389,13 +370,34 @@ ROOT_URLCONF = 'config.urls'
 WSGI_APPLICATION = 'config.wsgi.application'
 
 # ----------------------------
-# Database (PostgreSQL via .env)
+# Templates
+# ----------------------------
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [BASE_DIR / 'templates'],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+
+# ----------------------------
+# Database (PostgreSQL via .env + SSL)
 # ----------------------------
 DATABASES = {
     'default': dj_database_url.config(
         default=f"postgres://{config('DB_USER')}:{config('DB_PASSWORD')}@"
                 f"{config('DB_HOST')}:{config('DB_PORT')}/{config('DB_NAME')}"
-                f"?sslmode={config('DB_SSLMODE', default='require')}"
+                f"?sslmode={config('DB_SSLMODE', default='require')}",
+        conn_max_age=600,
+        ssl_require=True  # Ensure SSL enforced
     )
 }
 
