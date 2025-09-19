@@ -13,12 +13,11 @@
 
 from django.contrib import admin
 from django.urls import path, include
-from app.users import views  # 👈 yahi import home ko point kare
+from app.users import views  # home view
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", views.home, name="home"),  # 👈 ab error nahi aayega
+    path("", views.home, name="home"),
     path("users/", include("app.users.urls")),
     path("courses/", include("app.courses.urls")),  # courses namespace
-
 ]
