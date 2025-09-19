@@ -239,7 +239,7 @@
       }
 
       /* Footer */
-      footer {
+      /* footer {
         background-color: white;
         padding: 1.5rem 1rem;
         text-align: center;
@@ -248,6 +248,23 @@
       footer p {
         color: #4a5568;
         font-size: 0.9rem;
+      } */
+
+      footer {
+        background-color: #1a202c; /* Darker bg instead of gray-900 */
+        color: #e4e4e4;
+        padding: 2rem 1rem;
+        text-align: center;
+        box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.3);
+      }
+
+      footer a {
+        color: #32cd32;
+        transition: color 0.3s;
+      }
+
+      footer a:hover {
+        color: #28a428;
       }
 
       /* Responsive */
@@ -391,21 +408,21 @@
   </head>
   <body>
     <!-- Navbar -->
+    <!-- Navbar -->
     <nav>
       <div class="container nav-container">
         <div class="logo">E-Learn</div>
-        <!-- <div class="nav-links">
-        <a href="#hero">Home</a>
-        <a href="#courses">Courses</a>
-        <a href="#categories">Categories</a>
-        <a href="#testimonials">Testimonials</a>
-      </div> -->
+
+        <!-- Hamburger for Mobile -->
+        <button class="menu-toggle" id="menuToggle">☰</button>
 
         <div class="nav-links">
           <a href="{% url 'home' %}">Home</a>
           <a href="{% url 'courses:course_details' %}">Courses</a>
           <a href="{% url 'courses:categories' %}">Categories</a>
           <a href="{% url 'testimonials:list' %}">Testimonials</a>
+          <a href="{% url 'users:signup' %}" class="btn-primary">Sign Up</a>
+          <a href="{% url 'users:login' %}" class="btn-outline">Login</a>
         </div>
 
         <!-- Dark/Light Mode Toggle -->
@@ -413,61 +430,291 @@
           <button id="mode-btn" class="btn-outline">🌙</button>
         </div>
 
-        <script>
-          const modeBtn = document.getElementById("mode-btn");
-          const body = document.body;
-
-          // Check localStorage for saved mode
-          if (localStorage.getItem("mode") === "dark") {
-            body.classList.add("dark-mode");
-            modeBtn.textContent = "☀️";
-          }
-
-          modeBtn.addEventListener("click", () => {
-            body.classList.toggle("dark-mode");
-
-            if (body.classList.contains("dark-mode")) {
-              modeBtn.textContent = "☀️";
-              localStorage.setItem("mode", "dark");
-            } else {
-              modeBtn.textContent = "🌙";
-              localStorage.setItem("mode", "light");
-            }
-          });
-        </script>
-
-        <div class="auth-buttons">
-          <!--         
-        <a href="{% url 'users:signup' %}" class="btn-primary">Sign Up</a>
-        <a href="{% url 'users:login' %}" class="btn-outline">Login</a> -->
-
-          <!-- Authentication buttons (wherever you want them in navbar/hero) -->
-          <a href="{% url 'users:signup' %}" class="btn-primary">Sign Up</a>
-          <a href="{% url 'users:login' %}" class="btn-outline">Login</a>
-        </div>
+      
       </div>
     </nav>
-    <!-- ✅ 1. Search & Filter Section (Navbar ke just niche) -->
-    <section
-      class="search-bar container"
-      style="
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-      "
-    >
-      <input type="text" placeholder="Search for courses..." />
 
-      <select>
-        <option value="">All Categories</option>
-        <option>Programming</option>
-        <option>Data Science</option>
-        <option>Design</option>
-      </select>
-      <button class="btn-primary">Search</button>
-    </section>
+    <!-- CSS -->
+    <style>
+      /* Navbar general */
+      nav {
+        background-color: #1a202c; /* Dark navbar */
+        padding: 0.8rem 0;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      .nav-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+      }
+
+      .logo {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #32cd32;
+      }
+
+      /* Nav links */
+      .nav-links {
+        display: flex;
+        gap: 1.5rem;
+      }
+
+      .nav-links a {
+        color: #e4e4e4;
+        font-weight: 500;
+        transition: color 0.3s;
+      }
+
+      .nav-links a:hover {
+        color: #32cd32;
+      }
+
+      /* Auth buttons */
+      .auth-buttons a.btn-primary {
+        background-color: #32cd32;
+        color: white;
+        padding: 0.4rem 0.9rem;
+        border-radius: 9999px;
+        font-weight: 500;
+        transition: all 0.3s;
+      }
+
+      .auth-buttons a.btn-outline {
+        border: 2px solid #32cd32;
+        color: #32cd32;
+        padding: 0.4rem 0.9rem;
+        border-radius: 9999px;
+        font-weight: 500;
+        transition: all 0.3s;
+      }
+
+      .auth-buttons a.btn-outline:hover {
+        background-color: #32cd32;
+        color: #0d0d0d;
+      }
+
+      /* Mobile */
+      .menu-toggle {
+        display: none;
+        font-size: 1.5rem;
+        background: none;
+        border: none;
+        color: #e4e4e4;
+        cursor: pointer;
+      }
+
+      @media (max-width: 768px) {
+        .menu-toggle {
+          display: block;
+        }
+
+        .nav-links {
+          display: none;
+          flex-direction: column;
+          gap: 1rem;
+          background-color: #1a202c;
+          width: 100%;
+          text-align: center;
+          padding: 1rem 0;
+          border-radius: 0 0 12px 12px;
+        }
+
+        .nav-links.show {
+          display: flex;
+        }
+
+        .auth-buttons {
+          display: none; /* Optional: hide auth buttons on mobile in menu */
+        }
+
+        .nav-links a {
+          color: #e4e4e4;
+        }
+
+        .nav-links a:hover {
+          color: #32cd32;
+        }
+      }
+    </style>
+
+    <!-- JS -->
+    <script>
+      // Dark/Light Mode
+      const modeBtn = document.getElementById("mode-btn");
+      const body = document.body;
+
+      // Check saved mode
+      if (localStorage.getItem("mode") === "dark") {
+        body.classList.add("dark-mode");
+        modeBtn.textContent = "☀️";
+      }
+
+      modeBtn.addEventListener("click", () => {
+        body.classList.toggle("dark-mode");
+        if (body.classList.contains("dark-mode")) {
+          modeBtn.textContent = "☀️";
+          localStorage.setItem("mode", "dark");
+        } else {
+          modeBtn.textContent = "🌙";
+          localStorage.setItem("mode", "light");
+        }
+      });
+
+      // Mobile Menu Toggle
+      const menuToggle = document.getElementById("menuToggle");
+      const navLinks = document.querySelector(".nav-links");
+
+      menuToggle.addEventListener("click", () => {
+        navLinks.classList.toggle("show");
+      });
+    </script>
+
+  <!-- Search Bar -->
+<section class="search-bar container">
+  <div class="search-wrapper">
+    <input type="text" id="course-search" placeholder="Search for courses..." autocomplete="off" />
+    <select id="course-category">
+      <option value="">All Categories</option>
+      <option>Programming</option>
+      <option>Data Science</option>
+      <option>Design</option>
+    </select>
+    <button class="btn-primary" id="search-btn">Search</button>
+
+    <!-- Dropdown History -->
+    <ul id="history-list" class="history-dropdown"></ul>
+  </div>
+</section>
+
+<style>
+/* Wrapper to position dropdown */
+.search-wrapper {
+  position: relative;
+  max-width: 400px;
+  margin: auto;
+}
+
+/* Input styles */
+#course-search {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+#course-search:focus {
+  border-color: orange;
+  box-shadow: 0 4px 15px rgba(255, 165, 0, 0.3);
+  outline: none;
+}
+
+/* Dropdown animation */
+.history-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-top: 4px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, opacity 0.4s ease;
+  opacity: 0;
+  z-index: 10;
+  list-style: none;
+  padding: 0;
+}
+
+.history-dropdown.show {
+  max-height: 300px; /* adjustable */
+  opacity: 1;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.history-dropdown li {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.history-dropdown li:hover {
+  background: #ffefd5; /* soft orange highlight */
+}
+</style>
+
+<script>
+const searchInput = document.getElementById("course-search");
+const categorySelect = document.getElementById("course-category");
+const searchBtn = document.getElementById("search-btn");
+const historyList = document.getElementById("history-list");
+
+let searchHistory = JSON.parse(localStorage.getItem("searchHistory")) || [];
+
+function renderHistory() {
+  historyList.innerHTML = "";
+  searchHistory.slice().reverse().forEach((item) => {
+    const li = document.createElement("li");
+    li.textContent = `${item.query} ${item.category ? "- " + item.category : ""}`;
+    li.addEventListener("click", () => {
+      searchInput.value = item.query;
+      categorySelect.value = item.category;
+      performSearch(item.query, item.category);
+      historyList.classList.remove("show");
+    });
+    historyList.appendChild(li);
+  });
+}
+
+// Show dropdown on focus
+searchInput.addEventListener("focus", () => {
+  if (searchHistory.length) {
+    historyList.classList.add("show");
+  }
+});
+
+// Hide dropdown when clicking outside
+document.addEventListener("click", (e) => {
+  if (!e.target.closest(".search-wrapper")) {
+    historyList.classList.remove("show");
+  }
+});
+
+function addToHistory(query, category) {
+  if (!query) return;
+  searchHistory.push({ query, category });
+  if (searchHistory.length > 10) searchHistory.shift();
+  localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
+  renderHistory();
+}
+
+function performSearch(query, category) {
+  console.log("Searching for:", query, category);
+  // Your AJAX/fetch call to backend can go here
+}
+
+searchBtn.addEventListener("click", () => {
+  const query = searchInput.value.trim();
+  const category = categorySelect.value;
+  performSearch(query, category);
+  addToHistory(query, category);
+  historyList.classList.remove("show");
+});
+
+// Initial render
+renderHistory();
+</script>
+
+
+    
     <!-- Hero Section -->
     <section id="hero" class="hero container">
       <h1>Welcome to <span>E-Learn</span> 🎓</h1>
@@ -777,36 +1024,6 @@
       </p>
     </section>
     <!-- Footer -->
-    <!-- <footer class="bg-gray-900 text-white py-8">
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 px-6">
-    <div>
-      <h3 class="font-bold mb-2">Quick Links</h3>
-      <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Courses</a></li>
-        <li><a href="#">Contact</a></li>
-      </ul>
-    </div>
-    <div>
-      <h3 class="font-bold mb-2">Support</h3>
-      <ul>
-        <li><a href="#">FAQ</a></li>
-        <li><a href="#">Refund Policy</a></li>
-        <li><a href="#">Privacy Policy</a></li>
-      </ul>
-    </div>
-    <div class="text-center md:text-left">
-      <h3 class="font-bold mb-2">Follow Us</h3>
-      <div class="flex gap-3 justify-center md:justify-start">
-        <a href="#"><img src="{% static 'images/facebook.png' %}" class="h-6"></a>
-        <a href="#"><img src="{% static 'images/twitter.png' %}" class="h-6"></a>
-        <a href="#"><img src="{% static 'images/linkedin.png' %}" class="h-6"></a>
-      </div>
-    </div>
-  </div>
-  <p class="text-center mt-6 text-gray-400">© 2025 Your Website. All Rights Reserved.</p>
-</footer> -->
-    <!-- Footer -->
     <footer class="bg-gray-900 text-white py-8">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 px-6">
         <div>
@@ -867,6 +1084,5 @@
         window.scrollTo({ top: 0, behavior: "smooth" });
       });
     </script>
-    
   </body>
 </html>

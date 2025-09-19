@@ -15,7 +15,7 @@ body {
 /* ===== Sidebar ===== */
 .sidebar {
   width: 250px;
-  background: #d4f3d4;
+  background: #e6ffe6; /* Light Lawn Green feel */
   padding: 1rem;
   min-height: 100vh;
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
@@ -24,12 +24,13 @@ body {
   left: 0;
   transition: transform 0.3s ease;
 }
+.sidebar.hidden { transform: translateX(-100%); } /* Toggle effect */
 
 .sidebar-title {
   font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: 1.5rem;
-  color: #256d26;
+  color: #7CFC00; /* Lawn green */
 }
 
 .sidebar-nav a {
@@ -37,13 +38,13 @@ body {
   padding: 0.75rem 1rem;
   margin-bottom: 0.5rem;
   border-radius: 0.5rem;
-  color: #256d26;
+  color: #006400; /* Darker green for contrast */
   font-weight: 600;
   text-decoration: none;
   transition: background 0.3s ease;
 }
 .sidebar-nav a:hover {
-  background: #a9e8a9;
+  background: #c8ffc8; /* Hover effect */
 }
 
 /* ===== Main Content ===== */
@@ -51,7 +52,9 @@ body {
   margin-left: 260px;
   padding: 2rem;
   flex: 1;
+  transition: margin-left 0.3s ease;
 }
+.sidebar.hidden ~ .main-content { margin-left: 20px; }
 
 /* ===== Navbar ===== */
 .navbar {
@@ -64,15 +67,14 @@ body {
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   margin-bottom: 2rem;
 }
-
 .navbar-left h1 {
   font-size: 1.5rem;
-  color: #256d26;
+  color: #006400;
   margin-left: 0.5rem;
 }
 
 .btn {
-  background: #d4f3d4;
+  background: #7CFC00; /* Lawn green */
   border: none;
   padding: 0.5rem 0.75rem;
   border-radius: 0.5rem;
@@ -80,7 +82,7 @@ body {
   font-size: 1rem;
   transition: background 0.3s ease;
 }
-.btn:hover { background: #a9e8a9; }
+.btn:hover { background: #32cd32; } /* Lime green hover */
 
 .avatar {
   width: 40px;
@@ -107,7 +109,7 @@ body {
 .stat-card:hover { transform: scale(1.05); }
 
 .stat-value { font-size: 1.8rem; font-weight: bold; }
-.green { color: #256d26; }
+.green { color: #32cd32; }
 .red { color: #e53e3e; }
 
 /* ===== Dashboard Cards ===== */
@@ -131,13 +133,41 @@ body {
   box-shadow: 0 8px 20px rgba(0,0,0,0.15);
 }
 
+/* ===== Overview Section ===== */
+.overview-section {
+  margin-top: 2rem;
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+.overview-section h2 {
+  margin-bottom: 1rem;
+  color: #006400;
+}
+.overview-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+.overview-card {
+  background: #f9fff9;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease;
+}
+.overview-card:hover { transform: scale(1.03); }
+
 /* ===== Dark Mode ===== */
 body.dark-mode { background: #1a202c; color: #e4e4e4; }
-body.dark-mode .sidebar { background: #1f3d1f; }
+body.dark-mode .sidebar { background: #2f4f2f; }
 body.dark-mode .sidebar-nav a { color: #d4f3d4; }
 body.dark-mode .navbar { background: #2d3748; }
 body.dark-mode .stat-card,
-body.dark-mode .dashboard-card {
+body.dark-mode .dashboard-card,
+body.dark-mode .overview-section,
+body.dark-mode .overview-card {
   background: #2d3748;
   color: #e4e4e4;
 }
@@ -148,14 +178,6 @@ body.dark-mode .dashboard-card {
   <!-- Sidebar -->
   <aside id="sidebar" class="sidebar">
     <h2 class="sidebar-title">📚 Student Panel</h2>
-    <!-- <nav class="sidebar-nav">
-      <a href="#">🏠 Dashboard</a>
-      <a href="#">📖 My Courses</a>
-      <a href="#">📝 Assignments</a>
-      <a href="#">📊 Progress</a>
-      <a href="#">💬 Discussions</a>
-      <a href="#">⚙️ Settings</a>
-    </nav> -->
  <nav class="sidebar-nav">
     <a href="{% url 'students:dashboard' %}">🏠 Dashboard</a>
     <a href="{% url 'students:my_courses' %}">📖 My Courses</a>
@@ -164,8 +186,6 @@ body.dark-mode .dashboard-card {
     <a href="{% url 'students:discussions' %}">💬 Discussions</a>
     <a href="{% url 'students:settings' %}">⚙️ Settings</a>
 </nav>
-
-  
   </aside>
 
   <!-- Main Content -->
@@ -217,6 +237,29 @@ body.dark-mode .dashboard-card {
         <h3>📊 Track Progress</h3>
         <p>Check performance & view detailed analytics.</p>
       </a>
+    </div>
+
+    <!-- Overview Section -->
+    <div class="overview-section">
+      <h2>📌 Overview</h2>
+      <div class="overview-content">
+        <div class="overview-card">
+          <h3>Upcoming Classes</h3>
+          <p>You have 3 live classes scheduled this week.</p>
+        </div>
+        <div class="overview-card">
+          <h3>Recent Activity</h3>
+          <p>Last login: 2 hours ago. 5 assignments submitted recently.</p>
+        </div>
+        <div class="overview-card">
+          <h3>Achievements</h3>
+          <p>🏆 Completed "Python Basics" with distinction.</p>
+        </div>
+        <div class="overview-card">
+          <h3>Community Updates</h3>
+          <p>New discussion thread started in "Machine Learning".</p>
+        </div>
+      </div>
     </div>
 
   </main>

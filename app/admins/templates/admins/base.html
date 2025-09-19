@@ -1,110 +1,18 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Admin{% endblock %}</title>
+    <title>{% block title %}E-Learnings{% endblock %}</title>
+
+    <!-- Tailwind CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <style>
-        /* Sidebar & Navbar general styling */
-        body {
-            transition: background-color 0.3s, color 0.3s;
-        }
-    </style>
+    <!-- Static Files -->
+    {% load static %}
+    <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
-
-<div class="flex">
-
-    <!-- Sidebar -->
-    <aside id="sidebar" class="w-64 bg-gray-200 dark:bg-gray-800 h-screen p-4 space-y-4 fixed md:relative transform -translate-x-full md:translate-x-0 transition-transform duration-300">
-        <nav class="space-y-2">
-            <a href="{% url 'admins:dashboard' %}" data-spa class="block px-4 py-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-700">🏠 Dashboard</a>
-            <a href="{% url 'admins:users_management' %}" data-spa class="block px-4 py-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-700">👥 Users</a>
-            <a href="#" data-spa class="block px-4 py-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-700">📚 Courses</a>
-            <a href="#" data-spa class="block px-4 py-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-700">💰 Payments</a>
-            <a href="#" data-spa class="block px-4 py-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-700">📊 Reports</a>
-            <a href="{% url 'admins:site_settings' %}" data-spa class="block px-4 py-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-700">⚙️ Settings</a>
-        </nav>
-    </aside>
-
-    <!-- Main Content -->
-    <main class="flex-1 ml-0 md:ml-64 p-6 transition-all duration-300">
-
-        <!-- Navbar -->
-        <header class="flex justify-between items-center px-6 py-4 bg-white dark:bg-gray-800 shadow-md">
-            <div class="flex items-center space-x-3">
-                <button id="sidebarToggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600">
-                    ☰
-                </button>
-                <h1 class="text-2xl font-bold">{% block title %}Admin{% endblock %}</h1>
-            </div>
-            <div class="flex items-center space-x-4">
-                <button onclick="toggleTheme()" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600">🌗</button>
-                <img src="{% static 'images/admin-avatar.png' %}" alt="Admin Avatar" class="w-10 h-10 rounded-full">
-            </div>
-        </header>
-
-        <!-- SPA Container -->
-        <div id="spa-container" class="mt-6">
-
-            
-            {% block content %}{% endblock %}
-
-
-        </div>
-
-    </main>
-
-</div>
-
-<script>
-    // Sidebar Toggle
-    document.getElementById("sidebarToggle").addEventListener("click", () => {
-        document.getElementById("sidebar").classList.toggle("-translate-x-full");
-    });
-
-    // Dark Mode Toggle
-    function toggleTheme() {
-        document.documentElement.classList.toggle("dark");
-        localStorage.setItem("theme", document.documentElement.classList.contains("dark") ? "dark" : "light");
-    }
-    if (localStorage.getItem("theme") === "light") {
-        document.documentElement.classList.remove("dark");
-    }
-
-    // SPA Loader for links
-    document.querySelectorAll("[data-spa]").forEach(link => {
-        link.addEventListener("click", async function(e) {
-            e.preventDefault();
-            const container = document.getElementById("spa-container");
-            container.style.opacity = 0.3;
-
-            try {
-                const response = await fetch(this.href, { headers: { "X-Requested-With": "XMLHttpRequest" } });
-                if (!response.ok) throw new Error("Failed to load");
-                const html = await response.text();
-                container.innerHTML = html;
-                container.style.opacity = 1;
-                history.pushState({ url: this.href }, "", this.href);
-            } catch(err) {
-                container.innerHTML = "<div class='p-4 text-red-500'>Error loading content ❌</div>";
-                container.style.opacity = 1;
-            }
-        });
-    });
-
-    // Handle browser back/forward
-    window.addEventListener("popstate", (e) => {
-        if(e.state?.url){
-            fetch(e.state.url, { headers: { "X-Requested-With": "XMLHttpRequest" } })
-            .then(res => res.text())
-            .then(html => document.getElementById("spa-container").innerHTML = html);
-        }
-    });
-</script>
-
+    {% block content %}{% endblock %}
 </body>
 </html>
