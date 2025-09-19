@@ -9,13 +9,13 @@
 
 from django.contrib import admin
 from django.urls import path, include
-from django.views.generic import RedirectView
+from app.users import views as user_views  # ya jahan home view ho
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("users/", include("users.urls")),
-    path("courses/", include("courses.urls")),
+    path("users/", include("app.users.urls")),
+    path("courses/", include("app.courses.urls")),
     
-    # 👇 root redirect ("/" -> "/courses/")
-    path("", RedirectView.as_view(url="/courses/", permanent=False)),
+    # root "/" -> render home.html
+    path("", user_views.home, name="home"),
 ]
