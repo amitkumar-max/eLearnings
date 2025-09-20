@@ -15,7 +15,10 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("users/", include("app.users.urls")),
     path("courses/", include("app.courses.urls")),
-    
+    path("students/", include("app.students.urls")),
+path("teachers/", include("app.teachers.urls")),
+path("admins/", include("app.admins.urls")),
+
     # root "/" -> render home.html
     path("", user_views.home, name="home"),
 ]
