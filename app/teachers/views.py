@@ -9,6 +9,10 @@ def dashboard(request):
 def announcements(request):
     return render(request, "teachers/announcements.html")
 
+def assignment_detail(request, id):
+    return render(request, "teachers/assignments_details.html", {"id": id})
+
+
 def announcement_detail(request, id):
     return render(request, "teachers/announcements_details.html", {"id": id})
 
@@ -17,6 +21,9 @@ def courses(request):
 
 def course_detail(request, id):
     return render(request, "teachers/course_details.html", {"id": id})
+
+def assignments(request):
+    return render(request, "teachers/assignments.html")
 
 def create_course(request):
     return render(request, "teachers/create_course.html")
@@ -29,6 +36,7 @@ def my_courses(request):
 
 def grade_submission(request):
     return render(request, "teachers/grade_submission.html")
+
 
 def manage_students(request):
     return render(request, "teachers/manage_students.html")
