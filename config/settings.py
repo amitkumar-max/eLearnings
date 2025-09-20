@@ -20,6 +20,11 @@ CSRF_TRUSTED_ORIGINS = ['https://elearnings.onrender.com']
 # Login URL
 # ----------------------------
 LOGIN_URL = '/users/login/'  # ensures @login_required redirects correctly
+# Where to redirect after successful login
+LOGIN_REDIRECT_URL = '/students/dashboard/'
+
+# Where to redirect after logout
+LOGOUT_REDIRECT_URL = '/users/login/'
 
 # ----------------------------
 # Messages framework
