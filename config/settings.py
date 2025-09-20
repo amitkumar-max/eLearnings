@@ -1,6 +1,3 @@
-
-
-
 from pathlib import Path
 from decouple import config
 import dj_database_url
@@ -18,6 +15,11 @@ SECRET_KEY = config("DJANGO_SECRET_KEY")
 DEBUG = config("DEBUG", default=True, cast=bool)
 ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="localhost").split(",")
 CSRF_TRUSTED_ORIGINS = ['https://elearnings.onrender.com']
+
+# ----------------------------
+# Login URL
+# ----------------------------
+LOGIN_URL = '/users/login/'  # ensures @login_required redirects correctly
 
 # ----------------------------
 # Messages framework
@@ -47,8 +49,7 @@ INSTALLED_APPS = [
     "app.students",
     "app.teachers",
     "app.users.apps.UsersConfig",
-    "app.courses",   # <-- ye add karo
-
+    "app.courses",
 ]
 
 # ----------------------------
@@ -82,10 +83,8 @@ WSGI_APPLICATION = 'config.wsgi.application'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            BASE_DIR / 'templates',  # global templates folder (if you have any)
-        ],
-        'APP_DIRS': True,  # allows Django to search inside app/templates/<app_name>/
+        'DIRS': [BASE_DIR / 'templates'],
+        'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -97,20 +96,9 @@ TEMPLATES = [
     },
 ]
 
-
 # ----------------------------
 # Database (PostgreSQL via .env + SSL)
 # ----------------------------
-# DATABASES = {
-#     'default': dj_database_url.config(
-#         default=f"postgres://{config('DB_USER')}:{config('DB_PASSWORD')}@"
-#                 f"{config('DB_HOST')}:{config('DB_PORT')}/{config('DB_NAME')}"
-#                 f"?sslmode={config('DB_SSLMODE', default='require')}",
-#         conn_max_age=600,
-#         ssl_require=True  # Ensure SSL enforced
-#     )
-# }
-
 DATABASES = {
     "default": dj_database_url.config(
         default=(
@@ -118,8 +106,8 @@ DATABASES = {
             f"@{config('DB_HOST')}:{config('DB_PORT')}/{config('DB_NAME')}"
             f"?sslmode={config('DB_SSLMODE', default='require')}"
         ),
-        conn_max_age=600,   # persistent connections
-        ssl_require=True    # enforce SSL
+        conn_max_age=600,
+        ssl_require=True
     )
 }
 
