@@ -1,0 +1,66 @@
+<!-- templates/students/my_courses.html -->
+
+<style>
+    .course-card {
+  background: #fff;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0px 3px 8px rgba(0,0,0,0.1);
+  margin-bottom: 15px;
+}
+
+.course-card h3 {
+  margin: 0;
+  color: #333;
+}
+
+.course-card .btn {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 15px;
+  background: #4f46e5;
+  color: #fff;
+  border-radius: 8px;
+  text-decoration: none;
+}
+.course-card .btn:hover {
+  background: #4338ca;
+}
+
+.empty-msg {
+  color: #666;
+  font-style: italic;
+}
+
+</style>
+<div class="dashboard-container">
+
+  <!-- Sidebar -->
+  <aside id="sidebar" class="sidebar">
+    <h2 class="sidebar-title">📚 Student Panel</h2>
+    <nav class="sidebar-nav">
+      <a href="{% url 'students:dashboard' %}">🏠 Dashboard</a>
+      <a href="{% url 'students:my_courses' %}" class="active">📖 My Courses</a>
+      <a href="{% url 'students:profile' %}">👤 Profile</a>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <h1 class="page-title">📖 My Courses</h1>
+
+    {% if courses %}
+      <div class="courses-list">
+        {% for course in courses %}
+          <div class="course-card">
+            <h3>{{ course.title }}</h3>
+            <p>{{ course.description|truncatewords:20 }}</p>
+            <a href="{% url 'courses:course_detail' course.id %}" class="btn">View Course</a>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="empty-msg">You are not enrolled in any courses yet.</p>
+    {% endif %}
+  </main>
+</div>
