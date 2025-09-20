@@ -4,7 +4,7 @@ from django.db import models
 
 
 class CustomUserManager(BaseUserManager):
-    """Manager for custom user model using email as username"""
+    """Manager for CustomUser using email as username"""
 
     def create_user(self, email, password=None, **extra_fields):
         if not email:
@@ -23,20 +23,39 @@ class CustomUserManager(BaseUserManager):
 
 
 class CustomUser(AbstractUser):
-    """Custom User model with email login and role field"""
+    """Custom User model with email login and extended profile fields"""
+
+    # Remove username field for email login
     username = None
     email = models.EmailField(unique=True)
     full_name = models.CharField(max_length=255)
-    role = models.CharField(
-        max_length=20,
-        choices=[("student", "Student"), ("teacher", "Teacher"), ("admin", "Admin")],
-        default="student",
-    )
 
+    # Roles
+    ROLE_CHOICES = (
+        ("student", "Student"),
+        ("teacher", "Teacher"),
+        ("admin", "Admin"),
+    )
+    role = models.CharField(max_length=20, choices=ROLE_CHOICES, default="student")
+
+    # Optional profile fields
+    bio = models.TextField(blank=True, null=True)
+    avatar = models.ImageField(upload_to="avatars/", blank=True, null=True)
+    banner = models.ImageField(upload_to="banners/", blank=True, null=True)
+    phone_number = models.CharField(max_length=15, blank=True, null=True)
+    date_of_birth = models.DateField(blank=True, null=True)
+    address = models.TextField(blank=True, null=True)
+    is_verified = models.BooleanField(default=False)
+
+    # Email as the login field
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["full_name"]
 
     objects = CustomUserManager()
 
     def __str__(self):
-        return self.email
+        return f"{self.full_name} ({self.role})"
+
+
+
+
