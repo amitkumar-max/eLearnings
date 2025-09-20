@@ -82,8 +82,10 @@ WSGI_APPLICATION = 'config.wsgi.application'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
-        'APP_DIRS': True,
+        'DIRS': [
+            BASE_DIR / 'templates',  # global templates folder (if you have any)
+        ],
+        'APP_DIRS': True,  # allows Django to search inside app/templates/<app_name>/
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -94,6 +96,7 @@ TEMPLATES = [
         },
     },
 ]
+
 
 # ----------------------------
 # Database (PostgreSQL via .env + SSL)
