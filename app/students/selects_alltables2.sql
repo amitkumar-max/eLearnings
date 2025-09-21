@@ -8,9 +8,19 @@
 -- SELECT * FROM django_admin_log;
 -- SELECT * FROM django_content_type;
 -- SELECT * FROM django_session;
+-- Assign temporary unique slugs for all courses with empty slug
+WITH cte AS (
+    SELECT id, title, ROW_NUMBER() OVER () AS rn
+    FROM courses_course
+    WHERE slug = ''
+)
+UPDATE courses_course
+SET slug = concat(slugify(title), '-', rn)
+FROM cte
+WHERE courses_course.id = cte.id;
 
 
-SELECT * FROM exams_course;
+-- SELECT * FROM exams_course;
 -- SELECT * FROM exams_exam;
 
 
