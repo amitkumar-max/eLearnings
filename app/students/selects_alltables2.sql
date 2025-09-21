@@ -24,4 +24,26 @@
 -- WHERE table_schema='public';
 
 
-SELECT * FROM users_customuser;
+-- SELECT * FROM users_customuser;
+
+-- Correct table name
+-- SELECT * FROM courses_course;
+-- INSERT INTO courses_course (title, description, slug, is_published, created_at, updated_at)
+-- VALUES 
+-- ('Python Programming', 'Learn Python from scratch with hands-on projects.', 'python-programming', TRUE, NOW(), NOW()),
+-- ('Web Development', 'HTML, CSS, JavaScript, Django full-stack course.', 'web-development', TRUE, NOW(), NOW()),
+-- ('Data Science', 'Statistics, Python, and ML algorithms explained.', 'data-science', TRUE, NOW(), NOW());
+
+
+-- SELECT * FROM app_courses;
+SELECT id, title, slug, is_published FROM courses_course;
+
+
+
+
+
+
+
+
+
+

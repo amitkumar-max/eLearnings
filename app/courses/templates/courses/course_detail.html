@@ -126,7 +126,7 @@
   <div class="nav-links">
     <a href="{% url 'home' %}">Home</a>
     <!-- galat tha -->
-    <!-- <a href="{% url 'course_list' %}">Courses</a> -->
+<a href="{% url 'courses:course_list' %}">Courses</a>
     <!-- fix -->
     <a href="{% url 'courses:course_list' %}">Courses</a>
   </div>
@@ -134,7 +134,7 @@
 
 
 <div class="container">
-  <a href="{% url 'course_list' %}" class="back-link">&larr; Back to Courses</a>
+<a href="{% url 'courses:course_list' %}" class="back-link">&larr; Back to Courses</a>
 
   <div class="course-box">
     <!-- Course Image -->
@@ -146,8 +146,7 @@
 
       <div class="course-footer">
         <span class="price">₹{{ course.price }}</span>
-        <a href="#" class="btn-primary">Enroll Now</a>
-      </div>
+  <a href="{% url 'courses:course_detail' course.slug %}" class="btn-primary">Enroll Now</a>      </div>
 
       <!-- Optional Instructor Info -->
       {% if course.instructor %}

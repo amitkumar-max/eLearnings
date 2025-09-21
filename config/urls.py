@@ -18,7 +18,11 @@ urlpatterns = [
     path("students/", include("app.students.urls")),
 path("teachers/", include("app.teachers.urls")),
 path("admins/", include("app.admins.urls")),
+   
+   path("payments/", include(("app.payments.urls", "payments"), namespace="payments")),
 
+    # Exams app
+    path("exams/", include(("app.exams.urls", "exams"), namespace="exams")),
     # root "/" -> render home.html
     path("", user_views.home, name="home"),
 ]

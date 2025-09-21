@@ -1,211 +1,24 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Courses | E-Learn</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #f0f4f8, #e0f7f1);
-            color: #1a202c;
-        }
+<h1 style="text-align:center; margin:20px 0;">Featured Courses</h1>
 
-        /* Navbar */
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 2rem;
-            background-color: #fff;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
+<div class="courses-container" style="display:flex; flex-wrap:wrap; gap:20px; justify-content:center;">
 
-        nav .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #32CD32;
-        }
-
-        nav .nav-links {
-            display: flex;
-            gap: 2rem;
-        }
-
-        nav .nav-links a {
-            color: #1a202c;
-            font-weight: 500;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        nav .nav-links a:hover {
-            color: #32CD32;
-        }
-
-        /* Header */
-        .header {
-            text-align: center;
-            padding: 2rem 1rem;
-        }
-
-        .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .header p {
-            font-size: 1rem;
-            color: #4a5568;
-        }
-
-        /* Filters */
-        .filter-bar {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .filter-bar button {
-            padding: 0.5rem 1rem;
-            border: none;
-            border-radius: 9999px;
-            background-color: #32CD32;
-            color: #fff;
-            cursor: pointer;
-            font-weight: 500;
-            transition: background 0.3s;
-        }
-
-        .filter-bar button:hover {
-            background-color: #28a428;
-        }
-
-        /* Course Grid */
-        .course-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.8rem;
-            max-width: 1200px;
-            margin: 0 auto 4rem auto;
-        }
-
-        .course-card {
-            background: #fff;
-            padding: 1.8rem;
-            border-radius: 1rem;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-            transition: transform 0.3s, box-shadow 0.3s;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .course-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 12px 25px rgba(0,0,0,0.12);
-        }
-
-        .course-card h2 {
-            margin: 0 0 0.5rem 0;
-            font-size: 1.3rem;
-            color: #1a202c;
-        }
-
-        .course-card p {
-            color: #4a5568;
-            font-size: 0.95rem;
-            margin-bottom: 1rem;
-            flex-grow: 1;
-        }
-
-        .course-card .price {
-            color: #32CD32;
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-
-        .btn-primary {
-            background-color: #32CD32;
-            color: #fff;
-            padding: 0.5rem 1rem;
-            border-radius: 9999px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: background 0.3s;
-        }
-
-        .btn-primary:hover {
-            background-color: #28a428;
-        }
-
-        @media(max-width:768px) {
-            nav {
-                flex-direction: column;
-                gap: 0.8rem;
-            }
-        }
-    </style>
-</head>
-<body>
-
-    <!-- Navbar -->
-    <nav>
-        <div class="logo">E-Learn</div>
-        <div class="nav-links">
-            <a href="{% url 'home' %}">Home</a>
-            <!-- <a href="#">Courses</a> -->
-            <a href="{% url 'courses:course_list' %}">All Courses</a>
-            <a href="#">Exams</a>
-            <a href="#">Progress</a>
-            <a href="#">Contact</a>
-        </div>
-    </nav>
-
-    <!-- Header -->
-    <div class="header">
-        <h1>Explore Our Courses</h1>
-        <p>Learn, practice, and grow with hundreds of available courses.</p>
-    </div>
-
-    <!-- Filters -->
-    <div class="filter-bar">
-        <button>All</button>
-        <button>Programming</button>
-        <button>Design</button>
-        <button>Business</button>
-        <button>Science</button>
-        <button>Mathematics</button>
-        <button>Languages</button>
-    </div>
-
-    <!-- Courses -->
-    <div class="container">
-        {% if courses %}
-        <div class="course-grid">
-            {% for course in courses %}
-            <div class="course-card">
-                <h2>{{ course.title }}</h2>
-                <p>{{ course.description|truncatewords:25 }}</p>
-                <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <span class="price">₹{{ course.price }}</span>
-                    <a href="{% url 'course_detail' course.pk %}" class="btn-primary">View</a>
-                </div>
+    {% if courses %}
+        {% for course in courses %}
+        <div class="course-card" style="border:1px solid #ddd; border-radius:8px; width:300px; overflow:hidden; box-shadow:0 2px 5px rgba(0,0,0,0.1);">
+            
+            {% if course.image %}
+            <img src="{{ course.image.url }}" alt="{{ course.title }}" style="width:100%; height:200px; object-fit:cover;">
+            {% endif %}
+            
+            <div class="course-info" style="padding:15px; background:#fff;">
+                <h3 style="font-size:1.2em; margin-bottom:10px;">{{ course.title }}</h3>
+                <p style="font-size:0.95em; color:#555; min-height:50px;">{{ course.description }}</p>
+                <a href="{% url 'courses:course_detail' course.slug %}" style="display:inline-block; margin-top:10px; padding:8px 15px; background:#32cd32; color:#fff; border-radius:5px; text-decoration:none;">Enroll Now</a>
             </div>
-            {% endfor %}
         </div>
-        {% else %}
-            <p style="text-align:center; color:#4a5568;">No courses available right now.</p>
-        {% endif %}
-    </div>
+        {% endfor %}
+    {% else %}
+        <p style="text-align:center; color:#999;">No courses available yet.</p>
+    {% endif %}
 
-</body>
-</html>
+</div>

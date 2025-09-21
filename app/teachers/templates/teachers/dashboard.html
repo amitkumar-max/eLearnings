@@ -1,11 +1,7 @@
-{% extends "base.html" %}
-{% block title %}Teacher Dashboard{% endblock %}
-{% block content %}
 
 <style>
 :root {
   --primary: #ff7f50;
-  --primary-light: #ffa07a;
   --primary-dark: #e56735;
   --bg-light: #fff7f2;
   --bg-dark: #1e1e2f;
@@ -14,115 +10,79 @@
   font-family: 'Poppins', sans-serif;
 }
 
-/* Body */
 body {
   background: var(--bg-light);
   color: var(--text-dark);
   transition: background 0.3s, color 0.3s;
 }
-body.dark-mode {
-  background: var(--bg-dark);
-  color: var(--text-light);
-}
+body.dark-mode { background: var(--bg-dark); color: var(--text-light); }
 
 /* Sidebar */
 #sidebar {
   background: linear-gradient(180deg, var(--primary), var(--primary-dark));
   color: white;
   font-weight: 500;
-  box-shadow: 2px 0 15px rgba(0,0,0,0.2);
+  position: fixed; top: 0; left: 0;
+  height: 100%; width: 16rem;
+  padding-top: 5rem;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  z-index: 100;
   border-top-right-radius: 1rem;
   border-bottom-right-radius: 1rem;
-  transition: transform 0.3s ease;
-  position: fixed;
-  height: 100%;
-  z-index: 100;
 }
-#sidebar a {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  color: white;
-  padding: 0.8rem 1rem;
-  border-radius: 0.6rem;
-  transition: all 0.3s ease;
-}
-#sidebar a:hover {
-  background: rgba(255,255,255,0.2);
-  transform: translateX(4px);
-}
+#sidebar.show { transform: translateX(0); }
+#sidebar a { display: flex; align-items: center; gap: 0.6rem; color: white; padding: 0.8rem 1rem; border-radius: 0.6rem; transition: all 0.3s ease; }
+#sidebar a:hover { background: rgba(255,255,255,0.2); transform: translateX(4px); }
 
-/* Header (Navbar) */
+/* Header */
 header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
+  position: fixed; top: 0; left: 0; width: 100%;
   z-index: 200;
   background: white;
-  border-bottom-left-radius: 0.6rem;
-  border-bottom-right-radius: 0.6rem;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  border-bottom-left-radius: 0.6rem; border-bottom-right-radius: 0.6rem;
+  display: flex; justify-content: space-between; align-items: center;
   padding: 0.8rem 1.5rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
   transition: background 0.3s;
 }
-body.dark-mode header {
-  background: #2b2b3b;
-}
+body.dark-mode header { background: #2b2b3b; }
 
-/* Main Content */
+/* Main */
 main {
   margin-left: 16rem;
   padding: 6rem 2rem 2rem 2rem;
-  transition: margin-left 0.3s;
+  transition: margin-left 0.3s ease;
 }
+body:not(.sidebar-open) main { margin-left: 0; }
 
-/* Stats Grid */
+@media (max-width:768px) { main { margin-left:0; padding:6rem 1rem 2rem 1rem; } }
+
+/* Cards & Grids */
 .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 1.5rem; margin-bottom: 2rem; }
-.stat-card { background: white; border-radius: 1rem; padding: 1.5rem; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: transform 0.3s ease; }
-.stat-card:hover { transform: scale(1.04); box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
-.stat-value { font-size: 1.6rem; font-weight: bold; color: var(--primary-dark); }
+.stat-card { background:white; border-radius:1rem; padding:1.5rem; text-align:center; box-shadow:0 4px 15px rgba(0,0,0,0.05); transition: transform 0.3s ease; }
+.stat-card:hover { transform: scale(1.04); box-shadow:0 8px 25px rgba(0,0,0,0.1); }
+.stat-value { font-size:1.6rem; font-weight:bold; color:var(--primary-dark); }
 
-/* Dashboard Cards */
-.dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 1.5rem; }
-.dashboard-card {
-  background: white;
-  padding: 1.5rem;
-  border-radius: 1rem;
-  border-top: 4px solid var(--primary-dark);
-  box-shadow: 0 6px 15px rgba(0,0,0,0.08);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  text-decoration: none; color: var(--text-dark);
-}
-.dashboard-card:hover { transform: translateY(-6px); box-shadow: 0 12px 25px rgba(0,0,0,0.12); }
+.dashboard-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.5rem; }
+.dashboard-card { background:white; padding:1.5rem; border-radius:1rem; border-top:4px solid var(--primary-dark); box-shadow:0 6px 15px rgba(0,0,0,0.08); text-decoration:none; color:var(--text-dark); transition: transform 0.3s, box-shadow 0.3s; }
+.dashboard-card:hover { transform:translateY(-6px); box-shadow:0 12px 25px rgba(0,0,0,0.12); }
 
-/* Extra Sections */
-.extra-section { background: white; border-radius: 1rem; padding: 1.5rem; margin-top: 2rem; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-.extra-section h2 { color: var(--primary-dark); margin-bottom: 1rem; }
-.extra-section p { color: #4b4b4b; }
+.extra-section { background:white; border-radius:1rem; padding:1.5rem; margin-top:2rem; box-shadow:0 4px 15px rgba(0,0,0,0.05); }
 
 /* Dark Mode Cards */
-body.dark-mode .stat-card,
-body.dark-mode .dashboard-card,
-body.dark-mode .extra-section {
-  background: #2b2b3b; color: var(--text-light); box-shadow: 0 6px 20px rgba(0,0,0,0.5);
-}
-body.dark-mode .dashboard-card p,
-body.dark-mode .extra-section p { color: #cbd5e1; }
+body.dark-mode .stat-card, body.dark-mode .dashboard-card, body.dark-mode .extra-section { background:#2b2b3b; color:var(--text-light); box-shadow:0 6px 20px rgba(0,0,0,0.5); }
+body.dark-mode .dashboard-card p, body.dark-mode .extra-section p { color:#cbd5e1; }
 
-/* Sidebar Toggle for Mobile */
-@media (max-width: 768px) {
-  main { margin-left: 0; }
-}
 </style>
+
+
+
 
 <div class="flex">
   <!-- Sidebar -->
-  <aside id="sidebar" class="-translate-x-full md:translate-x-0 transition-transform duration-300 space-y-4">
-    <nav class="space-y-2 mt-20">
+  <aside id="sidebar">
+    <nav>
       <a href="{% url 'teachers:dashboard' %}">🏠 Dashboard</a>
       <a href="{% url 'teachers:my_courses' %}">📚 My Courses</a>
       <a href="{% url 'teachers:assignments' %}">📝 Assignments</a>
@@ -134,18 +94,20 @@ body.dark-mode .extra-section p { color: #cbd5e1; }
 
   <!-- Main Content -->
   <main>
-    <header>
-      <div class="flex items-center space-x-3">
-        <button id="sidebarToggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600">☰</button>
-        <h1 class="text-2xl font-bold">Teacher Dashboard</h1>
+    
+    <!-- Navbar -->
+    <header class="navbar">
+      <div class="navbar-left"> <h1>Teacher Dashboard</h1>
+        <button id="sidebarToggle" class="btn">☰</button>
+       
       </div>
-      <div class="flex items-center space-x-4">
-        <button onclick="toggleTheme()" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600">🌗</button>
-        <img src="{% static 'images/teacher-avatar.png' %}" alt="Teacher Avatar" class="w-10 h-10 rounded-full shadow-md">
+      <div class="navbar-right">
+        <button onclick="toggleTheme()" class="btn">🌗</button>
+        <img src="" alt="Student Avatar" class="avatar">
       </div>
     </header>
 
-    <!-- Stats & Cards -->
+    <!-- Stats & Dashboard Cards -->
     <div class="stats-grid mt-6">
       <div class="stat-card"><h3>📚 Courses</h3><p class="stat-value">12</p></div>
       <div class="stat-card"><h3>👥 Active Students</h3><p class="stat-value">320</p></div>
@@ -153,66 +115,54 @@ body.dark-mode .extra-section p { color: #cbd5e1; }
       <div class="stat-card"><h3>📊 Avg. Class Score</h3><p class="stat-value">82%</p></div>
     </div>
 
-    <div class="dashboard-grid">
-      <a href="#" class="dashboard-card"><h3>📚 Manage Courses</h3><p>Create, edit, and update lessons for your students.</p></a>
-      <a href="#" class="dashboard-card"><h3>📝 Grade Assignments</h3><p>Review and provide feedback on student submissions.</p></a>
-      <a href="#" class="dashboard-card"><h3>📅 Schedule Classes</h3><p>Plan your live sessions and deadlines with ease.</p></a>
-      <a href="#" class="dashboard-card"><h3>📊 Generate Reports</h3><p>View analytics of student performance and attendance.</p></a>
-      <a href="#" class="dashboard-card"><h3>💬 Student Messages</h3><p>Communicate with students and resolve their doubts.</p></a>
-      <a href="#" class="dashboard-card"><h3>🔔 Announcements</h3><p>Post updates, notices, and important information.</p></a>
+    <div class="dashboard-grid mt-6">
+      <a href="#" class="dashboard-card"><h3>📚 Manage Courses</h3><p>Create, edit, and update lessons.</p></a>
+      <a href="#" class="dashboard-card"><h3>📝 Grade Assignments</h3><p>Review & provide feedback.</p></a>
+      <a href="#" class="dashboard-card"><h3>📅 Schedule Classes</h3><p>Plan sessions & deadlines.</p></a>
+      <a href="#" class="dashboard-card"><h3>📊 Generate Reports</h3><p>Analytics of student performance.</p></a>
+      <a href="#" class="dashboard-card"><h3>💬 Student Messages</h3><p>Communicate & resolve doubts.</p></a>
+      <a href="#" class="dashboard-card"><h3>🔔 Announcements</h3><p>Post updates & notices.</p></a>
     </div>
 
     <!-- Extra Sections -->
-    <div class="extra-section">
-      <h2>📌 Upcoming Classes</h2>
-      <p>You have 3 live classes scheduled this week.</p>
-    </div>
-    <div class="extra-section">
-      <h2>🕒 Recent Activity</h2>
-      <p>Last login: 2 hours ago. 5 assignments submitted recently.</p>
-    </div>
-    <div class="extra-section">
-      <h2>🏆 Achievements</h2>
-      <p>Completed "Python Basics" course with distinction.</p>
-    </div>
-    <div class="extra-section">
-      <h2>💡 Community Updates</h2>
-      <p>New discussion thread started in "Machine Learning".</p>
-    </div>
+    <div class="extra-section mt-6"><h2>📌 Upcoming Classes</h2><p>3 live classes this week.</p></div>
+    <div class="extra-section mt-4"><h2>🕒 Recent Activity</h2><p>Last login: 2 hours ago. 5 assignments submitted recently.</p></div>
+    <div class="extra-section mt-4"><h2>🏆 Achievements</h2><p>Completed "Python Basics" course with distinction.</p></div>
+    <div class="extra-section mt-4"><h2>💡 Community Updates</h2><p>New discussion thread in "Machine Learning".</p></div>
 
   </main>
 </div>
 
+
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-  // Sidebar toggle
-  const sidebarToggle = document.getElementById("sidebarToggle");
-  const sidebar = document.getElementById("sidebar");
+// Sidebar toggle
+const sidebarToggle = document.getElementById("sidebarToggle");
+const sidebar = document.getElementById("sidebar");
+const main = document.querySelector("main");
+const header = document.querySelector("header");
 
-  if(sidebarToggle && sidebar){
-    sidebarToggle.addEventListener("click", () => {
-      sidebar.classList.toggle("-translate-x-full");
-    });
-  }
+sidebarToggle.addEventListener("click", () => {
+    sidebar.classList.toggle("show");
+    document.body.classList.toggle("sidebar-open");
 
-  // Load theme from localStorage on page load
-  const savedTheme = localStorage.getItem("theme");
-  if(savedTheme === "dark"){
-    document.documentElement.classList.add("dark-mode");
-  } else {
-    document.documentElement.classList.remove("dark-mode");
-  }
+    if(sidebar.classList.contains("show")) {
+        main.style.marginLeft = "16rem";
+        header.style.left = "16rem";
+    } else {
+        main.style.marginLeft = "0";
+        header.style.left = "0";
+    }
 });
 
-// Dark/Light mode toggle function
+// Dark Mode Toggle
 function toggleTheme() {
-  document.documentElement.classList.toggle("dark-mode");
-  localStorage.setItem(
-    "theme",
-    document.documentElement.classList.contains("dark-mode") ? "dark" : "light"
-  );
+    document.body.classList.toggle("dark-mode");
+    localStorage.setItem("theme", document.body.classList.contains("dark-mode") ? "dark" : "light");
 }
+
+// Load saved theme
+if(localStorage.getItem("theme") === "dark") document.body.classList.add("dark-mode");
 </script>
 
 
-{% endblock %}
+

@@ -1,7 +1,9 @@
 from django.urls import path
-from .views import ExamListView, ExamDetailView
+from . import views
+
+app_name = "exams"
 
 urlpatterns = [
-    path('', ExamListView.as_view(), name='exam_list'),
-    path('<int:pk>/', ExamDetailView.as_view(), name='exam_detail'),
+    path("", views.exam_list, name="list"),
+    path("<int:pk>/", views.ExamDetailView.as_view(), name="detail"),  # agar detail view chahiye
 ]

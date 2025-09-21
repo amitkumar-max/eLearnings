@@ -1,8 +1,6 @@
 from django.db import models
 from django.conf import settings
 from django.utils import timezone
-
-# Corrected import path
 from app.courses.models import Course, TimeStampedModel
 
 class Order(TimeStampedModel):
@@ -13,6 +11,7 @@ class Order(TimeStampedModel):
         ("refunded", "Refunded"),
         ("cancelled", "Cancelled"),
     ]
+    
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="orders")
     course = models.ForeignKey(Course, on_delete=models.PROTECT, related_name="orders")
     currency = models.CharField(max_length=10, default="INR")
@@ -20,8 +19,14 @@ class Order(TimeStampedModel):
     status = models.CharField(max_length=20, choices=ORDER_STATUS, default="pending", db_index=True)
     meta = models.JSONField(default=dict, blank=True)
 
+    class Meta:
+        ordering = ["-created_at"]
+
     def __str__(self):
         return f"Order #{self.pk} • {self.user} • {self.course.title} • {self.status}"
+
+    def is_paid(self):
+        return self.status.lower() == "paid"
 
 
 class Transaction(TimeStampedModel):
@@ -31,6 +36,7 @@ class Transaction(TimeStampedModel):
         ("failed", "Failed"),
         ("refunded", "Refunded"),
     ]
+    
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name="transactions")
     gateway = models.CharField(max_length=30, default="razorpay")
     amount = models.DecimalField(max_digits=10, decimal_places=2)
@@ -42,6 +48,9 @@ class Transaction(TimeStampedModel):
     raw_payload = models.JSONField(default=dict, blank=True)
     processed_at = models.DateTimeField(blank=True, null=True)
 
+    class Meta:
+        ordering = ["-created_at"]
+
     def __str__(self):
         return f"Txn #{self.pk} • Order {self.order.pk} • {self.status}"
 
@@ -51,3 +60,6 @@ class Transaction(TimeStampedModel):
         if payload:
             self.raw_payload = payload
         self.save()
+        # Update related order status automatically
+        self.order.status = "paid"
+        self.order.save()

@@ -80,3 +80,17 @@ class Question(TimeStampedModel):
 
     def __str__(self):
         return f"Q{self.order_index}: {self.text[:60]}..."
+
+
+# class Result(TimeStampedModel):
+#     exam = models.ForeignKey(Exam, on_delete=models.CASCADE, related_name="results")
+#     student = models.ForeignKey("users.User", on_delete=models.CASCADE, related_name="results")
+#     score = models.DecimalField(max_digits=6, decimal_places=2)
+#     passed = models.BooleanField(default=False)
+
+#     class Meta:
+#         unique_together = ("exam", "student")
+#         ordering = ["-score"]
+
+#     def __str__(self):
+#         return f"{self.student.username} - {self.exam.title} ({self.score})"

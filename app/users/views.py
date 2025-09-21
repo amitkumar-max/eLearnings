@@ -11,13 +11,18 @@ from django.http import HttpResponse
 from .services.user_service import create_user
 from config.constants import STUDENT_DASHBOARD, TEACHER_DASHBOARD, ADMIN_DASHBOARD
 # from django.shortcuts import redirect
+from app.courses.models import Course
 
 
 
 User = get_user_model()
 
+
+
 def home(request):
-    return render(request, "users/home.html")
+    courses = Course.objects.filter(is_published=True)
+    return render(request, "users/home.html", {"courses": courses})
+
 # users/views.py
 
 def placeholder(request):

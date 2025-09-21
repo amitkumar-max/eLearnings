@@ -1,17 +1,17 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Course, Lesson
+from .models import Course  # assume Category model bhi hai
 
-# All courses
+# 1️⃣ Courses list page
 def course_list(request):
-    courses = Course.objects.all()
-    return render(request, 'courses/course_list.html', {'courses': courses})
+    courses = Course.objects.filter(is_published=True)
+    return render(request, "courses/course_list.html", {"courses": courses})
 
-# Single course detail
-def course_detail(request, course_id):
-    course = get_object_or_404(Course, id=course_id)
-    lessons = course.lessons.all().order_by('order')
-    return render(request, 'courses/course_detail.html', {'course': course, 'lessons': lessons})
+# 2️⃣ Individual course detail page
+def course_detail(request, slug):
+    course = get_object_or_404(Course, slug=slug)
+    return render(request, "courses/course_detail.html", {"course": course})
 
-# Placeholder for categories (since template not ready)
-def category_list(request):
-    return render(request, "courses/category_list.html")
+# 3️⃣ Categories page
+def categories(request):
+    categories = ["Python", "Web Development", "Data Science"]  # dummy
+    return render(request, "courses/category_list.html", {"categories": categories})

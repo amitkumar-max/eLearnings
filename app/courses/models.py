@@ -1,5 +1,5 @@
-# app/courses/models.py
 from django.db import models
+from django.utils.text import slugify
 
 # Base abstract models
 class TimeStampedModel(models.Model):
@@ -20,9 +20,16 @@ class PublishableModel(models.Model):
 class Course(TimeStampedModel, PublishableModel):
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True)
+    price = models.DecimalField(max_digits=8, decimal_places=2, default=0.0)  # <--- Add this
+    slug = models.SlugField(max_length=220, unique=True, blank=True)
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super().save(*args, **kwargs)
 
 # Lesson model
 class Lesson(TimeStampedModel, PublishableModel):
@@ -42,7 +49,6 @@ class Lesson(TimeStampedModel, PublishableModel):
         return f"{self.course.title} • {self.title}"
 
     def save(self, *args, **kwargs):
-        # Auto-generate slug if blank
         if not self.slug:
             base = slugify(self.title)
             slug = base
@@ -52,3 +58,7 @@ class Lesson(TimeStampedModel, PublishableModel):
                 slug = f"{base}-{i}"
             self.slug = slug
         super().save(*args, **kwargs)
+
+
+
+

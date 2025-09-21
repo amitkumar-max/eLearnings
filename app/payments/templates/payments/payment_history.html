@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block title %}Payment History | E-Learn{% endblock %}
+{% block content %}
+<style>
+    .history-container {
+        max-width: 800px;
+        margin: 2rem auto;
+        background: white;
+        border-radius: 1rem;
+        padding: 2rem;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    }
+    .history-title {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #047857;
+        text-align: center;
+        margin-bottom: 1.5rem;
+    }
+    .history-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    .history-table th, .history-table td {
+        padding: 0.75rem;
+        border-bottom: 1px solid #e5e7eb;
+        text-align: left;
+    }
+    .history-status-paid { color: #16a34a; font-weight: 600; }
+    .history-status-failed { color: #dc2626; font-weight: 600; }
+</style>
+
+<div class="history-container">
+    <h2 class="history-title">🧾 Payment History</h2>
+    <table class="history-table">
+        <thead>
+            <tr>
+                <th>Order #</th>
+                <th>Course</th>
+                <th>Amount</th>
+                <th>Status</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+            <tr>
+                <td>{{ order.pk }}</td>
+                <td>{{ order.course.title }}</td>
+                <td>₹{{ order.amount }}</td>
+                <td class="history-status-{{ order.status|lower }}">{{ order.status }}</td>
+                <td>{{ order.created_at|date:"d M Y H:i" }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">No payments found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
