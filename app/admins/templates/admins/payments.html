@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payments</title>
+<style>
+body { font-family:'Segoe UI',sans-serif; margin:0; padding:0; background:#f8f9fa; }
+nav { background:#343a40; padding:15px; display:flex; gap:15px; }
+nav a { color:#fff; text-decoration:none; font-weight:500; }
+nav a:hover { color:#ff7f50; }
+.container { padding:20px; }
+h1 { color:#333; }
+</style>
+</head>
+<body>
+<nav>
+  <a href="#">🏠 Dashboard</a>
+  <a href="{% url 'admins:users_management' %}">👥 Users</a>
+  <a href="{% url 'admins:courses_management' %}">📚 Courses</a>
+  <a href="{% url 'admins:payments' %}">💰 Payments</a>
+  <a href="{% url 'admins:reports' %}">📊 Reports</a>
+  <a href="{% url 'admins:site_settings' %}">⚙️ Settings</a>
+  <a href="{% url 'admins:notifications' %}">🔔 Notifications</a>
+</nav>
+<div class="container">
+<h1>💰 Payments</h1>
+<p>Track revenue, invoices, pending payments here.</p>
+</div>
+</body>
+</html>
