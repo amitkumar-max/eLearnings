@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
 
-app_name = 'download'
+app_name = 'downloads'
 
 urlpatterns = [
     path('', views.file_list, name='file_list'),

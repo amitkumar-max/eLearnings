@@ -33,7 +33,11 @@ class Course(TimeStampedModel, PublishableModel):
 
 # Lesson model
 class Lesson(TimeStampedModel, PublishableModel):
-    course = models.ForeignKey(Course, related_name='lessons', on_delete=models.CASCADE)
+    course = models.ForeignKey(
+    Course,
+    on_delete=models.CASCADE,
+    related_name="lessons_in_courses_app",  )
+
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=220, blank=True)
     content = models.TextField(blank=True)

@@ -712,75 +712,8 @@
         <a href="{% url 'users:signup' %}" class="btn-outline">Join Now</a>
       </div>
     </section>
-    <!-- ✅ 2. Featured Instructors / Experts Section -->
-    <section
-      class="instructors container"
-      style="
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-      "
-    >
-      <h2>Meet Our Experts</h2>
-      <div class="instructor-grid">
-        <!-- Python Programming -->
-        <div class="instructor-card">
-          <img src="{% static 'images/py_instructor.jpg' %}"
-           alt="Instructor"  width="180" height="180"
-           />
-          <h3>Dr. John Smith</h3>
-          <p>Python & Machine Learning Expert</p>
-          <span>⭐⭐⭐⭐⭐</span>
-        </div>
-
-        <!-- Web Development -->
-        <div class="instructor-card">
-          <img
-            src="{% static 'images/web_instructor.jpeg' %}"
-            alt="Instructor" width="180" height="180"
-          />
-          <h3>Ms. Sarah Lee</h3>
-          <p>Full-Stack Web Developer</p>
-          <span>⭐⭐⭐⭐⭐</span>
-        </div>
-
-        <!-- Data Science -->
-        <div class="instructor-card">
-          <img src="{% static 'images/ds_instructor.jpg' %}" 
-          alt="Instructor"  width="180" height="180"
-          />
-          <h3>Dr. Michael Chen</h3>
-          <p>Data Science & Analytics Specialist</p>
-          <span>⭐⭐⭐⭐⭐</span>
-        </div>
-
-        <!-- Design -->
-        <div class="instructor-card">
-          <img
-            src="{% static 'images/wdg_instructor.jpeg' %}"
-            alt="Instructor" width="180" height="180"
-          />
-          <h3>Ms. Emily Davis</h3>
-          <p>UI/UX & Graphic Design Expert</p>
-          <span>⭐⭐⭐⭐⭐</span>
-        </div>
-
-        <!-- AI & Robotics -->
-        <div class="instructor-card">
-          <img
-            src="{% static 'images/ai_instructor.webp' %}"
-            alt="Instructor" width="180" height="180"
-          />
-          <h3>Dr. Robert Wilson</h3>
-          <p>AI Researcher & Robotics Engineer</p>
-          <span>⭐⭐⭐⭐⭐</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- Featured Courses -->
+  
+      <!-- Featured Courses -->
     <section id="courses" class="courses">
       <div class="container">
         <h2>Featured Courses</h2>
@@ -805,14 +738,84 @@
       </div>
     </section>
 
+
+    <!-- ✅ 2. Featured Instructors / Experts Section -->
+    <section
+      class="instructors container"
+      style="
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      "
+    >
+      <h2>Meet Our Experts</h2>
+      <div class="instructor-grid">
+        <!-- Python Programming -->
+        <div class="instructor-card">
+          <img src="{% static 'images/py_instructor.jpg' %}"
+           alt="Instructor"  width="210" height="180"
+           />
+          <h3>Dr. John Smith</h3>
+          <p>Python & Machine Learning Expert</p>
+          <span>⭐⭐⭐⭐⭐</span>
+        </div>
+
+        <!-- Web Development -->
+        <div class="instructor-card">
+          <img
+            src="{% static 'images/web_instructor.jpeg' %}"
+            alt="Instructor" width="210" height="180"
+          />
+          <h3>Ms. Sarah Lee</h3>
+          <p>Full-Stack Web Developer</p>
+          <span>⭐⭐⭐⭐⭐</span>
+        </div>
+
+        <!-- Data Science -->
+        <div class="instructor-card">
+          <img src="{% static 'images/ds_instructor.jpg' %}" 
+          alt="Instructor"  width="210" height="180"
+          />
+          <h3>Dr. Michael Chen</h3>
+          <p>Data Science & Analytics Specialist</p>
+          <span>⭐⭐⭐⭐⭐</span>
+        </div>
+
+        <!-- Design -->
+        <div class="instructor-card">
+          <img
+            src="{% static 'images/wdg_instructor.jpeg' %}"
+            alt="Instructor" width="210" height="180"
+          />
+          <h3>Ms. Emily Davis</h3>
+          <p>UI/UX & Graphic Design Expert</p>
+          <span>⭐⭐⭐⭐⭐</span>
+        </div>
+
+        <!-- AI & Robotics -->
+        <div class="instructor-card">
+          <img
+            src="{% static 'images/ai_instructor.webp' %}"
+            alt="Instructor" width="210" height="180"
+          />
+          <h3>Dr. Robert Wilson</h3>
+          <p>AI Researcher & Robotics Engineer</p>
+          <span>⭐⭐⭐⭐⭐</span>
+        </div>
+      </div>
+    </section>
+
+
     <!-- Categories -->
     <section id="categories" class="categories container">
       <h2>Explore by Categories</h2>
       <div class="category-buttons">
-        {# <a href="{% url 'lessons:list' %}">Lessons</a> #} {#
-        <a href="{% url 'exams:list' %}">Exams</a> #} {#
-        <a href="{% url 'payments:history' %}">Payments</a> #} {#
-        <a href="{% url 'progress:dashboard' %}">Progress</a> #}
+    <a href="{% url 'lessons:lesson_list' %}">Lessons</a>
+    <a href="{% url 'exams:exam_list' %}">Exams</a>
+    <a href="{% url 'payments:history' %}">Payments</a>
+    <a href="{% url 'progress:dashboard' %}">Progress</a>
       </div>
     </section>
     <!-- ✅ 3. Achievements / Stats Section -->
@@ -950,13 +953,10 @@
           <p class="text-gray-600">
             Discover scientifically proven strategies to study smarter...
           </p>
-          {#
-          <a
-            href="{% url 'blog:detail' slug='top-5-tips' %}"
-            class="text-blue-500 mt-2 inline-block"
-            >Read More →</a
-          >
-          #}
+<a href="{% url 'blogs:blog_detail' blog_id=1 %}" class="text-blue-500 mt-2 inline-block">Read More →</a>
+  Read More →
+</a>
+
         </article>
         <!-- Do 2-3 aur articles add kar do -->
       </div>
@@ -1058,13 +1058,12 @@
         </div>
         <div>
           <h3 class="font-bold mb-2">Support</h3>
-          <!-- 
 <ul>
-  <li><a href="#">FAQ</a></li>
-  <li><a href="#">Refund Policy</a></li>
-  <li><a href="#">Privacy Policy</a></li>
+  <li><a href="{% url 'policies:faq' %}">FAQ</a></li>
+  <li><a href="{% url 'policies:refund_policy' %}">Refund Policy</a></li>
+  <li><a href="{% url 'policies:privacy_policy' %}">Privacy Policy</a></li>
 </ul>
--->
+
         </div>
         <div class="text-center md:text-left">
           <h3 class="font-bold mb-2">Follow Us</h3>

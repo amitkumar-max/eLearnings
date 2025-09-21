@@ -1,26 +1,31 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-from .models import Exam, ExamQuestion, ExamOption, ExamProgress, ExamFeedback
+from .models import Exam, ExamQuestion, ExamProgress, ExamFeedback
 
-# Public view
+# -----------------------------
+# Public Views
+# -----------------------------
 def exam_list(request):
-    exams = Exam.objects.all().order_by('date')
+    exams = Exam.objects.all().order_by('-created_at')  # show newest first
     return render(request, 'exams/exam_list.html', {'exams': exams})
 
-# Public view
 def exam_detail(request, exam_id):
     exam = get_object_or_404(Exam, id=exam_id)
     return render(request, 'exams/exam_detail.html', {'exam': exam})
 
-# Login required views
+# -----------------------------
+# Login Required Views
+# -----------------------------
 @login_required
 def exam_quiz(request, exam_id):
     exam = get_object_or_404(Exam, id=exam_id)
-    questions = ExamQuestion.objects.filter(exam=exam)
+    questions = ExamQuestion.objects.filter(exam=exam).order_by('order_index')
+    
     if request.method == 'POST':
-        # process submission, calculate score
+        # TODO: implement score calculation logic here
         score = 0
         return redirect('exams:exam_results', exam_id=exam.id)
+
     return render(request, 'exams/exam_quiz.html', {'exam': exam, 'questions': questions})
 
 @login_required
@@ -44,7 +49,7 @@ def exam_progress(request):
 
 @login_required
 def exam_notifications(request):
-    notifications = []  # Example placeholder
+    notifications = []  # placeholder, integrate with actual notifications
     return render(request, 'exams/exam_notifications.html', {'notifications': notifications})
 
 @login_required

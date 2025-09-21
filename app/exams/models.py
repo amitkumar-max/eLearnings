@@ -1,9 +1,11 @@
 # exams/models.py
 from django.db import models
 from django.utils.text import slugify
+from django.conf import settings
 
-# Courses models ke liye placeholder definitions
-# Agar tumhare courses/models.py me ye already hai to remove kar sakte ho
+# ---------------------------
+# Base / placeholder models
+# ---------------------------
 class TimeStampedModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -18,15 +20,15 @@ class PublishableModel(models.Model):
     class Meta:
         abstract = True
 
-# Agar Course model abhi define nahi hai to simple placeholder
 class Course(TimeStampedModel, PublishableModel):
     title = models.CharField(max_length=200)
 
     def __str__(self):
         return self.title
 
-# --- Exam Models ---
-
+# ---------------------------
+# Exam models
+# ---------------------------
 class Exam(TimeStampedModel, PublishableModel):
     EXAM_TYPE = [
         ("practice", "Practice"),
@@ -58,15 +60,16 @@ class Exam(TimeStampedModel, PublishableModel):
             self.slug = slug
         super().save(*args, **kwargs)
 
-
-class Question(TimeStampedModel):
+# ---------------------------
+# Questions and Options
+# ---------------------------
+class ExamQuestion(TimeStampedModel):
     QUESTION_TYPE = [
         ("single", "Single Choice"),
         ("multiple", "Multiple Choice"),
         ("text", "Text"),
         ("boolean", "True/False"),
     ]
-
     exam = models.ForeignKey(Exam, on_delete=models.CASCADE, related_name="questions")
     text = models.TextField()
     question_type = models.CharField(max_length=20, choices=QUESTION_TYPE, default="single")
@@ -81,16 +84,28 @@ class Question(TimeStampedModel):
     def __str__(self):
         return f"Q{self.order_index}: {self.text[:60]}..."
 
+class ExamOption(models.Model):
+    question = models.ForeignKey(ExamQuestion, on_delete=models.CASCADE, related_name="exam_options")
+    option_text = models.CharField(max_length=200)
+    is_correct = models.BooleanField(default=False)
 
-# class Result(TimeStampedModel):
-#     exam = models.ForeignKey(Exam, on_delete=models.CASCADE, related_name="results")
-#     student = models.ForeignKey("users.User", on_delete=models.CASCADE, related_name="results")
-#     score = models.DecimalField(max_digits=6, decimal_places=2)
-#     passed = models.BooleanField(default=False)
+    def __str__(self):
+        return self.option_text
 
-#     class Meta:
-#         unique_together = ("exam", "student")
-#         ordering = ["-score"]
+# ---------------------------
+# Progress & Feedback
+# ---------------------------
+class ExamProgress(TimeStampedModel):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    exam = models.ForeignKey(Exam, on_delete=models.CASCADE)
+    completed = models.BooleanField(default=False)
+    score = models.DecimalField(max_digits=6, decimal_places=2, default=0)
 
-#     def __str__(self):
-#         return f"{self.student.username} - {self.exam.title} ({self.score})"
+    class Meta:
+        unique_together = ("user", "exam")
+
+class ExamFeedback(TimeStampedModel):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    exam = models.ForeignKey(Exam, on_delete=models.CASCADE)
+    rating = models.PositiveIntegerField(default=0)
+    comments = models.TextField(blank=True)

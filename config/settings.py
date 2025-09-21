@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     'app.notifications',
     'app.downloads',
     'app.blogs',
+    'app.policies',
 
 
 

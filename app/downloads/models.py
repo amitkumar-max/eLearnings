@@ -14,8 +14,8 @@ class File(models.Model):
     def __str__(self):
         return self.title
 
-    # Optional: calculate file size automatically
+    # Optional: auto calculate size
     # def save(self, *args, **kwargs):
     #     if self.file:
-    #         self.size = self.file.size / (1024*1024)  # Convert bytes to MB
+    #         self.size = self.file.size / (1024*1024)  # bytes to MB
     #     super().save(*args, **kwargs)
