@@ -2,79 +2,41 @@
 {% block title %}Notifications | E-Learn{% endblock %}
 {% block content %}
 <style>
-    /* ---- Container ---- */
-    .notifications-container {
-        max-width: 850px;
-        margin: 2.5rem auto;
+    .notify-container {
+        max-width: 700px;
+        margin: 2rem auto;
+        background: #fff;
+        border-radius: 1rem;
         padding: 1.5rem;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
     }
-
-    /* ---- Page Title ---- */
-    .notifications-title {
-        font-size: 2rem;
+    .notify-title {
+        font-size: 1.5rem;
         font-weight: 700;
         color: #047857;
         text-align: center;
-        margin-bottom: 2rem;
-    }
-
-    /* ---- Notification Card ---- */
-    .notification-card {
-        background: white;
-        border-left: 6px solid #16a34a;
-        border-radius: 0.8rem;
-        padding: 1rem 1.2rem;
         margin-bottom: 1rem;
-        box-shadow: 0 3px 10px rgba(0,0,0,0.06);
-        transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
-    .notification-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    .notify-item {
+        padding: 1rem;
+        border-bottom: 1px solid #e5e7eb;
     }
-
-    /* ---- Title & Date ---- */
-    .notification-title {
-        font-size: 1.1rem;
-        font-weight: 700;
-        color: #374151;
-        margin-bottom: 0.2rem;
+    .notify-item.unread {
+        background: #ecfdf5;
     }
-    .notification-date {
-        font-size: 0.85rem;
-        color: #6b7280;
-        margin-bottom: 0.6rem;
-    }
-
-    /* ---- Message ---- */
-    .notification-message {
-        font-size: 0.95rem;
-        color: #4b5563;
-        line-height: 1.5;
-    }
-
-    /* ---- Empty Message ---- */
-    .no-notifications {
-        text-align: center;
-        color: #6b7280;
-        font-size: 1rem;
-        margin-top: 2rem;
-    }
+    .notify-msg { color: #374151; font-size: 1rem; }
+    .notify-time { color: #6b7280; font-size: 0.875rem; }
 </style>
 
-<div class="notifications-container">
-    <h2 class="notifications-title">🔔 Notifications</h2>
-
-    {% if notifications %}
-        {% for notification in notifications %}
-            <div class="notification-card">
-                <h3 class="notification-title">{{ notification.title }}</h3>
-                <p class="notification-date">{{ notification.created_at|date:"M d, Y H:i A" }}</p>
-                <p class="notification-message">{{ notification.message }}</p>
-            </div>
-        {% endfor %}
-    {% else %}
-        <p class="no-notifications">No new notifications at the moment.</p>
-    {% endif %}
+<div class="notify-container">
+    <h2 class="notify-title">🔔 All Notifications</h2>
+    {% for note in notifications %}
+        <div class="notify-item {% if not note.read %}unread{% endif %}">
+            <p class="notify-msg">{{ note.message }}</p>
+            <p class="notify-time">{{ note.created_at|date:"M d, Y H:i" }}</p>
+        </div>
+    {% empty %}
+        <p class="text-center text-gray-600">No notifications yet.</p>
+    {% endfor %}
 </div>
 {% endblock %}

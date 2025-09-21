@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}System Announcements{% endblock %}
+{% block content %}
+<style>
+    .announce-box { max-width: 800px; margin: 2rem auto; background: #fff; padding: 2rem; border-radius: 1rem; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
+    .announce-title { font-size: 1.6rem; font-weight: 700; color: #047857; margin-bottom: 1.5rem; text-align: center; }
+    .announce-item { margin-bottom: 1rem; padding: 1rem; border-left: 4px solid #16a34a; background: #f9fafb; border-radius: .5rem; }
+</style>
+
+<div class="announce-box">
+    <h2 class="announce-title">📢 System Announcements</h2>
+    {% for ann in announcements %}
+        <div class="announce-item">
+            <p>{{ ann.message }}</p>
+            <small class="text-gray-500">{{ ann.created_at|date:"M d, Y" }}</small>
+        </div>
+    {% empty %}
+        <p class="text-gray-600 text-center">No announcements right now.</p>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Notification Details{% endblock %}
+{% block content %}
+<style>
+    .detail-box {
+        max-width: 600px;
+        margin: 2rem auto;
+        background: #fff;
+        padding: 2rem;
+        border-radius: 1rem;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+    .detail-title { color: #047857; font-weight: 700; font-size: 1.5rem; margin-bottom: 1rem; }
+    .detail-time { font-size: 0.9rem; color: #6b7280; margin-bottom: 1rem; }
+    .detail-msg { font-size: 1.1rem; color: #374151; }
+</style>
+
+<div class="detail-box">
+    <h2 class="detail-title">🔔 Notification</h2>
+    <p class="detail-time">Received on: {{ notification.created_at|date:"M d, Y H:i" }}</p>
+    <p class="detail-msg">{{ notification.message }}</p>
+</div>
+{% endblock %}

@@ -1,6 +1,8 @@
 from django.urls import path
-from .views import ProgressView
+from . import views
+
+app_name = "progress"
 
 urlpatterns = [
-    path('', ProgressView.as_view(), name='progress'),
+    path("dashboard/", views.dashboard, name="dashboard"),
 ]

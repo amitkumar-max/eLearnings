@@ -140,23 +140,27 @@
     <!-- Course Image -->
     <img src="{{ course.image.url }}" alt="{{ course.title }}" class="course-image">
 
-    <div class="course-content">
-      <h1>{{ course.title }}</h1>
-      <p>{{ course.description }}</p>
+  <div class="course-content">
+    <h1>{{ course.title }}</h1>
+    <p>{{ course.description }}</p>
 
-      <div class="course-footer">
+    <div class="course-footer">
         <span class="price">₹{{ course.price }}</span>
-  <a href="{% url 'courses:course_detail' course.slug %}" class="btn-primary">Enroll Now</a>      </div>
+        <!-- Buy Course / Checkout Button -->
+        <a href="{% url 'payments:checkout' course.id %}" class="btn-primary">
+            💳 Buy Course
+        </a>
+    </div>
 
-      <!-- Optional Instructor Info -->
-      {% if course.instructor %}
-      <div class="instructor">
+    <!-- Optional Instructor Info -->
+    {% if course.instructor %}
+    <div class="instructor">
         <img src="{{ course.instructor.profile_image.url }}" alt="{{ course.instructor.name }}">
         <span>Instructor: {{ course.instructor.name }}</span>
-      </div>
-      {% endif %}
-      
     </div>
+    {% endif %}
+</div>
+
   </div>
 </div>
 

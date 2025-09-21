@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Notification Settings{% endblock %}
+{% block content %}
+<style>
+    .settings-box { max-width: 600px; margin: 2rem auto; background: #fff; padding: 2rem; border-radius: 1rem; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
+    .settings-title { font-size: 1.6rem; font-weight: 700; color: #047857; text-align: center; margin-bottom: 1.5rem; }
+    .settings-option { margin-bottom: 1rem; }
+    .settings-option label { font-size: 1rem; color: #374151; }
+    .save-btn { background: #16a34a; color: #fff; padding: .6rem 1.2rem; border-radius: .5rem; }
+</style>
+
+<div class="settings-box">
+    <h2 class="settings-title">⚙️ Notification Settings</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="settings-option">
+            <label><input type="checkbox" name="email" {% if settings.email %}checked{% endif %}> Email Notifications</label>
+        </div>
+        <div class="settings-option">
+            <label><input type="checkbox" name="sms" {% if settings.sms %}checked{% endif %}> SMS Notifications</label>
+        </div>
+        <div class="settings-option">
+            <label><input type="checkbox" name="in_app" {% if settings.in_app %}checked{% endif %}> In-App Notifications</label>
+        </div>
+        <button type="submit" class="save-btn">Save Preferences</button>
+    </form>
+</div>
+{% endblock %}

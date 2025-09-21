@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Progress History{% endblock %}
+{% block content %}
+<style>
+    .history-container {
+        max-width: 800px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background: white;
+        border-radius: 1rem;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    .history-item {
+        margin-bottom: 1rem;
+        padding: 1rem;
+        border-left: 4px solid #16a34a;
+        background: #f9fafb;
+        border-radius: 0.5rem;
+    }
+</style>
+
+<div class="history-container">
+    <h2 class="progress-title">📅 Learning History</h2>
+
+    {% for entry in history %}
+        <div class="history-item">
+            <p><strong>{{ entry.date }}</strong> - {{ entry.activity }}</p>
+        </div>
+    {% empty %}
+        <p>No history yet.</p>
+    {% endfor %}
+</div>
+{% endblock %}

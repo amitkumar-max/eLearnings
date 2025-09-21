@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}Stats | Progress{% endblock %}
+{% block content %}
+<style>
+    .stats-container {
+        max-width: 900px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background: white;
+        border-radius: 1rem;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        text-align: center;
+    }
+</style>
+
+<div class="stats-container">
+    <h2 class="progress-title">📊 Learning Stats</h2>
+    <canvas id="progressChart" width="400" height="200"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const ctx = document.getElementById('progressChart').getContext('2d');
+new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: {{ stats.labels|safe }},
+        datasets: [{
+            label: 'Hours Studied',
+            data: {{ stats.data|safe }},
+            backgroundColor: '#16a34a',
+        }]
+    }
+});
+</script>
+{% endblock %}

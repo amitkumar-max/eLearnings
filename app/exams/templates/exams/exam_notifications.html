@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Exam Notifications | E-Learn{% endblock %}
+{% block content %}
+<style>
+.notifications-container { max-width: 700px; margin: 2.5rem auto; background: #fff; border-radius: 1rem; padding: 2rem; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
+.notification-item { padding: 1rem; border-bottom: 1px solid #e5e7eb; transition: background 0.3s; }
+.notification-item:hover { background: #f0fdf4; }
+.notification-title { font-weight: 600; color: #374151; margin-bottom: 0.25rem; }
+.notification-time { font-size: 0.85rem; color: #6b7280; }
+</style>
+
+<div class="notifications-container">
+    <h2 class="text-2xl font-bold text-green-700 text-center mb-6">🔔 Exam Notifications</h2>
+    {% for notification in notifications %}
+        <div class="notification-item">
+            <p class="notification-title">{{ notification.title }}</p>
+            <p class="notification-time">{{ notification.created_at|date:"M d, Y H:i" }}</p>
+        </div>
+    {% empty %}
+        <p class="text-center text-gray-600">No notifications yet.</p>
+    {% endfor %}
+</div>
+{% endblock %}

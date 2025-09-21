@@ -57,6 +57,13 @@ INSTALLED_APPS = [
     "app.courses",
     'app.exams',   # ✅ Add this line
     'app.payments',
+    'app.progress',
+    'app.lessons',
+    'app.notifications',
+    'app.downloads',
+    'app.blogs',
+
+
 
 
 ]

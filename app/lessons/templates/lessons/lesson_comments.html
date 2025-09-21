@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}Lesson Comments | E-Learn{% endblock %}
+{% block content %}
+<style>
+.comments-container { max-width: 700px; margin: 2rem auto; background: #fff; padding: 2rem; border-radius: 1rem; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
+.comments-title { font-size: 1.8rem; font-weight: 700; color: #047857; text-align: center; margin-bottom: 1.5rem; }
+.comment-item { padding: 1rem; border-bottom: 1px solid #e5e7eb; }
+.comment-author { font-weight: 600; color: #374151; margin-bottom: 0.2rem; }
+.comment-text { color: #6b7280; font-size: 0.95rem; }
+.comment-date { font-size: 0.8rem; color: #9ca3af; }
+.comment-form textarea { width: 100%; padding: 0.8rem; border-radius: 0.5rem; border: 1px solid #e5e7eb; margin-bottom: 1rem; }
+.comment-form button { background: #16a34a; color: #fff; padding: 0.6rem 1.2rem; border-radius: 0.5rem; font-weight: 600; border: none; cursor: pointer; }
+.comment-form button:hover { background: #15803d; }
+</style>
+
+<div class="comments-container">
+    <h2 class="comments-title">💬 Comments on {{ lesson.title }}</h2>
+    {% for comment in comments %}
+        <div class="comment-item">
+            <p class="comment-author">{{ comment.user.username }}</p>
+            <p class="comment-text">{{ comment.text }}</p>
+            <p class="comment-date">{{ comment.created_at|date:"M d, Y H:i" }}</p>
+        </div>
+    {% empty %}
+        <p class="text-center text-gray-600">No comments yet. Be the first to comment!</p>
+    {% endfor %}
+
+    <div class="comment-form mt-4">
+        <form method="post">
+            {% csrf_token %}
+            <textarea name="text" rows="3" placeholder="Write a comment..."></textarea>
+            <button type="submit">Post Comment</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

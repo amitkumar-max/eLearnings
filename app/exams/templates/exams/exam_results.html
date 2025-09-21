@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Exam Results | E-Learn{% endblock %}
+{% block content %}
+<style>
+.results-container {
+    max-width: 700px;
+    margin: 2.5rem auto;
+    background: #fff;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    text-align: center;
+}
+.results-title { font-size: 1.8rem; font-weight: 700; color: #047857; margin-bottom: 1rem; }
+.results-score { font-size: 1.5rem; font-weight: 600; color: #16a34a; margin-bottom: 1rem; }
+.results-detail { font-size: 1rem; color: #374151; margin-bottom: 1rem; }
+.btn-back { display: inline-block; background: #16a34a; color: #fff; padding: 0.6rem 1.2rem; border-radius: 0.75rem; text-decoration: none; font-weight: 600; }
+.btn-back:hover { background: #15803d; }
+</style>
+
+<div class="results-container">
+    <h2 class="results-title">🎉 Exam Results: {{ exam.title }}</h2>
+    <p class="results-score">Score: {{ score }} / {{ exam.total_marks }}</p>
+    <p class="results-detail">Correct Answers: {{ correct }} | Incorrect: {{ incorrect }}</p>
+    <a href="{% url 'exams:exam_list' %}" class="btn-back">← Back to Exams</a>
+</div>
+{% endblock %}

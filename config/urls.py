@@ -18,9 +18,17 @@ urlpatterns = [
     path("students/", include("app.students.urls")),
 path("teachers/", include("app.teachers.urls")),
 path("admins/", include("app.admins.urls")),
-   
-   path("payments/", include(("app.payments.urls", "payments"), namespace="payments")),
+      # Blogs app
+    path('blogs/', include('app.blogs.urls', namespace='blogs')),
 
+    # Download app
+    path('download/', include('app.download.urls', namespace='download')),
+
+    # Lessons app
+    path('lessons/', include('app.lessons.urls', namespace='lessons')),
+   path("payments/", include(("app.payments.urls", "payments"), namespace="payments")),
+   path("progress/", include("app.progress.urls", namespace="progress")),
+    path("notifications/", include("app.notifications.urls", namespace="notifications")),
     # Exams app
     path("exams/", include(("app.exams.urls", "exams"), namespace="exams")),
     # root "/" -> render home.html

@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block title %}Certificate | Progress{% endblock %}
+{% block content %}
+<style>
+    .certificate-container {
+        max-width: 900px;
+        margin: 2rem auto;
+        padding: 3rem;
+        background: #fff;
+        border: 8px solid #047857;
+        border-radius: 1rem;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+        text-align: center;
+        font-family: 'Georgia', serif;
+    }
+
+    .certificate-title {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #047857;
+        margin-bottom: 1rem;
+        text-transform: uppercase;
+    }
+
+    .certificate-subtitle {
+        font-size: 1.2rem;
+        color: #374151;
+        margin-bottom: 2rem;
+    }
+
+    .certificate-name {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #16a34a;
+        margin: 1.5rem 0;
+    }
+
+    .certificate-course {
+        font-size: 1.3rem;
+        color: #374151;
+        margin-bottom: 2rem;
+    }
+
+    .certificate-footer {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 3rem;
+        font-size: 1rem;
+        color: #374151;
+    }
+
+    .signature {
+        border-top: 2px solid #374151;
+        padding-top: 0.3rem;
+        font-weight: 600;
+    }
+</style>
+
+<div class="certificate-container">
+    <h1 class="certificate-title">Certificate of Completion</h1>
+    <p class="certificate-subtitle">This is to proudly certify that</p>
+
+    <p class="certificate-name">{{ user.get_full_name }}</p>
+
+    <p class="certificate-subtitle">has successfully completed the course</p>
+    <p class="certificate-course">“{{ course.title }}”</p>
+
+    <div class="certificate-footer">
+        <div class="signature">
+            Instructor <br> {{ course.instructor.get_full_name }}
+        </div>
+        <div class="signature">
+            Date <br> {{ completion_date }}
+        </div>
+    </div>
+</div>
+{% endblock %}

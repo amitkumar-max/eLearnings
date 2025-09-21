@@ -1,0 +1,13 @@
+<ul class="dropdown-menu bg-white shadow-lg rounded-lg p-2 w-64">
+    {% for note in notifications|slice:":5" %}
+        <li class="p-2 hover:bg-gray-100 rounded-md {% if not note.read %}bg-green-50{% endif %}">
+            <p class="text-sm text-gray-800">{{ note.message }}</p>
+            <p class="text-xs text-gray-500">{{ note.created_at|date:"H:i" }}</p>
+        </li>
+    {% empty %}
+        <li class="p-2 text-gray-500 text-center">No notifications</li>
+    {% endfor %}
+    <li class="p-2 text-center">
+        <a href="{% url 'notifications:notifications_list' %}" class="text-green-600 hover:underline">View all</a>
+    </li>
+</ul>

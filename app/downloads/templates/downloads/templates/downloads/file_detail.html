@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block title %}{{ file.title }} | E-Learn{% endblock %}
+{% block content %}
+<style>
+.file-container {
+    max-width: 700px;
+    margin: 2.5rem auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    text-align: center;
+}
+.file-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #047857;
+    margin-bottom: 0.5rem;
+}
+.file-meta {
+    font-size: 0.95rem;
+    color: #6b7280;
+    margin-bottom: 1.5rem;
+}
+.btn-download {
+    background-color: #16a34a;
+    color: white;
+    font-weight: 600;
+    padding: 0.7rem 1.5rem;
+    border-radius: 0.6rem;
+    text-decoration: none;
+    transition: background 0.3s;
+}
+.btn-download:hover {
+    background-color: #15803d;
+}
+.btn-back {
+    display: block;
+    margin-top: 1rem;
+    color: #16a34a;
+    text-decoration: none;
+}
+.btn-back:hover {
+    text-decoration: underline;
+}
+</style>
+
+<div class="file-container">
+    <h1 class="file-title">{{ file.title }}</h1>
+    <p class="file-meta">Size: {{ file.size }} MB | Uploaded on {{ file.created_at|date:"M d, Y" }}</p>
+    <p class="file-meta">{{ file.description }}</p>
+
+    <a href="{% url 'download:download_file' file.id %}" class="btn-download">Download File</a>
+    <a href="{% url 'download:file_list' %}" class="btn-back">← Back to Files</a>
+</div>
+{% endblock %}

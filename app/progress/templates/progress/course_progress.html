@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}Course Progress{% endblock %}
+{% block content %}
+<style>
+    .course-container {
+        max-width: 800px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background: white;
+        border-radius: 1rem;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+    .course-item {
+        margin-bottom: 1.5rem;
+    }
+    .course-title {
+        font-weight: 600;
+        font-size: 1.2rem;
+        color: #047857;
+        margin-bottom: 0.5rem;
+    }
+</style>
+
+<div class="course-container">
+    <h2 class="progress-title">📚 Course Progress</h2>
+
+    {% for course in courses %}
+        <div class="course-item">
+            <p class="course-title">{{ course.title }}</p>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: {{ course.percent }}%;"></div>
+            </div>
+            <p class="text-sm text-gray-600 mt-1">{{ course.percent }}% Complete</p>
+        </div>
+    {% empty %}
+        <p>No course progress available.</p>
+    {% endfor %}
+</div>
+{% endblock %}

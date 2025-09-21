@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}Lesson Quiz | E-Learn{% endblock %}
+{% block content %}
+<style>
+.quiz-container {
+    max-width: 800px;
+    margin: 2.5rem auto;
+    background: #fff;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+.quiz-title { font-size: 1.8rem; font-weight: 700; color: #047857; text-align: center; margin-bottom: 2rem; }
+.quiz-question { margin-bottom: 1.5rem; font-size: 1rem; color: #374151; }
+.option { display: block; margin: 0.5rem 0; padding: 0.6rem 1rem; border: 1px solid #e5e7eb; border-radius: 0.5rem; cursor: pointer; transition: background 0.3s; }
+.option:hover { background: #ecfdf5; border-color: #16a34a; }
+.submit-btn { display: inline-block; background: #16a34a; color: #fff; padding: 0.8rem 1.5rem; border-radius: 0.75rem; font-weight: 600; text-decoration: none; margin-top: 1rem; }
+.submit-btn:hover { background: #15803d; }
+</style>
+
+<div class="quiz-container">
+    <h2 class="quiz-title">📝 Quiz: {{ lesson.title }}</h2>
+    <form method="post">
+        {% csrf_token %}
+        {% for q in quiz_questions %}
+            <div class="quiz-question">
+                <p><strong>Q{{ forloop.counter }}:</strong> {{ q.question_text }}</p>
+                {% for opt in q.options %}
+                    <label class="option">
+                        <input type="radio" name="q{{ forloop.parentloop.counter }}" value="{{ opt.id }}"> {{ opt.text }}
+                    </label>
+                {% endfor %}
+            </div>
+        {% endfor %}
+        <button type="submit" class="submit-btn">Submit Quiz</button>
+    </form>
+</div>
+{% endblock %}

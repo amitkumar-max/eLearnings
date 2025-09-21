@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Unread Notifications{% endblock %}
+{% block content %}
+<style>
+    .unread-box {
+        max-width: 700px;
+        margin: 2rem auto;
+        background: #fff;
+        border-radius: 1rem;
+        padding: 1.5rem;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+    .unread-title { font-size: 1.5rem; font-weight: 700; color: #047857; margin-bottom: 1rem; }
+    .unread-item { background: #ecfdf5; padding: 1rem; margin-bottom: .5rem; border-radius: .5rem; }
+</style>
+
+<div class="unread-box">
+    <h2 class="unread-title">📩 Unread Notifications</h2>
+    {% for note in unread_notifications %}
+        <div class="unread-item">
+            <p>{{ note.message }}</p>
+            <small class="text-gray-600">{{ note.created_at|date:"M d, Y H:i" }}</small>
+        </div>
+    {% empty %}
+        <p class="text-gray-600 text-center">No unread notifications 🎉</p>
+    {% endfor %}
+</div>
+{% endblock %}

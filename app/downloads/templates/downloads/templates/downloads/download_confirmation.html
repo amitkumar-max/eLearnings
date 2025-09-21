@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Download Confirmation | E-Learn{% endblock %}
+{% block content %}
+<style>
+.confirmation-container {
+    max-width: 600px;
+    margin: 3rem auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    text-align: center;
+}
+.confirmation-message {
+    font-size: 1.2rem;
+    color: #374151;
+    margin-bottom: 1.5rem;
+}
+.btn-back {
+    background-color: #16a34a;
+    color: white;
+    padding: 0.7rem 1.5rem;
+    border-radius: 0.6rem;
+    text-decoration: none;
+    font-weight: 600;
+}
+.btn-back:hover {
+    background-color: #15803d;
+}
+</style>
+
+<div class="confirmation-container">
+    <h2 class="text-2xl font-bold text-green-700 mb-4">✅ Download Complete</h2>
+    <p class="confirmation-message">You have successfully downloaded "{{ file.title }}".</p>
+    <a href="{% url 'download:file_list' %}" class="btn-back">← Back to Files</a>
+</div>
+{% endblock %}

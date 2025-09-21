@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Achievements | Progress{% endblock %}
+{% block content %}
+<style>
+    .achievements-container {
+        max-width: 900px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background: white;
+        border-radius: 1rem;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    .badge {
+        display: inline-block;
+        background: #16a34a;
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 2rem;
+        margin: 0.5rem;
+        font-weight: 600;
+    }
+</style>
+
+<div class="achievements-container">
+    <h2 class="progress-title">🏆 Your Achievements</h2>
+
+    {% for badge in badges %}
+        <span class="badge">{{ badge.name }}</span>
+    {% empty %}
+        <p>No achievements unlocked yet.</p>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block title %}Downloads | E-Learn{% endblock %}
+{% block content %}
+<style>
+.downloads-container {
+    max-width: 900px;
+    margin: 2.5rem auto;
+    padding: 1.5rem;
+}
+.file-card {
+    background: white;
+    border-radius: 1rem;
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.file-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+.file-info h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #047857;
+    margin-bottom: 0.3rem;
+}
+.file-info p {
+    font-size: 0.9rem;
+    color: #6b7280;
+    margin: 0;
+}
+.btn-download {
+    background-color: #16a34a;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.6rem;
+    text-decoration: none;
+    font-weight: 600;
+}
+.btn-download:hover {
+    background-color: #15803d;
+}
+.no-files {
+    text-align: center;
+    color: #6b7280;
+    font-size: 1rem;
+    margin-top: 2rem;
+}
+</style>
+
+<div class="downloads-container">
+    <h2 class="text-2xl font-bold text-green-700 text-center mb-6">📂 Downloadable Files</h2>
+
+    {% if files %}
+        {% for file in files %}
+            <div class="file-card">
+                <div class="file-info">
+                    <h3>{{ file.title }}</h3>
+                    <p>Size: {{ file.size }} MB</p>
+                    <p>Uploaded on {{ file.created_at|date:"M d, Y" }}</p>
+                </div>
+                <a href="{% url 'download:file_detail' file.id %}" class="btn-download">View / Download</a>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p class="no-files">No downloadable files available yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

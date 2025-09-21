@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block title %}{{ blog.title }} | E-Learn{% endblock %}
+{% block content %}
+<style>
+.blog-container {
+    max-width: 800px;
+    margin: 2.5rem auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+.blog-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #047857;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+.blog-meta {
+    font-size: 0.95rem;
+    color: #6b7280;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+.blog-content {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #374151;
+    margin-bottom: 2rem;
+}
+.btn-back {
+    display: inline-block;
+    color: #16a34a;
+    font-weight: 500;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.6rem;
+}
+.btn-back:hover {
+    background-color: #16a34a10;
+}
+</style>
+
+<div class="blog-container">
+    <h1 class="blog-title">{{ blog.title }}</h1>
+    <p class="blog-meta">By {{ blog.author.username }} | {{ blog.created_at|date:"M d, Y" }}</p>
+    <div class="blog-content">
+        {{ blog.content|safe }}
+    </div>
+    <a href="{% url 'blogs:blog_list' %}" class="btn-back">← Back to Blogs</a>
+</div>
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block title %}Blogs | E-Learn{% endblock %}
+{% block content %}
+<style>
+.blogs-container {
+    max-width: 900px;
+    margin: 2.5rem auto;
+    padding: 1.5rem;
+}
+.blog-card {
+    background: white;
+    border-radius: 1rem;
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.blog-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+.blog-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #047857;
+    margin-bottom: 0.5rem;
+}
+.blog-meta {
+    font-size: 0.9rem;
+    color: #6b7280;
+    margin-bottom: 0.5rem;
+}
+.btn-read {
+    background-color: #16a34a;
+    color: white;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border-radius: 0.6rem;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+.btn-read:hover {
+    background-color: #15803d;
+}
+.no-blogs {
+    text-align: center;
+    color: #6b7280;
+    font-size: 1rem;
+    margin-top: 2rem;
+}
+</style>
+
+<div class="blogs-container">
+    <h2 class="text-2xl font-bold text-green-700 text-center mb-6">📝 All Blogs</h2>
+
+    {% if blogs %}
+        {% for blog in blogs %}
+            <div class="blog-card">
+                <h3 class="blog-title">{{ blog.title }}</h3>
+                <p class="blog-meta">By {{ blog.author.username }} | {{ blog.created_at|date:"M d, Y" }}</p>
+                <a href="{% url 'blogs:blog_detail' blog.id %}" class="btn-read">Read More →</a>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p class="no-blogs">No blogs published yet. Check back later!</p>
+    {% endif %}
+</div>
+{% endblock %}
