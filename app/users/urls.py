@@ -18,4 +18,6 @@ urlpatterns = [
     path('support/privacy_policy/', views.placeholder, name='support_privacy_policy'),
     path('downloads/playstore/', views.placeholder, name='downloads_playstore'),
     path('downloads/appstore/', views.placeholder, name='downloads_appstore'),
+    path('logout/', views.logout_view, name='logout'),
+  
 ]

@@ -457,207 +457,209 @@
       }
     </style>
 
-    <style>
-      .nav-container {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 1rem;
-        flex-wrap: wrap;
-      }
 
-      .logo {
-        font-size: 1.8rem;
-        font-weight: bold;
-      }
 
-      /* Search Bar in Navbar */
-      .search-wrapper {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        flex: 1 1 300px;
-      }
+<style>
+/* =====================
+   Navbar
+===================== */
+nav {
+  background: #111;
+  padding: 0.5rem 1rem;
+  position: relative;
+  z-index: 1000;
+}
 
-      .search-wrapper input,
-      .search-wrapper select {
-        padding: 0.4rem 0.8rem;
-        border-radius: 5px;
-        border: 1px solid #ccc;
-      }
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: nowrap;
+}
 
-      .search-wrapper button {
-        padding: 0.4rem 0.8rem;
-        background: #32cd32;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-      }
+.logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #fff;
+}
 
-      .nav-links {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-      }
+/* =====================
+   Navbar Links
+===================== */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: all 0.3s ease-in-out;
+}
 
-      .menu-toggle {
-        display: none;
-        background: none;
-        border: none;
-        font-size: 1.5rem;
-        cursor: pointer;
-      }
+.nav-links a {
+  text-decoration: none;
+  color: #ccc;
+  transition: color 0.3s ease;
+}
 
-      /* History dropdown */
-      .history-dropdown {
-        position: absolute;
-        top: 100%; /* directly below input */
-        left: 0;
-        right: 0;
-        list-style: none;
-        padding: 0.5rem 0;
-        margin: 0;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        background: #fff;
-        max-height: 200px;
-        overflow-y: auto;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        display: none; /* hidden by default */
-        z-index: 100;
-      }
+.nav-links a:hover {
+  color: #32cd32;
+}
 
-      .history-dropdown.show {
-        display: block;
-      }
+/* =====================
+   Hamburger Button
+===================== */
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #fff;
+}
 
-      .history-dropdown li {
-        padding: 0.4rem 0.8rem;
-        cursor: pointer;
-      }
+/* =====================
+   Search Bar
+===================== */
+.search-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1 1 300px;
+}
 
-      .history-dropdown li:hover {
-        background-color: #f0f0f0;
-      }
+.search-wrapper input,
+.search-wrapper select {
+  padding: 0.4rem 0.8rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  transition: border-color 0.3s ease;
+}
 
-      /* Responsive for mobile */
-      @media (max-width: 768px) {
-        .nav-container {
-          flex-direction: column;
-          align-items: stretch;
-        }
+.search-wrapper input:focus,
+.search-wrapper select:focus {
+  border-color: #32cd32;
+}
 
-        .search-wrapper {
-          order: 2;
-          width: 100%;
-          margin: 0.5rem 0;
-        }
+.search-wrapper button {
+  padding: 0.4rem 0.8rem;
+  background: #32cd32;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
 
-        .nav-links {
-          order: 3;
-          flex-direction: column;
-          display: none;
-          gap: 0;
-        }
+.search-wrapper button:hover {
+  background: #28a428;
+}
 
-        .menu-toggle {
-          display: block;
-          order: 1;
-          align-self: flex-end;
-        }
+/* =====================
+   History Dropdown
+===================== */
+.history-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0.5rem 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background: #fff;
+  max-height: 200px;
+  overflow-y: auto;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  display: none;
+  z-index: 100;
+  transition: all 0.3s ease;
+}
 
-        .nav-links.active {
-          display: flex;
-        }
-      }
-    </style>
+.history-dropdown.show {
+  display: block;
+}
 
-    <style>
-      .nav-container {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        position: relative;
-      }
+.history-dropdown li {
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
 
-      .search-wrapper {
-        position: relative; /* important for dropdown */
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-      }
+.history-dropdown li:hover {
+  background-color: #f0f0f0;
+}
 
-      .search-wrapper input,
-      .search-wrapper select {
-        padding: 0.4rem 0.6rem;
-        border-radius: 5px;
-        border: 1px solid #ccc;
-      }
+/* =====================
+   Mode Toggle
+===================== */
+.mode-toggle button {
+  padding: 0.4rem 0.8rem;
+  border-radius: 5px;
+  background: transparent;
+  border: 1px solid #32cd32;
+  color: #32cd32;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
 
-      .search-wrapper button {
-        padding: 0.4rem 0.8rem;
-        border-radius: 5px;
-      }
+.mode-toggle button:hover {
+  background: #32cd32;
+  color: #fff;
+}
 
-      .history-dropdown {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background: #fff;
-        border: 1px solid #ccc;
-        max-height: 200px;
-        overflow-y: auto;
-        display: none;
-        z-index: 100;
-        border-radius: 5px;
-      }
+/* =====================
+   Responsive
+===================== */
+@media (max-width: 768px) {
+  .nav-container {
+    flex-direction: row;
+    align-items: center;
+  }
 
-      .history-dropdown.show {
-        display: block;
-      }
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    background: #111;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-10px);
+  }
 
-      .history-dropdown li {
-        padding: 0.4rem 0.8rem;
-        cursor: pointer;
-      }
+  .nav-links.active {
+    max-height: 400px;
+    opacity: 1;
+    transform: translateY(0);
+  }
 
-      .history-dropdown li:hover {
-        background-color: #f0f0f0;
-      }
+  .search-wrapper {
+    flex: 1;
+    margin: 0.5rem 0;
+  }
 
-      /* Mobile media query */
-      @media (max-width: 768px) {
-        .nav-links {
-          display: none;
-          flex-direction: column;
-          gap: 0;
-          width: 100%;
-          margin-top: 0.5rem;
-          background: #fff;
-          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
+  .menu-toggle {
+    display: block;
+  }
 
-        .nav-links.show {
-          display: flex;
-        }
+ 
 
-        .menu-toggle {
-          display: block;
-        }
+  .nav-links a {
+    color: #fff; /* mobile dark bg pe visible */
+  }
 
-        .search-wrapper {
-          width: 100%;
-          margin-top: 0.5rem;
-        }
+  .nav-links.active {
+    max-height: 80vh; 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+</style>
 
-        .search-wrapper input {
-          flex: 1;
-        }
-      }
-    </style>
+
   </head>
   <body>
     <!-- Navbar -->
@@ -738,7 +740,6 @@
       </div>
     </section>
 
-
     <!-- ✅ 2. Featured Instructors / Experts Section -->
     <section
       class="instructors container"
@@ -806,7 +807,6 @@
         </div>
       </div>
     </section>
-
 
     <!-- Categories -->
     <section id="categories" class="categories container">
@@ -1104,6 +1104,23 @@
         window.scrollTo({ top: 0, behavior: "smooth" });
       });
     </script>
+
+<script>
+  const menuToggle = document.getElementById("menuToggle");
+  const navLinks = document.querySelector(".nav-links");
+
+  // toggle open/close
+  menuToggle.addEventListener("click", () => {
+    navLinks.classList.toggle("active");
+  });
+
+  // optional: auto-close when clicking a link (mobile UX better)
+  navLinks.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", () => {
+      navLinks.classList.remove("active");
+    });
+  });
+</script>
 
     <!-- light dark mode toggle -->
     <script>

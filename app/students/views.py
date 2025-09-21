@@ -2,12 +2,6 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .models import StudentProfile, Enrollment, AssignmentSubmission
 from app.courses.models import Course, Lesson, Exam
-from django.contrib.auth import logout
-from django.shortcuts import redirect
-
-def logout_view(request):
-    logout(request)
-    return redirect('home')  # Make sure 'home' is your homepage URL name
 
 # ---------- Dashboard ----------
 @login_required
