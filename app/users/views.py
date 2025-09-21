@@ -20,7 +20,7 @@ User = get_user_model()
 
 
 def home(request):
-    courses = Course.objects.filter(is_published=True)
+    courses = Course.objects.all()
     return render(request, "users/home.html", {"courses": courses})
 
 # users/views.py
