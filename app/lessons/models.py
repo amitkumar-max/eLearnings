@@ -3,11 +3,11 @@ from django.db import models
 from django.utils.text import slugify
 from django.contrib.auth import get_user_model
 
-from app.courses.models import Course, TimeStampedModel, PublishableModel
+from app.courses.models import Course, TimeStampedModel
 
 User = get_user_model()
 
-class Lesson(TimeStampedModel, PublishableModel):
+class Lesson(TimeStampedModel):
     course = models.ForeignKey(
     Course,
     on_delete=models.CASCADE,

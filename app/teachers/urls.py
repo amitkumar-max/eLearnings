@@ -16,7 +16,8 @@ urlpatterns = [
     path("manage-students/", views.manage_students, name="manage_students"),
     path("profile/", views.profile, name="profile"),
     path("edit-profile/", views.edit_profile, name="edit_profile"),
-    path("messages/", views.messages_view, name="messages"),
+# urls.py
+path("messages/", views.messages_view, name="messages"),
     path("notifications/", views.notifications, name="notifications"),
     path("reports/", views.reports, name="reports"),
     path("settings/", views.settings, name="settings"),

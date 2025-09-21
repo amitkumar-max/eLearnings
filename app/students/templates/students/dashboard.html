@@ -245,40 +245,45 @@ body.dark-mode .overview-card {
     </header>
 
     <!-- Stats Section -->
-    <div class="stats-grid">
-      <div class="stat-card">
+ <!-- Stats Section -->
+<div class="stats-grid">
+    <div class="stat-card">
         <h3>📖 Courses Enrolled</h3>
-        <p class="stat-value green">08</p>
-      </div>
-      <div class="stat-card">
-        <h3>✅ Completed Lessons</h3>
-        <p class="stat-value green">120</p>
-      </div>
-      <div class="stat-card">
-        <h3>📊 Progress</h3>
-        <p class="stat-value green">75%</p>
-      </div>
-      <div class="stat-card">
-        <h3>⏳ Pending Assignments</h3>
-        <p class="stat-value red">3</p>
-      </div>
+        <p class="stat-value green">{{ total_courses }}</p>
     </div>
+    <div class="stat-card">
+        <h3>✅ Completed Lessons</h3>
+        <p class="stat-value green">{{ completed_lessons }}</p>
+    </div>
+    <div class="stat-card">
+        <h3>📊 Progress</h3>
+        <p class="stat-value green">{{ overall_progress }}%</p>
+    </div>
+    <div class="stat-card">
+        <h3>⏳ Pending Assignments</h3>
+        <p class="stat-value red">{{ pending_assignments }}</p>
+    </div>
+</div>
 
     <!-- Dashboard Cards -->
-    <div class="cards-grid">
-      <a href="#" class="dashboard-card">
-        <h3>📚 View All Courses</h3>
-        <p>Browse your enrolled and available courses.</p>
-      </a>
-      <a href="#" class="dashboard-card">
-        <h3>📝 Submit Assignment</h3>
-        <p>Upload and track your assignments.</p>
-      </a>
-      <a href="#" class="dashboard-card">
-        <h3>📊 Track Progress</h3>
-        <p>Check performance & view detailed analytics.</p>
-      </a>
-    </div>
+<!-- Dashboard Cards -->
+<div class="cards-grid">
+  <a href="{% url 'students:courses_list' %}" class="dashboard-card">
+    <h3>📚 View All Courses</h3>
+    <p>Browse your enrolled and available courses.</p>
+  </a>
+
+  <a href="{% url 'students:assignments' %}" class="dashboard-card">
+    <h3>📝 Submit Assignment</h3>
+    <p>Upload and track your assignments.</p>
+  </a>
+
+  <a href="{% url 'students:progress' %}" class="dashboard-card">
+    <h3>📊 Track Progress</h3>
+    <p>Check performance & view detailed analytics.</p>
+  </a>
+</div>
+
 
     <!-- Overview Section -->
     <div class="overview-section">

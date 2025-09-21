@@ -1,7 +1,92 @@
-from django.db import models
-from django.utils.text import slugify
+# from django.db import models       # ✅ mandatory
+# from django.conf import settings
+# from django.utils import timezone   # ✅ for default date/time
+# # Abstract Timestamp model
+# class TimeStampedModel(models.Model):
+#     created_at = models.DateTimeField(auto_now_add=True)
+#     updated_at = models.DateTimeField(auto_now=True)
 
-# ---------- Base abstract models ----------
+#     class Meta:
+#         abstract = True
+# class Course(TimeStampedModel):
+#     title = models.CharField(max_length=255)
+#     description = models.TextField()
+#     teacher = models.ForeignKey(
+#         'teachers.TeacherProfile',
+#         on_delete=models.CASCADE,
+#         related_name="courses",
+#         null=True,       # existing rows ke liye allow null
+#         blank=True
+#     )
+
+#     def __str__(self):
+#         return self.title
+
+# class Lesson(TimeStampedModel):
+#     course = models.ForeignKey(
+#         'courses.Course',
+#         on_delete=models.CASCADE,
+#         related_name="lessons"
+#     )
+#     title = models.CharField(max_length=255)
+#     content = models.TextField()
+
+#     def __str__(self):
+#         return f"{self.course.title} - {self.title}"
+
+# class Exam(TimeStampedModel):
+#     course = models.ForeignKey(
+#         'courses.Course',
+#         on_delete=models.CASCADE,
+#         related_name="course_exams",  # changed from 'exams' to unique name
+#     )
+#     title = models.CharField(max_length=255)
+#     date = models.DateField(default=timezone.now)
+
+#     def __str__(self):
+#         return f"{self.course.title} - {self.title}"
+
+
+# class CourseAssignment(TimeStampedModel):
+#     course = models.ForeignKey(
+#         'courses.Course',
+#         on_delete=models.CASCADE,
+#         related_name="assignments"
+#     )
+#     title = models.CharField(max_length=255)
+#     description = models.TextField()
+#     due_date = models.DateField(null=True, blank=True)  # optional to avoid prompt
+
+#     def __str__(self):
+#         return f"{self.course.title} - {self.title}"
+
+# class Enrollment(TimeStampedModel):
+#     student = models.ForeignKey(
+#         'students.StudentProfile',
+#         on_delete=models.CASCADE,
+#         related_name="enrollments"
+#     )
+#     course = models.ForeignKey(
+#         'courses.Course',
+#         on_delete=models.CASCADE,
+#         related_name="enrollments"
+#     )
+#     date_enrolled = models.DateField(auto_now_add=True)
+
+#     class Meta:
+#         unique_together = ("student", "course")
+
+#     def __str__(self):
+#         return f"{self.student.user.full_name} → {self.course.title}"
+
+
+
+
+from django.db import models
+from django.conf import settings
+from django.utils import timezone
+
+# Abstract Timestamp model
 class TimeStampedModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -9,70 +94,77 @@ class TimeStampedModel(models.Model):
     class Meta:
         abstract = True
 
-class PublishableModel(models.Model):
-    is_published = models.BooleanField(default=False)
-    published_at = models.DateTimeField(null=True, blank=True)
-
-    class Meta:
-        abstract = True
-
-# ---------- Course ----------
-class Course(TimeStampedModel, PublishableModel):
-    title = models.CharField(max_length=200)
-    description = models.TextField(blank=True)
-    price = models.DecimalField(max_digits=8, decimal_places=2, default=0.0)
-    slug = models.SlugField(max_length=220, unique=True, blank=True)
+class Course(TimeStampedModel):
+    title = models.CharField(max_length=255)
+    description = models.TextField()
+    
+    # Teacher field
+    teacher = models.ForeignKey(
+        'teachers.TeacherProfile',
+        on_delete=models.CASCADE,
+        related_name="courses_taught",
+        null=True,
+        blank=True
+    )
 
     def __str__(self):
         return self.title
 
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.title)
-        super().save(*args, **kwargs)
-
-# ---------- Lesson ----------
-class Lesson(TimeStampedModel, PublishableModel):
+class Lesson(TimeStampedModel):
     course = models.ForeignKey(
-        "courses.Course",
+        'courses.Course',
         on_delete=models.CASCADE,
-        related_name="lessons",
+        related_name="lessons_for_course"
     )
-    title = models.CharField(max_length=200)
-    slug = models.SlugField(max_length=220, blank=True)
-    content = models.TextField(blank=True)
-    order_index = models.PositiveIntegerField(default=1, db_index=True)
-    video_url = models.URLField(blank=True)
-    resources = models.JSONField(default=list, blank=True)
+    title = models.CharField(max_length=255)
+    content = models.TextField()
+
+    def __str__(self):
+        return f"{self.course.title} - {self.title}"
+
+class Exam(TimeStampedModel):
+    course = models.ForeignKey(
+        'courses.Course',
+        on_delete=models.CASCADE,
+        related_name="exams_for_course"
+    )
+    title = models.CharField(max_length=255)
+    date = models.DateField(default=timezone.now)  # ← permanent default
+
+    def __str__(self):
+        return f"{self.course.title} - {self.title}"
+
+class CourseAssignment(TimeStampedModel):
+    course = models.ForeignKey(
+        'courses.Course',
+        on_delete=models.CASCADE,
+        related_name="assignments_for_course"
+    )
+    title = models.CharField(max_length=255)
+    description = models.TextField()
+    due_date = models.DateField(default=timezone.now)
+
+    def __str__(self):
+        return f"{self.course.title} - {self.title}"
+
+class Enrollment(TimeStampedModel):
+    student = models.ForeignKey(
+        'students.StudentProfile',
+        on_delete=models.CASCADE,
+        related_name="enrollments"
+    )
+    course = models.ForeignKey(
+        'courses.Course',
+        on_delete=models.CASCADE,
+        related_name="enrollments"
+    )
+    date_enrolled = models.DateField(auto_now_add=True)
 
     class Meta:
-        ordering = ["course", "order_index"]
-        unique_together = [("course", "slug")]
+        unique_together = ("student", "course")
 
     def __str__(self):
-        return f"{self.course.title} • {self.title}"
+        return f"{self.student.user.full_name} → {self.course.title}"
 
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            base = slugify(self.title)
-            slug = base
-            i = 1
-            while Lesson.objects.filter(course=self.course, slug=slug).exclude(pk=self.pk).exists():
-                i += 1
-                slug = f"{base}-{i}"
-            self.slug = slug
-        super().save(*args, **kwargs)
 
-# ---------- Exam ----------
-class Exam(TimeStampedModel, PublishableModel):
-    course = models.ForeignKey(
-        "courses.Course",
-        on_delete=models.CASCADE,
-        related_name="exams",
-    )
-    title = models.CharField(max_length=200)
-    description = models.TextField(blank=True)
-    total_marks = models.IntegerField(default=100)
 
-    def __str__(self):
-        return f"{self.course.title} • {self.title}"

@@ -17,12 +17,9 @@ urlpatterns = [
     path("grades/", views.grades, name="grades"),
     path("login/", views.login_view, name="login"),
     path("messages/", views.messages_view, name="messages"),
-    path("notifications/", views.student_notifications, name="student_notifications"),
+    path("notifications/", views.student_notifications, name="notifications"),
     path("progress/", views.progress, name="progress"),
     path("settings/", views.settings, name="settings"),
     path("profile/", views.profile, name="profile"),
     path("edit-profile/", views.edit_profile, name="edit_profile"),
-    
-    # fetch notifications route add yaha directly
-    path("fetch-notifications/", views.fetch_notifications, name="fetch_notifications"),
 ]

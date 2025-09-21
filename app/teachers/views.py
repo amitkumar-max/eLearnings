@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Assignment, Schedule
+from .models import TeacherProfile, TeacherAssignment, Schedule
 
 @login_required
 def dashboard(request):
@@ -19,14 +19,16 @@ def course_detail(request, id):
     return render(request, "teachers/course_details.html", {"id": id})
 
 def assignments(request):
-    assignments = Assignment.objects.all()  # Filter by teacher if needed
+    # Show only assignments for logged-in teacher
+    assignments = TeacherAssignment.objects.filter(teacher__user=request.user)
     return render(request, "teachers/assignments.html", {"assignments": assignments})
 
 def assignment_detail(request, id):
-    return render(request, "teachers/assignments_details.html", {"id": id})
+    assignment = get_object_or_404(TeacherAssignment, id=id, teacher__user=request.user)
+    return render(request, "teachers/assignments_details.html", {"assignment": assignment})
 
 def schedule(request):
-    schedule = Schedule.objects.all()  # Filter by teacher if needed
+    schedule = Schedule.objects.filter(teacher__user=request.user)
     return render(request, "teachers/schedule.html", {"schedule": schedule})
 
 def create_course(request):

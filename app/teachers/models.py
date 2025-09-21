@@ -1,41 +1,138 @@
+# from django.db import models
+# from django.conf import settings
+
+# # -----------------------------
+# # Abstract Timestamp Model
+# # -----------------------------
+# class TimeStampedModel(models.Model):
+#     created_at = models.DateTimeField(auto_now_add=True)
+#     updated_at = models.DateTimeField(auto_now=True)
+
+#     class Meta:
+#         abstract = True
+
+# # -----------------------------
+# # Teacher Profile
+# # -----------------------------
+# class TeacherProfile(TimeStampedModel):
+#     user = models.OneToOneField(
+#         settings.AUTH_USER_MODEL,
+#         on_delete=models.CASCADE
+#     )
+#     courses_created = models.ManyToManyField(
+#         'courses.Course',
+#         blank=True
+#     )
+#     bio = models.TextField(blank=True, null=True)
+#     statistics = models.JSONField(default=dict)
+#     awards = models.JSONField(default=list)
+#     profile_views = models.IntegerField(default=0)
+#     social_links = models.JSONField(default=dict)
+
+#     def __str__(self):
+#         return self.user.full_name
+
+# # -----------------------------
+# # Teacher Assignment
+# # -----------------------------
+# class TeacherAssignment(TimeStampedModel):
+#     teacher = models.ForeignKey(
+#         'teachers.TeacherProfile',
+#         on_delete=models.CASCADE,
+#         related_name="assignments_by_teacher"
+#     )
+#     course = models.ForeignKey(
+#         'courses.Course',
+#         on_delete=models.CASCADE,
+#         related_name="assignments_in_course"
+#     )
+#     title = models.CharField(max_length=200)
+#     description = models.TextField(blank=True, null=True)
+#     due_date = models.DateField(blank=True, null=True)
+
+#     def __str__(self):
+#         return f"{self.title} ({self.course.title})"
+
+# # -----------------------------
+# # Teacher Schedule / Timetable
+# # -----------------------------
+# class Schedule(TimeStampedModel):
+#     teacher = models.ForeignKey(
+#         'teachers.TeacherProfile',
+#         on_delete=models.CASCADE,
+#         related_name="schedules"
+#     )
+#     course = models.ForeignKey(
+#         'courses.Course',
+#         on_delete=models.CASCADE,
+#         related_name="course_schedules"
+#     )
+#     date = models.DateField(blank=True, null=True)
+#     time = models.TimeField(blank=True, null=True)
+#     topic = models.CharField(max_length=200, blank=True, null=True)
+
+#     def __str__(self):
+#         return f"{self.course.title} - {self.date} {self.time}"
+
+
+
+
+from django.utils import timezone
+
 from django.db import models
 from django.conf import settings
-from ..courses.models import Course
 
-# Teacher Profile
-class TeacherProfile(models.Model):
+class TimeStampedModel(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
+
+class TeacherProfile(TimeStampedModel):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    courses_created = models.ManyToManyField(Course, blank=True)
+    courses_created = models.ManyToManyField('courses.Course', blank=True,  related_name="creators")
     bio = models.TextField(blank=True, null=True)
-    statistics = models.JSONField(default=dict)  # student_feedback, ratings, earnings
-    awards = models.JSONField(default=list)  # achievements, certifications
+    statistics = models.JSONField(default=dict)
+    awards = models.JSONField(default=list)
     profile_views = models.IntegerField(default=0)
-    social_links = models.JSONField(default=dict)  # {"linkedin": "", "twitter": ""}
+    social_links = models.JSONField(default=dict)
 
     def __str__(self):
-        return self.user.username
+        return self.user.full_name
 
-
-# Assignments
-class Assignment(models.Model):
-    teacher = models.ForeignKey(TeacherProfile, on_delete=models.CASCADE, related_name="assignments")
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="assignments")
+class TeacherAssignment(TimeStampedModel):
+    teacher = models.ForeignKey(
+        'teachers.TeacherProfile',
+        on_delete=models.CASCADE,
+        related_name="assignments_by_teacher"
+    )
+    course = models.ForeignKey(
+        'courses.Course',
+        on_delete=models.CASCADE,
+        related_name="assignments_in_course"
+    )
     title = models.CharField(max_length=200)
     description = models.TextField()
-    due_date = models.DateField()
-    created_at = models.DateTimeField(auto_now_add=True)
+    due_date = models.DateField(default=timezone.now)
 
     def __str__(self):
-        return f"{self.title} ({self.course.name})"
+        return f"{self.title} ({self.course.title})"
 
-
-# Schedule / Timetable
-class Schedule(models.Model):
-    teacher = models.ForeignKey(TeacherProfile, on_delete=models.CASCADE, related_name="schedules")
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="schedules")
-    date = models.DateField()
-    time = models.TimeField()
+class Schedule(TimeStampedModel):
+    teacher = models.ForeignKey(
+        'teachers.TeacherProfile',
+        on_delete=models.CASCADE,
+        related_name="schedules"
+    )
+    course = models.ForeignKey(
+        'courses.Course',
+        on_delete=models.CASCADE,
+        related_name="course_schedules"
+    )
+    date = models.DateField(default=timezone.now)
+    time = models.TimeField(null=True, blank=True)
     topic = models.CharField(max_length=200, blank=True, null=True)
 
     def __str__(self):
-        return f"{self.course.name} - {self.date} {self.time}"
+        return f"{self.course.title} - {self.date} {self.time}"
