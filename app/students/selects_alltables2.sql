@@ -9,6 +9,11 @@
 -- SELECT * FROM django_content_type;
 -- SELECT * FROM django_session;
 
+
+SELECT * FROM exams_course;
+-- SELECT * FROM exams_exam;
+
+
 -- SELECT * FROM users_customuser;
 -- check users table
 
@@ -24,7 +29,7 @@
 -- WHERE table_schema='public';
 
 
-SELECT * FROM users_customuser;
+-- SELECT * FROM users_customuser;
 
 -- Correct table name
 -- SELECT * FROM courses_course;
@@ -44,6 +49,13 @@ SELECT * FROM users_customuser;
 
 
 
+-- INSERT INTO exams_course (title, created_at, updated_at, is_published)
+-- VALUES ('Dummy Course', NOW(), NOW(), TRUE)
+-- RETURNING id;
 
-
+-- INSERT INTO exams_exam 
+-- (course_id, title, slug, exam_type, duration_minutes, total_marks, pass_percentage, created_at, updated_at, is_published) 
+-- VALUES 
+-- (1, 'Dummy Exam', 'dummy-exam', 'practice', 30, 100, 40.00, NOW(), NOW(), TRUE)
+-- RETURNING id;
 

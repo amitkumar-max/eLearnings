@@ -20,6 +20,9 @@ class PublishableModel(models.Model):
     class Meta:
         abstract = True
 
+# ---------------------------
+# Course model
+# ---------------------------
 class Course(TimeStampedModel, PublishableModel):
     title = models.CharField(max_length=200)
 
@@ -95,17 +98,34 @@ class ExamOption(models.Model):
 # ---------------------------
 # Progress & Feedback
 # ---------------------------
-class ExamProgress(TimeStampedModel):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    exam = models.ForeignKey(Exam, on_delete=models.CASCADE)
+# exams/models.py
+class ExamProgress(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="exam_progress_records"  # unique
+    )
+    exam = models.ForeignKey(
+        Exam,
+        on_delete=models.CASCADE,
+        related_name="exam_progress_records_for_exam"  # unique
+    )
     completed = models.BooleanField(default=False)
     score = models.DecimalField(max_digits=6, decimal_places=2, default=0)
-
-    class Meta:
-        unique_together = ("user", "exam")
 
 class ExamFeedback(TimeStampedModel):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     exam = models.ForeignKey(Exam, on_delete=models.CASCADE)
     rating = models.PositiveIntegerField(default=0)
     comments = models.TextField(blank=True)
+
+
+
+class Assignment(TimeStampedModel):
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="assignments")
+    title = models.CharField(max_length=200)
+    description = models.TextField(blank=True)
+    due_date = models.DateTimeField(null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.course.title} • {self.title}"
