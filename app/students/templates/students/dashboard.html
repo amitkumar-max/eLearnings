@@ -170,6 +170,45 @@ body.dark-mode .overview-card {
 }
 </style>
 
+
+
+<!-- inside <head> -->
+<style>
+.toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+}
+
+.toast {
+    background-color: #333;
+    color: #fff;
+    padding: 15px 20px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    min-width: 250px;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: all 0.5s ease-in-out;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.toast.success { background-color: #28a745; }
+.toast.info { background-color: #17a2b8; }
+.toast.warning { background-color: #ffc107; color: #333; }
+.toast.error { background-color: #dc3545; }
+</style>
+
+
+
+
+
+
 <div class="dashboard-container">
   
   <!-- Sidebar -->
@@ -267,6 +306,9 @@ body.dark-mode .overview-card {
   </main>
 </div>
 
+
+<div class="toast-container" id="toast-container"></div>
+
 <script>
 document.getElementById("sidebarToggle").addEventListener("click", () => {
   document.getElementById("sidebar").classList.toggle("hidden");
@@ -280,4 +322,43 @@ if (localStorage.getItem("theme") === "dark") {
   document.body.classList.add("dark-mode");
 }
 </script>
+
+
+
+<!-- mssgages pop-up -->
+
+<script>
+function showToast(title, message, type='info', duration=5000){
+    const container = document.getElementById('toast-container');
+    const toast = document.createElement('div');
+    toast.classList.add('toast', type.toLowerCase());
+    toast.innerHTML = `<strong>${title}</strong><br>${message}`;
+    container.appendChild(toast);
+
+    // animate
+    setTimeout(()=> toast.classList.add('show'), 50);
+
+    // auto remove
+    setTimeout(()=>{
+        toast.classList.remove('show');
+        setTimeout(()=> toast.remove(), 500);
+    }, duration);
+}
+
+// fetch live notifications from backend
+async function fetchNotifications(){
+    const res = await fetch("{% url 'students:fetch_notifications' %}");
+    const data = await res.json();
+    data.notifications.forEach(n => {
+        showToast(n.title, n.message, n.type.toLowerCase());
+    });
+}
+
+// call initially and then every 15-20s
+fetchNotifications();
+setInterval(fetchNotifications, 15000);
+</script>
+
+
+
 

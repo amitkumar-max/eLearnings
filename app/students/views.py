@@ -3,6 +3,59 @@ from django.contrib.auth.decorators import login_required
 from .models import StudentProfile, Enrollment, AssignmentSubmission
 from app.courses.models import Course, Lesson, Exam
 
+
+from django.shortcuts import get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
+from app.students.models import StudentProfile, Enrollment
+from app.courses.models import Course
+from app.notifications.models import Notification
+from django.http import JsonResponse
+
+
+@login_required
+def fetch_notifications(request):
+    # fetch unread notifications for current user
+    notifications = Notification.objects.filter(user=request.user, is_read=False).order_by('-created_at')
+    data = []
+    for n in notifications:
+        data.append({
+            "id": n.id,
+            "title": n.title,
+            "message": n.message,
+            "type": n.notification_type,
+            "created_at": n.created_at.strftime("%Y-%m-%d %H:%M:%S")
+        })
+    return JsonResponse({"notifications": data})
+
+
+
+@login_required
+def enroll_course(request, course_id):
+    student_profile = StudentProfile.objects.get(user=request.user)
+    course = get_object_or_404(Course, id=course_id)
+
+    enrollment, created = Enrollment.objects.get_or_create(
+        student=student_profile, course=course
+    )
+
+    if created:
+        # Notification creation
+        Notification.objects.create(
+            user=request.user,
+            course=course,
+            title="Enrollment Successful",
+            message=f"You have successfully enrolled in {course.title}!",
+            notification_type="SUCCESS"
+        )
+
+    return redirect("students:dashboard")
+
+
+@login_required
+def student_notifications(request):
+    notifications = request.user.notifications.all()
+    return render(request, "students/notifications.html", {"notifications": notifications})
+
 # ---------- Dashboard ----------
 @login_required
 def dashboard(request):
@@ -77,8 +130,7 @@ def login_view(request):
 def messages_view(request):
     return render(request, "students/messages.html")
 
-def notifications(request):
-    return render(request, "students/notifications.html")
+
 
 # ---------- Progress / Settings ----------
 def progress(request):

@@ -1,6 +1,6 @@
-# app/notifications/models.py
 from django.db import models
 from django.conf import settings
+from app.courses.models import Course
 
 class Notification(models.Model):
     NOTIFICATION_TYPES = [
@@ -16,6 +16,7 @@ class Notification(models.Model):
     notification_type = models.CharField(max_length=10, choices=NOTIFICATION_TYPES, default='INFO')
     is_read = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True, blank=True, related_name='notifications')
 
     def __str__(self):
         return f"{self.user.username} - {self.title}"
