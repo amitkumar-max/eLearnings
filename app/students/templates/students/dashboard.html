@@ -182,7 +182,13 @@ body.dark-mode .overview-card {
     <a href="{% url 'students:progress' %}">📊 Progress</a>
     <a href="{% url 'students:discussions' %}">💬 Discussions</a>
     <a href="{% url 'students:settings' %}">⚙️ Settings</a>
-</nav>
+<!-- Logout button -->
+<a href="{% url 'users:logout' %}" 
+   style="color:white; background-color:red; display:block; padding:8px 12px; border-radius:5px; margin-top:10px; text-align:center; text-decoration:none;">
+   🔴 Logout
+</a>
+
+  </nav>
   </aside>
 
   <!-- Main Content -->

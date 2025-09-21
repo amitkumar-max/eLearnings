@@ -67,6 +67,13 @@ body.dark-mode .dashboard-card p, body.dark-mode .extra-section p { color:#cbd5e
       <a href="{% url 'admins:reports' %}">📊 Reports</a>
       <a href="{% url 'admins:site_settings' %}">⚙️ Settings</a>
       <a href="{% url 'admins:notifications' %}">🔔 Notifications</a>
+    <!-- Logout button -->
+<a href="{% url 'users:logout' %}" 
+   style="color:white; background-color:red; display:block; padding:8px 12px; border-radius:5px; margin-top:10px; text-align:center; text-decoration:none;">
+   🔴 Logout
+</a>
+
+    
     </nav>
   </aside>
 

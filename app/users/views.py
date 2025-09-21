@@ -95,7 +95,6 @@ def logout_view(request):
 
 
 
-
 def redirect_user_based_on_role(user):
     if user.role == "student":
         return redirect(STUDENT_DASHBOARD)
@@ -104,3 +103,4 @@ def redirect_user_based_on_role(user):
     elif user.role == "admin":
         return redirect(ADMIN_DASHBOARD)
     return redirect("home")
+
