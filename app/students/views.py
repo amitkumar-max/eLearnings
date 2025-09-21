@@ -6,7 +6,9 @@ from app.courses.models import Course, Lesson, Exam
 # ---------- Dashboard ----------
 @login_required
 def dashboard(request):
-    student = StudentProfile.objects.get(user=request.user)
+    # get_or_create ensures StudentProfile exists
+    student, created = StudentProfile.objects.get_or_create(user=request.user)
+    
     enrollments = Enrollment.objects.filter(student=student)
     
     total_courses = enrollments.count()
@@ -19,6 +21,7 @@ def dashboard(request):
         "overall_progress": overall_progress,
     }
     return render(request, "students/dashboard.html", context)
+
 
 # ---------- Announcements ----------
 def announcements(request):
