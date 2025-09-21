@@ -21,7 +21,6 @@ urlpatterns = [
     path("reports/", views.reports, name="reports"),
     path("settings/", views.settings, name="settings"),
     path("assignments/", views.assignments, name="assignments"),
-
-
-
+    path("assignments/<int:id>/", views.assignment_detail, name="assignment_detail"),
+    path("schedule/", views.schedule, name="schedule"),
 ]

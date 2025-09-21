@@ -82,14 +82,15 @@ body.dark-mode .dashboard-card p, body.dark-mode .extra-section p { color:#cbd5e
 <div class="flex">
   <!-- Sidebar -->
   <aside id="sidebar">
-    <nav>
-      <a href="{% url 'teachers:dashboard' %}">🏠 Dashboard</a>
-      <a href="{% url 'teachers:my_courses' %}">📚 My Courses</a>
-      <a href="{% url 'teachers:assignments' %}">📝 Assignments</a>
-      <a href="{% url 'teachers:schedule' %}">📅 Schedule</a>
-      <a href="{% url 'teachers:reports' %}">📊 Reports</a>
-      <a href="{% url 'teachers:messages' %}">💬 Messages</a>
-    </nav>
+<nav class="sidebar-nav">
+    <a href="{% url 'students:dashboard' %}">🏠 Dashboard</a>
+    <a href="{% url 'students:my_courses' %}">📖 My Courses</a>
+    <a href="{% url 'students:assignments' %}">📝 Assignments</a>
+    <a href="{% url 'students:progress' %}">📊 Progress</a>
+    <a href="{% url 'students:discussions' %}">💬 Discussions</a>
+    <a href="{% url 'students:settings' %}">⚙️ Settings</a>
+</nav>
+
   </aside>
 
   <!-- Main Content -->

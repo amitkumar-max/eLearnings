@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.text import slugify
 
-# Base abstract models
+# ---------- Base abstract models ----------
 class TimeStampedModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -16,11 +16,11 @@ class PublishableModel(models.Model):
     class Meta:
         abstract = True
 
-# Course model
+# ---------- Course ----------
 class Course(TimeStampedModel, PublishableModel):
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True)
-    price = models.DecimalField(max_digits=8, decimal_places=2, default=0.0)  # <--- Add this
+    price = models.DecimalField(max_digits=8, decimal_places=2, default=0.0)
     slug = models.SlugField(max_length=220, unique=True, blank=True)
 
     def __str__(self):
@@ -31,13 +31,13 @@ class Course(TimeStampedModel, PublishableModel):
             self.slug = slugify(self.title)
         super().save(*args, **kwargs)
 
-# Lesson model
+# ---------- Lesson ----------
 class Lesson(TimeStampedModel, PublishableModel):
     course = models.ForeignKey(
-    Course,
-    on_delete=models.CASCADE,
-    related_name="lessons_in_courses_app",  )
-
+        "courses.Course",
+        on_delete=models.CASCADE,
+        related_name="lessons",
+    )
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=220, blank=True)
     content = models.TextField(blank=True)
@@ -63,6 +63,16 @@ class Lesson(TimeStampedModel, PublishableModel):
             self.slug = slug
         super().save(*args, **kwargs)
 
+# ---------- Exam ----------
+class Exam(TimeStampedModel, PublishableModel):
+    course = models.ForeignKey(
+        "courses.Course",
+        on_delete=models.CASCADE,
+        related_name="exams",
+    )
+    title = models.CharField(max_length=200)
+    description = models.TextField(blank=True)
+    total_marks = models.IntegerField(default=100)
 
-
-
+    def __str__(self):
+        return f"{self.course.title} • {self.title}"

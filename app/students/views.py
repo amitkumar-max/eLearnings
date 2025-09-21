@@ -1,31 +1,51 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from .models import StudentProfile, Enrollment, AssignmentSubmission
+from app.courses.models import Course, Lesson, Exam
 
 # ---------- Dashboard ----------
 @login_required
 def dashboard(request):
-    return render(request, "students/dashboard.html", {"user": request.user})
+    student = StudentProfile.objects.get(user=request.user)
+    enrollments = Enrollment.objects.filter(student=student)
+    
+    total_courses = enrollments.count()
+    overall_progress = sum([e.progress.get("completion_percentage", 0) for e in enrollments])
+    overall_progress = overall_progress / total_courses if total_courses else 0
+
+    context = {
+        "student": student,
+        "enrollments": enrollments,
+        "overall_progress": overall_progress,
+    }
+    return render(request, "students/dashboard.html", context)
 
 # ---------- Announcements ----------
 def announcements(request):
     return render(request, "students/announcements.html")
 
-def assignment_detail(request, id):
-    return render(request, "students/assignments_details.html", {"id": id})
-
 # ---------- Assignments ----------
 def assignments(request):
-    return render(request, "students/assignments.html")
+    student = StudentProfile.objects.get(user=request.user)
+    submissions = AssignmentSubmission.objects.filter(student=student)
+    return render(request, "students/assignments.html", {"submissions": submissions})
+
+def assignment_detail(request, id):
+    submission = AssignmentSubmission.objects.filter(id=id).first()
+    return render(request, "students/assignments_details.html", {"submission": submission})
 
 # ---------- Courses ----------
 def courses(request):
-    return render(request, "students/courses.html")
+    all_courses = Course.objects.all()
+    return render(request, "students/courses.html", {"courses": all_courses})
 
 def course_detail(request, id):
-    return render(request, "students/courses_details.html", {"id": id})
+    course = Course.objects.filter(id=id).first()
+    return render(request, "students/courses_details.html", {"course": course})
 
 def courses_list(request):
-    return render(request, "students/courses_list.html")
+    all_courses = Course.objects.all()
+    return render(request, "students/courses_list.html", {"courses": all_courses})
 
 # ---------- Discussions ----------
 def discussions(request):
@@ -33,10 +53,14 @@ def discussions(request):
 
 # ---------- My/Enrolled Courses ----------
 def my_courses(request):
-    return render(request, "students/my_courses.html")
+    student = StudentProfile.objects.get(user=request.user)
+    enrollments = Enrollment.objects.filter(student=student)
+    return render(request, "students/my_courses.html", {"enrollments": enrollments})
 
 def enrolled_courses(request):
-    return render(request, "students/enrolled_courses.html")
+    student = StudentProfile.objects.get(user=request.user)
+    enrollments = Enrollment.objects.filter(student=student)
+    return render(request, "students/enrolled_courses.html", {"enrollments": enrollments})
 
 # ---------- Grades ----------
 def grades(request):

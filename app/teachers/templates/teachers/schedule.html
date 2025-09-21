@@ -1,0 +1,56 @@
+{% extends "teachers/base_teachers.html" %}
+{% block title %}Schedule{% endblock %}
+
+{% block content %}
+<style>
+  .schedule-container {
+    padding: 20px;
+    background: #fdf6f0;
+    min-height: 80vh;
+  }
+  table.schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  table.schedule-table th, table.schedule-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+  }
+  table.schedule-table th {
+    background: #ff7f50;
+    color: white;
+  }
+</style>
+
+<div class="schedule-container">
+  <h2>📅 Schedule</h2>
+
+  <table class="schedule-table">
+    <thead>
+      <tr>
+        <th>Course</th>
+        <th>Date</th>
+        <th>Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in schedule %}
+      <tr>
+        <td>{{ item.course.name }}</td>
+        <td>{{ item.date }}</td>
+        <td>{{ item.time }}</td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="3">No schedule available.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
