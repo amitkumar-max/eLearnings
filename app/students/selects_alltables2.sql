@@ -24,7 +24,7 @@
 -- WHERE table_schema='public';
 
 
--- SELECT * FROM users_customuser;
+SELECT * FROM users_customuser;
 
 -- Correct table name
 -- SELECT * FROM courses_course;
@@ -36,7 +36,7 @@
 
 
 -- SELECT * FROM app_courses;
-SELECT id, title, slug, is_published FROM courses_course;
+-- SELECT id, title, slug, is_published FROM courses_course;
 
 
 

@@ -20,4 +20,8 @@ urlpatterns = [
     path("notifications/", views.notifications, name="notifications"),
     path("reports/", views.reports, name="reports"),
     path("settings/", views.settings, name="settings"),
+    path("assignments/", views.assignments, name="assignments"),
+
+
+
 ]
