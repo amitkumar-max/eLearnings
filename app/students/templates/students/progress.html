@@ -1,9 +1,6 @@
 <!-- templates/student/progress.html -->
-{% extends "base_student.html" %}
 
-{% block title %}Progress{% endblock %}
 
-{% block extra_head %}
 <style>
   .progress-container {
     max-width: 600px;
@@ -30,12 +27,9 @@
     color: #2563eb;
   }
 </style>
-{% endblock %}
 
-{% block content %}
 <div class="progress-container">
   <h2>Your Progress</h2>
   <p class="progress-detail">Completed Lessons: <span class="progress-value">{{ completed_lessons }}</span></p>
   <p class="progress-detail">Score: <span class="progress-value">{{ score }}%</span></p>
 </div>
-{% endblock %}

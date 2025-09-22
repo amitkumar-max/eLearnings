@@ -48,3 +48,16 @@ class Result(TimeStampedModel):
     def is_passed(self):
         PASS_THRESHOLD = 40
         return self.score >= PASS_THRESHOLD
+
+
+class LessonProgress(models.Model):
+    student = models.ForeignKey(
+        'students.StudentProfile',
+        on_delete=models.CASCADE,
+        related_name="lesson_progress"
+    )
+    lesson = models.ForeignKey(
+        'courses.Lesson',
+        on_delete=models.CASCADE,
+        related_name="progress_records"
+    )

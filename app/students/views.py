@@ -1,7 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-
+from django.contrib.auth import logout
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
 # Models
 from app.students.models import StudentProfile, Enrollment, AssignmentSubmission
 from app.courses.models import Course, Lesson, Exam, CourseAssignment
@@ -10,15 +12,36 @@ from app.notifications.models import Notification
 # ---------- Notifications ----------
 @login_required
 def fetch_notifications(request):
-    notifications = Notification.objects.filter(user=request.user, is_read=False).order_by('-created_at')
-    data = [{
-        "id": n.id,
-        "title": n.title,
-        "message": n.message,
-        "type": n.notification_type,
-        "created_at": n.created_at.strftime("%Y-%m-%d %H:%M:%S")
-    } for n in notifications]
+    # Fetch unread notifications from DB
+    notifications = Notification.objects.filter(
+        user=request.user, is_read=False
+    ).order_by('-created_at')
+
+    if notifications.exists():
+        # If DB has notifications
+        data = [
+            {
+                "id": n.id,
+                "title": n.title,
+                "message": n.message,
+                "type": n.notification_type,
+                "created_at": n.created_at.strftime("%Y-%m-%d %H:%M:%S")
+            }
+            for n in notifications
+        ]
+
+        # ✅ Mark them as read (so they don’t show again next fetch)
+        notifications.update(is_read=True)
+
+    else:
+        # OR → fallback to dummy notifications
+        data = [
+            {"title": "Welcome!", "message": "You logged in successfully", "type": "info"},
+            {"title": "Course Update", "message": "New assignment uploaded", "type": "success"},
+        ]
+
     return JsonResponse({"notifications": data})
+
 
 
 @login_required
@@ -127,3 +150,19 @@ def edit_profile(request): return render(request, "students/edit_profile.html")
 def discussions(request): return render(request, "students/discussions.html")
 @login_required
 def announcements(request): return render(request, "students/announcements.html")
+@login_required
+def logout_view(request):
+    logout(request)  # logs out the user
+    return redirect('students:login')  # redirect to login page after logout
+
+@login_required
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # keep user logged in
+            return redirect('students:settings')  # redirect after password change
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'students/change_password.html', {'form': form})

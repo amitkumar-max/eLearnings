@@ -1,9 +1,5 @@
 <!-- assignments.html -->
-{% extends 'base_student.html' %}
 
-{% block title %}Assignments{% endblock %}
-
-{% block extra_head %}
 <style>
   .assignments-container {
     display: grid;
@@ -56,9 +52,7 @@
     background: #1e40af;
   }
 </style>
-{% endblock %}
 
-{% block content %}
 <h2 class="text-2xl font-bold text-center">Assignments</h2>
 <div class="assignments-container">
   {% for assignment in assignments %}
@@ -72,4 +66,3 @@
   <p class="text-center text-gray-500 col-span-full">No assignments available.</p>
   {% endfor %}
 </div>
-{% endblock %}

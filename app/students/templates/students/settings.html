@@ -1,9 +1,5 @@
 <!-- templates/student/settings.html -->
-{% extends 'base_student.html' %}
 
-{% block title %}Settings{% endblock %}
-
-{% block extra_head %}
 <style>
   .settings-container {
     max-width: 600px;
@@ -44,16 +40,14 @@
     font-weight: 600;
   }
 </style>
-{% endblock %}
 
-{% block content %}
 <div class="settings-container">
   <h2 class="settings-title">Settings</h2>
-  <ul class="settings-menu">
-    <li><a href="{% url 'edit_profile' %}">Edit Profile</a></li>
-    <li><a href="{% url 'logout' %}">Logout</a></li>
-    <li><a href="{% url 'change_password' %}">Change Password</a></li>
-    <li><a href="{% url 'dashboard' %}">Back to Dashboard</a></li>
-  </ul>
+<ul class="settings-menu">
+    <li><a href="{% url 'students:edit_profile' %}">Edit Profile</a></li>
+    <li><a href="{% url 'students:logout' %}">Logout</a></li>
+    <li><a href="{% url 'students:change_password' %}">Change Password</a></li>
+    <li><a href="{% url 'students:dashboard' %}">Back to Dashboard</a></li>
+</ul>
+
 </div>
-{% endblock %}

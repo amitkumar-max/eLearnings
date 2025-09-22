@@ -31,8 +31,14 @@
 -- WHERE slug IS NULL OR slug = '';
 
 -- TRUNCATE TABLE django_migrations;
-DROP DATABASE IF EXISTS elearning_db_uk14;
-CREATE DATABASE elearning_db_uk14;
+-- DROP DATABASE IF EXISTS elearning_db_uk14;
+-- CREATE DATABASE elearning_db_uk14;
+
+
+-- Add the missing column back
+-- ALTER TABLE django_content_type ADD COLUMN name varchar(100) NOT NULL DEFAULT '';
+-- ALTER TABLE django_content_type ADD COLUMN name varchar(100) NOT NULL DEFAULT '';
+
 
 
 -- ALTER TABLE courses_course
@@ -48,7 +54,7 @@ CREATE DATABASE elearning_db_uk14;
 
 -- SELECT * FROM exams_course;
 -- SELECT * FROM exams_exam;
--- SELECT * FROM courses_course;
+SELECT * FROM courses_course;
 
 
 -- SELECT * FROM users_customuser;

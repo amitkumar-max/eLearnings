@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-
+from django.contrib.auth.views import LogoutView  # <- import this
 app_name = "students"
 
 urlpatterns = [
@@ -18,8 +18,11 @@ urlpatterns = [
     path("login/", views.login_view, name="login"),
     path("messages/", views.messages_view, name="messages"),
     path("notifications/", views.student_notifications, name="notifications"),
+    path("fetch-notifications/", views.fetch_notifications, name="fetch_notifications"),
     path("progress/", views.progress, name="progress"),
     path("settings/", views.settings, name="settings"),
     path("profile/", views.profile, name="profile"),
-    path("edit-profile/", views.edit_profile, name="edit_profile"),
+    path('edit-profile/', views.edit_profile, name='edit_profile'),
+    path('change-password/', views.change_password, name='change_password'),
+    path('logout/', views.logout_view, name='logout'),  # use your logout_view
 ]

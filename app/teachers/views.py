@@ -55,6 +55,8 @@ def edit_profile(request):
 def messages_view(request):
     return render(request, "teachers/messages.html")
 
+
+
 def notifications(request):
     return render(request, "teachers/notifications.html")
 
