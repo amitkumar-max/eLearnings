@@ -10,12 +10,7 @@ class TimeStampedModel(models.Model):
     class Meta:
         abstract = True
 
-
 class Course(TimeStampedModel):
-    title = models.CharField(max_length=255)
-    description = models.TextField()
-    is_published = models.BooleanField(default=True)
-    slug = models.SlugField(max_length=255, unique=True, blank=True)
     teacher = models.ForeignKey(
         'teachers.TeacherProfile',
         on_delete=models.CASCADE,
@@ -24,21 +19,8 @@ class Course(TimeStampedModel):
         blank=True
     )
 
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            base_slug = slugify(self.title)
-            slug = base_slug
-            counter = 1
-            # Ensure unique slug even for existing rows
-            while Course.objects.filter(slug=slug).exclude(id=self.id).exists():
-                slug = f"{base_slug}-{counter}"
-                counter += 1
-            self.slug = slug
-        super().save(*args, **kwargs)
-
     def __str__(self):
-        return self.title
-
+        return f"Course {self.id} by {self.teacher}"  # ORM-friendly
 
 class Lesson(TimeStampedModel):
     course = models.ForeignKey(
