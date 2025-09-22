@@ -727,11 +727,12 @@ nav {
             {% endif %}
             <h3>{{ course.title }}</h3>
             <p>{{ course.description }}</p>
-            <a
-              href="{% url 'courses:course_detail' course.slug %}"
-              class="btn-primary"
-              >Enroll Now</a
-            >
+         {% if course.slug %}
+  <a href="{% url 'courses:course_detail' course.slug %}" class="btn-primary">Enroll Now</a>
+{% else %}
+  <span class="btn-primary disabled">Coming Soon</span>
+{% endif %}
+
           </div>
           {% endfor %} {% else %}
           <p>No courses available yet.</p>
