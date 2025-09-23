@@ -15,7 +15,7 @@ def dashboard(request):
     """
     Dashboard page for progress overview
     """
-    return render(request, "progress/progress_bar.html")
+    return render(request, "progress/dashboard.html")
 
 @login_required
 def lesson_result_detail(request, result_id):

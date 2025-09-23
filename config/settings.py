@@ -2,7 +2,7 @@ from pathlib import Path
 from decouple import config
 import dj_database_url
 from django.contrib.messages import constants as messages
-
+import os
 # ----------------------------
 # Base directory
 # ----------------------------
@@ -155,8 +155,11 @@ STATICFILES_DIRS = [BASE_DIR / 'app' / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = BASE_DIR / 'media'
+
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # ----------------------------
 # Default auto field

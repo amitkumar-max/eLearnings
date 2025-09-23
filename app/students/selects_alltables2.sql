@@ -18,6 +18,10 @@
 -- FROM cte
 -- WHERE courses_course.id = cte.id;
 
+SELECT * FROM courses_course LIMIT 5;
+-- ALTER TABLE courses_course
+-- ADD COLUMN image varchar(100);  -- ya jo type ImageField ka mapping hai (varchar/text for path)
+
 
 -- SELECT * FROM courses_course;
 -- SELECT column_name FROM information_schema.columns 

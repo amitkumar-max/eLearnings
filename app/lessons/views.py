@@ -5,7 +5,7 @@ from .models import Lesson, QuizQuestion, QuizOption, LessonProgress, LessonComm
 # All lessons list
 def lesson_list(request):
     lessons = Lesson.objects.all().order_by('created_at')
-    return render(request, 'lessons/lesson_detail.html', {'lessons': lessons})
+    return render(request, 'lessons/lesson_list.html', {'lessons': lessons})
 
 # Single lesson detail
 def lesson_detail(request, lesson_id):

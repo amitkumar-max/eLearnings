@@ -716,30 +716,37 @@ nav {
     </section>
   
       <!-- Featured Courses -->
-    <section id="courses" class="courses">
-      <div class="container">
-        <h2>Featured Courses</h2>
-        <div class="course-grid">
-          {% if courses %} {% for course in courses %}
+<!-- Featured Courses -->
+<section id="courses" class="courses">
+  <div class="container">
+    <h2>Featured Courses</h2>
+    <div class="course-grid">
+      {% if courses %}
+        {% for course in courses %}
           <div class="course-card">
             {% if course.image %}
-            <img src="{{ course.image.url }}" alt="{{ course.title }}" />
+              <img src="{{ course.image.url }}" alt="{{ course.title }}" />
             {% endif %}
             <h3>{{ course.title }}</h3>
             <p>{{ course.description }}</p>
-         {% if course.slug %}
-  <a href="{% url 'courses:course_detail' course.slug %}" class="btn-primary">Enroll Now</a>
-{% else %}
-  <span class="btn-primary disabled">Coming Soon</span>
-{% endif %}
+
+            {% if course.slug %}
+              <a href="{% url 'courses:course_detail' course.slug %}" class="btn-primary">Enroll Now</a>
+            {% else %}
+              <button class="btn-primary disabled" disabled>Coming Soon</button>
+            {% endif %}
 
           </div>
-          {% endfor %} {% else %}
-          <p>No courses available yet.</p>
-          {% endif %}
-        </div>
-      </div>
-    </section>
+        {% endfor %}
+      {% else %}
+        <p>No courses available yet.</p>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+
+
 
 <!-- ✅ 2. Featured Instructors / Experts Section -->
 <section
@@ -799,6 +806,7 @@ nav {
       <span>⭐⭐⭐⭐⭐</span>
     </div>
   </div>
+
 </section>
 
    
@@ -808,7 +816,7 @@ nav {
       <div class="category-buttons">
     <a href="{% url 'lessons:lesson_list' %}">Lessons</a>
     <a href="{% url 'exams:exam_list' %}">Exams</a>
-    <a href="{% url 'payments:history' %}">Payments</a>
+    <a href="{% url 'payments:payment_history' %}">Payments</a>
     <a href="{% url 'progress:dashboard' %}">Progress</a>
       </div>
     </section>
