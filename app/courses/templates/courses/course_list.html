@@ -1,22 +1,78 @@
-{% load static %}   <!-- ye line template ke top me add karo -->
+{% load static %}
 
-<div class="courses-container" style="display:flex; flex-wrap:wrap; gap:20px; justify-content:center;">
+<style>
+.course-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.btn.buy {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.btn.start {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+.courses-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.course-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 300px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.course-info {
+    padding: 15px;
+    background: #fff;
+}
+</style>
+<div class="courses-container">
     {% if courses %}
         {% for course in courses %}
-        <div class="course-card" style="border:1px solid #ddd; border-radius:8px; width:300px; overflow:hidden; box-shadow:0 2px 5px rgba(0,0,0,0.1);">
+        <div class="course-card">
 
-            <!-- Course Image with fallback -->
             {% if course.image %}
-                <img src="{{ course.image.url }}" alt="{{ course.title }}" style="width:100%; height:200px; object-fit:cover;">
+                <img src="{{ course.image.url }}" alt="{{ course.title }}">
             {% else %}
-                <img src="{% static 'images/default.jpg' %}" alt="{{ course.title }}" style="width:100%; height:200px; object-fit:cover;">
+                <img src="{% static 'images/default.jpg' %}" alt="{{ course.title }}">
             {% endif %}
 
-            <div class="course-info" style="padding:15px; background:#fff;">
-                <h3 style="font-size:1.2em; margin-bottom:10px;">{{ course.title }}</h3>
-                <p style="font-size:0.95em; color:#555; min-height:50px;">{{ course.description }}</p>
-                <a href="{% url 'courses:course_detail' course.slug %}" style="display:inline-block; margin-top:10px; padding:8px 15px; background:#32cd32; color:#fff; border-radius:5px; text-decoration:none;">Enroll Now</a>
+            <div class="course-info">
+                <h3>{{ course.title }}</h3>
+                <p>{{ course.description }}</p>
+                <a href="{% url 'courses:course_detail' course.slug %}" class="btn start">Enroll Now</a>
             </div>
+
+            <div class="course-actions">
+                {% comment %} Paid course button removed if not defined {% endcomment %}
+                {% if course.lessons_in_lessons_app.first %}
+                    <a href="{% url 'courses:course_player' slug=course.slug lesson_id=course.lessons_in_lessons_app.first.id %}" class="btn start">Start</a>
+                {% endif %}
+            </div>
+
         </div>
         {% endfor %}
     {% else %}

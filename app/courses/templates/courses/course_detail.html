@@ -14,7 +14,6 @@
     color: #1a202c;
     scroll-behavior: smooth;
   }
-
   nav {
     display: flex;
     justify-content: space-between;
@@ -116,6 +115,22 @@
     .course-content h1 { font-size: 1.8rem; }
     .course-content p { font-size: 1rem; }
   }
+  .btn-start {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: #28a745;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 6px;
+    text-decoration: none;
+    margin-left: 10px;
+    transition: background 0.2s;
+}
+
+.btn-start:hover {
+    background-color: #218838;
+}
+
 </style>
 </head>
 <body>
@@ -132,45 +147,59 @@
   </div>
 </nav>
 
-
 <div class="container">
-<a href="{% url 'courses:course_list' %}" class="back-link">&larr; Back to Courses</a>
-<div class="course-box">
-    <!-- Course Image -->
-    {% if course.image %}
-        <img src="{{ course.image.url }}" alt="{{ course.title }}" class="course-image">
-    {% else %}
-        <img src="{% static 'images/default.jpg' %}" alt="{{ course.title }}" class="course-image">
-    {% endif %}
+    <a href="{% url 'courses:course_list' %}" class="back-link">&larr; Back to Courses</a>
+    <div class="course-box">
+        <!-- Course Image -->
+        {% if course.image %}
+            <img src="{{ course.image.url }}" alt="{{ course.title }}" class="course-image">
+        {% else %}
+            <img src="{% static 'images/default.jpg' %}" alt="{{ course.title }}" class="course-image">
+        {% endif %}
 
-    <div class="course-content">
-        <h1>{{ course.title }}</h1>
-        <p>{{ course.description }}</p>
+        <div class="course-content">
+            <h1>{{ course.title }}</h1>
+            <p>{{ course.description }}</p>
 
         <div class="course-footer">
-            <span class="price">₹{{ course.price }}</span>
-            <!-- Buy Course / Checkout Button -->
-            <a href="{% url 'payments:checkout' course.id %}" class="btn-primary">
-                💳 Buy Course
-            </a>
+    <span class="price">₹{{ course.price }}</span>
+
+    <!-- Buy Course / Checkout Button -->
+    <a href="{% url 'payments:checkout' course.id %}" class="btn-primary">
+        💳 Buy Course
+    </a>
+
+    <!-- Start Course Button -->
+{% with lessons=course.lessons_in_lessons_app.all %}
+    {% if lessons %}
+        <a href="{% url 'courses:course_player' slug=course.slug lesson_id=lessons.0.id %}" class="btn-start">
+            ▶ Start
+        </a>
+    {% else %}
+        <span class="btn disabled">No Lessons Yet</span>
+    {% endif %}
+{% endwith %}
+
+
+
+</div>
+
+            <!-- Optional Instructor Info -->
+            {% if course.instructor %}
+                <div class="instructor">
+                    {% if course.instructor.profile_image %}
+                        <img src="{{ course.instructor.profile_image.url }}" alt="{{ course.instructor.name }}">
+                    {% else %}
+                        <img src="{% static 'images/default-instructor.jpg' %}" alt="{{ course.instructor.name }}">
+                    {% endif %}
+                    <span>Instructor: {{ course.instructor.name }}</span>
+                </div>
+            {% endif %}
         </div>
-
-        <!-- Optional Instructor Info -->
-        {% if course.instructor %}
-            <div class="instructor">
-                {% if course.instructor.profile_image %}
-                    <img src="{{ course.instructor.profile_image.url }}" alt="{{ course.instructor.name }}">
-                {% else %}
-                    <img src="{% static 'images/default-instructor.jpg' %}" alt="{{ course.instructor.name }}">
-                {% endif %}
-                <span>Instructor: {{ course.instructor.name }}</span>
-            </div>
-        {% endif %}
     </div>
-
 </div>
 
-</div>
+
 
 
 </body>

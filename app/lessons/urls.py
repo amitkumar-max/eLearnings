@@ -1,15 +1,28 @@
-# app/lessons/urls.py
 from django.urls import path
 from . import views
 
 app_name = "lessons"
 
+
 urlpatterns = [
-    path("list/", views.lesson_list, name="lesson_list"),
+    # All lessons list
+    path("", views.lesson_list, name="lesson_list"),
+
+    # Single lesson detail
     path("<int:lesson_id>/", views.lesson_detail, name="lesson_detail"),
+
+    # Lesson quiz
     path("<int:lesson_id>/quiz/", views.lesson_quiz, name="lesson_quiz"),
+
+    # Lesson progress
     path("<int:lesson_id>/progress/", views.lesson_progress, name="lesson_progress"),
+
+    # Lesson comments
     path("<int:lesson_id>/comments/", views.lesson_comments, name="lesson_comments"),
+
+    # Lesson resources
     path("<int:lesson_id>/resources/", views.lesson_resources, name="lesson_resources"),
+
+    # Lesson feedback
     path("<int:lesson_id>/feedback/", views.lesson_feedback, name="lesson_feedback"),
 ]

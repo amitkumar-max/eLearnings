@@ -1,0 +1,118 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ course.title }} - Lessons</title>
+    <link rel="stylesheet" href="{% static 'css/course_player.css' %}" />
+    <style>
+        body { margin:0; font-family: Arial, sans-serif; background:#f9f9f9; }
+        header { padding:20px; background:#fff; border-bottom:2px solid #ddd; }
+        header h1 { margin:0 0 15px 0; color:#333; }
+        .lesson-steps { display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap; }
+        .lesson-step { padding:6px 12px; font-size:14px; background:#eee; border-radius:4px; }
+        .lesson-step.completed { background:#4caf50; color:#fff; }
+        .progress-container { width:100%; background:#eee; border-radius:10px; height:20px; margin-bottom:15px; overflow:hidden; }
+        .progress-bar { height:100%; width:0%; background:linear-gradient(90deg, #32CD32, #00c6ff); border-radius:10px; transition: width 0.4s ease; }
+        .lesson-player { display:flex; gap:25px; padding:20px; flex-wrap:wrap; }
+        .content { flex:3; background:#fff; padding:20px; border-radius:6px; box-shadow:0 2px 6px rgba(0,0,0,0.1); }
+        .content h2 { margin-top:0; }
+        .content video, .content iframe { width:100%; margin-top:15px; border-radius:6px; }
+        .navigation { flex:1; display:flex; flex-direction:column; gap:12px; }
+        .btn { display:block; padding:12px; text-align:center; border-radius:6px; text-decoration:none; font-weight:bold; transition:background 0.3s ease; }
+        .btn:hover { opacity:0.9; }
+        .start { background:#2196f3; color:#fff; }
+        .finish { background:#ff5722; color:#fff; }
+        .course-description { margin-top:20px; padding:15px; background:#fafafa; border:1px solid #ddd; border-radius:6px; }
+        .course-description h3 { margin-top:0; color:#444; }
+        form { margin-top:15px; display:flex; gap:10px; }
+        form .btn { padding:10px 15px; border-radius:5px; border:none; cursor:pointer; font-weight:bold; }
+        .btn.like { background:#ff4081; color:white; }
+        .btn.save { background:#3f51b5; color:white; }
+        .lesson-btn { margin:5px; padding:10px 20px; background:#32CD32; color:white; border:none; border-radius:6px; cursor:pointer; }
+        .lesson-btn:hover { background:#0056b3; }
+        .course-box { display:flex; gap:20px; margin-top:20px; flex-wrap:wrap; }
+        .course-image { max-width:300px; border-radius:6px; }
+        .course-content { flex:1; min-width:300px; }
+        .progress-wrapper { margin-top:15px; background:#eee; border-radius:10px; overflow:hidden; }
+        .progress-wrapper .progress { height:20px; background:linear-gradient(90deg, #32CD32, #00c6ff); width:0%; transition:width 0.4s ease; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>{{ course.title }}</h1>
+
+    <!-- Lesson Steps -->
+    <div class="lesson-steps">
+        {% for lesson in lessons %}
+            <div class="lesson-step {% if lesson.id in completed_lessons %}completed{% endif %}">
+                {{ lesson.title }}
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- Horizontal Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar" style="width: {{ course_progress_percent }}%;"></div>
+    </div>
+</header>
+
+<main class="lesson-player">
+    <section class="content">
+        <h2>{{ current_lesson.title }}</h2>
+
+        {% if current_lesson.video %}
+            <video controls>
+                <source src="{{ current_lesson.video.url }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        {% elif current_lesson.video_url %}
+            <iframe src="{{ current_lesson.video_url }}" frameborder="0" allowfullscreen></iframe>
+        {% endif %}
+
+        <div class="course-description">
+            <h3>About this lesson</h3>
+            <div>{{ lesson_content|linebreaks }}</div>
+        </div>
+
+        {% if interaction %}
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" name="like" class="btn like">
+                {% if interaction.liked %} ❤️ Liked {% else %} 🤍 Like {% endif %}
+            </button>
+            <button type="submit" name="save" class="btn save">
+                {% if interaction.saved %} 📌 Saved {% else %} 📍 Save {% endif %}
+            </button>
+        </form>
+        {% endif %}
+    </section>
+
+    <aside class="navigation">
+        {% for lesson in lessons %}
+            <a href="{% url 'courses:course_player' slug=course.slug lesson_id=lesson.id %}" class="btn {% if lesson.id == current_lesson.id %}active{% endif %}">
+                {{ lesson.title }}
+            </a>
+        {% endfor %}
+    </aside>
+</main>
+
+<script>
+    const totalLessons = {{ lessons|length }};
+    const completedLessons = {{ completed_lessons|length }};
+    const progressBar = document.getElementById("progressBar");
+
+    function updateProgress() {
+        const percent = totalLessons ? (completedLessons / totalLessons) * 100 : 0;
+        progressBar.style.width = percent + "%";
+        if (completedLessons === totalLessons && totalLessons > 0) {
+            setTimeout(() => alert("🎉 All lessons completed!"), 500);
+        }
+    }
+
+    updateProgress();
+</script>
+
+</body>
+</html>

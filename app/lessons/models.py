@@ -2,31 +2,50 @@
 from django.db import models
 from django.utils.text import slugify
 from django.contrib.auth import get_user_model
+from django.utils import timezone
 
 from app.courses.models import Course, TimeStampedModel
 
 User = get_user_model()
 
-class Lesson(TimeStampedModel):
+
+class Lesson(models.Model):
+    # Link to Course model (avoid circular imports with string reference)
     course = models.ForeignKey(
-    Course,
-    on_delete=models.CASCADE,
-    related_name="lessons_in_lessons_app", )
+        "courses.Course",
+        on_delete=models.CASCADE,
+        related_name="lessons_in_lessons_app",
+    )
+
+    # Lesson basic info
     title = models.CharField(max_length=200)
-    slug = models.SlugField(max_length=220, blank=True)
+    slug = models.SlugField(max_length=200, blank=True)
+    content_file = models.FileField(upload_to='lessons/content/', blank=True, null=True)
+    # Videos (optional)
+    video = models.FileField(upload_to="course_videos/", blank=True, null=True)  # uploaded file
+    video_url = models.URLField(blank=True, null=True)  # external video link (YouTube/Vimeo)
+
+    # Ordering and resources
     order_index = models.PositiveIntegerField(default=1, db_index=True)
-    content = models.TextField(blank=True)
-    video_url = models.URLField(blank=True)
-    resources = models.JSONField(default=list, blank=True)
+    resources = models.JSONField(default=dict, blank=True)  # e.g., {"pdf": "link", "external": "link"}
+
+    # Timestamps
+    created_at = models.DateTimeField(auto_now_add=True)  # set only on creation
+    updated_at = models.DateTimeField(auto_now=True)      # updated on every save
 
     class Meta:
         ordering = ["course", "order_index"]
         unique_together = [("course", "slug")]
+        indexes = [
+            models.Index(fields=["course", "slug"]),
+            models.Index(fields=["course", "order_index"]),
+        ]
 
     def __str__(self):
         return f"{self.course.title} • {self.title}"
 
     def save(self, *args, **kwargs):
+        # Auto-generate slug if not provided
         if not self.slug:
             base = slugify(self.title)
             slug = base
@@ -36,6 +55,8 @@ class Lesson(TimeStampedModel):
                 slug = f"{base}-{i}"
             self.slug = slug
         super().save(*args, **kwargs)
+
+
 
 
 class QuizQuestion(models.Model):

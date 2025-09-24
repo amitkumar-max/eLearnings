@@ -1,6 +1,9 @@
 from django.db import models
 from django.utils import timezone
 from django.utils.text import slugify
+from django.contrib.auth.models import User
+from django.conf import settings
+
 # app/courses/models.py
 import os
 from django.templatetags.static import static
@@ -18,6 +21,7 @@ class Course(TimeStampedModel):
     image = models.ImageField(upload_to='courses/', blank=True, null=True)
     slug = models.SlugField(unique=True, blank=True, null=True)  # For course_detail URL
     is_published = models.BooleanField(default=False)  # For filtering live courses
+    description = models.TextField(blank=True, null=True)  # ✅ NEW FIELD
     teacher = models.ForeignKey(
     'teachers.TeacherProfile',
     on_delete=models.CASCADE,
@@ -30,7 +34,20 @@ class Course(TimeStampedModel):
         return f"Course {self.id} by {self.teacher}"  # ORM-friendly
 
 
+# ✅ Extra: Like & Save Feature
+class CourseInteraction(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,  # ✅ use this instead of User
+        on_delete=models.CASCADE
+    )
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    liked = models.BooleanField(default=False)
+    saved = models.BooleanField(default=False)
+    completed_lessons = models.ManyToManyField('Lesson', blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return f"{self.user} - {self.course}"
 
 class Lesson(TimeStampedModel):
     course = models.ForeignKey(
