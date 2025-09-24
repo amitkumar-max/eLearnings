@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     'app.downloads',
     'app.blogs',
     'app.policies',
+    "app.courses.apps.CoursesConfig",
 
 
 
