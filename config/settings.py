@@ -54,7 +54,7 @@ INSTALLED_APPS = [
     "app.students",
     "app.teachers",
     "app.users.apps.UsersConfig",
-    "app.courses",
+    # "app.courses",
     'app.exams',   # ✅ Add this line
     'app.payments',
     'app.progress',
