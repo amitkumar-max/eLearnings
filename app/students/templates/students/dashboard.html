@@ -268,10 +268,13 @@ body.dark-mode .overview-card {
     <!-- Dashboard Cards -->
 <!-- Dashboard Cards -->
 <div class="cards-grid">
-<a href="{% url 'courses:course_detail' course.slug %}" class="btn">View Details</a>
-    <h3>📚 View All Courses</h3>
-    <p>Browse your enrolled and available courses.</p>
-  </a>
+
+  <!-- ✅ Fix: use students namespace + pass course.id -->
+  {% for course in courses %}
+    <a href="{% url 'students:course_detail' course.id %}" class="btn">
+      View {{ course.title }}
+    </a>
+  {% endfor %}
 
   <a href="{% url 'students:assignments' %}" class="dashboard-card">
     <h3>📝 Submit Assignment</h3>

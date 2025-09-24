@@ -710,7 +710,13 @@ nav {
         tracking.
       </p>
       <div class="cta-buttons">
-        <a href="#courses" class="btn-primary">Explore Courses</a>
+{% if courses %}
+  <a href="{% url 'courses:course_list' %}" class="btn-primary">Explore Courses</a>
+{% else %}
+  <a class="btn-primary disabled">Explore Courses</a>
+{% endif %}
+
+
         <a href="{% url 'users:signup' %}" class="btn-outline">Join Now</a>
       </div>
     </section>

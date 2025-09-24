@@ -135,33 +135,41 @@
 
 <div class="container">
 <a href="{% url 'courses:course_list' %}" class="back-link">&larr; Back to Courses</a>
-
-  <div class="course-box">
+<div class="course-box">
     <!-- Course Image -->
-    <img src="{{ course.image.url }}" alt="{{ course.title }}" class="course-image">
-
-  <div class="course-content">
-    <h1>{{ course.title }}</h1>
-    <p>{{ course.description }}</p>
-
-    <div class="course-footer">
-        <span class="price">₹{{ course.price }}</span>
-        <!-- Buy Course / Checkout Button -->
-        <a href="{% url 'payments:checkout' course.id %}" class="btn-primary">
-            💳 Buy Course
-        </a>
-    </div>
-
-    <!-- Optional Instructor Info -->
-    {% if course.instructor %}
-    <div class="instructor">
-        <img src="{{ course.instructor.profile_image.url }}" alt="{{ course.instructor.name }}">
-        <span>Instructor: {{ course.instructor.name }}</span>
-    </div>
+    {% if course.image %}
+        <img src="{{ course.image.url }}" alt="{{ course.title }}" class="course-image">
+    {% else %}
+        <img src="{% static 'images/default.jpg' %}" alt="{{ course.title }}" class="course-image">
     {% endif %}
+
+    <div class="course-content">
+        <h1>{{ course.title }}</h1>
+        <p>{{ course.description }}</p>
+
+        <div class="course-footer">
+            <span class="price">₹{{ course.price }}</span>
+            <!-- Buy Course / Checkout Button -->
+            <a href="{% url 'payments:checkout' course.id %}" class="btn-primary">
+                💳 Buy Course
+            </a>
+        </div>
+
+        <!-- Optional Instructor Info -->
+        {% if course.instructor %}
+            <div class="instructor">
+                {% if course.instructor.profile_image %}
+                    <img src="{{ course.instructor.profile_image.url }}" alt="{{ course.instructor.name }}">
+                {% else %}
+                    <img src="{% static 'images/default-instructor.jpg' %}" alt="{{ course.instructor.name }}">
+                {% endif %}
+                <span>Instructor: {{ course.instructor.name }}</span>
+            </div>
+        {% endif %}
+    </div>
 </div>
 
-  </div>
+
 </div>
 
 

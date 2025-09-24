@@ -60,6 +60,8 @@ def dashboard(request):
         "completed_lessons": student.completed_lessons.count(),
         "pending_assignments": student.pending_assignments.count(),
         "overall_progress": student.progress_percentage(),
+        "courses": courses,   # ✅ added this line
+        
     }
     return render(request, "students/dashboard.html", context)
 

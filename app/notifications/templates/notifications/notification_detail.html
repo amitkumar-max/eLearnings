@@ -1,6 +1,4 @@
-{% extends 'base.html' %}
-{% block title %}Notification Details{% endblock %}
-{% block content %}
+
 <style>
     .detail-box {
         max-width: 600px;
@@ -20,4 +18,4 @@
     <p class="detail-time">Received on: {{ notification.created_at|date:"M d, Y H:i" }}</p>
     <p class="detail-msg">{{ notification.message }}</p>
 </div>
-{% endblock %}
+
