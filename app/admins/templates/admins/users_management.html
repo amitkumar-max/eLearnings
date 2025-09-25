@@ -12,6 +12,29 @@ nav a:hover { color:#ff7f50; }
 .container { padding:20px; }
 h1 { color:#333; }
 </style>
+
+<style>
+    body { font-family: Arial,sans-serif; background:#f5f6fa; padding:20px;}
+    h1 { color:#2f3640; }
+    table { width:100%; border-collapse: collapse; background:#fff; border-radius:10px; overflow:hidden; }
+    th, td { padding:15px; border-bottom:1px solid #ddd; text-align:left; }
+    th { background:#40739e; color:#fff; }
+    tr:hover { background:#f1f2f6; }
+</style>
+
+
+<style>
+body { font-family: Arial,sans-serif; background:#f5f6fa; padding:20px;}
+h1 { color:#2f3640; margin-bottom:20px; }
+table { width:100%; border-collapse: collapse; background:#fff; border-radius:10px; overflow:hidden; }
+th, td { padding:15px; border-bottom:1px solid #ddd; text-align:left; }
+th { background:#40739e; color:#fff; }
+tr:hover { background:#f1f2f6; }
+button { padding:5px 10px; background:#e1b12c; color:#fff; border:none; border-radius:5px; cursor:pointer; margin-right:5px; }
+form { background:#fff; padding:15px; border-radius:10px; margin-bottom:20px; }
+input { padding:10px; margin:5px 0; width:100%; }
+</style>
+
 </head>
 <body>
 <nav>
@@ -23,9 +46,98 @@ h1 { color:#333; }
   <a href="{% url 'admins:site_settings' %}">⚙️ Settings</a>
   <a href="{% url 'admins:notifications' %}">🔔 Notifications</a>
 </nav>
+
+
+
+
+
+
+
+
+<h1>User Management</h1>
+
+<form>
+    <h3>Add New User</h3>
+    <input type="text" placeholder="Full Name">
+    <input type="email" placeholder="Email">
+    <input type="password" placeholder="Password">
+    <button type="submit">Add User</button>
+</form>
+
+<table>
+<tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Role</th>
+    <th>Status</th>
+    <th>Action</th>
+</tr>
+<tr>
+    <td>1</td>
+    <td>John Doe</td>
+    <td>john@example.com</td>
+    <td>Student</td>
+    <td>Active</td>
+    <td>
+        <button>Edit</button>
+        <button>Delete</button>
+    </td>
+</tr>
+<tr>
+    <td>2</td>
+    <td>Jane Smith</td>
+    <td>jane@example.com</td>
+    <td>Instructor</td>
+    <td>Inactive</td>
+    <td>
+        <button>Edit</button>
+        <button>Delete</button>
+    </td>
+</tr>
+</table>
+
+
+
+
+
+
+
 <div class="container">
 <h1>👥 Users Management</h1>
 <p>Here admin can add, edit, delete users & assign roles.</p>
 </div>
+
+
+
+
+<h1>Notifications</h1>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Message</th>
+        <th>Status</th>
+        <th>Date</th>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>New course added: Python Basics</td>
+        <td>Unread</td>
+        <td>2025-09-25</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>Payment received: John Doe</td>
+        <td>Read</td>
+        <td>2025-09-24</td>
+    </tr>
+</table>
+
+
+
+
+
+
+
 </body>
 </html>

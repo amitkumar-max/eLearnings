@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+
+    <style>
+        /* Reset */
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Arial', sans-serif; }
+
+body { background: #f5f6fa; color: #2f3640; }
+
+.admin-dashboard { display: flex; height: 100vh; }
+
+/* Sidebar */
+.sidebar { width: 250px; background: #2f3640; color: #f5f6fa; display: flex; flex-direction: column; }
+.sidebar .brand { padding: 20px; font-size: 1.5rem; font-weight: bold; text-align: center; background: #353b48; }
+.sidebar-menu { list-style: none; flex-grow: 1; }
+.sidebar-menu li { }
+.sidebar-menu li a { display: flex; align-items: center; padding: 15px 20px; color: #f5f6fa; text-decoration: none; transition: 0.3s; }
+.sidebar-menu li a i { margin-right: 10px; }
+.sidebar-menu li a:hover { background: #40739e; }
+
+/* Content Area */
+.content-area { flex-grow: 1; padding: 20px; overflow-y: auto; }
+.content-area header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.content-area header h1 { font-size: 1.8rem; color: #2f3640; }
+.user-profile { display: flex; align-items: center; }
+.user-profile img { width: 40px; height: 40px; border-radius: 50%; margin-right: 10px; }
+
+/* Section Content */
+.main-content { background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+
+    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="admin-dashboard">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="brand">E-Learn Admin</div>
+            <ul class="sidebar-menu">
+                <li><a href="{% url 'admin:site_settings' %}"><i class="fas fa-cogs"></i> Site Settings</a></li>
+                <li><a href="{% url 'admin:notifications' %}"><i class="fas fa-bell"></i> Notifications</a></li>
+                <li><a href="{% url 'admin:payments' %}"><i class="fas fa-credit-card"></i> Payments</a></li>
+                <li><a href="{% url 'admin:reports' %}"><i class="fas fa-chart-line"></i> Reports</a></li>
+                <li><a href="{% url 'admin:support_tickets' %}"><i class="fas fa-headset"></i> Support Tickets</a></li>
+                <li><a href="{% url 'admin:user_management' %}"><i class="fas fa-users"></i> User Management</a></li>
+                <li><a href="{% url 'admin:course_management' %}"><i class="fas fa-book"></i> Course Management</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content-area">
+            <header>
+                <h1>Admin Dashboard</h1>
+                <div class="user-profile">
+                    <img src="{% static 'admin_templates/images/admin_avatar.png' %}" alt="Admin">
+                    <span>Amit</span>
+                </div>
+            </header>
+
+            <section class="main-content">
+                {% block content %}
+                <!-- Section content will load here -->
+                {% endblock %}
+            </section>
+        </main>
+    </div>
+</body>
+</html>

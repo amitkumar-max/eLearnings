@@ -1,9 +1,5 @@
 <!-- templates/student/messages.html -->
-{% extends 'base_student.html' %}
 
-{% block title %}Messages{% endblock %}
-
-{% block extra_head %}
 <style>
   .messages-container {
     background: #ffffff;
@@ -43,9 +39,7 @@
     font-style: italic;
   }
 </style>
-{% endblock %}
 
-{% block content %}
 <div class="messages-container">
   <h2 class="messages-title">Messages</h2>
   <div class="messages-list">
@@ -56,4 +50,3 @@
     {% endfor %}
   </div>
 </div>
-{% endblock %}

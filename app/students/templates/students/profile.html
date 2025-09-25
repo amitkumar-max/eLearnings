@@ -1,9 +1,5 @@
 <!-- templates/student/profile.html -->
-{% extends 'base_student.html' %}
 
-{% block title %}Profile{% endblock %}
-
-{% block extra_head %}
 <style>
   .profile-container {
     max-width: 600px;
@@ -43,9 +39,7 @@
     background-color: #1e40af;
   }
 </style>
-{% endblock %}
 
-{% block content %}
 <div class="profile-container">
   <h2>My Profile</h2>
   <div class="profile-details">
@@ -55,4 +49,3 @@
   </div>
   <a href="{% url 'edit_profile' %}" class="btn-edit">Edit Profile</a>
 </div>
-{% endblock %}

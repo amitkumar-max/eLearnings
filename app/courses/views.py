@@ -9,16 +9,8 @@ from app.lessons.models import Lesson
 from app.lessons.views import get_lesson_content_from_file
 import os
 
-def course_list(request):
-    courses = Course.objects.filter(is_published=True)
-    return render(request, "courses/course_list.html", {"courses": courses})
 
-def course_detail(request, slug):
-    course = get_object_or_404(Course, slug=slug)
-    interaction = None
-    if request.user.is_authenticated:
-        interaction, _ = CourseInteraction.objects.get_or_create(user=request.user, course=course)
-    return render(request, "courses/course_detail.html", {"course": course, "interaction": interaction})
+
 
 def course_player(request, slug, lesson_id=None):
     course = get_object_or_404(Course, slug=slug)
@@ -56,6 +48,19 @@ def course_player(request, slug, lesson_id=None):
         "lesson_filename": os.path.basename(current_lesson.content_file.name) if current_lesson.content_file else f"lesson_{current_lesson.order_index}_placeholder.txt",
 }
     return render(request, "courses/course_player.html", context)
+
+
+
+def course_list(request):
+    courses = Course.objects.filter(is_published=True)
+    return render(request, "courses/course_list.html", {"courses": courses})
+
+def course_detail(request, slug):
+    course = get_object_or_404(Course, slug=slug)
+    interaction = None
+    if request.user.is_authenticated:
+        interaction, _ = CourseInteraction.objects.get_or_create(user=request.user, course=course)
+    return render(request, "courses/course_detail.html", {"course": course, "interaction": interaction})
 
 
 

@@ -1,9 +1,5 @@
 <!-- course_detail.html -->
-{% extends 'base_student.html' %}
 
-{% block title %}{{ course.name }}{% endblock %}
-
-{% block extra_head %}
 <style>
   .course-detail {
     background: #ffffff;
@@ -51,4 +47,3 @@
   <p>{{ course.description }}</p>
   <a href="{% url 'enroll_course' course.id %}" class="btn-primary">Enroll Now</a>
 </div>
-{% endblock %}

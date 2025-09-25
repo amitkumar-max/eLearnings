@@ -169,53 +169,83 @@ from .models import Lesson, LessonProgress, QuizQuestion, QuizOption, LessonComm
 # -----------------------------
 # Lesson Content Loader
 
-def get_lesson_content_from_file(lesson):
-    """
-    Reads lesson content from:
-    1. MEDIA_ROOT/lessons/<normalized-course-slug>/
-    2. fallback: app/lessons/content/<normalized-course-slug>/
-    Returns HTML-safe content.
-    """
-    # Normalize slug to lowercase and hyphen format (folder-safe)
-    normalized_slug = lesson.course.slug.lower().replace(" ", "-")
+# def get_lesson_content_from_file(lesson):
+#     """
+#     Reads lesson content from:
+#     1. MEDIA_ROOT/lessons/<normalized-course-slug>/
+#     2. fallback: app/lessons/content/<normalized-course-slug>/
+#     Returns HTML-safe content.
+#     """
+#     # Normalize slug to lowercase and hyphen format (folder-safe)
+#     normalized_slug = lesson.course.slug.lower().replace(" ", "-")
 
+#     paths_to_try = [
+#         os.path.join(settings.MEDIA_ROOT, 'lessons', normalized_slug),
+#         os.path.join(settings.BASE_DIR, 'app', 'lessons', 'content', normalized_slug),
+#     ]
+
+#     for folder_path in paths_to_try:
+#         if not os.path.exists(folder_path):
+#             continue
+
+#         # Pattern to match lesson files
+#         pattern = f"lesson_{lesson.order_index}_*.txt"
+#         matched_files = glob.glob(os.path.join(folder_path, pattern))
+
+#         # Debugging (optional, remove in production)
+#         # print("Checking folder:", folder_path)
+#         # print("Pattern:", pattern)
+#         # print("Matched files:", matched_files)
+
+#         if matched_files:
+#             try:
+#                 with open(matched_files[0], "r", encoding="utf-8") as f:
+#                     content = f.read()
+#                 # Convert line breaks to HTML
+#                 content = content.replace("\n\n", "</p><p>").replace("\n", "<br>")
+#                 return f"<p>{content}</p>"
+#             except Exception as e:
+#                 return f"Error reading content: {str(e)}"
+
+#     # Final fallback: placeholder file in content folder
+#     placeholder_path = os.path.join(settings.BASE_DIR, 'app', 'lessons', 'content', 'placeholder.txt')
+#     if os.path.exists(placeholder_path):
+#         with open(placeholder_path, "r", encoding="utf-8") as f:
+#             content = f.read()
+#         content = content.replace("\n\n", "</p><p>").replace("\n", "<br>")
+#         return f"<p>{content}</p>"
+
+#     return "Lesson content not found."
+
+
+def get_lesson_content_from_file(lesson, return_path=False):
+    normalized_slug = lesson.course.slug.lower().replace(" ", "-")
     paths_to_try = [
         os.path.join(settings.MEDIA_ROOT, 'lessons', normalized_slug),
         os.path.join(settings.BASE_DIR, 'app', 'lessons', 'content', normalized_slug),
     ]
-
     for folder_path in paths_to_try:
         if not os.path.exists(folder_path):
             continue
-
-        # Pattern to match lesson files
         pattern = f"lesson_{lesson.order_index}_*.txt"
         matched_files = glob.glob(os.path.join(folder_path, pattern))
-
-        # Debugging (optional, remove in production)
-        # print("Checking folder:", folder_path)
-        # print("Pattern:", pattern)
-        # print("Matched files:", matched_files)
-
         if matched_files:
-            try:
-                with open(matched_files[0], "r", encoding="utf-8") as f:
-                    content = f.read()
-                # Convert line breaks to HTML
-                content = content.replace("\n\n", "</p><p>").replace("\n", "<br>")
-                return f"<p>{content}</p>"
-            except Exception as e:
-                return f"Error reading content: {str(e)}"
+            path = matched_files[0]
+            with open(path, "r", encoding="utf-8") as f:
+                content = f.read()
+            content = content.replace("\n\n", "</p><p>").replace("\n", "<br>")
+            return (content, path) if return_path else f"<p>{content}</p>"
 
-    # Final fallback: placeholder file in content folder
     placeholder_path = os.path.join(settings.BASE_DIR, 'app', 'lessons', 'content', 'placeholder.txt')
     if os.path.exists(placeholder_path):
         with open(placeholder_path, "r", encoding="utf-8") as f:
             content = f.read()
         content = content.replace("\n\n", "</p><p>").replace("\n", "<br>")
-        return f"<p>{content}</p>"
+        return (f"<p>{content}</p>", placeholder_path) if return_path else f"<p>{content}</p>"
 
-    return "Lesson content not found."
+    return ("Lesson content not found.", None) if return_path else "Lesson content not found."
+
+
 # -----------------------------
 # Lesson List
 # -----------------------------

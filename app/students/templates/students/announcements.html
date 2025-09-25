@@ -1,9 +1,4 @@
-<!-- announcements.html -->
-{% extends 'base_student.html' %}
 
-{% block title %}Announcements{% endblock %}
-
-{% block extra_head %}
 <style>
   .announcements-container {
     max-width: 800px;
@@ -41,9 +36,7 @@
     line-height: 1.5;
   }
 </style>
-{% endblock %}
 
-{% block content %}
 <h2 class="text-2xl font-bold text-center mb-6">Announcements</h2>
 <div class="announcements-container">
   {% for ann in announcements %}
@@ -56,4 +49,4 @@
   <p class="text-center text-gray-500">No announcements at the moment.</p>
   {% endfor %}
 </div>
-{% endblock %}
+

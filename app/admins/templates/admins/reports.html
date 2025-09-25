@@ -12,6 +12,15 @@ nav a:hover { color:#ff7f50; }
 .container { padding:20px; }
 h1 { color:#333; }
 </style>
+
+
+
+<style>
+body { font-family: Arial,sans-serif; background:#f5f6fa; padding:20px;}
+h1 { color:#2f3640; }
+canvas { background:#fff; border-radius:10px; padding:20px; display:block; margin:20px auto; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 <nav>
@@ -27,5 +36,31 @@ h1 { color:#333; }
 <h1>📊 Reports</h1>
 <p>Analytics of users, courses & growth trends.</p>
 </div>
+
+
+
+
+
+
+<h1>Reports</h1>
+<canvas id="userChart" width="600" height="300"></canvas>
+<script>
+const ctx = document.getElementById('userChart').getContext('2d');
+const userChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Python', 'JS', 'HTML', 'CSS', 'PHP'],
+        datasets: [{
+            label: 'Course Enrollment',
+            data: [12, 19, 3, 5, 2],
+            backgroundColor: '#40739e'
+        }]
+    },
+});
+</script>
+
+
+
+
 </body>
 </html>

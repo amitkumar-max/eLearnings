@@ -12,6 +12,17 @@ nav a:hover { color:#ff7f50; }
 .container { padding:20px; }
 h1 { color:#333; }
 </style>
+<style>
+body { font-family: Arial,sans-serif; background:#f5f6fa; padding:20px;}
+h1 { color:#2f3640; margin-bottom:20px; }
+table { width:100%; border-collapse: collapse; background:#fff; border-radius:10px; overflow:hidden; }
+th, td { padding:15px; border-bottom:1px solid #ddd; text-align:left; }
+th { background:#40739e; color:#fff; }
+tr:hover { background:#f1f2f6; }
+button { padding:5px 10px; background:#e84118; color:#fff; border:none; border-radius:5px; cursor:pointer; margin-right:5px; }
+form { background:#fff; padding:15px; border-radius:10px; margin-bottom:20px; }
+input { padding:10px; margin:5px 0; width:100%; }
+</style>
 </head>
 <body>
 <nav>
@@ -27,5 +38,53 @@ h1 { color:#333; }
 <h1>📚 Courses Management</h1>
 <p>Here admin can create, edit, delete courses & lessons.</p>
 </div>
+
+
+
+
+<h1>Course Management</h1>
+
+<form>
+    <h3>Add New Course</h3>
+    <input type="text" placeholder="Course Title">
+    <input type="text" placeholder="Category">
+    <input type="number" placeholder="Price">
+    <button type="submit">Add Course</button>
+</form>
+
+<table>
+<tr>
+    <th>ID</th>
+    <th>Title</th>
+    <th>Category</th>
+    <th>Price</th>
+    <th>Status</th>
+    <th>Action</th>
+</tr>
+<tr>
+    <td>1</td>
+    <td>Python Basics</td>
+    <td>Programming</td>
+    <td>$50</td>
+    <td>Published</td>
+    <td>
+        <button>Edit</button>
+        <button>Delete</button>
+    </td>
+</tr>
+<tr>
+    <td>2</td>
+    <td>Advanced JS</td>
+    <td>Programming</td>
+    <td>$40</td>
+    <td>Draft</td>
+    <td>
+        <button>Edit</button>
+        <button>Delete</button>
+    </td>
+</tr>
+</table>
+
+
 </body>
 </html>

@@ -1,9 +1,5 @@
 <!-- assignment_detail.html -->
-{% extends 'base_student.html' %}
 
-{% block title %}Assignment Detail{% endblock %}
-
-{% block extra_head %}
 <style>
   .assignment-detail-container {
     max-width: 700px;
@@ -70,9 +66,7 @@
     background: #1e40af;
   }
 </style>
-{% endblock %}
 
-{% block content %}
 <div class="assignment-detail-container">
   <h2>{{ assignment.title }}</h2>
   <div class="description">{{ assignment.description }}</div>
@@ -84,4 +78,4 @@
     <button type="submit" class="btn-primary">Submit Assignment</button>
   </form>
 </div>
-{% endblock %}
+
