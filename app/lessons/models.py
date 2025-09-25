@@ -1,51 +1,43 @@
 # lessons/models.py
 from django.db import models
 from django.utils.text import slugify
-from django.contrib.auth import get_user_model
+from django.conf import settings  # ✅ use settings.AUTH_USER_MODEL
 from django.utils import timezone
 
 from app.courses.models import Course, TimeStampedModel
 
-User = get_user_model()
+from django.db import models
+from django.conf import settings
+from django.utils.text import slugify
+from app.courses.models import Course
 
+class LessonProgress(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    course_slug = models.CharField(max_length=200, default="unknown")
+    lesson_filename = models.CharField(max_length=200)
+    progress = models.IntegerField(default=0)
+    completed = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.user.username} - {self.course_slug} - {self.lesson_filename}"
 
 class Lesson(models.Model):
-    # Link to Course model (avoid circular imports with string reference)
-    course = models.ForeignKey(
-        "courses.Course",
-        on_delete=models.CASCADE,
-        related_name="lessons_in_lessons_app",
-    )
-
-    # Lesson basic info
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="lessons_in_lessons_app")
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, blank=True)
     content_file = models.FileField(upload_to='lessons/content/', blank=True, null=True)
-    # Videos (optional)
-    video = models.FileField(upload_to="course_videos/", blank=True, null=True)  # uploaded file
-    video_url = models.URLField(blank=True, null=True)  # external video link (YouTube/Vimeo)
-
-    # Ordering and resources
-    order_index = models.PositiveIntegerField(default=1, db_index=True)
-    resources = models.JSONField(default=dict, blank=True)  # e.g., {"pdf": "link", "external": "link"}
-
-    # Timestamps
-    created_at = models.DateTimeField(auto_now_add=True)  # set only on creation
-    updated_at = models.DateTimeField(auto_now=True)      # updated on every save
+    order_index = models.PositiveIntegerField(default=1)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         ordering = ["course", "order_index"]
         unique_together = [("course", "slug")]
-        indexes = [
-            models.Index(fields=["course", "slug"]),
-            models.Index(fields=["course", "order_index"]),
-        ]
 
     def __str__(self):
         return f"{self.course.title} • {self.title}"
 
     def save(self, *args, **kwargs):
-        # Auto-generate slug if not provided
         if not self.slug:
             base = slugify(self.title)
             slug = base
@@ -55,8 +47,6 @@ class Lesson(models.Model):
                 slug = f"{base}-{i}"
             self.slug = slug
         super().save(*args, **kwargs)
-
-
 
 
 class QuizQuestion(models.Model):
@@ -76,17 +66,8 @@ class QuizOption(models.Model):
         return self.option_text[:50]
 
 
-class LessonProgress(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
-    completed = models.BooleanField(default=False)
-
-    class Meta:
-        unique_together = [('user', 'lesson')]
-
-
 class LessonComment(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
     comment = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
@@ -98,7 +79,7 @@ class LessonResource(models.Model):
 
 
 class LessonFeedback(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
     feedback = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)

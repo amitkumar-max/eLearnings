@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>{{ course.title }} - Lessons</title>
     <link rel="stylesheet" href="{% static 'css/course_player.css' %}" />
+    
     <style>
         body { margin:0; font-family: Arial, sans-serif; background:#f9f9f9; }
         header { padding:20px; background:#fff; border-bottom:2px solid #ddd; }
@@ -37,9 +38,44 @@
         .progress-wrapper { margin-top:15px; background:#eee; border-radius:10px; overflow:hidden; }
         .progress-wrapper .progress { height:20px; background:linear-gradient(90deg, #32CD32, #00c6ff); width:0%; transition:width 0.4s ease; }
     </style>
+    
+<style>
+.lesson-content {
+    height: 500px;
+    overflow-y: scroll;
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+.lesson-steps {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.lesson-step.completed {
+    font-weight: bold;
+    color: green;
+}
+
+.navigation {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.navigation .btn.active {
+    font-weight: bold;
+    color: white;
+    background-color: #007BFF;
+}
+</style>
+
 </head>
 <body>
 
+
+    
 <header>
     <h1>{{ course.title }}</h1>
 
@@ -52,7 +88,22 @@
         {% endfor %}
     </div>
 
-    <!-- Horizontal Progress Bar -->
+    <h2>{{ course_slug|title }} - {{ lesson_filename }}</h2>
+
+    <!-- Scrollable lesson content -->
+    <div id="lesson-container" class="lesson-content" style="height:500px; overflow-y:scroll; border:1px solid #ccc; padding:10px;">
+<pre>{{ lesson_content|safe }}</pre>
+    </div>
+
+    <!-- Progress Display -->
+    <div style="margin-top:10px;">
+        Progress: <span id="progress-display">{{ progress }}</span>%
+        <div style="background:#eee; height:10px; width:100%;">
+            <div id="progress-bar" style="background:green; height:10px; width:{{ progress }}%;"></div>
+        </div>
+    </div>
+
+    <!-- Horizontal Course Progress Bar -->
     <div class="progress-container">
         <div class="progress-bar" id="progressBar" style="width: {{ course_progress_percent }}%;"></div>
     </div>
@@ -62,6 +113,7 @@
     <section class="content">
         <h2>{{ current_lesson.title }}</h2>
 
+        <!-- Video / iframe lesson -->
         {% if current_lesson.video %}
             <video controls>
                 <source src="{{ current_lesson.video.url }}" type="video/mp4">
@@ -71,47 +123,64 @@
             <iframe src="{{ current_lesson.video_url }}" frameborder="0" allowfullscreen></iframe>
         {% endif %}
 
-        <div class="course-description">
-            <h3>About this lesson</h3>
-            <div>{{ lesson_content|linebreaks }}</div>
-        </div>
+        <!-- Lesson Description -->
+      
+      <div class="lesson-content">
+    {{ lesson_content|safe }}
+</div>
 
+<h2>{{ course_slug|title }} - {{ lesson_filename }}</h2>  <!-- Sirf display ke liye -->
+
+        <!-- Interaction buttons -->
         {% if interaction %}
-        <form method="post">
-            {% csrf_token %}
-            <button type="submit" name="like" class="btn like">
-                {% if interaction.liked %} ❤️ Liked {% else %} 🤍 Like {% endif %}
-            </button>
-            <button type="submit" name="save" class="btn save">
-                {% if interaction.saved %} 📌 Saved {% else %} 📍 Save {% endif %}
-            </button>
-        </form>
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" name="like" class="btn like">
+                    {% if interaction.liked %} ❤️ Liked {% else %} 🤍 Like {% endif %}
+                </button>
+                <button type="submit" name="save" class="btn save">
+                    {% if interaction.saved %} 📌 Saved {% else %} 📍 Save {% endif %}
+                </button>
+            </form>
         {% endif %}
     </section>
 
+    <!-- Sidebar navigation -->
     <aside class="navigation">
         {% for lesson in lessons %}
-            <a href="{% url 'courses:course_player' slug=course.slug lesson_id=lesson.id %}" class="btn {% if lesson.id == current_lesson.id %}active{% endif %}">
+            <a href="{% url 'courses:course_player' slug=course.slug lesson_id=lesson.id %}"
+               class="btn {% if lesson.id == current_lesson.id %}active{% endif %}">
                 {{ lesson.title }}
             </a>
         {% endfor %}
     </aside>
 </main>
 
+<!-- Scroll Progress Script -->
 <script>
-    const totalLessons = {{ lessons|length }};
-    const completedLessons = {{ completed_lessons|length }};
-    const progressBar = document.getElementById("progressBar");
+const container = document.getElementById("lesson-container");
+const progressBar = document.getElementById("progress-bar");
+const progressDisplay = document.getElementById("progress-display");
 
-    function updateProgress() {
-        const percent = totalLessons ? (completedLessons / totalLessons) * 100 : 0;
-        progressBar.style.width = percent + "%";
-        if (completedLessons === totalLessons && totalLessons > 0) {
-            setTimeout(() => alert("🎉 All lessons completed!"), 500);
-        }
+container.addEventListener("scroll", function() {
+    const scrollTop = container.scrollTop;
+    const scrollHeight = container.scrollHeight - container.clientHeight;
+    const progress = Math.round((scrollTop / scrollHeight) * 100);
+
+    progressBar.style.width = progress + "%";
+    progressDisplay.textContent = progress;
+
+    if (progress % 10 === 0) {
+        fetch("{% url 'lessons:lesson_progress' course_slug lesson_filename %}", {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": "{{ csrf_token }}",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ progress: progress })
+        });
     }
-
-    updateProgress();
+});
 </script>
 
 </body>

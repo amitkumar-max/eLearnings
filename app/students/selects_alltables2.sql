@@ -92,9 +92,9 @@
 -- SET slug = 'machine-learning-basics'
 -- WHERE id = 2;
 
-UPDATE courses_course
-SET slug = 'python-data-science'
-WHERE id = 2;
+-- UPDATE courses_course
+-- SET slug = 'python-data-science'
+-- WHERE id = 2;
 
 -- Example output should match your folder names exactly:
 -- id | title                  | slug

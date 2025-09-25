@@ -9,14 +9,16 @@ urlpatterns = [
     path("", views.lesson_list, name="lesson_list"),
 
     # Single lesson detail
-    path("<int:lesson_id>/", views.lesson_detail, name="lesson_detail"),
+    # path("<int:lesson_id>/", views.lesson_detail, name="lesson_detail"),
 
     # Lesson quiz
     path("<int:lesson_id>/quiz/", views.lesson_quiz, name="lesson_quiz"),
 
-    # Lesson progress
-    path("<int:lesson_id>/progress/", views.lesson_progress, name="lesson_progress"),
+    # lesson detail
+    path("<slug:course_slug>/<str:lesson_filename>/", views.lesson_detail, name="lesson_detail"),
 
+    # lesson progress
+    path("<slug:course_slug>/<str:lesson_filename>/progress/", views.lesson_progress, name="lesson_progress"),
     # Lesson comments
     path("<int:lesson_id>/comments/", views.lesson_comments, name="lesson_comments"),
 

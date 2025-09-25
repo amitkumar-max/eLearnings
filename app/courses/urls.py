@@ -46,20 +46,13 @@ from django.conf.urls.static import static
 app_name = "courses"
 
 urlpatterns = [
-    # Course list page (main page)
-    path("", views.course_list, name="course_list"),
-
-    # Course detail page (dynamic by slug)
-    path("<slug:slug>/", views.course_detail, name="course_detail"),
-
-    # Categories page
-    path("categories/", views.categories, name="categories"),
-
-    # Course Player URLs
-    path("player/<slug:slug>/", views.course_player, name="course_player"),  # first lesson
-    path("player/<slug:slug>/<int:lesson_id>/", views.course_player, name="course_player"),  # specific lesson
+    path('', views.course_list, name="course_list"),
+    path('categories/', views.categories, name="categories"),
+    
+    path('categories/<slug:slug>/', views.category_courses, name="category_courses"),
+    path('<slug:slug>/', views.course_detail, name="course_detail"),
+    path('<slug:slug>/player/<int:lesson_id>/', views.course_player, name="course_player"),
 ]
-
 # Serve media files in development
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
