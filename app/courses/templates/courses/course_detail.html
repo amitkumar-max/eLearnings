@@ -132,6 +132,17 @@
 }
 
 </style>
+
+<style>
+/* Optional minimal styling */
+.modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); }
+.modal-content { background:#fff; padding:20px; margin:10% auto; width:300px; position:relative; border-radius:8px; }
+.close { position:absolute; top:10px; right:15px; font-size:20px; cursor:pointer; }
+.btn { padding:10px 20px; border:none; border-radius:5px; cursor:pointer; margin:5px; }
+.btn-primary { background:#4CAF50; color:white; }
+.btn-secondary { background:#f44336; color:white; }
+</style>
+
 </head>
 <body>
 
@@ -140,15 +151,13 @@
   <div class="logo">E-Learn</div>
   <div class="nav-links">
     <a href="{% url 'home' %}">Home</a>
-    <!-- galat tha -->
-<a href="{% url 'courses:course_list' %}">Courses</a>
-    <!-- fix -->
     <a href="{% url 'courses:course_list' %}">Courses</a>
   </div>
 </nav>
 
 <div class="container">
     <a href="{% url 'courses:course_list' %}" class="back-link">&larr; Back to Courses</a>
+    
     <div class="course-box">
         <!-- Course Image -->
         {% if course.image %}
@@ -161,28 +170,21 @@
             <h1>{{ course.title }}</h1>
             <p>{{ course.description }}</p>
 
-        <div class="course-footer">
-    <span class="price">₹{{ course.price }}</span>
+            <div class="course-footer">
+                <span class="price">₹{{ course.price }}</span>
 
-    <!-- Buy Course / Checkout Button -->
-    <a href="{% url 'payments:checkout' course.id %}" class="btn-primary">
-        💳 Buy Course
-    </a>
+                <!-- Buy Course Button -->
+                <a href="{% url 'payments:checkout' course.id %}" class="btn-primary">💳 Buy Course</a>
 
-    <!-- Start Course Button -->
-{% with lessons=course.lessons_in_lessons_app.all %}
-    {% if lessons %}
-        <a href="{% url 'courses:course_player' slug=course.slug lesson_id=lessons.0.id %}" class="btn-start">
-            ▶ Start
-        </a>
-    {% else %}
-        <span class="btn disabled">No Lessons Yet</span>
-    {% endif %}
-{% endwith %}
-
-
-
-</div>
+                <!-- Start Course Button -->
+                <button id="start-course-btn" class="btn btn-primary" data-slug="{{ course.slug }}">
+                    {% if user.is_authenticated %}
+                        ▶ Start Course
+                    {% else %}
+                        Login to Start
+                    {% endif %}
+                </button>
+            </div>
 
             <!-- Optional Instructor Info -->
             {% if course.instructor %}
@@ -198,6 +200,42 @@
         </div>
     </div>
 </div>
+
+<!-- Login Modal Popup -->
+<div id="loginModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h3>Login to continue</h3>
+    <form id="loginForm" method="POST" action="{% url 'login' %}?next={{ request.path }}">
+        {% csrf_token %}
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+    </form>
+  </div>
+</div>
+
+<script>
+// Start course button logic
+const startBtn = document.getElementById('start-course-btn');
+const loginModal = document.getElementById('loginModal');
+const closeBtn = loginModal.querySelector('.close');
+
+startBtn.addEventListener('click', () => {
+    {% if not user.is_authenticated %}
+        loginModal.style.display = 'block'; // show login popup
+    {% else %}
+        // redirect to course player/start
+        window.location.href = "{% url 'courses:course_start' course.slug %}";
+    {% endif %}
+});
+
+// Close modal
+closeBtn.addEventListener('click', () => loginModal.style.display = 'none');
+window.addEventListener('click', (e) => {
+    if(e.target == loginModal) loginModal.style.display = 'none';
+});
+</script>
 
 
 

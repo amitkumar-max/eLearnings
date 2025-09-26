@@ -104,3 +104,21 @@ def redirect_user_based_on_role(user):
         return redirect(ADMIN_DASHBOARD)
     return redirect("home")
 
+# app/users/views.py
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
+
+def custom_login(request):
+    if request.method == "POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            # Redirect to next page if exists, else home
+            next_url = request.GET.get('next') or '/'
+            return redirect(next_url)
+        else:
+            error = "Invalid username or password"
+            return render(request, 'users/login.html', {'error': error})
+    return render(request, 'users/login.html')

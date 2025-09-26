@@ -5,21 +5,10 @@ from django.conf import settings  # ✅ use settings.AUTH_USER_MODEL
 from django.utils import timezone
 
 from app.courses.models import Course, TimeStampedModel
-
 from django.db import models
-from django.conf import settings
 from django.utils.text import slugify
+from django.conf import settings
 from app.courses.models import Course
-
-class LessonProgress(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    course_slug = models.CharField(max_length=200, default="unknown")
-    lesson_filename = models.CharField(max_length=200)
-    progress = models.IntegerField(default=0)
-    completed = models.BooleanField(default=False)
-
-    def __str__(self):
-        return f"{self.user.username} - {self.course_slug} - {self.lesson_filename}"
 
 class Lesson(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="lessons_in_lessons_app")
@@ -47,6 +36,17 @@ class Lesson(models.Model):
                 slug = f"{base}-{i}"
             self.slug = slug
         super().save(*args, **kwargs)
+
+
+class LessonProgress(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    course_slug = models.CharField(max_length=200, default="unknown")
+    lesson_filename = models.CharField(max_length=200)
+    progress = models.IntegerField(default=0)
+    completed = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.user.username} - {self.course_slug} - {self.lesson_filename}"
 
 
 class QuizQuestion(models.Model):

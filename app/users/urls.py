@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from .views import custom_login
 
 app_name = 'users'  # ✅ important for namespace
 
@@ -19,5 +20,6 @@ urlpatterns = [
     path('downloads/playstore/', views.placeholder, name='downloads_playstore'),
     path('downloads/appstore/', views.placeholder, name='downloads_appstore'),
     path('logout/', views.logout_view, name='logout'),
+    path('login/', custom_login, name='login'),
   
 ]
