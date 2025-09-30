@@ -7,16 +7,12 @@ from pathlib import Path
 
 # Define BASE_DIR for static files
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 urlpatterns = [
     path('admin/', admin.site.urls),
-
     # User app
     path('users/', include('app.users.urls')),
-
     # Courses app
     path('courses/', include('app.courses.urls')),
-
     # Other apps
     path('students/', include('app.students.urls')),
     path('teachers/', include('app.teachers.urls')),
@@ -28,10 +24,8 @@ urlpatterns = [
     path('progress/', include(('app.progress.urls', 'progress'), namespace='progress')),
     path('notifications/', include(('app.notifications.urls', 'notifications'), namespace='notifications')),
     path('exams/', include(('app.exams.urls', 'exams'), namespace='exams')),
-
     # Home page
     path('', user_views.home, name='home'),
-
     # Policies app
     path('', include('app.policies.urls')),
 ]

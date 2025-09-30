@@ -48,24 +48,18 @@ def course_player(request, slug, lesson_id=None):
         "lesson_filename": os.path.basename(current_lesson.content_file.name) if current_lesson.content_file else f"lesson_{current_lesson.order_index}_placeholder.txt",
     }
     return render(request, "courses/course_player.html", context)
-
-
 # -----------------------------
 # Course List / Detail
 # -----------------------------
 def course_list(request):
     courses = Course.objects.filter(is_published=True)
     return render(request, "courses/course_list.html", {"courses": courses})
-
-
 def course_detail(request, slug):
     course = get_object_or_404(Course, slug=slug)
     interaction = None
     if request.user.is_authenticated:
         interaction, _ = CourseInteraction.objects.get_or_create(user=request.user, course=course)
     return render(request, "courses/course_detail.html", {"course": course, "interaction": interaction})
-
-
 # -----------------------------
 # Categories
 # -----------------------------
@@ -79,8 +73,6 @@ def categories(request):
         {"name": "Languages", "slug": "languages"},
     ]
     return render(request, "courses/category_list.html", {"categories": categories})
-
-
 def category_courses(request, slug):
     category = get_object_or_404(Category, slug=slug)
     courses = Course.objects.filter(category=category, is_published=True)
@@ -89,20 +81,4 @@ def category_courses(request, slug):
         "category_name": category.name
     })
 
-# from django.contrib.auth.decorators import login_required
 
-from django.contrib.auth.decorators import login_required
-
-@login_required(login_url='/accounts/login/')
-def course_start(request, slug):
-    course = get_object_or_404(Course, slug=slug)
-    interaction, created = CourseInteraction.objects.get_or_create(user=request.user, course=course)
-    interaction.started = True
-    interaction.save()
-    
-    # redirect to first lesson
-    first_lesson = course.lessons_in_lessons_app.first()
-    if first_lesson:
-        return redirect('courses:course_player', slug=course.slug, lesson_id=first_lesson.id)
-    else:
-        return render(request, "courses/no_lessons.html", {"course": course})

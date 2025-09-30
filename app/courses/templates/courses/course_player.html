@@ -72,10 +72,11 @@
 </style>
 
 </head>
+
+
+<body>
 <body>
 
-
-    
 <header>
     <h1>{{ course.title }}</h1>
 
@@ -88,14 +89,15 @@
         {% endfor %}
     </div>
 
-    <h2>{{ course_slug|title }} - {{ lesson_filename }}</h2>
+    <!-- Display current lesson info -->
+    <h2>{{ current_lesson.title }} - {{ lesson_filename }}</h2>
 
     <!-- Scrollable lesson content -->
     <div id="lesson-container" class="lesson-content" style="height:500px; overflow-y:scroll; border:1px solid #ccc; padding:10px;">
-<pre>{{ lesson_content|safe }}</pre>
+        {{ lesson_content|safe }}
     </div>
 
-    <!-- Progress Display -->
+    <!-- Scroll Progress Display -->
     <div style="margin-top:10px;">
         Progress: <span id="progress-display">{{ progress }}</span>%
         <div style="background:#eee; height:10px; width:100%;">
@@ -111,7 +113,6 @@
 
 <main class="lesson-player">
     <section class="content">
-        <h2>{{ current_lesson.title }}</h2>
 
         <!-- Video / iframe lesson -->
         {% if current_lesson.video %}
@@ -122,14 +123,6 @@
         {% elif current_lesson.video_url %}
             <iframe src="{{ current_lesson.video_url }}" frameborder="0" allowfullscreen></iframe>
         {% endif %}
-
-        <!-- Lesson Description -->
-      
-      <div class="lesson-content">
-    {{ lesson_content|safe }}
-</div>
-
-<h2>{{ course_slug|title }} - {{ lesson_filename }}</h2>  <!-- Sirf display ke liye -->
 
         <!-- Interaction buttons -->
         {% if interaction %}
@@ -143,6 +136,7 @@
                 </button>
             </form>
         {% endif %}
+
     </section>
 
     <!-- Sidebar navigation -->
@@ -170,6 +164,7 @@ container.addEventListener("scroll", function() {
     progressBar.style.width = progress + "%";
     progressDisplay.textContent = progress;
 
+    // Send progress every 10%
     if (progress % 10 === 0) {
         fetch("{% url 'lessons:lesson_progress' course_slug lesson_filename %}", {
             method: "POST",
@@ -178,7 +173,7 @@ container.addEventListener("scroll", function() {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({ progress: progress })
-        });
+        }).catch(err => console.error(err));
     }
 });
 </script>

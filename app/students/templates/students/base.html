@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}Student Dashboard{% endblock %}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-900">
+
+  <!-- Navbar -->
+  <nav class="bg-blue-600 p-4 text-white flex justify-between">
+    <a href="{% url 'student:dashboard' %}" class="font-bold">E-Learn</a>
+    <div>
+      <a href="{% url 'student:notifications' %}" class="mr-4">🔔</a>
+      <a href="{% url 'student:profile' %}">👤</a>
+    </div>
+  </nav>
+
+  <!-- Content -->
+  <main class="container mx-auto p-6">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white text-center p-4 mt-6">
+    &copy; {{ year|default:2025 }} E-Learn Platform
+  </footer>
+
+</body>
+</html>

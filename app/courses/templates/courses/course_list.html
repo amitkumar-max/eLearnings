@@ -53,7 +53,6 @@
     {% if courses %}
         {% for course in courses %}
         <div class="course-card">
-
             {% if course.image %}
                 <img src="{{ course.image.url }}" alt="{{ course.title }}">
             {% else %}
