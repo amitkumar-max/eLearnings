@@ -73,11 +73,11 @@
 
 </head>
 
-
-<body>
 <body>
 
-<header>
+
+
+    <header>
     <h1>{{ course.title }}</h1>
 
     <!-- Lesson Steps -->
@@ -89,25 +89,32 @@
         {% endfor %}
     </div>
 
-    <!-- Display current lesson info -->
+    <!-- Current Lesson Info -->
     <h2>{{ current_lesson.title }} - {{ lesson_filename }}</h2>
 
-    <!-- Scrollable lesson content -->
-    <div id="lesson-container" class="lesson-content" style="height:500px; overflow-y:scroll; border:1px solid #ccc; padding:10px;">
+    <!-- Scrollable Lesson Content -->
+    <div id="lesson-container" 
+         class="lesson-content" 
+         style="height: 500px; overflow-y: scroll; border: 1px solid #ccc; padding: 10px;">
         {{ lesson_content|safe }}
     </div>
 
     <!-- Scroll Progress Display -->
-    <div style="margin-top:10px;">
+    <div style="margin-top: 10px;">
         Progress: <span id="progress-display">{{ progress }}</span>%
-        <div style="background:#eee; height:10px; width:100%;">
-            <div id="progress-bar" style="background:green; height:10px; width:{{ progress }}%;"></div>
+        <div style="background: #eee; height: 10px; width: 100%;">
+            <div id="progress-bar" 
+                 style="background: green; height: 10px; width: {{ progress }}%;">
+            </div>
         </div>
     </div>
 
     <!-- Horizontal Course Progress Bar -->
     <div class="progress-container">
-        <div class="progress-bar" id="progressBar" style="width: {{ course_progress_percent }}%;"></div>
+        <div class="progress-bar" 
+             id="progressBar" 
+             style="width: {{ course_progress_percent }}%;">
+        </div>
     </div>
 </header>
 
@@ -121,10 +128,13 @@
                 Your browser does not support the video tag.
             </video>
         {% elif current_lesson.video_url %}
-            <iframe src="{{ current_lesson.video_url }}" frameborder="0" allowfullscreen></iframe>
+            <iframe src="{{ current_lesson.video_url }}" 
+                    frameborder="0" 
+                    allowfullscreen>
+            </iframe>
         {% endif %}
 
-        <!-- Interaction buttons -->
+        <!-- Interaction Buttons -->
         {% if interaction %}
             <form method="post">
                 {% csrf_token %}
@@ -136,10 +146,9 @@
                 </button>
             </form>
         {% endif %}
-
     </section>
 
-    <!-- Sidebar navigation -->
+    <!-- Sidebar Navigation -->
     <aside class="navigation">
         {% for lesson in lessons %}
             <a href="{% url 'courses:course_player' slug=course.slug lesson_id=lesson.id %}"
@@ -152,31 +161,33 @@
 
 <!-- Scroll Progress Script -->
 <script>
-const container = document.getElementById("lesson-container");
-const progressBar = document.getElementById("progress-bar");
-const progressDisplay = document.getElementById("progress-display");
+    const container = document.getElementById("lesson-container");
+    const progressBar = document.getElementById("progress-bar");
+    const progressDisplay = document.getElementById("progress-display");
 
-container.addEventListener("scroll", function() {
-    const scrollTop = container.scrollTop;
-    const scrollHeight = container.scrollHeight - container.clientHeight;
-    const progress = Math.round((scrollTop / scrollHeight) * 100);
+    container.addEventListener("scroll", function() {
+        const scrollTop = container.scrollTop;
+        const scrollHeight = container.scrollHeight - container.clientHeight;
+        const progress = Math.round((scrollTop / scrollHeight) * 100);
 
-    progressBar.style.width = progress + "%";
-    progressDisplay.textContent = progress;
+        progressBar.style.width = progress + "%";
+        progressDisplay.textContent = progress;
 
-    // Send progress every 10%
-    if (progress % 10 === 0) {
-        fetch("{% url 'lessons:lesson_progress' course_slug lesson_filename %}", {
-            method: "POST",
-            headers: {
-                "X-CSRFToken": "{{ csrf_token }}",
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ progress: progress })
-        }).catch(err => console.error(err));
-    }
-});
+        // Send progress every 10%
+        if (progress % 10 === 0) {
+            fetch("{% url 'lessons:lesson_progress' course_slug lesson_filename %}", {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": "{{ csrf_token }}",
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ progress: progress })
+            }).catch(err => console.error(err));
+        }
+    });
 </script>
+
+
 
 </body>
 </html>

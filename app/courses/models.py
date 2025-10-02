@@ -14,7 +14,6 @@ class TimeStampedModel(models.Model):
 
     class Meta:
         abstract = True
-
 class Category(models.Model):
     name = models.CharField(max_length=100)
     slug = models.SlugField(unique=True)
@@ -22,7 +21,6 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
-
 class Course(TimeStampedModel):
     title = models.CharField(max_length=200)
     description = models.TextField()
@@ -40,8 +38,6 @@ class Course(TimeStampedModel):
 
     def __str__(self):
         return f"Course {self.id} by {self.teacher}"  # ORM-friendly
-
-
 # ✅ Extra: Like & Save Feature
 class CourseInteraction(models.Model):
     user = models.ForeignKey(
@@ -56,7 +52,6 @@ class CourseInteraction(models.Model):
 
     def __str__(self):
         return f"{self.user} - {self.course}"
-
 class Lesson(TimeStampedModel):
     course = models.ForeignKey(
         Course,
@@ -84,8 +79,6 @@ class Lesson(TimeStampedModel):
                 continue
         # Default image
         return "/static/images/default.jpg"
-
-
 class Exam(TimeStampedModel):
     course = models.ForeignKey(
         Course,
@@ -97,8 +90,6 @@ class Exam(TimeStampedModel):
 
     def __str__(self):
         return f"{self.course.title} - {self.title}"
-
-
 class CourseAssignment(TimeStampedModel):
     course = models.ForeignKey(
         Course,
@@ -111,8 +102,6 @@ class CourseAssignment(TimeStampedModel):
 
     def __str__(self):
         return f"{self.course.title} - {self.title}"
-
-
 class Enrollment(TimeStampedModel):
     student = models.ForeignKey(
         'students.StudentProfile',

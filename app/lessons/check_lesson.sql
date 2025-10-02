@@ -11,9 +11,13 @@
 -- SELECT id, title, slug FROM courses_course;
 
 
-SELECT id, title, slug
-FROM lessons_lesson
-WHERE slug IS NULL OR slug = '';
+-- SELECT id, title, slug
+-- FROM lessons_lesson
+-- WHERE slug IS NULL OR slug = '';
+-- SELECT COUNT(*) FROM lessons_lesson;
+SELECT id, title, slug 
+FROM lessons_lesson;
+
 
 
 -- UPDATE courses_course SET slug = 'full-stack-web-development' WHERE id = 2;

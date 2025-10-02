@@ -3,11 +3,14 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Course, CourseInteraction, Category
 from app.lessons.models import Lesson
 from app.lessons.views import get_lesson_content_from_file
+import os
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
+from .models import Course, CourseInteraction
+from app.lessons.models import Lesson
+from app.lessons.views import get_lesson_content_from_file
 
-
-# -----------------------------
-# Course Player
-# -----------------------------
+@login_required
 def course_player(request, slug, lesson_id=None):
     course = get_object_or_404(Course, slug=slug)
     lessons = course.lessons_in_lessons_app.all()
@@ -18,10 +21,10 @@ def course_player(request, slug, lesson_id=None):
     # Current lesson
     current_lesson = lessons.first() if not lesson_id else get_object_or_404(Lesson, id=lesson_id, course=course)
 
-    # ✅ Fetch content using helper
+    # ✅ Fetch content safely
     lesson_content = get_lesson_content_from_file(current_lesson)
 
-    # Handle interactions
+    # Handle interactions (like/save)
     interaction = None
     if request.user.is_authenticated:
         interaction, _ = CourseInteraction.objects.get_or_create(user=request.user, course=course)
@@ -34,13 +37,17 @@ def course_player(request, slug, lesson_id=None):
             return redirect("courses:course_player", slug=course.slug, lesson_id=current_lesson.id)
 
     # Progress %
-    course_progress_percent = int((interaction.completed_lessons.count() / lessons.count()) * 100) if lessons.exists() and interaction else 0
+    course_progress_percent = 0
+    if lessons.exists() and interaction:
+        total_lessons = lessons.count()
+        completed = interaction.completed_lessons.count()
+        course_progress_percent = int((completed / total_lessons) * 100)
 
     context = {
         "course": course,
         "lessons": lessons,
         "current_lesson": current_lesson,
-        "lesson_content": lesson_content,
+        "lesson_content": lesson_content,   # ✅ consistent variable name
         "interaction": interaction,
         "completed_lessons": interaction.completed_lessons.values_list("id", flat=True) if interaction else [],
         "course_progress_percent": course_progress_percent,
@@ -48,9 +55,6 @@ def course_player(request, slug, lesson_id=None):
         "lesson_filename": os.path.basename(current_lesson.content_file.name) if current_lesson.content_file else f"lesson_{current_lesson.order_index}_placeholder.txt",
     }
     return render(request, "courses/course_player.html", context)
-# -----------------------------
-# Course List / Detail
-# -----------------------------
 def course_list(request):
     courses = Course.objects.filter(is_published=True)
     return render(request, "courses/course_list.html", {"courses": courses})
@@ -60,9 +64,6 @@ def course_detail(request, slug):
     if request.user.is_authenticated:
         interaction, _ = CourseInteraction.objects.get_or_create(user=request.user, course=course)
     return render(request, "courses/course_detail.html", {"course": course, "interaction": interaction})
-# -----------------------------
-# Categories
-# -----------------------------
 def categories(request):
     categories = [
         {"name": "Programming", "slug": "programming"},

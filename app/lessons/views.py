@@ -8,46 +8,6 @@ from .models import (
     Lesson, LessonProgress, QuizQuestion, QuizOption,
     LessonComment, LessonResource, LessonFeedback
 )
-
-
-
-# def get_lesson_content_from_file(lesson, return_path=False):
-#     """
-#     Reads lesson content from:
-#     1. MEDIA_ROOT/lessons/<normalized-course-slug>/
-#     2. BASE_DIR/app/lessons/content/<normalized-course-slug>/
-#     Returns HTML content or "not found".
-#     """
-#     normalized_slug = lesson.course.slug.lower().replace(" ", "-")
-#     paths_to_try = [
-#         os.path.join(settings.MEDIA_ROOT, 'lessons', normalized_slug),
-#         os.path.join(settings.BASE_DIR, 'app', 'lessons', 'content', normalized_slug),
-#     ]
-
-#     for folder_path in paths_to_try:
-#         if not os.path.exists(folder_path):
-#             continue
-#         pattern = f"lesson_{lesson.order_index}_*.txt"
-#         matched_files = glob.glob(os.path.join(folder_path, pattern))
-#         if matched_files:
-#             path = matched_files[0]
-#             with open(path, "r", encoding="utf-8") as f:
-#                 content = f.read()
-#             content = content.replace("\n\n", "</p><p>").replace("\n", "<br>")
-#             return (content, path) if return_path else f"<p>{content}</p>"
-
-#     # Final fallback: placeholder
-#     placeholder_path = os.path.join(settings.BASE_DIR, 'app', 'lessons', 'content', 'placeholder.txt')
-#     if os.path.exists(placeholder_path):
-#         with open(placeholder_path, "r", encoding="utf-8") as f:
-#             content = f.read()
-#         content = content.replace("\n\n", "</p><p>").replace("\n", "<br>")
-#         return (f"<p>{content}</p>", placeholder_path) if return_path else f"<p>{content}</p>"
-
-#     return ("Lesson content not found.", None) if return_path else "Lesson content not found."
-
-
-
 import os
 import glob
 from django.conf import settings
@@ -84,27 +44,28 @@ def get_lesson_content_from_file(lesson, return_path=False):
         return (f"<p>{content}</p>", placeholder_path) if return_path else f"<p>{content}</p>"
 
     return ("Lesson content not found.", None) if return_path else "Lesson content not found."
-
-
-
 def lesson_list(request):
     lessons = Lesson.objects.all().order_by('created_at')
     return render(request, 'lessons/lesson_list.html', {'lessons': lessons})
+
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, get_object_or_404
+from .models import Lesson, LessonProgress
+from app.lessons.views import get_lesson_content_from_file
+
+@login_required
 def lesson_detail(request, course_slug, lesson_filename):
     """
-    Old-style detail view:
-    Directly loads file from app/lessons/content/<course_slug>/<lesson_filename>
-    (Kept for compatibility, prefer course_player for real use.)
+    Safe old-style lesson detail view:
+    Reads lesson content using helper, works with login_required.
     """
-    lessons_dir = os.path.join(settings.BASE_DIR, "app", "lessons", "content", course_slug)
-    file_path = os.path.join(lessons_dir, lesson_filename)
+    # Try to find Lesson object first
+    lesson = get_object_or_404(Lesson, course__slug=course_slug, slug=lesson_filename.replace(".txt",""))
 
-    if os.path.exists(file_path):
-        with open(file_path, "r", encoding="utf-8") as f:
-            content = f.read()
-    else:
-        content = "Lesson content not found."
+    # ✅ Fetch lesson content safely
+    lesson_content = get_lesson_content_from_file(lesson)
 
+    # Progress tracking
     progress = 0
     if request.user.is_authenticated:
         obj, _ = LessonProgress.objects.get_or_create(
@@ -115,12 +76,14 @@ def lesson_detail(request, course_slug, lesson_filename):
         )
         progress = obj.progress
 
-    return render(request, "courses/course_player.html", {
-        "content": content,
+    context = {
+        "current_lesson": lesson,
+        "lesson_content": lesson_content,   # consistent variable
         "course_slug": course_slug,
         "lesson_filename": lesson_filename,
         "progress": progress,
-    })
+    }
+    return render(request, "courses/course_player.html", context)
 def lesson_progress(request, course_slug, lesson_filename):
     if request.method == "POST" and request.user.is_authenticated:
         data = json.loads(request.body)

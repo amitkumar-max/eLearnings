@@ -1,8 +1,6 @@
 # users/models.py
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
-
-
 class CustomUserManager(BaseUserManager):
     """Manager for CustomUser using email as username"""
 
@@ -20,8 +18,6 @@ class CustomUserManager(BaseUserManager):
         extra_fields.setdefault("is_superuser", True)
         extra_fields.setdefault("is_active", True)
         return self.create_user(email, password, **extra_fields)
-
-
 class CustomUser(AbstractUser):
     """Custom User model with email login and extended profile fields"""
 

@@ -1,7 +1,15 @@
-Django>=5.0
-gunicorn
-whitenoise
-dj-database-url
-psycopg2-binary>=2.9
-python-decouple
-django-extensions
+# Django>=5.0
+# gunicorn
+# whitenoise
+# dj-database-url
+# psycopg2-binary>=2.9
+# python-decouple
+# django-extensions
+
+Django>=5.0,<6.0           # Lock upper bound to avoid accidental breaking changes in future
+gunicorn>=20.1.0            # Latest stable
+whitenoise>=6.5.0           # Ensure latest for staticfiles support
+dj-database-url>=1.0.0      # Latest stable
+psycopg2-binary>=2.9,<3.0  # Prevent major breaking changes
+python-decouple>=3.8        # Latest stable
+django-extensions>=3.2      # Dev tools

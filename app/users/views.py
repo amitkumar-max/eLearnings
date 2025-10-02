@@ -12,22 +12,13 @@ from .services.user_service import create_user
 from config.constants import STUDENT_DASHBOARD, TEACHER_DASHBOARD, ADMIN_DASHBOARD
 # from django.shortcuts import redirect
 from app.courses.models import Course
-
-
-
 User = get_user_model()
-
-
-
 def home(request):
     courses = Course.objects.all()
     return render(request, "users/home.html", {"courses": courses})
-
 # users/views.py
-
 def placeholder(request):
     return HttpResponse("This is a placeholder page. ✅")
-
 def signup_view(request):
     """
     Handles POST from the provided plain HTML form:
@@ -77,7 +68,6 @@ def signup_view(request):
 
     # GET
     return render(request, "users/signup.html")
-
 def login_view(request):
     if request.method == "POST":
         email = request.POST.get("email", "").strip().lower()
@@ -88,13 +78,9 @@ def login_view(request):
             return redirect_user_based_on_role(user)
         messages.error(request, "Invalid email or password.")
     return render(request, "users/login.html")
-
 def logout_view(request):
     logout(request)
     return redirect("users:login")
-
-
-
 def redirect_user_based_on_role(user):
     if user.role == "student":
         return redirect(STUDENT_DASHBOARD)
