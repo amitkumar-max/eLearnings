@@ -732,7 +732,7 @@ nav {
         {% for course in courses %}
           <div class="course-card">
             {% if course.image %}
-              <img src="{{ course.image.url }}" alt="{{ course.title }}" />
+              <img src="{% static 'images/crs1.jpg' %}" alt="{{ course.title }}" height="100" width="150"/>
             {% endif %}
             <h3>{{ course.title }}</h3>
             <p>{{ course.description }}</p>

@@ -8,13 +8,13 @@
             },
             "ssh": "Disabled",
             "previewLimit": 50,
-            "server": "dpg-d2r3ivl6ubrc73e637d0-a.oregon-postgres.render.com",
+            "server": "dpg-d3f3j895pdvs73cevse0-a.oregon-postgres.render.com",
             "port": 5432,
             "driver": "PostgreSQL",
-            "name": "elearning-DB",
-            "database": "elearning_db_uk14",
+            "password": "mnuRqC7I0hFPETVy2R8CzhwpGKvYVIcR",
+            "database": "elearning_db_uk14_5gmv",
             "username": "elearning_admin",
-            "password": "oHQNTBaEcrlyKkhfP20mKpfq4aVwpu5z"
+            "name": "Elearning_DB_New"
         }
     ]
 }

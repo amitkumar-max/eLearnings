@@ -83,3 +83,4 @@ def category_courses(request, slug):
     })
 
 
+# DB_PASSWORD=mnuRqC7I0hFPETVy2R8CzhwpGKvYVIcR
