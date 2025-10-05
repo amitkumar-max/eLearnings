@@ -12,7 +12,8 @@ urlpatterns = [
     # path('<int:course_id>/start/', views.course_start, name='course_start'),
     path('categories/<slug:slug>/', views.category_courses, name="category_courses"),
     path('<slug:slug>/', views.course_detail, name="course_detail"),
-    path('<slug:slug>/player/<int:lesson_id>/', views.course_player, name="course_player"),
+    # path('<slug:slug>/player/<int:lesson_id>/', views.course_player, name="course_player"),
+    path('<slug:slug>/lesson/<int:lesson_id>/', views.course_player, name='course_player'),
 ]
 # Serve media files in development
 if settings.DEBUG:

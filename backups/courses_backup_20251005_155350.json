@@ -1,0 +1,122 @@
+[
+    {
+        "id": 1,
+        "title": "Accounting Basics",
+        "slug": "accounting-basics",
+        "description": "Learn the basics of Accounting",
+        "image": "accounting.png",
+        "is_published": true
+    },
+    {
+        "id": 6,
+        "title": "C++",
+        "slug": "c-plus-plus",
+        "description": "Learn the fundamentals of C++ programming with examples",
+        "image": "cpp.png",
+        "is_published": true
+    },
+    {
+        "id": 4,
+        "title": "JavaScript",
+        "slug": "javascript",
+        "description": "Learn JavaScript with practical examples.",
+        "image": "courses/crs2.jpg",
+        "is_published": true
+    },
+    {
+        "id": 5,
+        "title": "jQuery",
+        "slug": "jquery",
+        "description": "Learn jQuery with practical examples.",
+        "image": "courses/crs3.webp",
+        "is_published": true
+    },
+    {
+        "id": 17,
+        "title": "C++",
+        "slug": "c",
+        "description": "Learn C++ with practical examples.",
+        "image": "courses/crs4.jpg",
+        "is_published": true
+    },
+    {
+        "id": 7,
+        "title": "MySQL",
+        "slug": "mysql",
+        "description": "Learn MySQL with practical examples.",
+        "image": "courses/crs5.jpg",
+        "is_published": true
+    },
+    {
+        "id": 8,
+        "title": "Node.js",
+        "slug": "nodejs",
+        "description": "Learn Node.js with practical examples.",
+        "image": "courses/crs6.jpg",
+        "is_published": true
+    },
+    {
+        "id": 9,
+        "title": "ReactJS",
+        "slug": "reactjs",
+        "description": "Learn ReactJS with practical examples.",
+        "image": "courses/crs7.webp",
+        "is_published": true
+    },
+    {
+        "id": 10,
+        "title": "HTML",
+        "slug": "html",
+        "description": "Learn HTML with practical examples.",
+        "image": "courses/crs8.jpg",
+        "is_published": true
+    },
+    {
+        "id": 11,
+        "title": "CSS",
+        "slug": "css",
+        "description": "Learn CSS with practical examples.",
+        "image": "courses/crs9.jpg",
+        "is_published": true
+    },
+    {
+        "id": 12,
+        "title": "Bootstrap",
+        "slug": "bootstrap",
+        "description": "Learn Bootstrap with practical examples.",
+        "image": "courses/crs10.jpg",
+        "is_published": true
+    },
+    {
+        "id": 13,
+        "title": "Python",
+        "slug": "python",
+        "description": "Learn Python with practical examples.",
+        "image": "courses/crs11.jpg",
+        "is_published": true
+    },
+    {
+        "id": 14,
+        "title": "Java",
+        "slug": "java",
+        "description": "Learn Java with practical examples.",
+        "image": "courses/crs12.jpg",
+        "is_published": true
+    },
+    {
+        "id": 15,
+        "title": "PHP",
+        "slug": "php",
+        "description": "Learn PHP with practical examples.",
+        "image": "courses/crs13.jpg",
+        "is_published": true
+    },
+    {
+        "id": 16,
+        "title": "Django",
+        "slug": "django",
+        "description": "Learn Django with practical examples.",
+        "image": "courses/crs14.jpg",
+        "is_published": true
+    }
+]

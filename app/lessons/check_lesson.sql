@@ -1,11 +1,56 @@
 -- SELECT * FROM lessons_lesson;
 -- SELECT * FROM courses_course;
 -- SELECT * FROM teachers_teacherprofile;
-SELECT * FROM  users_customuser; 
+-- SELECT * FROM  users_customuser; 
 
 
+-- -- ✅ Insert Dummy Tech Courses in courses_course Table
+-- INSERT INTO courses_course
+-- (id, created_at, updated_at, teacher_id, description, image, is_published, slug, title)
+-- VALUES
+-- (1, NOW(), NOW(), NULL, 'Learn the basics of JavaScript programming', 'javascript.png', TRUE, 'javascript', 'JavaScript'),
+
+-- (2, NOW(), NOW(), NULL, 'Master jQuery and DOM manipulation for interactive web design', 'jquery.png', TRUE, 'jquery', 'jQuery'),
+
+-- (3, NOW(), NOW(), NULL, 'Learn the fundamentals of C++ programming with examples', 'cpp.png', TRUE, 'c-plus-plus', 'C++'),
+
+-- (4, NOW(), NOW(), NULL, 'Understand MySQL databases, queries, and relationships', 'mysql.png', TRUE, 'mysql', 'MySQL'),
+
+-- (5, NOW(), NOW(), NULL, 'Learn Node.js and build scalable backend APIs', 'nodejs.png', TRUE, 'nodejs', 'Node.js'),
+
+-- (6, NOW(), NOW(), NULL, 'Master ReactJS to create modern, dynamic web apps', 'reactjs.png', TRUE, 'reactjs', 'ReactJS'),
+
+-- (7, NOW(), NOW(), NULL, 'Learn the structure of web pages using HTML5', 'html.png', TRUE, 'html', 'HTML'),
+
+-- (8, NOW(), NOW(), NULL, 'Design beautiful web layouts using CSS3', 'css.png', TRUE, 'css', 'CSS'),
+
+-- (9, NOW(), NOW(), NULL, 'Learn Bootstrap framework for responsive design', 'bootstrap.png', TRUE, 'bootstrap', 'Bootstrap'),
+
+-- (10, NOW(), NOW(), NULL, 'Get started with Python — the most versatile programming language', 'python.png', TRUE, 'python', 'Python'),
+
+-- (11, NOW(), NOW(), NULL, 'Learn Java from scratch — from OOP to advanced concepts', 'java.png', TRUE, 'java', 'Java'),
+
+-- (12, NOW(), NOW(), NULL, 'Understand PHP and backend web development fundamentals', 'php.png', TRUE, 'php', 'PHP'),
+
+-- (13, NOW(), NOW(), NULL, 'Build and deploy web apps using Django framework', 'django.png', TRUE, 'django', 'Django');
 
 
+INSERT INTO courses_course
+(created_at, updated_at, teacher_id, description, image, is_published, slug, title)
+VALUES
+(NOW(), NOW(), NULL, 'Learn the basics of JavaScript programming', 'javascript.png', TRUE, 'javascript', 'JavaScript'),
+(NOW(), NOW(), NULL, 'Master jQuery and DOM manipulation for interactive web design', 'jquery.png', TRUE, 'jquery', 'jQuery'),
+(NOW(), NOW(), NULL, 'Learn the fundamentals of C++ programming with examples', 'cpp.png', TRUE, 'c-plus-plus', 'C++'),
+(NOW(), NOW(), NULL, 'Understand MySQL databases, queries, and relationships', 'mysql.png', TRUE, 'mysql', 'MySQL'),
+(NOW(), NOW(), NULL, 'Learn Node.js and build scalable backend APIs', 'nodejs.png', TRUE, 'nodejs', 'Node.js'),
+(NOW(), NOW(), NULL, 'Master ReactJS to create modern, dynamic web apps', 'reactjs.png', TRUE, 'reactjs', 'ReactJS'),
+(NOW(), NOW(), NULL, 'Learn the structure of web pages using HTML5', 'html.png', TRUE, 'html', 'HTML'),
+(NOW(), NOW(), NULL, 'Design beautiful web layouts using CSS3', 'css.png', TRUE, 'css', 'CSS'),
+(NOW(), NOW(), NULL, 'Learn Bootstrap framework for responsive design', 'bootstrap.png', TRUE, 'bootstrap', 'Bootstrap'),
+(NOW(), NOW(), NULL, 'Get started with Python — the most versatile programming language', 'python.png', TRUE, 'python', 'Python'),
+(NOW(), NOW(), NULL, 'Learn Java from scratch — from OOP to advanced concepts', 'java.png', TRUE, 'java', 'Java'),
+(NOW(), NOW(), NULL, 'Understand PHP and backend web development fundamentals', 'php.png', TRUE, 'php', 'PHP'),
+(NOW(), NOW(), NULL, 'Build and deploy web apps using Django framework', 'django.png', TRUE, 'django', 'Django');
 
 
 

@@ -33,6 +33,8 @@
 }
 
 </style>
+
+
 <div class="dashboard-container">
 
   <!-- Sidebar -->
@@ -49,18 +51,24 @@
   <main class="main-content">
     <h1 class="page-title">📖 My Courses</h1>
 
-    {% if courses %}
-      <div class="courses-list">
-        {% for course in courses %}
-          <div class="course-card">
-            <h3>{{ course.title }}</h3>
-            <p>{{ course.description|truncatewords:20 }}</p>
-            <a href="{% url 'courses:course_detail' course.id %}" class="btn">View Course</a>
-          </div>
-        {% endfor %}
-      </div>
-    {% else %}
-      <p class="empty-msg">You are not enrolled in any courses yet.</p>
-    {% endif %}
+    {% if enrollments %}
+  {% for enrollment in enrollments %}
+    <div class="course-card">
+      <h3>{{ enrollment.course.title }}</h3>
+      <p>{{ enrollment.course.description|truncatewords:20 }}</p>
+      <a href="{% url 'courses:course_player' slug=enrollment.course.slug lesson_id=enrollment.course.first_lesson.id %}" 
+         class="btn start-btn">
+         ▶️ Start
+      </a>
+    </div>
+  {% endfor %}
+{% else %}
+  <p class="empty-msg">You are not enrolled in any courses yet.</p>
+{% endif %}
+
+
+
   </main>
 </div>
+
+

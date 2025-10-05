@@ -166,6 +166,20 @@
     <nav>
         <div class="logo">E-Learn</div>
         <div class="nav-links">
+
+        </div>
+    </nav>
+
+
+  <!-- Navbar -->
+    <nav>
+      <div class="container nav-container">
+        <div class="logo">E-Learn</div>
+
+        <!-- Hamburger for Mobile -->
+        <button class="menu-toggle" id="menuToggle">☰</button>
+
+        <div class="nav-links">
 <a href="{% url 'users:home' %}">Home</a>
             <!-- <a href="#">Courses</a> -->
             <a href="{% url 'courses:course_list' %}">All Courses</a>
@@ -173,6 +187,38 @@
             <a href="#">Progress</a>
             <a href="#">Contact</a>
         </div>
+
+
+
+
+
+
+
+
+
+
+        <!-- Search bar inside navbar -->
+        <div class="search-wrapper">
+          <input
+            type="text"
+            id="course-search"
+            placeholder="Search for courses..."
+            autocomplete="off"
+          />
+          <select id="course-category">
+            <option value="">All Categories</option>
+            <option>Programming</option>
+            <option>Data Science</option>
+            <option>Design</option>
+          </select>
+          <button class="btn-primary" id="search-btn">Search</button>
+          <ul id="history-list" class="history-dropdown"></ul>
+        </div>
+
+        <div class="mode-toggle">
+          <button id="mode-btn" class="btn-outline">🌙</button>
+        </div>
+      </div>
     </nav>
 
     <!-- Header -->
@@ -214,6 +260,46 @@
         <p style="text-align:center; color:#4a5568;">No categories available right now.</p>
     {% endif %}
 </div>
+
+
+   <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 px-6">
+        <div>
+          <h3 class="font-bold mb-2">Quick Links</h3>
+          <ul>
+            <li><a href="{% url 'users:home' %}">Home</a></li>
+            <li><a href="{% url 'courses:course_list' %}">Courses</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="font-bold mb-2">Support</h3>
+<ul>
+  <li><a href="{% url 'policies:faq' %}">FAQ</a></li>
+  <li><a href="{% url 'policies:refund_policy' %}">Refund Policy</a></li>
+  <li><a href="{% url 'policies:privacy_policy' %}">Privacy Policy</a></li>
+</ul>
+
+        </div>
+        <div class="text-center md:text-left">
+          <h3 class="font-bold mb-2">Follow Us</h3>
+          <div class="flex gap-3 justify-center md:justify-start">
+            <a href="https://facebook.com/yourpage" target="_blank"
+              ><img src="{% static 'images/facebook.png' %}" class="h-6"
+            /></a>
+            <a href="https://twitter.com/yourpage" target="_blank"
+              ><img src="{% static 'images/twitter.png' %}" class="h-6"
+            /></a>
+            <a href="https://linkedin.com/yourpage" target="_blank"
+              ><img src="{% static 'images/linkedin.png' %}" class="h-6"
+            /></a>
+          </div>
+        </div>
+      </div>
+      <p class="text-center mt-6 text-gray-400">
+        © 2025 Your Website. All Rights Reserved.
+      </p>
+    </footer>
 
 </body>
 </html>
