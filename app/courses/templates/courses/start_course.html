@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Start Course - {{ course.title }}{% endblock %}
+
+<style>
+    .start-course-page {
+  padding: 2rem;
+  color: #1e293b;
+}
+
+.course-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.course-cover {
+  max-width: 300px;
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.lesson-section h2 {
+  margin-bottom: 1rem;
+  color: #22c55e;
+}
+
+.lesson-list {
+  list-style: none;
+  padding: 0;
+}
+
+.lesson-item {
+  background: #f1f5f9;
+  padding: 1rem;
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.lesson-item h4 {
+  margin: 0 0 0.5rem;
+}
+
+.btn-outline-primary {
+  color: #22c55e;
+  border: 1px solid #22c55e;
+  padding: 0.4rem 1rem;
+  border-radius: 8px;
+  text-decoration: none;
+}
+
+.btn-outline-primary:hover {
+  background: #22c55e;
+  color: #fff;
+}
+
+</style>
+
+
+{% block content %}
+<div class="container start-course-page">
+
+    <a href="{% url 'courses:course_detail' course.slug %}" class="back-link">
+        ← Back to {{ course.title }}
+    </a>
+
+    <div class="course-header">
+        {% if course.image %}
+            <img src="{{ course.image.url }}" alt="{{ course.title }}" class="course-cover">
+        {% else %}
+            <img src="{% static 'images/crs1.jpg' %}" alt="{{ course.title }}" class="course-cover">
+        {% endif %}
+
+        <h1 class="course-title">{{ course.title }}</h1>
+        <p class="course-desc">{{ course.description }}</p>
+    </div>
+
+    <div class="lesson-section">
+        <h2>📘 Lessons</h2>
+        {% if course.lessons.all %}
+            <ul class="lesson-list">
+                {% for lesson in course.lessons.all %}
+                    <li class="lesson-item">
+                        <h4>{{ lesson.title }}</h4>
+                        <p>{{ lesson.content|truncatechars:150 }}</p>
+                        <a href="{% url 'courses:course_player' lesson.id %}" class="btn btn-outline-primary">
+                            ▶ Start Lesson
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No lessons available yet.</p>
+        {% endif %}
+    </div>
+
+    <div class="footer-note">
+        <p>Progress saves automatically. Keep learning and growing 🌱</p>
+    </div>
+
+</div>
+{% endblock %}

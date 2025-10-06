@@ -89,7 +89,10 @@ def course_player(request, slug, lesson_id):
 
 
 
-
+@login_required
+def start_course(request, slug):
+    course = get_object_or_404(Course, slug=slug)
+    return render(request, "courses/start_course.html", {"course": course})
 
 def course_list(request):
     courses = Course.objects.filter(is_published=True)

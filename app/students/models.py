@@ -42,7 +42,6 @@ class StudentProfile(models.Model):
 
     def __str__(self):
         return self.user.email
-
 class Enrollment(models.Model):
     student = models.ForeignKey(
         "students.StudentProfile",
@@ -59,7 +58,6 @@ class Enrollment(models.Model):
 
     def __str__(self):
         return f"{self.student.user.email} -> {self.course.title}"
-
 class ExamProgress(models.Model):
     student = models.ForeignKey(
         "students.StudentProfile",
@@ -75,7 +73,6 @@ class ExamProgress(models.Model):
     )
     completed = models.BooleanField(default=False)
     score = models.DecimalField(max_digits=6, decimal_places=2, default=0)
-
 class AssignmentSubmission(models.Model):
     student = models.ForeignKey(
         "students.StudentProfile",

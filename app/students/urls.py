@@ -24,5 +24,7 @@ urlpatterns = [
     path("profile/", views.profile, name="profile"),
     path('edit-profile/', views.edit_profile, name='edit_profile'),
     path('change-password/', views.change_password, name='change_password'),
-    path('logout/', views.logout_view, name='logout'),  # use your logout_view
+    path('logout/', views.logout_view, name='logout'), 
+    path('start/<slug:slug>/', views.start_course, name='start_course'),
+# use your logout_view
 ]

@@ -9,6 +9,11 @@ from app.students.models import StudentProfile, Enrollment, AssignmentSubmission
 from app.courses.models import Course, Lesson, Exam, CourseAssignment
 from app.notifications.models import Notification
 
+
+@login_required
+def start_course(request, slug):
+    course = get_object_or_404(Course, slug=slug)
+    return render(request, "courses/start_course.html", {"course": course})
 # ---------- Notifications ----------
 @login_required
 def fetch_notifications(request):
@@ -41,15 +46,10 @@ def fetch_notifications(request):
         ]
 
     return JsonResponse({"notifications": data})
-
-
-
 @login_required
 def student_notifications(request):
     notifications = request.user.notifications.all()
     return render(request, "students/notifications.html", {"notifications": notifications})
-
-
 # ---------- Dashboard ----------
 @login_required
 def dashboard(request):
@@ -64,8 +64,6 @@ def dashboard(request):
         
     }
     return render(request, "students/dashboard.html", context)
-
-
 # ---------- Enroll Course ----------
 @login_required
 def enroll_course(request, course_id):
@@ -84,55 +82,39 @@ def enroll_course(request, course_id):
         )
 
     return redirect("students:dashboard")
-
-
 # ---------- Assignments ----------
 @login_required
 def assignments(request):
     student = StudentProfile.objects.get(user=request.user)
     submissions = AssignmentSubmission.objects.filter(student=student)
     return render(request, "students/assignments.html", {"submissions": submissions})
-
-
 @login_required
 def assignment_detail(request, id):
     submission = AssignmentSubmission.objects.filter(id=id).first()
     return render(request, "students/assignments_details.html", {"submission": submission})
-
-
 # ---------- Courses ----------
 @login_required
 def courses(request):
     all_courses = Course.objects.all()
     return render(request, "students/courses.html", {"courses": all_courses})
-
-
 @login_required
 def course_detail(request, id):
     course = Course.objects.filter(id=id).first()
     return render(request, "students/courses_details.html", {"course": course})
-
-
 @login_required
 def courses_list(request):
     all_courses = Course.objects.all()
     return render(request, "students/courses_list.html", {"courses": all_courses})
-
-
 @login_required
 def my_courses(request):
     student = StudentProfile.objects.get(user=request.user)
     enrollments = Enrollment.objects.filter(student=student)
     return render(request, "students/my_courses.html", {"enrollments": enrollments})
-
-
 @login_required
 def enrolled_courses(request):
     student = StudentProfile.objects.get(user=request.user)
     enrollments = Enrollment.objects.filter(student=student)
     return render(request, "students/enrolled_courses.html", {"enrollments": enrollments})
-
-
 # ---------- Misc Views ----------
 @login_required
 def grades(request): return render(request, "students/grades.html")
@@ -156,7 +138,6 @@ def announcements(request): return render(request, "students/announcements.html"
 def logout_view(request):
     logout(request)  # logs out the user
     return redirect('students:login')  # redirect to login page after logout
-
 @login_required
 def change_password(request):
     if request.method == 'POST':
@@ -168,3 +149,6 @@ def change_password(request):
     else:
         form = PasswordChangeForm(request.user)
     return render(request, 'students/change_password.html', {'form': form})
+
+
+
