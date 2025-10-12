@@ -58,6 +58,7 @@
 
 </style>
 
+
 {% block content %}
 <div class="container start-course-page">
 
@@ -78,13 +79,13 @@
 
     <div class="lesson-section">
         <h2>📘 Lessons</h2>
-        {% if course.lessons.exists %}
+        {% if course.lessons.all %}
             <ul class="lesson-list">
                 {% for lesson in course.lessons.all %}
                     <li class="lesson-item">
                         <h4>{{ lesson.title }}</h4>
                         <p>{{ lesson.content|truncatechars:150 }}</p>
-                        <a href="{% url 'courses:course_player' course.slug lesson.id %}" class="btn btn-outline-primary">
+                        <a href="{% url 'courses:course_player' lesson.id %}" class="btn btn-outline-primary">
                             ▶ Start Lesson
                         </a>
                     </li>

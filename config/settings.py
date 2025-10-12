@@ -49,7 +49,6 @@ INSTALLED_APPS = [
 ]
 
 AUTH_USER_MODEL = "users.CustomUser"
-# LOGIN_TEMPLATE_NAME = "users/login.html"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
