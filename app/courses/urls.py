@@ -3,6 +3,10 @@ from django.urls import path
 from . import views
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.auth.views import LoginView
+
+
+
 
 app_name = "courses"
 
@@ -27,6 +31,9 @@ urlpatterns = [
     path('<slug:slug>/', views.course_detail, name="course_detail"),
     path('<slug:slug>/lesson/<int:lesson_id>/', views.course_player, name='course_player'),
     path('<slug:slug>/start/', views.start_course, name='start_course'),  # <-- FIXED
+path('accounts/login/', LoginView.as_view(template_name="users/login.html"), name="login"),
+
+
 ]
 
 # Serve media files in development
