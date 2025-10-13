@@ -8,12 +8,36 @@ from django.contrib.auth import update_session_auth_hash
 from app.students.models import StudentProfile, Enrollment, AssignmentSubmission
 from app.courses.models import Course, Lesson, Exam, CourseAssignment
 from app.notifications.models import Notification
+from django.contrib import messages
 
 
 @login_required
 def start_course(request, slug):
     course = get_object_or_404(Course, slug=slug)
     return render(request, "courses/start_course.html", {"course": course})
+
+@login_required
+def my_courses(request):
+    from django.contrib import messages  # make sure this import is at top
+
+    # Safely get or create the student profile
+    student, created = StudentProfile.objects.get_or_create(user=request.user)
+
+    if created:
+        messages.info(request, "Your student profile has been created automatically.")
+
+    # Query enrolled courses safely
+    enrollments = Enrollment.objects.filter(student=student)
+    courses = [enrollment.course for enrollment in enrollments]
+
+    return render(request, "students/my_courses.html", {
+        "student": student,
+        "enrollments": enrollments,
+        "courses": courses,
+    })
+
+    
+    
 # ---------- Notifications ----------
 @login_required
 def fetch_notifications(request):
