@@ -1,39 +1,152 @@
 <!-- templates/students/my_courses.html -->
 
 <style>
-    .course-card {
-  background: #fff;
-  padding: 15px;
-  border-radius: 12px;
-  box-shadow: 0px 3px 8px rgba(0,0,0,0.1);
-  margin-bottom: 15px;
-}
+  /* === General Page Styling === */
+  body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    background: #f4f9f4;
+    display: flex;
+    min-height: 100vh;
+    color: #333;
+  }
 
-.course-card h3 {
-  margin: 0;
-  color: #333;
-}
+  .dashboard-container {
+    display: flex;
+    width: 100%;
+  }
 
-.course-card .btn {
-  display: inline-block;
-  margin-top: 10px;
-  padding: 8px 15px;
-  background: #4f46e5;
-  color: #fff;
-  border-radius: 8px;
-  text-decoration: none;
-}
-.course-card .btn:hover {
-  background: #4338ca;
-}
+  /* === Sidebar === */
+  .sidebar {
+    width: 250px;
+    background: linear-gradient(180deg, #2e7d32, #388e3c);
+    color: #fff;
+    padding: 25px 20px;
+    display: flex;
+    flex-direction: column;
+    border-top-right-radius: 18px;
+    border-bottom-right-radius: 18px;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.15);
+  }
 
-.empty-msg {
-  color: #666;
-  font-style: italic;
-}
+  .sidebar-title {
+    font-size: 1.6rem;
+    margin-bottom: 25px;
+    font-weight: 600;
+  }
 
+  .sidebar-nav a {
+    color: #e8f5e9;
+    text-decoration: none;
+    padding: 10px 12px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    display: block;
+    transition: background 0.3s ease, transform 0.2s ease;
+  }
+
+  .sidebar-nav a:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateX(5px);
+  }
+
+  .sidebar-nav a.active {
+    background: #1b5e20;
+    font-weight: 600;
+  }
+
+  /* === Main Content === */
+  .main-content {
+    flex: 1;
+    padding: 40px 60px;
+  }
+
+  .page-title {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    color: #2e7d32;
+    font-weight: 600;
+    border-left: 6px solid #43a047;
+    padding-left: 12px;
+  }
+
+  /* === Course Cards === */
+  .course-card {
+    background: #ffffff;
+    border-left: 6px solid #4caf50;
+    padding: 20px;
+    border-radius: 14px;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.08);
+    margin-bottom: 20px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .course-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0px 6px 14px rgba(0,0,0,0.1);
+  }
+
+  .course-card h3 {
+    margin-top: 0;
+    color: #1b5e20;
+    font-size: 1.3rem;
+  }
+
+  .course-card p {
+    color: #555;
+    margin: 8px 0 12px;
+  }
+
+  .course-card .btn {
+    display: inline-block;
+    padding: 9px 16px;
+    background: #43a047;
+    color: #fff;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background 0.3s ease, transform 0.2s ease;
+  }
+
+  .course-card .btn:hover {
+    background: #2e7d32;
+    transform: scale(1.05);
+  }
+
+  /* === Empty State === */
+  .empty-msg {
+    font-style: italic;
+    color: #777;
+    background: #e8f5e9;
+    border: 1px dashed #81c784;
+    padding: 15px;
+    border-radius: 10px;
+  }
+
+  /* === Responsive Design === */
+  @media (max-width: 768px) {
+    .dashboard-container {
+      flex-direction: column;
+    }
+
+    .sidebar {
+      width: 100%;
+      border-radius: 0;
+      flex-direction: row;
+      justify-content: space-around;
+      padding: 10px;
+    }
+
+    .sidebar-nav a {
+      margin: 5px;
+      padding: 8px 10px;
+    }
+
+    .main-content {
+      padding: 20px;
+    }
+  }
 </style>
-
 
 <div class="dashboard-container">
 
@@ -52,27 +165,20 @@
     <h1 class="page-title">📖 My Courses</h1>
 
     {% if enrollments %}
-  {% for enrollment in enrollments %}
-    <div class="course-card">
-      <h3>{{ enrollment.course.title }}</h3>
-      <p>{{ enrollment.course.description|truncatewords:20 }}</p>
-      <a href="{% url 'courses:course_player' slug=enrollment.course.slug lesson_id=enrollment.course.first_lesson.id %}" 
-         class="btn start-btn">
-         ▶️ Start
-      </a>
-    </div>
-  {% endfor %}
-{% else %}
-  <p class="empty-msg">You are not enrolled in any courses yet.</p>
-{% endif %}
-
-
+      {% for enrollment in enrollments %}
+        <div class="course-card">
+          <h3>{{ enrollment.course.title }}</h3>
+          <p>{{ enrollment.course.description|truncatewords:20 }}</p>
+          <a href="{% url 'courses:course_player' slug=enrollment.course.slug lesson_id=enrollment.course.first_lesson.id %}" 
+             class="btn start-btn">
+             ▶️ Start
+          </a>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p class="empty-msg">🌱 You are not enrolled in any courses yet.</p>
+    {% endif %}
 
   </main>
-  
 
-
-  
 </div>
-
-

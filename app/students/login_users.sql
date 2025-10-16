@@ -1,4 +1,4 @@
-SELECT * FROM users_customuser;
+-- SELECT * FROM users_customuser;
 -- ;
 -- -- Add / Ensure new columns
 -- ALTER TABLE users_customuser
@@ -14,4 +14,8 @@ SELECT * FROM users_customuser;
 --     ADD COLUMN IF NOT EXISTS created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 --     ADD COLUMN IF NOT EXISTS updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
 
+-- Ye sab tables show karega jo public schema me hain
+SELECT table_name
+FROM information_schema.tables
+WHERE table_schema = 'public';
 

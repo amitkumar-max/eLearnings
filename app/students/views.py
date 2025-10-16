@@ -10,12 +10,26 @@ from app.courses.models import Course, Lesson, Exam, CourseAssignment
 from app.notifications.models import Notification
 from django.contrib import messages
 
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+from django.contrib.auth import logout
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
+from django.contrib import messages
+
+from app.students.models import StudentProfile, Enrollment, AssignmentSubmission
+from app.courses.models import Course, Lesson, Exam, CourseAssignment
+from app.notifications.models import Notification
+
+# Use the one from courses if that is the main table
+from app.courses.models import Enrollment
+
 
 @login_required
 def start_course(request, slug):
     course = get_object_or_404(Course, slug=slug)
     return render(request, "courses/start_course.html", {"course": course})
-
 @login_required
 def my_courses(request):
     from django.contrib import messages  # make sure this import is at top
@@ -34,10 +48,7 @@ def my_courses(request):
         "student": student,
         "enrollments": enrollments,
         "courses": courses,
-    })
-
-    
-    
+    })    
 # ---------- Notifications ----------
 @login_required
 def fetch_notifications(request):
@@ -70,28 +81,33 @@ def fetch_notifications(request):
         ]
 
     return JsonResponse({"notifications": data})
+
 @login_required
 def student_notifications(request):
     notifications = request.user.notifications.all()
     return render(request, "students/notifications.html", {"notifications": notifications})
 # ---------- Dashboard ----------
+# ---------- Dashboard ----------
 @login_required
 def dashboard(request):
     student, _ = StudentProfile.objects.get_or_create(user=request.user)
+    enrollments = Enrollment.objects.filter(student=student)
+    courses = [enroll.course for enroll in enrollments]
+
     context = {
         "student": student,
-        "total_courses": student.enrolled_courses.count(),
+        "total_courses": len(courses),
         "completed_lessons": student.completed_lessons.count(),
         "pending_assignments": student.pending_assignments.count(),
         "overall_progress": student.progress_percentage(),
-        "courses": courses,   # ✅ added this line
-        
+        "courses": courses,
     }
     return render(request, "students/dashboard.html", context)
 # ---------- Enroll Course ----------
+# ---------- Enroll Course ----------
 @login_required
 def enroll_course(request, course_id):
-    student = StudentProfile.objects.get(user=request.user)
+    student, _ = StudentProfile.objects.get_or_create(user=request.user)
     course = get_object_or_404(Course, id=course_id)
 
     enrollment, created = Enrollment.objects.get_or_create(student=student, course=course)
@@ -104,6 +120,10 @@ def enroll_course(request, course_id):
             message=f"You have successfully enrolled in {course.title}!",
             notification_type="SUCCESS"
         )
+        messages.success(request, f"You are now enrolled in {course.title}.")
+
+    else:
+        messages.info(request, f"You are already enrolled in {course.title}.")
 
     return redirect("students:dashboard")
 # ---------- Assignments ----------
@@ -129,11 +149,18 @@ def course_detail(request, id):
 def courses_list(request):
     all_courses = Course.objects.all()
     return render(request, "students/courses_list.html", {"courses": all_courses})
+# ---------- My Courses ----------
 @login_required
 def my_courses(request):
-    student = StudentProfile.objects.get(user=request.user)
+    student, _ = StudentProfile.objects.get_or_create(user=request.user)
     enrollments = Enrollment.objects.filter(student=student)
-    return render(request, "students/my_courses.html", {"enrollments": enrollments})
+    courses = [enroll.course for enroll in enrollments]
+
+    return render(request, "students/my_courses.html", {
+        "student": student,
+        "enrollments": enrollments,
+        "courses": courses,
+    })
 @login_required
 def enrolled_courses(request):
     student = StudentProfile.objects.get(user=request.user)

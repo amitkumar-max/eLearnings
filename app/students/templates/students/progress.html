@@ -1,35 +1,85 @@
-<!-- templates/student/progress.html -->
-
+<!-- templates/students/progress.html -->
 
 <style>
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: #f4f9f4;
+    margin: 0;
+    padding: 0;
+  }
+
   .progress-container {
     max-width: 600px;
-    margin: 2rem auto;
+    margin: 2.5rem auto;
     background: #ffffff;
     padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    border-radius: 1rem;
+    border-left: 6px solid #43a047;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
     text-align: center;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
   }
+
+  .progress-container:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  }
+
   .progress-container h2 {
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: #1f2937;
+    font-size: 1.9rem;
+    font-weight: 700;
+    color: #1b5e20;
     margin-bottom: 1.5rem;
   }
+
   .progress-detail {
     font-size: 1.1rem;
-    color: #374151;
+    color: #2f3e2f;
     margin-bottom: 1rem;
+    background: #e8f5e9;
+    border-radius: 0.6rem;
+    padding: 0.8rem;
+    border: 1px dashed #81c784;
   }
+
   .progress-value {
-    font-weight: 600;
-    color: #2563eb;
+    font-weight: 700;
+    color: #2e7d32;
+  }
+
+  /* === Progress Bar (Optional for Visual Feel) === */
+  .progress-bar {
+    position: relative;
+    height: 18px;
+    background: #c8e6c9;
+    border-radius: 10px;
+    margin: 1.5rem 0;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #43a047, #2e7d32);
+    border-radius: 10px;
+    transition: width 0.4s ease;
+  }
+
+  /* === Responsive === */
+  @media (max-width: 768px) {
+    .progress-container {
+      margin: 1.5rem;
+      padding: 1.5rem;
+    }
   }
 </style>
 
 <div class="progress-container">
-  <h2>Your Progress</h2>
+  <h2>📊 Your Progress</h2>
   <p class="progress-detail">Completed Lessons: <span class="progress-value">{{ completed_lessons }}</span></p>
   <p class="progress-detail">Score: <span class="progress-value">{{ score }}%</span></p>
+
+  <!-- Optional Dynamic Progress Bar -->
+  <div class="progress-bar">
+    <div class="progress-fill" style="width: {{ score }}%;"></div>
+  </div>
 </div>

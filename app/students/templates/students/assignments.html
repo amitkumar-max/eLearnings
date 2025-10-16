@@ -1,59 +1,100 @@
-<!-- assignments.html -->
+<!-- templates/students/assignments.html -->
 
 <style>
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: #f4f9f4;
+    color: #1b5e20;
+    margin: 0;
+    padding: 0;
+  }
+
+  h2 {
+    text-align: center;
+    font-size: 1.9rem;
+    font-weight: 700;
+    margin-bottom: 1.8rem;
+    color: #2e7d32;
+  }
+
   .assignments-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 1.5rem;
-    margin-top: 1.5rem;
+    margin: 0 2rem 2rem 2rem;
   }
+
   .assignment-card {
     background: #ffffff;
     border-radius: 1rem;
     padding: 1.5rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    transition: transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    border-left: 6px solid #43a047;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
   }
+
   .assignment-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    transform: translateY(-4px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
   }
+
   .assignment-card h3 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: #1e293b;
-    margin-bottom: 0.5rem;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+    color: #1b5e20;
   }
+
   .assignment-card p {
-    font-size: 0.9rem;
-    color: #475569;
+    font-size: 0.95rem;
+    color: #374151;
     margin-bottom: 1rem;
+    line-height: 1.5;
   }
+
   .assignment-card .due-date {
     font-size: 0.85rem;
     font-weight: 600;
-    color: #dc2626;
+    color: #2e7d32;
     margin-bottom: 1rem;
+    text-align: right;
   }
+
   .assignment-card a {
     text-align: center;
-    background: #2563eb;
+    background: linear-gradient(90deg, #43a047, #2e7d32);
     color: white;
-    padding: 0.6rem 1rem;
-    border-radius: 0.5rem;
+    padding: 0.65rem 1rem;
+    border-radius: 0.6rem;
     font-weight: 600;
     text-decoration: none;
-    transition: background 0.3s ease;
+    transition: background 0.3s ease, transform 0.2s ease;
   }
+
   .assignment-card a:hover {
-    background: #1e40af;
+    background: #25632e;
+    transform: translateY(-2px);
+  }
+
+  .no-assignments {
+    text-align: center;
+    color: #4b5563;
+    font-style: italic;
+    grid-column: 1/-1;
+  }
+
+  @media (max-width: 768px) {
+    .assignments-container {
+      margin: 0 1rem 2rem 1rem;
+    }
   }
 </style>
 
-<h2 class="text-2xl font-bold text-center">Assignments</h2>
+<h2>📄 Assignments</h2>
+
 <div class="assignments-container">
   {% for assignment in assignments %}
   <div class="assignment-card">
@@ -63,6 +104,6 @@
     <a href="{% url 'assignment_detail' assignment.id %}">View Details</a>
   </div>
   {% empty %}
-  <p class="text-center text-gray-500 col-span-full">No assignments available.</p>
+  <p class="no-assignments">No assignments available.</p>
   {% endfor %}
 </div>

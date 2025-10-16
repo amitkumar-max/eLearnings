@@ -1,2 +1,125 @@
-<h1>Student Discussions</h1>
-<p>Yahan discussions content aayega.</p>
+<!-- templates/students/discussions.html -->
+
+<style>
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: #f4f9f4;
+    margin: 0;
+    padding: 0;
+  }
+
+  .discussion-container {
+    max-width: 850px;
+    margin: 2.5rem auto;
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    border-left: 6px solid #43a047;
+  }
+
+  .discussion-container h1 {
+    font-size: 2rem;
+    color: #1b5e20;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+
+  .discussion-container p {
+    color: #2f3e2f;
+    font-size: 1.05rem;
+    background: #e8f5e9;
+    border: 1px dashed #81c784;
+    border-radius: 0.6rem;
+    padding: 1rem;
+    text-align: center;
+    line-height: 1.6;
+  }
+
+  /* === Discussion Cards === */
+  .discussion-list {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  .discussion-card {
+    background: #ffffff;
+    padding: 1.2rem 1.5rem;
+    border-radius: 0.8rem;
+    border-left: 5px solid #4caf50;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .discussion-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 14px rgba(0, 0, 0, 0.1);
+  }
+
+  .discussion-card h3 {
+    color: #1b5e20;
+    margin: 0 0 0.5rem;
+    font-size: 1.2rem;
+  }
+
+  .discussion-card p {
+    color: #4b5563;
+    font-size: 0.95rem;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  /* === New Discussion Button === */
+  .add-btn {
+    display: inline-block;
+    margin-top: 2rem;
+    padding: 0.9rem 1.5rem;
+    background: #43a047;
+    color: #fff;
+    border-radius: 0.6rem;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.3s ease, transform 0.2s ease;
+  }
+
+  .add-btn:hover {
+    background: #2e7d32;
+    transform: scale(1.05);
+  }
+
+  /* === Responsive === */
+  @media (max-width: 768px) {
+    .discussion-container {
+      margin: 1.5rem;
+      padding: 1.5rem;
+    }
+  }
+</style>
+
+<div class="discussion-container">
+  <h1>💬 Student Discussions</h1>
+  <p>Welcome to the discussion area! Connect, ask questions, and share your learning ideas with classmates.</p>
+
+  <!-- Example Discussion Threads -->
+  <div class="discussion-list">
+    <div class="discussion-card">
+      <h3>📘 How to prepare for the final exam?</h3>
+      <p>Started by <strong>Rahul</strong> — 12 replies</p>
+    </div>
+
+    <div class="discussion-card">
+      <h3>💡 Share your favorite coding challenge!</h3>
+      <p>Started by <strong>Anita</strong> — 8 replies</p>
+    </div>
+
+    <div class="discussion-card">
+      <h3>🧠 Tips for mastering Python quickly?</h3>
+      <p>Started by <strong>Vikram</strong> — 15 replies</p>
+    </div>
+  </div>
+
+  <a href="#" class="add-btn">➕ Start New Discussion</a>
+</div>

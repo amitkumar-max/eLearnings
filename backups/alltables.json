@@ -1,0 +1,146 @@
+[
+  {
+    "table_name": "django_migrations"
+  },
+  {
+    "table_name": "django_content_type"
+  },
+  {
+    "table_name": "auth_permission"
+  },
+  {
+    "table_name": "auth_group"
+  },
+  {
+    "table_name": "auth_group_permissions"
+  },
+  {
+    "table_name": "users_customuser"
+  },
+  {
+    "table_name": "users_customuser_groups"
+  },
+  {
+    "table_name": "users_customuser_user_permissions"
+  },
+  {
+    "table_name": "django_admin_log"
+  },
+  {
+    "table_name": "blogs_blog"
+  },
+  {
+    "table_name": "blogs_comment"
+  },
+  {
+    "table_name": "courses_courseassignment"
+  },
+  {
+    "table_name": "courses_enrollment"
+  },
+  {
+    "table_name": "teachers_teacherprofile"
+  },
+  {
+    "table_name": "teachers_teacherprofile_courses_created"
+  },
+  {
+    "table_name": "teachers_schedule"
+  },
+  {
+    "table_name": "teachers_teacherassignment"
+  },
+  {
+    "table_name": "students_assignmentsubmission"
+  },
+  {
+    "table_name": "students_enrollment"
+  },
+  {
+    "table_name": "students_examprogress"
+  },
+  {
+    "table_name": "students_studentprofile"
+  },
+  {
+    "table_name": "students_studentprofile_completed_lessons"
+  },
+  {
+    "table_name": "students_studentprofile_enrolled_courses"
+  },
+  {
+    "table_name": "students_studentprofile_pending_assignments"
+  },
+  {
+    "table_name": "courses_exam"
+  },
+  {
+    "table_name": "courses_lesson"
+  },
+  {
+    "table_name": "courses_course"
+  },
+  {
+    "table_name": "courses_courseinteraction"
+  },
+  {
+    "table_name": "courses_courseinteraction_completed_lessons"
+  },
+  {
+    "table_name": "courses_category"
+  },
+  {
+    "table_name": "downloads_file"
+  },
+  {
+    "table_name": "students_studentprofile_wishlist_courses"
+  },
+  {
+    "table_name": "exams_exam"
+  },
+  {
+    "table_name": "exams_examprogress"
+  },
+  {
+    "table_name": "lessons_quizquestion"
+  },
+  {
+    "table_name": "lessons_lessoncomment"
+  },
+  {
+    "table_name": "lessons_lessonfeedback"
+  },
+  {
+    "table_name": "lessons_lessonresource"
+  },
+  {
+    "table_name": "lessons_quizoption"
+  },
+  {
+    "table_name": "lessons_lesson"
+  },
+  {
+    "table_name": "lessons_lessonprogress"
+  },
+  {
+    "table_name": "notifications_notification"
+  },
+  {
+    "table_name": "payments_transaction"
+  },
+  {
+    "table_name": "policies_policy"
+  },
+  {
+    "table_name": "payments_order"
+  },
+  {
+    "table_name": "progress_result"
+  },
+  {
+    "table_name": "progress_lessonprogress"
+  },
+  {
+    "table_name": "django_session"
+  }
+]
