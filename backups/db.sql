@@ -1,4 +1,4 @@
-SELECT * FROM courses_course;
+-- SELECT * FROM courses_course;
 -- INSERT INTO courses_course (title, description, is_published, created_at, updated_at)
 -- VALUES
 -- ('HTML Fundamentals', 'Learn the structure of web pages using HTML5, semantic elements, and accessibility best practices.', TRUE, NOW(), NOW()),
@@ -14,3 +14,12 @@ SELECT * FROM courses_course;
 -- ('ReactJS for Frontend Developers', 'Learn to build modern SPAs using ReactJS, hooks, and component architecture.', TRUE, NOW(), NOW()),
 -- ('Bootstrap 5 Design System', 'Design responsive and mobile-first UI using the latest Bootstrap 5 framework.', TRUE, NOW(), NOW()),
 -- ('NodeJS Backend Development', 'Create scalable backend systems using NodeJS, Express, and REST APIs.', TRUE, NOW(), NOW());
+
+-- INSERT INTO lessons_lesson
+-- (course_id, title, slug, content_text, content_path, order_index, created_at, updated_at)
+-- VALUES
+-- (1, 'HTML - Intro', 'html-intro', 'Content from intro.txt goes here...', 'lesson/content/html/intro.txt', 1, NOW(), NOW()),
+-- (1, 'HTML - Content', 'html-content', 'Content from content.txt goes here...', 'lesson/content/html/content.txt', 2, NOW(), NOW()),
+-- (1, 'HTML - Examples', 'html-examples', 'Content from examples.txt goes here...', 'lesson/content/html/examples.txt', 3, NOW(), NOW());
+
+SELECT * FROM lessons_lesson WHERE course_id = 1;

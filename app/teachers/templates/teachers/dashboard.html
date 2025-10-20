@@ -1,176 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Teacher Dashboard</title>
 
-<style>
-:root {
-  --primary: #ff7f50;
-  --primary-dark: #e56735;
-  --bg-light: #fff7f2;
-  --bg-dark: #1e1e2f;
-  --text-dark: #3b3b3b;
-  --text-light: #f5f5f5;
-  font-family: 'Poppins', sans-serif;
-}
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
-body {
-  background: var(--bg-light);
-  color: var(--text-dark);
-  transition: background 0.3s, color 0.3s;
-}
-body.dark-mode { background: var(--bg-dark); color: var(--text-light); }
+  <style>
+    :root{
+      --primary: #ff7f50;       /* coral */
+      --primary-dark: #e56735;
+      --bg-light: #fff7f2;
+      --bg-dark: #11121a;
+      --text-dark: #2b2b2b;
+      --text-light: #e6eef6;
+      --sidebar-width: 16rem;
+      font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
 
-/* Sidebar */
-#sidebar {
-  background: linear-gradient(180deg, var(--primary), var(--primary-dark));
-  color: white;
-  font-weight: 500;
-  position: fixed; top: 0; left: 0;
-  height: 100%; width: 16rem;
-  padding-top: 5rem;
-  transform: translateX(-100%);
-  transition: transform 0.3s ease;
-  z-index: 100;
-  border-top-right-radius: 1rem;
-  border-bottom-right-radius: 1rem;
-}
-#sidebar.show { transform: translateX(0); }
-#sidebar a { display: flex; align-items: center; gap: 0.6rem; color: white; padding: 0.8rem 1rem; border-radius: 0.6rem; transition: all 0.3s ease; }
-#sidebar a:hover { background: rgba(255,255,255,0.2); transform: translateX(4px); }
+    /* Base */
+    html,body{height:100%;}
+    body {
+      background: var(--bg-light);
+      color: var(--text-dark);
+      margin:0;
+      transition: background .25s ease, color .25s ease;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+    body.dark-mode {
+      background: var(--bg-dark);
+      color: var(--text-light);
+    }
 
-/* Header */
-header {
-  position: fixed; top: 0; left: 0; width: 100%;
-  z-index: 200;
-  background: white;
-  border-bottom-left-radius: 0.6rem; border-bottom-right-radius: 0.6rem;
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 0.8rem 1.5rem;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-  transition: background 0.3s;
-}
-body.dark-mode header { background: #2b2b3b; }
+    /* Sidebar */
+    #sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      height: 100vh;
+      width: var(--sidebar-width);
+      padding-top: 4.5rem;
+      background: linear-gradient(180deg, var(--primary), var(--primary-dark));
+      color: #fff;
+      z-index: 40;
+      display:flex;
+      flex-direction:column;
+      gap:0.25rem;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+      border-top-right-radius: 0.75rem;
+      border-bottom-right-radius: 0.75rem;
+      transform: translateX(0);
+      transition: transform .25s ease;
+    }
+    /* Hidden on mobile by translate */
+    #sidebar.hidden { transform: translateX(-120%); }
 
-/* Main */
-main {
-  margin-left: 16rem;
-  padding: 6rem 2rem 2rem 2rem;
-  transition: margin-left 0.3s ease;
-}
-body:not(.sidebar-open) main { margin-left: 0; }
+    /* Sidebar link */
+    .side-link {
+      display:flex;
+      align-items:center;
+      gap:.75rem;
+      padding:.6rem .9rem;
+      margin:0 .6rem;
+      border-radius:.6rem;
+      text-decoration:none;
+      color:inherit;
+      font-weight:600;
+      transition: background .18s ease, transform .18s ease;
+    }
+    .side-link:hover, .side-link.active {
+      background: rgba(255,255,255,0.14);
+      transform: translateX(4px);
+    }
+    .side-section { padding:.5rem .75rem; color: rgba(255,255,255,0.9); font-size:.85rem; margin-top:.35rem; }
 
-@media (max-width:768px) { main { margin-left:0; padding:6rem 1rem 2rem 1rem; } }
+    /* Main */
+    main {
+      margin-left: var(--sidebar-width);
+      padding: 3.75rem 1.25rem 2.5rem 1.25rem;
+      min-height:100vh;
+      transition: margin-left .25s ease;
+    }
+    /* When sidebar hidden (mobile toggled) */
+    body.sidebar-collapsed main { margin-left: .75rem; }
 
-/* Cards & Grids */
-.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 1.5rem; margin-bottom: 2rem; }
-.stat-card { background:white; border-radius:1rem; padding:1.5rem; text-align:center; box-shadow:0 4px 15px rgba(0,0,0,0.05); transition: transform 0.3s ease; }
-.stat-card:hover { transform: scale(1.04); box-shadow:0 8px 25px rgba(0,0,0,0.1); }
-.stat-value { font-size:1.6rem; font-weight:bold; color:var(--primary-dark); }
+    /* Header */
+    header.app-header {
+      position: fixed;
+      left: 0;
+      top: 0;
+      right: 0;
+      height: 4.25rem;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding: 0 1.25rem;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(4px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+      z-index: 30;
+    }
+    body.dark-mode header.app-header {
+      background: rgba(18,20,28,0.7);
+    }
 
-.dashboard-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.5rem; }
-.dashboard-card { background:white; padding:1.5rem; border-radius:1rem; border-top:4px solid var(--primary-dark); box-shadow:0 6px 15px rgba(0,0,0,0.08); text-decoration:none; color:var(--text-dark); transition: transform 0.3s, box-shadow 0.3s; }
-.dashboard-card:hover { transform:translateY(-6px); box-shadow:0 12px 25px rgba(0,0,0,0.12); }
+    /* Card style */
+    .card {
+      background: #fff;
+      color: var(--text-dark);
+      border-radius: 0.8rem;
+      padding: 1.25rem;
+      box-shadow: 0 8px 30px rgba(2,6,23,0.05);
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(2,6,23,0.08); }
+    body.dark-mode .card { background: #161820; color: var(--text-light); box-shadow:none; }
 
-.extra-section { background:white; border-radius:1rem; padding:1.5rem; margin-top:2rem; box-shadow:0 4px 15px rgba(0,0,0,0.05); }
+    /* Stat tile */
+    .stat-value { font-weight:800; font-size:1.5rem; color: var(--primary-dark); }
 
-/* Dark Mode Cards */
-body.dark-mode .stat-card, body.dark-mode .dashboard-card, body.dark-mode .extra-section { background:#2b2b3b; color:var(--text-light); box-shadow:0 6px 20px rgba(0,0,0,0.5); }
-body.dark-mode .dashboard-card p, body.dark-mode .extra-section p { color:#cbd5e1; }
+    /* Responsive tweaks */
+    @media (max-width: 1024px) {
+      #sidebar { width: 14rem; }
+      main { margin-left: 14rem; }
+    }
+    @media (max-width: 768px) {
+      #sidebar { transform: translateX(-120%); position:fixed; }
+      #sidebar.show { transform: translateX(0); }
+      main { margin-left: .75rem; padding-top:4.75rem; }
+      header.app-header { padding-left: .9rem; padding-right: .9rem; }
+    }
 
-</style>
-
-
-
-
-<div class="flex">
+    /* Utility small */
+    .muted { color: #6b7280; }
+    body.dark-mode .muted { color: #9aa3b2; }
+  </style>
+</head>
+<body>
   <!-- Sidebar -->
-  <aside id="sidebar">
-<nav class="sidebar-nav">
-    <a href="{% url 'students:dashboard' %}">🏠 Dashboard</a>
-    <a href="{% url 'students:my_courses' %}">📖 My Courses</a>
-    <a href="{% url 'students:assignments' %}">📝 Assignments</a>
-    <a href="{% url 'students:progress' %}">📊 Progress</a>
-    <a href="{% url 'students:discussions' %}">💬 Discussions</a>
-    <a href="{% url 'students:settings' %}">⚙️ Settings</a>
-<!-- Logout button -->
-<a href="{% url 'users:logout' %}" 
-   style="color:white; background-color:red; display:block; padding:8px 12px; border-radius:5px; margin-top:10px; text-align:center; text-decoration:none;">
-   🔴 Logout
-</a>
+  <aside id="sidebar" class="">
+    <div class="px-4 pb-2">
+      <a href="{% url 'teachers:dashboard' %}" class="side-link" aria-label="Go to dashboard">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" class="opacity-90"><path d="M3 13h18" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+        <span class="text-white text-lg font-semibold">Teacher Panel</span>
+      </a>
+    </div>
 
+    <div class="side-section">Main</div>
+    <nav class="px-2" aria-label="Primary navigation">
+      <a class="side-link" href="{% url 'teachers:dashboard' %}">🏠 Dashboard</a>
+      <a class="side-link" href="{% url 'teachers:manage_courses' %}">📚 Manage Courses</a>
+      <a class="side-link" href="{% url 'teachers:create_lesson' %}">➕ New Lesson</a>
+      <a class="side-link" href="{% url 'teachers:assignments' %}">📝 Assignments</a>
+      <a class="side-link" href="{% url 'teachers:gradebook' %}">🧾 Gradebook</a>
+    </nav>
 
-  </nav>
+    <div class="side-section">Students & Communication</div>
+    <nav class="px-2" aria-label="Students navigation">
+      <a class="side-link" href="{% url 'teachers:students' %}">👥 Manage Students</a>
+      <a class="side-link" href="{% url 'teachers:messages' %}">✉️ Messages</a>
+      <a class="side-link" href="{% url 'teachers:discussions' %}">💬 Discussions</a>
+    </nav>
 
+    <div class="side-section">Analytics & Tools</div>
+    <nav class="px-2" aria-label="Analytics navigation">
+      <a class="side-link" href="{% url 'teachers:reports' %}">📊 Reports & Insights</a>
+      <a class="side-link" href="{% url 'teachers:attendance' %}">🗓️ Attendance</a>
+      <a class="side-link" href="{% url 'teachers:resources' %}">📁 Course Materials</a>
+      <a class="side-link" href="{% url 'teachers:exams' %}">🧩 Create Exam/Quiz</a>
+    </nav>
+
+    <div class="side-section">Settings</div>
+    <nav class="px-2 mb-6" aria-label="Settings">
+      <a class="side-link" href="{% url 'teachers:notifications' %}">🔔 Notifications</a>
+      <a class="side-link" href="{% url 'teachers:settings' %}">⚙️ Settings</a>
+    </nav>
+
+    <div class="mt-auto px-4 pb-6">
+      <a href="{% url 'users:logout' %}" class="block w-full text-center py-2 rounded-md font-semibold" style="background:#ef4444;color:white;">
+        🔴 Logout
+      </a>
+    </div>
   </aside>
 
-  <!-- Main Content -->
-  <main>
-    
-    <!-- Navbar -->
-    <header class="navbar">
-      <div class="navbar-left"> <h1>Teacher Dashboard</h1>
-        <button id="sidebarToggle" class="btn">☰</button>
-       
+  <!-- Main content -->
+  <main id="mainContent" role="main">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="flex items-center gap-3">
+        <button id="mobileToggle" class="md:hidden p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800" aria-label="Toggle sidebar">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+
+        <h2 class="text-lg font-semibold">Teacher Dashboard</h2>
+        <span class="ml-2 text-sm muted"> — Welcome back</span>
       </div>
-      <div class="navbar-right">
-        <button onclick="toggleTheme()" class="btn">🌗</button>
-        <img src="" alt="Student Avatar" class="avatar">
+
+      <div class="flex items-center gap-3">
+        <button id="themeToggle" class="p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800" aria-pressed="false" aria-label="Toggle theme">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+
+        <!-- Avatar + small menu placeholder -->
+        <div class="flex items-center gap-2">
+          <img src="https://placehold.co/40x40" alt="Teacher avatar" class="w-10 h-10 rounded-full border-2 border-white dark:border-gray-700" />
+        </div>
       </div>
     </header>
 
-    <!-- Stats & Dashboard Cards -->
-    <div class="stats-grid mt-6">
-      <div class="stat-card"><h3>📚 Courses</h3><p class="stat-value">12</p></div>
-      <div class="stat-card"><h3>👥 Active Students</h3><p class="stat-value">320</p></div>
-      <div class="stat-card"><h3>📝 Pending Assignments</h3><p class="stat-value">18</p></div>
-      <div class="stat-card"><h3>📊 Avg. Class Score</h3><p class="stat-value">82%</p></div>
-    </div>
+    <!-- Page content -->
+    <section class="pt-6">
+      <!-- Stats -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="card">
+          <h4 class="text-sm font-semibold muted">📚 Total Courses</h4>
+          <div class="mt-3 stat-value">12</div>
+          <div class="mt-1 muted text-sm">Active / drafts</div>
+        </div>
 
-    <div class="dashboard-grid mt-6">
-      <a href="#" class="dashboard-card"><h3>📚 Manage Courses</h3><p>Create, edit, and update lessons.</p></a>
-      <a href="#" class="dashboard-card"><h3>📝 Grade Assignments</h3><p>Review & provide feedback.</p></a>
-      <a href="#" class="dashboard-card"><h3>📅 Schedule Classes</h3><p>Plan sessions & deadlines.</p></a>
-      <a href="#" class="dashboard-card"><h3>📊 Generate Reports</h3><p>Analytics of student performance.</p></a>
-      <a href="#" class="dashboard-card"><h3>💬 Student Messages</h3><p>Communicate & resolve doubts.</p></a>
-      <a href="#" class="dashboard-card"><h3>🔔 Announcements</h3><p>Post updates & notices.</p></a>
-    </div>
+        <div class="card">
+          <h4 class="text-sm font-semibold muted">👥 Active Students</h4>
+          <div class="mt-3 stat-value">320</div>
+          <div class="mt-1 muted text-sm">Unique enrolled</div>
+        </div>
 
-    <!-- Extra Sections -->
-    <div class="extra-section mt-6"><h2>📌 Upcoming Classes</h2><p>3 live classes this week.</p></div>
-    <div class="extra-section mt-4"><h2>🕒 Recent Activity</h2><p>Last login: 2 hours ago. 5 assignments submitted recently.</p></div>
-    <div class="extra-section mt-4"><h2>🏆 Achievements</h2><p>Completed "Python Basics" course with distinction.</p></div>
-    <div class="extra-section mt-4"><h2>💡 Community Updates</h2><p>New discussion thread in "Machine Learning".</p></div>
+        <div class="card">
+          <h4 class="text-sm font-semibold muted">📝 Pending Assignments</h4>
+          <div class="mt-3 stat-value">18</div>
+          <div class="mt-1 muted text-sm">To grade</div>
+        </div>
 
+        <div class="card">
+          <h4 class="text-sm font-semibold muted">📊 Avg. Class Score</h4>
+          <div class="mt-3 stat-value">82%</div>
+          <div class="mt-1 muted text-sm">All classes</div>
+        </div>
+      </div>
+
+      <!-- Action cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+        <a href="{% url 'teachers:manage_courses' %}" class="card block">
+          <h3 class="font-semibold">📚 Manage Courses</h3>
+          <p class="muted mt-2 text-sm">Create, edit course structure & lessons.</p>
+        </a>
+
+        <a href="{% url 'teachers:gradebook' %}" class="card block">
+          <h3 class="font-semibold">🧾 Gradebook</h3>
+          <p class="muted mt-2 text-sm">Review submissions and give feedback.</p>
+        </a>
+
+        <a href="{% url 'teachers:exams' %}" class="card block">
+          <h3 class="font-semibold">🧩 Create Exam/Quiz</h3>
+          <p class="muted mt-2 text-sm">Configure quizzes, timers & auto-grading.</p>
+        </a>
+      </div>
+
+      <!-- Reports / Activity -->
+      <div class="grid md:grid-cols-2 gap-4 mt-6">
+        <div class="card">
+          <h3 class="font-semibold">📈 Recent Reports</h3>
+          <p class="muted mt-2 text-sm">Last 7 days: student engagement and quiz trends.</p>
+          <!-- placeholder area for charts -->
+          <div class="mt-4 h-36 rounded-md bg-gray-50 dark:bg-gray-800"></div>
+        </div>
+
+        <div class="card">
+          <h3 class="font-semibold">🕒 Recent Activity</h3>
+          <ul class="mt-3 space-y-2 text-sm muted">
+            <li>5 assignments submitted — <span class="text-xs">2 hours ago</span></li>
+            <li>New message from student — <span class="text-xs">3 hours ago</span></li>
+            <li>Course "ML Basics" published — <span class="text-xs">1 day ago</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Extra -->
+      <div class="card mt-6">
+        <h3 class="font-semibold">💡 Announcements</h3>
+        <p class="muted mt-2 text-sm">Post an announcement to all enrolled students or specific cohorts.</p>
+      </div>
+    </section>
   </main>
-</div>
 
+  <script>
+    // Sidebar toggle for mobile
+    const sidebar = document.getElementById('sidebar');
+    const mobileToggle = document.getElementById('mobileToggle');
+    mobileToggle && mobileToggle.addEventListener('click', () => {
+      sidebar.classList.toggle('show');
+      document.body.classList.toggle('sidebar-collapsed'); // keeps main margin small
+    });
 
-<script>
-// Sidebar toggle
-const sidebarToggle = document.getElementById("sidebarToggle");
-const sidebar = document.getElementById("sidebar");
-const main = document.querySelector("main");
-const header = document.querySelector("header");
+    // Theme toggle and persistence
+    const themeToggle = document.getElementById('themeToggle');
+    themeToggle && themeToggle.addEventListener('click', () => {
+      const isDark = document.body.classList.toggle('dark-mode');
+      localStorage.setItem('site-theme', isDark ? 'dark' : 'light');
+    });
 
-sidebarToggle.addEventListener("click", () => {
-    sidebar.classList.toggle("show");
-    document.body.classList.toggle("sidebar-open");
+    // Apply saved theme on load
+    (function applySavedTheme(){
+      const saved = localStorage.getItem('site-theme');
+      if (saved === 'dark') document.body.classList.add('dark-mode');
+    })();
 
-    if(sidebar.classList.contains("show")) {
-        main.style.marginLeft = "16rem";
-        header.style.left = "16rem";
-    } else {
-        main.style.marginLeft = "0";
-        header.style.left = "0";
-    }
-});
-
-// Dark Mode Toggle
-function toggleTheme() {
-    document.body.classList.toggle("dark-mode");
-    localStorage.setItem("theme", document.body.classList.contains("dark-mode") ? "dark" : "light");
-}
-
-// Load saved theme
-if(localStorage.getItem("theme") === "dark") document.body.classList.add("dark-mode");
-</script>
-
-
-
+    // Close sidebar when clicking outside on mobile (optional)
+    document.addEventListener('click', (e) => {
+      if (window.innerWidth <= 768) {
+        const ignore = sidebar.contains(e.target) || (mobileToggle && mobileToggle.contains(e.target));
+        if (!ignore && sidebar.classList.contains('show')) {
+          sidebar.classList.remove('show');
+          document.body.classList.remove('sidebar-collapsed');
+        }
+      }
+    });
+  </script>
+</body>
+</html>

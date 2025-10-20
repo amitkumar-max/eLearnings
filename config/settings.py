@@ -12,9 +12,22 @@ DEBUG = config("DEBUG", default=True, cast=bool)
 ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="localhost").split(",")
 CSRF_TRUSTED_ORIGINS = ['https://elearnings.onrender.com']
 
+
+
+# Login page ka URL
 LOGIN_URL = '/users/login/'
+
+# Login ke baad redirect (student dashboard)
 LOGIN_REDIRECT_URL = '/students/dashboard/'
+
+# Logout ke baad redirect
 LOGOUT_REDIRECT_URL = '/users/login/'
+# LOGIN_URL = '/users/login/'
+# LOGIN_REDIRECT_URL = '/students/dashboard/'
+# LOGOUT_REDIRECT_URL = '/users/login/'
+
+# LOGIN_URL = '/users/login/'  # ya jaha tumhare login page ka url hai
+# LOGIN_REDIRECT_URL = '/dashboard/'  # login ke baad redirect
 
 MESSAGE_TAGS = {
     messages.DEBUG: 'debug',

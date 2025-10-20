@@ -1,4 +1,4 @@
-<!-- course_detail.html -->
+<!-- templates/students/course_detail.html -->
 
 <style>
   .course-detail {
@@ -8,6 +8,7 @@
     padding: 2rem;
     border-radius: 1rem;
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    font-family: 'Poppins', sans-serif;
   }
   .course-detail h2 {
     font-size: 2rem;
@@ -38,12 +39,28 @@
   .course-detail .btn-primary:hover {
     background: #1e40af;
   }
+  .course-detail .btn-disabled {
+    display: block;
+    width: 100%;
+    background: #9ca3af;
+    color: white;
+    text-align: center;
+    font-weight: 600;
+    padding: 0.8rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    cursor: not-allowed;
+  }
 </style>
-{% endblock %}
 
-{% block content %}
 <div class="course-detail">
-  <h2>{{ course.name }}</h2>
+  <h2>{{ course.title }}</h2>
   <p>{{ course.description }}</p>
-  <a href="{% url 'enroll_course' course.id %}" class="btn-primary">Enroll Now</a>
+
+  {% comment %} Check if user already enrolled {% endcomment %}
+  {% if user.studentprofile.enrolled_courses.all|filter:course %}
+    <span class="btn-disabled">✅ Already Enrolled</span>
+  {% else %}
+    <a href="{% url 'students:enroll_course' course.id %}" class="btn-primary">Enroll Now</a>
+  {% endif %}
 </div>

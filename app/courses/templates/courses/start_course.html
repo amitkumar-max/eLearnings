@@ -59,7 +59,8 @@
 </style>
 
 
-{% block content %}
+
+
 <div class="container start-course-page">
 
     <a href="{% url 'courses:course_detail' course.slug %}" class="back-link">
@@ -79,15 +80,23 @@
 
     <div class="lesson-section">
         <h2>📘 Lessons</h2>
-        {% if course.lessons.all %}
+        {% if course.lessons.count > 0 %}
             <ul class="lesson-list">
                 {% for lesson in course.lessons.all %}
                     <li class="lesson-item">
                         <h4>{{ lesson.title }}</h4>
-                        <p>{{ lesson.content|truncatechars:150 }}</p>
-                        <a href="{% url 'courses:course_player' lesson.id %}" class="btn btn-outline-primary">
-                            ▶ Start Lesson
-                        </a>
+                        <p>{{ lesson.content_text|truncatechars:150 }}</p>
+
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'courses:course_player' course.slug lesson.id %}" class="btn btn-outline-primary">
+                                ▶ Start Lesson
+                            </a>
+                        {% else %}
+                            <a href="{% url 'users:login' %}?next={% url 'courses:course_player' course.slug lesson.id %}"
+                               class="btn btn-outline-primary">
+                                ▶ Login to Start
+                            </a>
+                        {% endif %}
                     </li>
                 {% endfor %}
             </ul>
@@ -101,4 +110,4 @@
     </div>
 
 </div>
-{% endblock %}
+

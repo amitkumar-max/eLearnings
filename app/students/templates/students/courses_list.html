@@ -1,61 +1,191 @@
-<!-- courses_list.html -->
+<!-- templates/students/my_courses.html -->
+
 <style>
-  .courses-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-    margin-top: 1.5rem;
+  body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    background: #f4f9f4;
+    display: flex;
+    min-height: 100vh;
+    color: #333;
   }
-  .course-card {
-    background: #ffffff;
-    border-radius: 1rem;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    padding: 1.5rem;
+
+  .dashboard-container {
+    display: flex;
+    width: 100%;
+  }
+
+  /* Sidebar */
+  .sidebar {
+    width: 250px;
+    background: linear-gradient(180deg, #2e7d32, #388e3c);
+    color: #fff;
+    padding: 25px 20px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    transition: transform 0.2s ease, box-shadow 0.3s ease;
+    border-top-right-radius: 18px;
+    border-bottom-right-radius: 18px;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.15);
   }
+
+  .sidebar-title {
+    font-size: 1.6rem;
+    margin-bottom: 25px;
+    font-weight: 600;
+  }
+
+  .sidebar-nav a {
+    color: #e8f5e9;
+    text-decoration: none;
+    padding: 10px 12px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    display: block;
+    transition: background 0.3s ease, transform 0.2s ease;
+  }
+
+  .sidebar-nav a:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateX(5px);
+  }
+
+  .sidebar-nav a.active {
+    background: #1b5e20;
+    font-weight: 600;
+  }
+
+  /* Main Content */
+  .main-content {
+    flex: 1;
+    padding: 40px 60px;
+  }
+
+  .page-title {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    color: #2e7d32;
+    font-weight: 600;
+    border-left: 6px solid #43a047;
+    padding-left: 12px;
+  }
+
+  /* Course Cards */
+  .course-card {
+    background: #ffffff;
+    border-left: 6px solid #4caf50;
+    padding: 20px;
+    border-radius: 14px;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.08);
+    margin-bottom: 20px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
   .course-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+    box-shadow: 0px 6px 14px rgba(0,0,0,0.1);
   }
+
   .course-card h3 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-    color: #1e293b;
+    margin-top: 0;
+    color: #1b5e20;
+    font-size: 1.3rem;
   }
+
   .course-card p {
-    font-size: 0.95rem;
-    color: #475569;
-    margin-bottom: 1rem;
-    flex-grow: 1;
+    color: #555;
+    margin: 8px 0 12px;
   }
+
   .course-card .btn {
     display: inline-block;
-    text-align: center;
-    background: #2563eb;
-    color: white;
-    font-weight: 600;
-    padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
+    padding: 9px 16px;
+    background: #43a047;
+    color: #fff;
+    border-radius: 8px;
     text-decoration: none;
-    transition: background 0.3s ease;
+    font-weight: 500;
+    transition: background 0.3s ease, transform 0.2s ease;
   }
+
   .course-card .btn:hover {
-    background: #1e40af;
+    background: #2e7d32;
+    transform: scale(1.05);
+  }
+
+  /* Empty State */
+  .empty-msg {
+    font-style: italic;
+    color: #777;
+    background: #e8f5e9;
+    border: 1px dashed #81c784;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+  }
+
+  .empty-msg a {
+    color: #2563eb;
+    font-weight: 600;
+    text-decoration: underline;
+    margin-left: 5px;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .dashboard-container {
+      flex-direction: column;
+    }
+    .sidebar {
+      width: 100%;
+      border-radius: 0;
+      flex-direction: row;
+      justify-content: space-around;
+      padding: 10px;
+    }
+    .sidebar-nav a {
+      margin: 5px;
+      padding: 8px 10px;
+    }
+    .main-content {
+      padding: 20px;
+    }
   }
 </style>
-<h2 class="text-2xl font-bold text-center">Available Courses</h2>
-<div class="courses-container">
-  {% for course in courses %}
-  <div class="course-card">
-    <h3>{{ course.name }}</h3>
-    <p>{{ course.description|truncatewords:20 }}</p>
-    <a href="{% url 'course_detail' course.id %}" class="btn">View Details</a>
-  </div>
-  {% empty %}
-  <p class="text-center text-gray-500 col-span-full">No courses available right now.</p>
-  {% endfor %}
+
+<div class="dashboard-container">
+
+  <!-- Sidebar -->
+  <aside id="sidebar" class="sidebar">
+    <h2 class="sidebar-title">📚 Student Panel</h2>
+    <nav class="sidebar-nav">
+      <a href="{% url 'students:dashboard' %}">🏠 Dashboard</a>
+      <a href="{% url 'students:my_courses' %}" class="active">📖 My Courses</a>
+      <a href="{% url 'students:profile' %}">👤 Profile</a>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <h1 class="page-title">📖 My Courses</h1>
+
+    {% if enrollments %}
+      {% for enrollment in enrollments %}
+        <div class="course-card">
+          <h3>{{ enrollment.course.title }}</h3>
+          <p>{{ enrollment.course.description|truncatewords:20 }}</p>
+          <a href="{% url 'courses:course_player' slug=enrollment.course.slug lesson_id=enrollment.course.first_lesson.id %}" 
+             class="btn start-btn">
+             ▶️ Start
+          </a>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p class="empty-msg">
+        🌱 You are not enrolled in any courses yet.  
+        <a href="{% url 'students:courses_list' %}">Browse Available Courses</a>
+      </p>
+    {% endif %}
+
+  </main>
+
 </div>

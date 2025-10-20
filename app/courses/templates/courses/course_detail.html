@@ -143,7 +143,6 @@
     <a href="{% url 'courses:course_list' %}">Courses</a>
   </div>
 </nav>
-
 <div class="container">
     <a href="{% url 'courses:course_list' %}" class="back-link">&larr; Back to Courses</a>
     
@@ -159,24 +158,38 @@
             <h1>{{ course.title }}</h1>
             <p>{{ course.description }}</p>
 
-          <div class="course-footer">
-    <span class="price">₹{{ course.price }}</span>
+            <div class="course-footer">
+                <span class="price">₹{{ course.price }}</span>
 
-    <!-- Buy Course Button -->
-    <a href="{% url 'payments:checkout' course.id %}" class="btn btn-primary">💳 Buy Course</a>
+                <!-- Buy Course Button -->
+                <a href="{% url 'payments:checkout' course.id %}" class="btn btn-primary">💳 Buy Course</a>
 
-    <!-- Start Course Button -->
-    {% if user.is_authenticated %}
-        <a href="{% url 'courses:start_course' course.slug %}" class="btn btn-primary">
-            ▶ Start Course
-        </a>
-    {% else %}
-        <a href="{% url 'login' %}?next={% url 'courses:start_course' course.slug %}" class="btn btn-primary">
-            Login to Start
-        </a>
-    {% endif %}
-</div>
+                <!-- Start Course Button -->
+                {% if user.is_authenticated %}
+                    <a href="{% url 'courses:start_course' course.slug %}" class="btn btn-primary">
+                        ▶ Start Course
+                    </a>
+                {% else %}
+                    <a href="{% url 'login' %}?next={% url 'courses:start_course' course.slug %}" class="btn btn-primary">
+                        Login to Start
+                    </a>
+                {% endif %}
+            </div>
 
+            <!-- Lessons Section -->
+            <div class="course-lessons">
+                <h2>Lessons</h2>
+
+                {% if course.lessons.exists %}
+                    <ul class="lesson-list">
+                        {% for lesson in course.lessons.all %}
+                            <li>{{ lesson.title }}</li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>Coming Soon</p>
+                {% endif %}
+            </div>
 
             <!-- Optional Instructor Info -->
             {% if course.instructor %}
@@ -189,11 +202,10 @@
                     <span>Instructor: {{ course.instructor.name }}</span>
                 </div>
             {% endif %}
-        </div>
-    </div>
-</div>
 
-
+        </div> <!-- course-content -->
+    </div> <!-- course-box -->
+</div> <!-- container -->
 
 </body>
 </html>

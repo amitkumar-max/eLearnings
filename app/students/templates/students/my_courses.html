@@ -169,10 +169,9 @@
         <div class="course-card">
           <h3>{{ enrollment.course.title }}</h3>
           <p>{{ enrollment.course.description|truncatewords:20 }}</p>
-          <a href="{% url 'courses:course_player' slug=enrollment.course.slug lesson_id=enrollment.course.first_lesson.id %}" 
-             class="btn start-btn">
-             ▶️ Start
-          </a>
+      <a href="{% url 'students:start_course' slug=enrollment.course.slug %}" 
+   class="btn start-btn">▶️ Start</a>
+
         </div>
       {% endfor %}
     {% else %}

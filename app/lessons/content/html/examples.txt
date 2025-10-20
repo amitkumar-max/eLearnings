@@ -1,0 +1,14 @@
+Here are some practical HTML examples for beginners:
+
+1. **Creating a simple webpage**
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My First Page</title>
+</head>
+<body>
+  <h1>Welcome to HTML!</h1>
+  <p>This is a paragraph explaining HTML basics.</p>
+</body>
+</html>

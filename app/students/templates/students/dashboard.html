@@ -1,179 +1,222 @@
-<style>
-:root {
-  --primary: #4caf50;          /* Light Green */
-  --primary-dark: #388e3c;     /* Darker Green */
-  --bg-light: #f4fff4;         /* Soft light background */
-  --bg-dark: #1e1e2f;          /* Dark background */
-  --text-dark: #2e2e2e;
-  --text-light: #f5f5f5;
-  font-family: 'Poppins', sans-serif;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Dashboard</title>
 
-body {
-  background: var(--bg-light);
-  color: var(--text-dark);
-  transition: background 0.3s, color 0.3s;
-}
-body.dark-mode { 
-  background: var(--bg-dark); 
-  color: var(--text-light); 
-}
+  <!-- ✅ Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
-/* Sidebar */
-#sidebar {
-  background: linear-gradient(180deg, var(--primary), var(--primary-dark));
-  color: white;
-  font-weight: 500;
-  position: fixed; top: 0; left: 0;
-  height: 100%; width: 16rem;
-  padding-top: 5rem;
-  transform: translateX(-100%);
-  transition: transform 0.3s ease;
-  z-index: 100;
-  border-top-right-radius: 1rem;
-  border-bottom-right-radius: 1rem;
-}
-#sidebar.show { transform: translateX(0); }
-#sidebar a { 
-  display: flex; align-items: center; gap: 0.6rem; 
-  color: white; padding: 0.8rem 1rem; 
-  border-radius: 0.6rem; transition: all 0.3s ease; 
-}
-#sidebar a:hover { 
-  background: rgba(255,255,255,0.2); 
-  transform: translateX(4px); 
-}
-
-/* Header */
-header {
-  position: fixed; top: 0; left: 0; width: 100%;
-  z-index: 200;
-  background: white;
-  border-bottom-left-radius: 0.6rem; border-bottom-right-radius: 0.6rem;
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 0.8rem 1.5rem;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-  transition: background 0.3s;
-}
-body.dark-mode header { background: #2b2b3b; }
-
-/* Main */
-main {
-  margin-left: 16rem;
-  padding: 6rem 2rem 2rem 2rem;
-  transition: margin-left 0.3s ease;
-}
-body:not(.sidebar-open) main { margin-left: 0; }
-
-@media (max-width:768px) { main { margin-left:0; padding:6rem 1rem 2rem 1rem; } }
-
-/* Cards & Grids */
-.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 1.5rem; margin-bottom: 2rem; }
-.stat-card { background:white; border-radius:1rem; padding:1.5rem; text-align:center; box-shadow:0 4px 15px rgba(0,0,0,0.05); transition: transform 0.3s ease; }
-.stat-card:hover { transform: scale(1.04); box-shadow:0 8px 25px rgba(0,0,0,0.1); }
-.stat-value { font-size:1.6rem; font-weight:bold; color:var(--primary-dark); }
-
-.dashboard-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.5rem; }
-.dashboard-card { background:white; padding:1.5rem; border-radius:1rem; border-top:4px solid var(--primary-dark); box-shadow:0 6px 15px rgba(0,0,0,0.08); text-decoration:none; color:var(--text-dark); transition: transform 0.3s, box-shadow 0.3s; }
-.dashboard-card:hover { transform:translateY(-6px); box-shadow:0 12px 25px rgba(0,0,0,0.12); }
-
-.extra-section { background:white; border-radius:1rem; padding:1.5rem; margin-top:2rem; box-shadow:0 4px 15px rgba(0,0,0,0.05); }
-
-/* Dark Mode Cards */
-body.dark-mode .stat-card, 
-body.dark-mode .dashboard-card, 
-body.dark-mode .extra-section { 
-  background:#2b2b3b; 
-  color:var(--text-light); 
-  box-shadow:0 6px 20px rgba(0,0,0,0.5); 
-}
-body.dark-mode .dashboard-card p, 
-body.dark-mode .extra-section p { color:#cbd5e1; }
-
-</style>
-
-<div class="flex">
-  <!-- Sidebar -->
-  <aside id="sidebar">
-    <nav class="sidebar-nav">
-      <a href="{% url 'students:dashboard' %}">🏠 Dashboard</a>
-      <a href="{% url 'students:my_courses' %}">📖 My Courses</a>
-      <a href="{% url 'students:assignments' %}">📝 Assignments</a>
-      <a href="{% url 'students:progress' %}">📊 Progress</a>
-      <a href="{% url 'students:discussions' %}">💬 Discussions</a>
-      <a href="{% url 'students:settings' %}">⚙️ Settings</a>
-      <!-- Logout button -->
-      <a href="{% url 'users:logout' %}" 
-         style="color:white; background-color:red; display:block; padding:8px 12px; border-radius:5px; margin-top:10px; text-align:center; text-decoration:none;">
-         🔴 Logout
-      </a>
-    </nav>
-  </aside>
-
-  <!-- Main Content -->
-  <main>
-    <!-- Navbar -->
-    <header class="navbar">
-      <div class="navbar-left"> <h1>Student Dashboard</h1>
-        <button id="sidebarToggle" class="btn">☰</button>
-      </div>
-      <div class="navbar-right">
-        <button onclick="toggleTheme()" class="btn">🌗</button>
-        <img src="" alt="Student Avatar" class="avatar">
-      </div>
-    </header>
-
-    <!-- Stats & Dashboard Cards -->
-    <div class="stats-grid mt-6">
-      <div class="stat-card"><h3>📚 Enrolled Courses</h3><p class="stat-value">5</p></div>
-      <div class="stat-card"><h3>📝 Pending Assignments</h3><p class="stat-value">3</p></div>
-      <div class="stat-card"><h3>📊 Average Score</h3><p class="stat-value">88%</p></div>
-      <div class="stat-card"><h3>💬 Discussions</h3><p class="stat-value">12</p></div>
-    </div>
-
-    <div class="dashboard-grid mt-6">
-      <a href="#" class="dashboard-card"><h3>📖 My Courses</h3><p>Access lessons & resources.</p></a>
-      <a href="#" class="dashboard-card"><h3>📝 Assignments</h3><p>Submit or review tasks.</p></a>
-      <a href="#" class="dashboard-card"><h3>📊 Progress</h3><p>Track your grades & completion.</p></a>
-      <a href="#" class="dashboard-card"><h3>💬 Discussions</h3><p>Join class forums & Q&A.</p></a>
-      <a href="#" class="dashboard-card"><h3>🔔 Notifications</h3><p>Stay updated on deadlines.</p></a>
-    </div>
-
-    <!-- Extra Sections -->
-    <div class="extra-section mt-6"><h2>📌 Upcoming Classes</h2><p>2 live classes this week.</p></div>
-    <div class="extra-section mt-4"><h2>🕒 Recent Activity</h2><p>Last login: 3 hours ago. 2 assignments submitted recently.</p></div>
-    <div class="extra-section mt-4"><h2>🏆 Achievements</h2><p>Completed "JavaScript Basics" course.</p></div>
-    <div class="extra-section mt-4"><h2>💡 Community Updates</h2><p>New post in "Web Development" discussion.</p></div>
-
-  </main>
-</div>
-
-<script>
-// Sidebar toggle
-const sidebarToggle = document.getElementById("sidebarToggle");
-const sidebar = document.getElementById("sidebar");
-const main = document.querySelector("main");
-const header = document.querySelector("header");
-
-sidebarToggle.addEventListener("click", () => {
-    sidebar.classList.toggle("show");
-    document.body.classList.toggle("sidebar-open");
-
-    if(sidebar.classList.contains("show")) {
-        main.style.marginLeft = "16rem";
-        header.style.left = "16rem";
-    } else {
-        main.style.marginLeft = "0";
-        header.style.left = "0";
+  <style>
+    :root {
+      --primary: #22c55e;
+      --primary-dark: #15803d;
+      --bg-dark: #1e1e2f;
+      --bg-light: #f9fff9;
+      --text-dark: #1a1a1a;
+      --text-light: #f5f5f5;
+      font-family: 'Poppins', sans-serif;
     }
-});
 
-// Dark Mode Toggle
-function toggleTheme() {
-    document.body.classList.toggle("dark-mode");
-    localStorage.setItem("theme", document.body.classList.contains("dark-mode") ? "dark" : "light");
-}
+    body {
+      background: var(--bg-light);
+      color: var(--text-dark);
+      transition: background 0.3s, color 0.3s;
+    }
 
-// Load saved theme
-if(localStorage.getItem("theme") === "dark") document.body.classList.add("dark-mode");
-</script>
+    body.dark-mode {
+      background: var(--bg-dark);
+      color: var(--text-light);
+    }
+
+    /* Sidebar */
+    #sidebar {
+      background: linear-gradient(180deg, var(--primary), var(--primary-dark));
+      color: white;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 15rem;
+      padding-top: 5rem;
+      transform: translateX(0);
+      transition: transform 0.3s ease;
+      z-index: 100;
+      border-top-right-radius: 1rem;
+      border-bottom-right-radius: 1rem;
+    }
+
+    #sidebar a {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      color: white;
+      padding: 0.8rem 1rem;
+      border-radius: 0.6rem;
+      transition: all 0.3s ease;
+    }
+
+    #sidebar a:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateX(4px);
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 200;
+      background: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.8rem 1.5rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      transition: background 0.3s;
+    }
+
+    body.dark-mode header {
+      background: #2b2b3b;
+    }
+
+    main {
+      margin-left: 15rem;
+      padding: 6rem 2rem 2rem 2rem;
+      transition: margin-left 0.3s ease;
+      min-height: 100vh;
+    }
+
+    @media (max-width: 768px) {
+      main {
+        margin-left: 0;
+        padding: 6rem 1rem 2rem 1rem;
+      }
+      #sidebar {
+        transform: translateX(-100%);
+      }
+      #sidebar.show {
+        transform: translateX(0);
+      }
+    }
+
+    /* Cards */
+    .card {
+      background: white;
+      color: var(--text-dark);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    body.dark-mode .card {
+      background: #2b2b3b;
+      color: #e2e8f0;
+    }
+
+    /* Logout Button */
+    .logout-btn {
+      background-color: #ef4444;
+      text-align: center;
+      display: block;
+      padding: 0.7rem;
+      border-radius: 0.5rem;
+      margin-top: 1rem;
+      font-weight: 600;
+    }
+
+    .logout-btn:hover {
+      background-color: #dc2626;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="flex">
+<!-- ✅ Sidebar -->
+<aside id="sidebar" class="fixed left-0 top-0 h-full w-56 bg-gradient-to-b from-green-400 to-green-700 text-white p-4 shadow-xl">
+  <nav class="sidebar-nav flex flex-col space-y-2">
+    <a href="{% url 'students:dashboard' %}" class="hover:bg-green-500 rounded-md py-2 px-3 transition">🏠 Dashboard</a>
+    <a href="{% url 'students:my_courses' %}" class="hover:bg-green-500 rounded-md py-2 px-3 transition">📖 My Courses</a>
+    <a href="{% url 'students:assignments' %}" class="hover:bg-green-500 rounded-md py-2 px-3 transition">📝 Assignments</a>
+    <a href="{% url 'students:progress' %}" class="hover:bg-green-500 rounded-md py-2 px-3 transition">📊 Progress</a>
+    <a href="{% url 'students:discussions' %}" class="hover:bg-green-500 rounded-md py-2 px-3 transition">💬 Discussions</a>
+    <a href="{% url 'students:notifications' %}" class="hover:bg-green-500 rounded-md py-2 px-3 transition">🔔 Notifications</a>
+    <a href="#" class="hover:bg-green-500 rounded-md py-2 px-3 transition">📁 Study Resources</a>
+    <a  href="#" class="hover:bg-green-500 rounded-md py-2 px-3 transition">🗓️ Class Schedule</a>
+    <a  href="#" class="hover:bg-green-500 rounded-md py-2 px-3 transition">🏆 Leaderboard</a>
+    <a  href="#" class="hover:bg-green-500 rounded-md py-2 px-3 transition">💬 Feedback</a>
+    <a href="{% url 'students:settings' %}" class="hover:bg-green-500 rounded-md py-2 px-3 transition">⚙️ Settings</a>
+    <a href="{% url 'users:logout' %}"
+       class="block bg-red-600 text-white rounded-md text-center py-2 mt-3 hover:bg-red-700 transition">
+       🔴 Logout
+    </a>
+  </nav>
+</aside>
+
+    <!-- ✅ Main Content -->
+    <main>
+      <header>
+        <div class="flex items-center gap-3">
+          <button id="sidebarToggle" class="text-2xl md:hidden">☰</button>
+          <h1 class="text-lg font-semibold">Student Dashboard</h1>
+        </div>
+        <div class="flex items-center gap-3">
+          <button onclick="toggleTheme()" class="text-xl">🌗</button>
+          <img src="https://placehold.co/40x40" class="w-10 h-10 rounded-full border border-gray-300" />
+        </div>
+      </header>
+
+      <!-- ✅ Stats -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+        <div class="card"><h3>📚 Courses</h3><p class="text-2xl font-bold text-green-700">5</p></div>
+        <div class="card"><h3>📝 Assignments</h3><p class="text-2xl font-bold text-green-700">3</p></div>
+        <div class="card"><h3>📊 Avg. Score</h3><p class="text-2xl font-bold text-green-700">88%</p></div>
+        <div class="card"><h3>💬 Discussions</h3><p class="text-2xl font-bold text-green-700">12</p></div>
+      </div>
+
+      <!-- ✅ Dashboard Cards -->
+      <div class="grid md:grid-cols-3 gap-4 mt-6">
+        <div class="card"><h3>📖 My Courses</h3><p>Access lessons & materials</p></div>
+        <div class="card"><h3>🕒 Upcoming Classes</h3><p>2 live sessions this week</p></div>
+        <div class="card"><h3>🏆 Achievements</h3><p>View your earned badges</p></div>
+      </div>
+
+      <!-- ✅ Extra Section -->
+      <div class="card mt-6">
+        <h2 class="text-lg font-semibold mb-2">💡 Community Updates</h2>
+        <p>New post in <span class="text-green-700 font-medium">Web Development</span> discussion.</p>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const sidebar = document.getElementById('sidebar');
+    const toggle = document.getElementById('sidebarToggle');
+
+    toggle.addEventListener('click', () => {
+      sidebar.classList.toggle('show');
+    });
+
+    function toggleTheme() {
+      document.body.classList.toggle('dark-mode');
+      localStorage.setItem(
+        'theme',
+        document.body.classList.contains('dark-mode') ? 'dark' : 'light'
+      );
+    }
+
+    if (localStorage.getItem('theme') === 'dark') {
+      document.body.classList.add('dark-mode');
+    }
+  </script>
+</body>
+</html>

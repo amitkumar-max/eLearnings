@@ -1,0 +1,5 @@
+HTML pages are built using a combination of tags, attributes, and content. The basic structure of an HTML document starts with a `<!DOCTYPE html>` declaration, followed by the `<html>` element that wraps the entire content. Inside `<html>`, the `<head>` section contains metadata like the page title, character set, and links to external resources such as CSS or JavaScript. The `<body>` section contains the visible content of the page.
+
+Common HTML elements include headings (`<h1>` to `<h6>`), paragraphs (`<p>`), lists (`<ul>`, `<ol>`, `<li>`), links (`<a>`), images (`<img>`), tables (`<table>`, `<tr>`, `<td>`), and forms (`<form>`, `<input>`). Elements can be nested, meaning one element can be placed inside another, allowing complex page structures. Attributes such as `id`, `class`, and `style` help identify, style, and control the behavior of elements. 
+
+Semantic HTML is important because it conveys meaning to browsers and assistive technologies, improving accessibility. Examples include `<header>`, `<footer>`, `<article>`, and `<section>`. By structuring pages semantically, you make your content more understandable for both users and search engines.

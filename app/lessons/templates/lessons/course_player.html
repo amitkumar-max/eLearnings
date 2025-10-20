@@ -77,5 +77,47 @@
 
 
 
+{% block content %}
+<div class="container course-player-page">
+
+    <a href="{% url 'courses:start_course' course.slug %}" class="back-link">
+        ← Back to {{ course.title }} Lessons
+    </a>
+
+    <div class="lesson-header">
+        <h1>{{ current_lesson.title }}</h1>
+        <p>Lesson {{ forloop.counter }} of {{ lessons.count }}</p>
+
+        <div class="progress-bar">
+            <div class="progress" style="width: {{ course_progress_percent|default:0 }}%;"></div>
+        </div>
+        <p>{{ course_progress_percent }}% Completed</p>
+    </div>
+
+    <div class="lesson-content">
+        {% if current_lesson.content_text %}
+            <p>{{ current_lesson.content_text|linebreaks }}</p>
+        {% elif current_lesson.content_file %}
+            {% with current_lesson.content_file.url as file_url %}
+                <a href="{{ file_url }}" target="_blank">Open Lesson File</a>
+            {% endwith %}
+        {% else %}
+            <p>Lesson content is not available yet.</p>
+        {% endif %}
+    </div>
+
+    <div class="lesson-navigation">
+        {% for lesson in lessons %}
+            <a href="{% url 'courses:course_player' course.slug lesson.id %}"
+               class="btn {% if lesson.id == current_lesson.id %}btn-primary{% else %}btn-outline-secondary{% endif %}">
+               {{ lesson.title }}
+            </a>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}
+
+
 </body>
 </html>
