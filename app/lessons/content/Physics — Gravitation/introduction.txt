@@ -1,0 +1,8 @@
+2. Physics — Gravitation
+
+Title: Gravitation
+Course: Physics
+Slug: physics-gravitation-intro
+
+Lesson Content:
+Gravitation is a fundamental force of nature that governs the attraction between objects with mass. It is responsible for the motion of celestial bodies, the formation of planets and stars, tides, and the behavior of objects on Earth. The study of gravitation began with observations of falling objects and planetary motion, culminating in Isaac Newton’s law of universal gravitation, which states that every particle attracts every other particle with a force proportional to the product of their masses and inversely proportional to the square of the distance between them. Gravitation explains phenomena such as orbital motion, free fall, weight, and acceleration due to gravity. Albert Einstein’s general theory of relativity further refined our understanding by describing gravity as the curvature of spacetime caused by mass and energy, providing a framework for predicting gravitational effects near massive bodies, black holes, and the expanding universe. Applications of gravitation are seen in astrophysics, space exploration, satellite technology, and geophysics. Studying gravitation not only helps comprehend planetary motion, tides, and satellite dynamics but also connects classical physics with modern cosmology, bridging the gap between everyday experiences and the fundamental laws governing the cosmos.

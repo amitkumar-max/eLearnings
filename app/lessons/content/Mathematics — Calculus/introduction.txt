@@ -1,0 +1,8 @@
+2. Mathematics — Calculus
+
+Title: Calculus
+Course: Mathematics
+Slug: mathematics-calculus-intro
+
+Lesson Content:
+Calculus is the branch of mathematics that studies change, motion, and accumulation, providing tools to analyze continuous functions and dynamic systems. It is divided into two major areas: differential calculus, which focuses on rates of change and slopes of curves; and integral calculus, which deals with accumulation, areas under curves, and volumes. Fundamental concepts include limits, continuity, derivatives, integrals, series, and multivariable functions. Calculus enables the modeling and solution of problems in physics, engineering, economics, biology, and computer science. For instance, derivatives allow understanding of velocity, acceleration, and optimization, while integrals measure quantities such as area, volume, and total accumulation over time. Techniques such as chain rule, product rule, integration by parts, and multiple integrals extend the power of calculus in complex applications. Mastery of calculus not only equips students with problem-solving and analytical skills but also forms the backbone of mathematical modeling, scientific computation, and advanced studies in mathematics and applied sciences.

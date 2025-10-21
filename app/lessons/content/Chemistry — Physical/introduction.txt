@@ -1,0 +1,8 @@
+6. Chemistry — Physical
+
+Title: Physical Chemistry
+Course: Chemistry
+Slug: chemistry-physical-intro
+
+Lesson Content:
+Physical chemistry is the branch of chemistry that combines principles of physics and chemistry to study the behavior of matter, energy changes, and the dynamics of chemical systems. It seeks to explain macroscopic observations in terms of microscopic phenomena, integrating concepts such as thermodynamics, kinetics, quantum mechanics, and spectroscopy. Thermodynamics studies energy transformations and the laws governing spontaneity, equilibrium, and heat transfer. Chemical kinetics explores reaction rates and mechanisms, providing insight into how and why reactions occur over time. Quantum chemistry applies quantum mechanics to describe electronic structures, molecular orbitals, and chemical bonding. Electrochemistry examines redox processes, electrode potentials, and applications in batteries and fuel cells. Surface chemistry investigates adsorption, catalysis, and colloidal behavior. Physical chemistry provides the theoretical foundation for analytical chemistry, material science, nanotechnology, and chemical engineering. By connecting molecular theory to practical applications, it allows chemists to predict reaction outcomes, design efficient processes, and develop innovative technologies, making it an essential discipline bridging fundamental science and applied chemistry.

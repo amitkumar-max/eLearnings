@@ -1,0 +1,8 @@
+1. Chemistry — Basic Concepts
+
+Title: Basic Concepts of Chemistry
+Course: Chemistry
+Slug: chemistry-basics-concepts-intro
+
+Lesson Content:
+Chemistry is the branch of science that studies matter, its properties, composition, structure, and the changes it undergoes during chemical reactions. The foundation of chemistry lies in understanding fundamental concepts such as atoms, molecules, elements, compounds, and the laws that govern their behavior. Atomic theory, first proposed by John Dalton, forms the basis of chemical understanding, describing atoms as indivisible particles that combine in definite proportions to form compounds. Concepts such as the mole, molar mass, and Avogadro’s number allow chemists to quantify substances and predict reaction outcomes. The periodic table, a systematic arrangement of elements based on atomic number, reveals periodicity in physical and chemical properties and provides a framework for predicting reactivity, bonding patterns, and electron configurations. Chemical bonding, including ionic, covalent, and metallic bonds, explains the formation and stability of compounds, while stoichiometry provides the mathematical relationships between reactants and products in chemical reactions. Thermodynamics and kinetics further explain the energy changes and rates of reactions, providing insight into spontaneity and equilibrium. Mastering these basic concepts is crucial for understanding advanced areas such as organic, inorganic, and physical chemistry, as well as for applications in industry, medicine, environmental science, and research. Chemistry connects the microscopic world of atoms and molecules to the macroscopic world we observe, allowing humans to manipulate matter for practical and technological purposes.

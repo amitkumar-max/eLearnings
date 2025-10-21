@@ -1,0 +1,8 @@
+5. Physics — Optics
+
+Title: Optics
+Course: Physics
+Slug: physics-optics-intro
+
+Lesson Content:
+Optics is the branch of physics that studies the behavior and properties of light, including reflection, refraction, diffraction, interference, and polarization. It encompasses the study of both visible light and other forms of electromagnetic radiation. Classical optics, based on the wave theory of light, explains phenomena such as the formation of images by lenses and mirrors, the dispersion of light through prisms, and the behavior of light in optical instruments like microscopes, telescopes, and cameras. Modern optics, incorporating quantum theory, examines the particle nature of light, photons, and interactions with matter at the microscopic level. Optics has practical applications in communication, medicine, engineering, photography, laser technology, fiber optics, and vision correction. Understanding optical principles is essential for designing lenses, optical instruments, and advanced technologies such as lasers, holography, and optical sensors. Optics bridges fundamental physics, mathematics, and technological innovation, providing insight into both natural and engineered phenomena of light, enabling advancements in science, medicine, and industry.

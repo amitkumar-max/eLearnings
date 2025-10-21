@@ -1,14 +1,55 @@
-Welcome to Java Programming Basics!
+Title: Introduction
+Course: Java Programming Basics
+Slug: java-programming-basics-intro
 
-Java is a versatile, object-oriented programming language that is widely used for building applications ranging from desktop software to web and mobile apps.
+Lesson content:
 
-In this lesson, we will cover:
+Java is a high-level, class-based, object-oriented programming language that is designed to have as few implementation dependencies as possible. It was originally developed by Sun Microsystems in 1995 and has since become one of the most popular programming languages in the world. Java enables developers to write code once and run it anywhere (WORA), meaning compiled Java code can run on any platform that supports Java without the need for recompilation.
 
-1. **Introduction to Java**: Learn what Java is and why it's popular.
-2. **Setting Up the Environment**: Install JDK and set up your first project.
-3. **Basic Syntax**: Understand variables, data types, operators, and control statements.
-4. **Hello World Program**: Write and run your first Java program.
+Java is widely used in web development, mobile applications (especially Android), enterprise software, scientific applications, and large systems development. Its robustness, security features, and simplicity have made it a top choice for software engineers globally.
 
-By the end of this lesson, you will have a solid understanding of Java fundamentals and be ready to dive deeper into more complex concepts.
+---
 
-Happy Learning!
+### 1. Key Features of Java
+
+1. **Object-Oriented**: Java uses objects and classes to organize code. This approach helps in modularity, code reuse, and easier maintenance.
+2. **Platform Independent**: Java programs are compiled into bytecode that runs on the Java Virtual Machine (JVM), making it platform-independent.
+3. **Simple and Familiar Syntax**: Java syntax is similar to C and C++, making it easier for programmers to learn and transition.
+4. **Secure**: Java provides a secure environment for executing applications through its runtime environment and security APIs.
+5. **Robust and Reliable**: Java has strong memory management, exception handling, and type checking mechanisms.
+6. **Multithreaded**: Java supports concurrent execution of two or more threads, allowing better CPU utilization and performance.
+
+---
+
+### 2. Java Architecture Overview
+
+Java architecture consists of three main components:
+
+1. **Java Development Kit (JDK)**: A software development kit that includes tools for developing Java programs such as compiler, debugger, and libraries.
+2. **Java Runtime Environment (JRE)**: Provides libraries and components required to run Java applications.
+3. **Java Virtual Machine (JVM)**: Executes Java bytecode and ensures platform independence.
+
+The combination of these components allows Java to achieve the “write once, run anywhere” capability.
+
+---
+
+### 3. Java Programming Basics
+
+**Variables and Data Types:** Java supports primitive data types like `int`, `float`, `double`, `char`, `boolean`, and reference types like objects and arrays. Variables must be declared with a type before use.
+
+**Operators:** Java provides arithmetic (`+`, `-`, `*`, `/`), relational (`>`, `<`, `==`), logical (`&&`, `||`, `!`), and assignment operators (`=`).
+
+**Control Structures:** Java supports conditional statements like `if`, `else if`, `else`, `switch`, and loops like `for`, `while`, `do-while`.
+
+**Methods:** Methods in Java define reusable code blocks. They can take parameters and return values. Methods enhance modularity and readability.
+
+**Classes and Objects:** Every Java program consists of classes. Objects are instances of classes that encapsulate data and behavior. Example:
+```java
+class Car {
+    String model;
+    int year;
+
+    void displayInfo() {
+        System.out.println("Model: " + model + ", Year: " + year);
+    }
+}
