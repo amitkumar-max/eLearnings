@@ -26,7 +26,7 @@
 
 
 -- SELECT * FROM courses_course;
--- SELECT * FROM lessons_lesson;
+SELECT * FROM lessons_lesson;
 
 -- INSERT INTO courses_course 
 -- (created_at, updated_at, teacher_id, description, image, is_published, slug, title) 
@@ -184,6 +184,15 @@
 -- Physics — Magnetism
 -- Physics — Optics
 -- Physics — Thermodynamics
+
+-- Chemistry — Basics Concepts
+-- Chemistry — Biomolecules    
+-- Chemistry — Inorganic
+-- Chemistry — Metallurgy
+-- Chemistry — Organic
+-- Chemistry — Physical
+
+
 
 
 
