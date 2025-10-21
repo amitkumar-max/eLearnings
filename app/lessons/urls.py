@@ -12,7 +12,7 @@ urlpatterns = [
     path("<int:lesson_id>/quiz/", views.lesson_quiz, name="lesson_quiz"),
     # lesson detail
     path("content/<slug:course_slug>/<str:lesson_filename>/", views.lesson_detail, name="lesson_detail"),
-
+path('<slug:course_slug>/<slug:lesson_slug>/', views.start_lesson, name='start_lesson'),
     # path("<slug:course_slug>/<str:lesson_filename>/", views.lesson_detail, name="lesson_detail"),
     # lesson progress
     path("<slug:course_slug>/<str:lesson_filename>/progress/", views.lesson_progress, name="lesson_progress"),

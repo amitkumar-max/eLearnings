@@ -36,6 +36,26 @@ def start_course(request, slug):
     )
 
 
+def start_lesson(request, course_slug, lesson_slug):
+    course = get_object_or_404(Course, slug=course_slug)
+    lesson = get_object_or_404(Lesson, slug=lesson_slug, course=course)
+
+    # Path to txt file with folder structure
+    content_file = os.path.join(
+        settings.BASE_DIR, 'app', 'lessons', 'content', course_slug, f'{lesson_slug}.txt'
+    )
+    
+    try:
+        with open(content_file, 'r', encoding='utf-8') as f:
+            lesson_text = f.read()
+    except FileNotFoundError:
+        lesson_text = "Lesson content is not available yet."
+
+    return render(request, 'lessons/start_lesson.html', {
+        'course': course,
+        'lesson': lesson,
+        'lesson_text': lesson_text
+    })
 # --------------------------
 # FILE CONTENT HANDLER
 # --------------------------

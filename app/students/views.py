@@ -185,8 +185,18 @@ def change_password(request):
     else:
         form = PasswordChangeForm(request.user)
     return render(request, 'students/change_password.html', {'form': form})
-
 @login_required
 def start_course(request, slug):
+    """
+    Display the start_course page with all lessons of a course.
+    """
+    if not slug or slug == "None":
+        return redirect('students:courses_list')  # graceful fallback
+
     course = get_object_or_404(Course, slug=slug)
-    return render(request, "courses/start_course.html", {"course": course})
+    lessons = Lesson.objects.filter(course=course).order_by('id')
+    
+    return render(request, 'students/start_course.html', {
+        'course': course,
+        'lessons': lessons,
+    })

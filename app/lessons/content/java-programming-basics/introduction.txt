@@ -1,0 +1,14 @@
+Welcome to Java Programming Basics!
+
+Java is a versatile, object-oriented programming language that is widely used for building applications ranging from desktop software to web and mobile apps.
+
+In this lesson, we will cover:
+
+1. **Introduction to Java**: Learn what Java is and why it's popular.
+2. **Setting Up the Environment**: Install JDK and set up your first project.
+3. **Basic Syntax**: Understand variables, data types, operators, and control statements.
+4. **Hello World Program**: Write and run your first Java program.
+
+By the end of this lesson, you will have a solid understanding of Java fundamentals and be ready to dive deeper into more complex concepts.
+
+Happy Learning!
