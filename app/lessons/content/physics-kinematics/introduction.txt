@@ -1,0 +1,22 @@
+Physics Kinematics — Introduction
+
+Kinematics is the branch of mechanics that describes the motion of objects without considering the forces causing the motion. It focuses on parameters like displacement, velocity, and acceleration.
+
+Key Concepts:
+1. Scalars vs Vectors:
+   - Scalars: magnitude only (e.g., speed, distance, time)
+   - Vectors: magnitude + direction (e.g., displacement, velocity, acceleration)
+
+2. Position and Displacement:
+   - Position: location of a particle relative to origin.
+   - Displacement: change in position (vector quantity).
+
+3. Speed and Velocity:
+   - Speed = distance / time (scalar)
+   - Velocity = displacement / time (vector)
+
+4. Acceleration:
+   - Rate of change of velocity with respect to time.
+   - Uniform and non-uniform acceleration.
+
+This course will cover motion in 1D and 2D, equations of motion, graphical analysis, and application of kinematic principles in solving JEE problems.

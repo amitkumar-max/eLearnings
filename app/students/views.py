@@ -9,23 +9,33 @@ from django.contrib import messages
 from app.students.models import StudentProfile, Enrollment, AssignmentSubmission
 from app.courses.models import Course, Lesson, Exam, CourseAssignment
 from app.notifications.models import Notification
-
 # ---------------- Dashboard ----------------
 @login_required
 def dashboard(request):
+    # ✅ Ensure student profile exists
     student, _ = StudentProfile.objects.get_or_create(user=request.user)
+    
+    # ✅ Fetch enrollments and related courses
     enrollments = Enrollment.objects.filter(student=student)
     courses = [enroll.course for enroll in enrollments]
 
+    # ✅ Fetch recent notifications
+    notifications = student.notifications.order_by('-created_at')[:10]
+
+    # ✅ Build context
     context = {
         "student": student,
         "total_courses": len(courses),
-        "completed_lessons": student.completed_lessons.count(),
-        "pending_assignments": student.pending_assignments.count(),
-        "overall_progress": student.progress_percentage(),
+        "completed_lessons": student.completed_lessons.count() if hasattr(student, "completed_lessons") else 0,
+        "pending_assignments": student.pending_assignments.count() if hasattr(student, "pending_assignments") else 0,
+        "overall_progress": student.progress_percentage() if hasattr(student, "progress_percentage") else 0,
         "courses": courses,
+        "notifications": notifications,
     }
+
     return render(request, "students/dashboard.html", context)
+
+
 
 # ---------------- Courses ----------------
 @login_required
@@ -82,33 +92,46 @@ def enrolled_courses(request):
 
 #     return redirect("students:dashboard")
 
-# views.py
+# @login_required
+# def enroll_course(request, slug):
+#     if request.method == "POST":
+#         course = get_object_or_404(Course, slug=slug)
+#         student, _ = StudentProfile.objects.get_or_create(user=request.user)
+#         enrollment, created = Enrollment.objects.get_or_create(student=student, course=course)
+        
+#         if created:
+#             return JsonResponse({
+#                 "status": "ok",
+#                 "message": f"You have successfully enrolled in {course.title}!"
+#             })
+#         else:
+#             return JsonResponse({
+#                 "status": "exists",
+#                 "message": f"You are already enrolled in {course.title}."
+#             })
+#     else:
+#         return JsonResponse({"status": "error", "message": "Invalid request."})
 
-@login_required
-def enroll_course(request, course_id):
+
+
+def enroll_course(request, slug):
+    course = get_object_or_404(Course, slug=slug)
+
+    if not request.user.is_authenticated:
+        return JsonResponse({"status": "not_logged_in"})
+
     student, _ = StudentProfile.objects.get_or_create(user=request.user)
-    course = get_object_or_404(Course, id=course_id)
-
     enrollment, created = Enrollment.objects.get_or_create(student=student, course=course)
 
+    # Add notification on first enrollment
     if created:
-        # Notification create
         Notification.objects.create(
-            user=request.user,
-            course=course,
-            title="Enrollment Successful",
-            message=f"You have successfully enrolled in {course.title}!",
-            notification_type="SUCCESS"
+            student=student,
+            message=f"You have successfully enrolled in {course.title}!"
         )
-        messages.success(request, f"You are now enrolled in {course.title}.")
+        return JsonResponse({"status": "success", "course": course.title})
     else:
-        messages.info(request, f"You are already enrolled in {course.title}.")
-
-    # Redirect back to the course detail page instead of dashboard
-    return redirect('course_detail', id=course.id)
-
-
-
+        return JsonResponse({"status": "enrolled", "course": course.title})
 
 # ---------------- Assignments ----------------
 @login_required

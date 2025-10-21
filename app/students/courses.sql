@@ -65,4 +65,6 @@
 
 
 
-SELECT * FROM courses_course  ;
+-- SELECT * FROM courses_course  ;
+
+SELECT * FROM courses_lesson  ;

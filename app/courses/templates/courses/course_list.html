@@ -1,61 +1,69 @@
 {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses</title>
 
-<!-- Styles -->
-<style>
-.course-actions {
-    display: flex;
-    gap: 10px;
-    margin-top: 15px;
-}
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-.btn.buy, .btn.start {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 6px;
-    text-decoration: none;
-    font-weight: bold;
-}
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-.btn:hover {
-    opacity: 0.9;
-}
+    <style>
+        .courses-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .course-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            background: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.2s;
+        }
+        .course-card:hover { transform: translateY(-5px); }
+        .course-info { padding: 15px; }
+        .btn.enroll-btn {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            margin: 10px 0;
+        }
+        .btn.enroll-btn:hover { opacity: 0.9; cursor: pointer; }
+    </style>
+</head>
+<body>
 
-.courses-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-}
-
-.course-card {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    width: 300px;
-    overflow: hidden;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.course-info {
-    padding: 15px;
-    background: #fff;
-}
-</style>
-
-<!-- Courses Grid -->
-<div class="courses-container">
-    {% for course in courses %}
-    <div class="course-card">
-        <div class="course-info">
-            <h3>{{ course.title }}</h3>
-            <p>{{ course.description|truncatewords:25 }}</p>
-            <a href="javascript:void(0);" class="btn start enroll-btn" 
-               data-slug="{{ course.slug }}" data-title="{{ course.title }}">
-               Enroll Now
-            </a>
+<div class="container my-4">
+    <div class="courses-container" id="course-data" 
+         data-csrf="{{ csrf_token }}" 
+         data-authenticated="{{ user.is_authenticated|yesno:'true,false' }}">
+        {% for course in courses %}
+        <div class="course-card">
+            <div class="course-info">
+                <h3>{{ course.title }}</h3>
+                <p>{{ course.description|truncatewords:25 }}</p>
+                <a class="btn enroll-btn" data-slug="{{ course.slug }}" data-title="{{ course.title }}">
+                    Enroll Now
+                </a>
+            </div>
         </div>
+        {% endfor %}
     </div>
-    {% endfor %}
 </div>
 
 <!-- Bootstrap Modal -->
@@ -75,54 +83,73 @@
   </div>
 </div>
 
-<div id="course-data" 
-     data-csrf="{{ csrf_token }}" 
-     data-authenticated="{{ user.is_authenticated|yesno:'true,false' }}">
-</div>
-
-<!-- Scripts -->
+<!-- JS -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
 <script>
-$(function(){
+$(document).ready(function(){
     const container = $('#course-data');
     const csrftoken = container.data('csrf');
     const isAuthenticated = container.data('authenticated') === 'true';
+    const modalEl = document.getElementById('enrollModal');
+    const modal = new bootstrap.Modal(modalEl);
+    let selectedSlug = '';
 
+    // Open modal on Enroll click
     $('.enroll-btn').click(function(){
-        const slug = $(this).data('slug');
-        const title = $(this).data('title');
-
-        if(isAuthenticated){
-            $('#modal-body-text').text(`Do you want to enroll this "${title}" course?`);
-            const modal = new bootstrap.Modal(document.getElementById('enrollModal'));
-            modal.show();
-
-            $('#confirm-enroll-btn').off('click').on('click', function(){
-                $.ajax({
-                    url: "{% url 'students:enroll_course' %}",
-                    type: 'POST',
-                    headers: {'X-CSRFToken': csrftoken},
-                    data: { slug: slug },
-                    success: function(response){
-                        if(response.status=='ok'){
-                            modal.hide();
-                            alert('Course enrolled successfully!');
-                            window.location.href = "{% url 'students:dashboard' %}";
-                        } else {
-                            alert(response.message);
-                        }
-                    },
-                    error: function(){
-                        alert('Something went wrong. Please try again.');
-                    }
-                });
-            });
-        } else {
-            window.location.href = "{% url 'login' %}?next=" + window.location.pathname;
+        if(!isAuthenticated){
+            window.location.href = "{% url 'users:login' %}?next=" + window.location.pathname;
+            return;
         }
+
+        selectedSlug = $(this).data('slug');
+        const title = $(this).data('title');
+        $('#modal-body-text').text(`Do you want to enroll in "${title}"?`);
+        modal.show();
+    });
+
+    // Confirm enrollment
+    $('#confirm-enroll-btn').off('click').on('click', function(){
+        if(!selectedSlug) return;
+
+        $.ajax({
+            url: `/students/enroll_course/${selectedSlug}/`,
+            type: 'POST',
+            headers: {'X-CSRFToken': csrftoken},
+            success: function(response){
+                console.log("✅ AJAX Response:", response);
+                modal.hide();
+                if(response.status === 'ok' || response.status === 'success'){
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Enrollment Successful!',
+                        text: response.message,
+                        confirmButtonText: 'Go to Dashboard'
+                    }).then(() => {
+                        window.location.href = "{% url 'students:dashboard' %}";
+                    });
+                } else if(response.status === 'enrolled'){
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'Already Enrolled',
+                        text: response.message,
+                        confirmButtonText: 'Go to Dashboard'
+                    }).then(() => {
+                        window.location.href = "{% url 'students:dashboard' %}";
+                    });
+                } else {
+                    alert('Something went wrong. Please try again.');
+                }
+            },
+            error: function(xhr){
+                console.error("❌ AJAX Error:", xhr.responseText);
+                alert('Something went wrong. Please try again.');
+            }
+        });
     });
 });
-
-
 </script>
+
+</body>
+</html>

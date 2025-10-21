@@ -49,3 +49,17 @@
       <div class="notification-card">{{ notification.text }}</div>
     {% empty %}
       <div class="empty-msg">No notifications available
+
+
+        <div class="notifications-section mt-4 bg-white shadow p-4 rounded">
+  <h3 class="text-lg font-semibold mb-2">🔔 Notifications</h3>
+  {% if notifications %}
+    <ul class="space-y-2">
+      {% for note in notifications %}
+        <li class="border-b py-2">{{ note.message }} <span class="text-xs text-gray-500">({{ note.created_at|timesince }} ago)</span></li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="text-gray-500">No notifications yet.</p>
+  {% endif %}
+</div>

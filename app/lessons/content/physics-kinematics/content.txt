@@ -1,0 +1,35 @@
+Physics Kinematics — Core Concepts & Examples
+
+1D Motion:
+- Equations of motion for uniformly accelerated motion (UAM):
+  1. v = u + at
+  2. s = ut + 1/2 at^2
+  3. v^2 = u^2 + 2as
+  (Where u = initial velocity, v = final velocity, a = acceleration, s = displacement, t = time)
+
+- Free fall and vertical motion:
+  - g = 9.8 m/s^2 (downward)
+  - Upwards motion: v = u - gt, s = ut - 1/2 gt^2
+  - Maximum height H = u^2 / (2g), Time to reach max height t = u/g
+
+2D Motion:
+- Projectile motion:
+  - Horizontal motion: x = u_x * t
+  - Vertical motion: y = u_y * t - 1/2 g t^2
+  - Range R = (u^2 sin 2θ) / g, Maximum height H = (u^2 sin^2 θ) / (2g)
+  - Trajectory equation: y = x tanθ - (g x^2) / (2 u^2 cos^2 θ)
+
+- Relative motion:
+  - Velocity relative to moving frames
+  - Addition of velocities in vector form
+
+Graphical Analysis:
+- Velocity-time graph: slope = acceleration, area = displacement
+- Displacement-time graph: slope = velocity
+- Acceleration-time graph: area = change in velocity
+
+Key JEE Tips:
+- Always identify the frame of reference.
+- Break vectors into components along axes.
+- Use equations of motion smartly; avoid repetitive calculations.
+- Draw diagrams for motion — visual clarity saves time.

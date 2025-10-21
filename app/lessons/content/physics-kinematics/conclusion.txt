@@ -1,0 +1,19 @@
+Physics Kinematics — Summary & Applications
+
+Summary:
+- Kinematics deals with describing motion using displacement, velocity, and acceleration.
+- Key equations: v = u + at, s = ut + 1/2 at^2, v^2 = u^2 + 2as.
+- Motion types: linear (1D), projectile (2D), free fall, relative motion.
+- Graphs help visualize motion and understand relationships.
+
+Applications in JEE:
+- Solving numericals with UAM and free-fall.
+- Projectile motion problems — horizontal range, maximum height.
+- Relative velocity problems — trains, boats, wind velocity.
+- Optimization questions — maximum height, minimum time, range.
+
+Next Steps:
+- Practice numerical problems topic-wise.
+- Always verify units and directions.
+- Gradually increase complexity (multi-step problems).
+- Combine graphical, algebraic, and vector approaches for speed and accuracy.
