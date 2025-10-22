@@ -155,6 +155,7 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+
 class Course(TimeStampedModel):
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True, null=True)
@@ -174,7 +175,14 @@ class Course(TimeStampedModel):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.title)
+            base_slug = slugify(self.title)
+            slug = base_slug
+            counter = 1
+            # Ensure unique slug
+            while Course.objects.filter(slug=slug).exists():
+                slug = f"{base_slug}-{counter}"
+                counter += 1
+            self.slug = slug
         super().save(*args, **kwargs)
 
     def __str__(self):
@@ -187,6 +195,10 @@ class Course(TimeStampedModel):
             if finders.find(path):
                 return f"/static/{path}"
         return "/static/images/default.jpg"
+
+
+
+
 
 class CourseInteraction(TimeStampedModel):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
