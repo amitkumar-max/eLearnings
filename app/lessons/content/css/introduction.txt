@@ -1,0 +1,187 @@
+Title: Introduction to CSS
+Course: CSS Basics
+Slug: css-intro
+
+1. What is CSS?
+
+CSS (Cascading Style Sheets) is a language used to style HTML content. While HTML defines the structure of a webpage, CSS defines its look and feel—colors, fonts, layout, spacing, and responsiveness.
+
+Key Points:
+
+CSS separates content (HTML) from design.
+
+Cascading means styles can override each other based on specificity.
+
+External stylesheets make maintaining websites easier.
+
+Example:
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  color: #333;
+}
+h1 {
+  color: #0077cc;
+}
+
+2. Ways to Apply CSS
+
+Inline CSS – Directly in the HTML tag:
+
+<p style="color: red;">Hello World!</p>
+
+
+Internal CSS – Within <style> tag in HTML <head>:
+
+<style>
+  p { color: blue; }
+</style>
+
+
+External CSS – Separate .css file linked to HTML:
+
+<link rel="stylesheet" href="style.css">
+
+
+Mini Tip: Always prefer external CSS for scalability.
+
+3. CSS Selectors
+
+Selectors target HTML elements for styling:
+
+Element selector: p { color: green; }
+
+Class selector: .button { padding: 10px; }
+
+ID selector: #header { font-size: 24px; }
+
+Group selector: h1, h2 { font-family: Verdana; }
+
+Example:
+
+.navbar a {
+  text-decoration: none;
+  color: white;
+}
+
+4. Common CSS Properties
+
+Text: color, font-size, font-family, text-align
+
+Box Model: margin, padding, border, width, height
+
+Backgrounds: background-color, background-image, background-size
+
+Positioning: position, top, left, z-index
+
+Display & Flex: display, flex, grid, align-items, justify-content
+
+Example – Card Layout:
+
+.card {
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin: 10px;
+  border-radius: 8px;
+  background-color: white;
+}
+
+5. The Box Model
+
+Every HTML element is a box:
+
+Content: Text, image, etc.
+
+Padding: Space inside the box.
+
+Border: Edge of the box.
+
+Margin: Space outside the box.
+
+Visual Example:
+
+[ Margin ]
+  [ Border ]
+    [ Padding ]
+      [ Content ]
+
+
+Mini Tip: Use box-sizing: border-box; to include padding and border in width calculation.
+
+6. CSS Colors & Units
+
+Colors: #hex, rgb(), rgba(), hsl()
+
+Units: px, %, em, rem, vh, vw
+
+Example:
+
+h1 {
+  color: rgba(255, 0, 0, 0.8);
+  font-size: 2rem;
+}
+
+7. CSS Transitions & Animations
+
+Smoothly change styles over time:
+
+button {
+  background-color: blue;
+  transition: background-color 0.3s ease;
+}
+button:hover {
+  background-color: green;
+}
+
+
+Keyframe animation:
+
+@keyframes move {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(100px); }
+}
+.box {
+  animation: move 2s infinite alternate;
+}
+
+8. Responsive Design
+
+Media queries adjust layout based on screen size:
+
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+}
+
+
+Flexbox and Grid make responsive layouts easier.
+
+Mini Notes:
+
+flex-direction: column for mobile layouts
+
+grid-template-columns: repeat(auto-fit, minmax(200px, 1fr))
+
+9. Example Mini-Project
+
+Create a Responsive Profile Card
+
+Use <div> with class .card
+
+Include image, name, bio
+
+Add hover effect using transition
+
+Use flexbox to center content
+
+10. Quick Tips
+
+Keep CSS organized in sections: typography, layout, colors, components.
+
+Use comments: /* Header Styles */
+
+Avoid inline CSS for maintainability.
+
+Test responsiveness across devices.

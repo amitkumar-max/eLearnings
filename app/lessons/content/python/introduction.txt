@@ -1,0 +1,171 @@
+Title: Introduction to Python
+Course: Python Basics
+Slug: python-intro
+
+1. What is Python?
+
+Python is a high-level, interpreted, general-purpose programming language known for its readability and simplicity. It’s widely used in web development, data science, automation, AI, and more.
+
+Key Points:
+
+Created by Guido van Rossum in 1991.
+
+Emphasizes readability using indentation instead of braces.
+
+Extensive standard library and third-party modules.
+
+Example – Hello World:
+
+print("Hello, World!")
+
+2. Variables & Data Types
+
+Variables store data without declaring types explicitly (Python is dynamically typed).
+
+Common Data Types:
+
+Numbers: int, float, complex
+
+Strings: "Hello"
+
+Boolean: True / False
+
+List: [1,2,3]
+
+Tuple: (1,2,3)
+
+Dictionary: {"name": "Amit"}
+
+Set: {1,2,3}
+
+Example:
+
+name = "Amit"
+age = 22
+print(f"Hello {name}, age is {age}")
+
+3. Operators
+
+Arithmetic: + - * / % // **
+
+Comparison: == != > < >= <=
+
+Logical: and or not
+
+Assignment: = += -= *= /=
+
+Example:
+
+a = 10
+b = 5
+print(a + b)  # 15
+print(a > b)  # True
+
+4. Conditional Statements
+
+Control flow with if, elif, else:
+
+score = 85
+if score >= 90:
+    print("A+")
+elif score >= 75:
+    print("B")
+else:
+    print("C")
+
+5. Loops
+
+for loop: Iterate over sequences
+
+for i in range(5):
+    print(i)
+
+
+while loop: Repeat until a condition is False
+
+i = 0
+while i < 5:
+    print(i)
+    i += 1
+
+
+List comprehension for concise loops:
+
+squares = [x**2 for x in range(5)]
+
+6. Functions
+
+Reusable blocks of code:
+
+def add(a, b):
+    return a + b
+
+print(add(5, 3))  # 8
+
+
+Functions can have default arguments and return multiple values.
+
+7. Data Structures
+
+Lists: Ordered, mutable
+
+fruits = ["Apple", "Banana"]
+fruits.append("Cherry")
+
+
+Tuples: Ordered, immutable
+
+coords = (10, 20)
+
+
+Dictionaries: Key-value pairs
+
+person = {"name": "Amit", "age": 22}
+print(person["name"])
+
+
+Sets: Unique, unordered
+
+numbers = {1,2,3,2}
+print(numbers)  # {1,2,3}
+
+8. Modules & Libraries
+
+Python has built-in modules and external libraries:
+
+import math
+print(math.sqrt(16))  # 4.0
+
+import random
+print(random.randint(1,10))
+
+9. File Handling
+
+Read and write files easily:
+
+with open("example.txt","w") as f:
+    f.write("Hello, Python!")
+
+with open("example.txt","r") as f:
+    content = f.read()
+    print(content)
+
+10. Mini Project Idea
+
+Simple Contact Manager
+
+Use dictionaries to store contact info
+
+Functions to add, view, search, delete contacts
+
+Save/load data from a text file
+
+11. Quick Tips
+
+Follow PEP8 for clean code.
+
+Use comments: # single line or """ multi-line """.
+
+Practice small programs to master concepts.
+
+Explore libraries like requests, pandas, matplotlib for projects.

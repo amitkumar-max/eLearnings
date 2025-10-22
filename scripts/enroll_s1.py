@@ -28,3 +28,6 @@ for course in all_courses:
         print(f"   📚 {lessons.count()} lessons attached to {course.title}")
 
 print("🎉 All courses processed successfully!")
+
+
+

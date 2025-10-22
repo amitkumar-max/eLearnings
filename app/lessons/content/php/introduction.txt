@@ -1,0 +1,185 @@
+Title: Introduction to PHP
+Course: PHP Basics
+Slug: php-intro
+
+1. What is PHP?
+
+PHP (Hypertext Preprocessor) is a server-side scripting language designed for web development but also used as a general-purpose programming language. PHP runs on the server and generates dynamic HTML content.
+
+Key Points:
+
+PHP scripts are executed on the server.
+
+Can interact with databases like MySQL.
+
+Often used for building dynamic websites, forms, and CMS platforms.
+
+Example – Hello World:
+
+<?php
+echo "Hello, World!";
+?>
+
+2. Basic Syntax
+
+PHP code is enclosed within <?php ?> tags.
+
+Statements end with ;.
+
+Case-sensitive for variables ($name vs $Name).
+
+Example:
+
+<?php
+$name = "Amit";
+$age = 22;
+echo "Hello $name, your age is $age.";
+?>
+
+3. Variables & Data Types
+
+Variables start with $. PHP is loosely typed.
+
+Data types:
+
+String: "Hello"
+
+Integer: 123
+
+Float: 3.14
+
+Boolean: true / false
+
+Array: [1,2,3] or array(1,2,3)
+
+Object: Instances of classes
+
+Example:
+
+$fruits = ["Apple", "Banana", "Cherry"];
+echo $fruits[1]; // Banana
+
+4. Operators
+
+Arithmetic: + - * / %
+
+Comparison: == === != !== > < >= <=
+
+Logical: && || !
+
+Assignment: = += -= *= /= %=
+
+Example:
+
+$a = 10; $b = 5;
+echo $a + $b; // 15
+
+5. Conditional Statements
+$score = 85;
+if($score >= 90) echo "A+";
+elseif($score >= 75) echo "B";
+else echo "C";
+
+
+Switch case:
+
+$day = 3;
+switch($day){
+    case 1: echo "Monday"; break;
+    case 2: echo "Tuesday"; break;
+    default: echo "Other day";
+}
+
+6. Loops
+
+for loop:
+
+for($i=0; $i<5; $i++){
+    echo $i;
+}
+
+
+while loop:
+
+$i=0;
+while($i<5){
+    echo $i;
+    $i++;
+}
+
+
+foreach loop for arrays:
+
+$fruits = ["Apple", "Banana"];
+foreach($fruits as $fruit){
+    echo $fruit;
+}
+
+7. Functions
+
+Reusable blocks of code:
+
+function add($a, $b){
+    return $a + $b;
+}
+echo add(5,3); // 8
+
+8. PHP & HTML Integration
+
+PHP can generate dynamic HTML content:
+
+<?php $name="Amit"; ?>
+<h1>Welcome, <?php echo $name; ?>!</h1>
+
+9. Working with Forms
+
+Collect user input:
+
+<form method="post" action="">
+  Name: <input type="text" name="username">
+  <button type="submit">Submit</button>
+</form>
+
+<?php
+if(isset($_POST['username'])){
+    echo "Hello ".$_POST['username'];
+}
+?>
+
+
+Mini Tip: Always validate and sanitize user inputs to avoid security issues.
+
+10. PHP & Databases
+
+PHP can connect to databases like MySQL:
+
+$conn = new mysqli("localhost","root","","testdb");
+if($conn->connect_error) die("Connection failed: ".$conn->connect_error);
+$sql = "SELECT * FROM users";
+$result = $conn->query($sql);
+while($row = $result->fetch_assoc()){
+    echo $row['name']."<br>";
+}
+$conn->close();
+
+11. Mini Project Idea
+
+Dynamic Contact Form
+
+Collect name, email, and message
+
+Validate inputs with PHP
+
+Store submissions in MySQL
+
+Display a thank you message dynamically
+
+12. Quick Tips
+
+Start PHP files with <?php and end with ?>.
+
+Use comments: // Single line or /* Multi-line */.
+
+Keep logic separate from presentation when possible.
+
+Practice small scripts to understand flow control and forms.

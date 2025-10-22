@@ -1,0 +1,180 @@
+Title: Introduction to jQuery
+Course: jQuery Basics
+Slug: jquery-intro
+
+1. What is jQuery?
+
+jQuery is a fast, small, and feature-rich JavaScript library. It simplifies tasks like DOM manipulation, event handling, animations, and AJAX calls. With jQuery, you can write less code to achieve more.
+
+Key Points:
+
+Cross-browser compatible.
+
+Simplifies common JavaScript tasks.
+
+Written in JavaScript, but provides concise syntax.
+
+Example:
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function(){
+    $("button").click(function(){
+      alert("Hello, jQuery!");
+    });
+  });
+</script>
+<button>Click Me</button>
+
+2. Syntax Basics
+
+jQuery uses the $ sign as a shortcut for the jQuery object.
+
+Syntax:
+
+$(selector).action()
+
+
+Selector: Targets HTML elements (like CSS selectors)
+
+Action: What you want to do with those elements
+
+Example:
+
+$("#myDiv").hide(); // Hides element with ID 'myDiv'
+$(".btn").fadeIn(); // Fades in elements with class 'btn'
+
+3. Selecting Elements
+
+By ID: $("#id")
+
+By Class: $(".class")
+
+By Tag: $("p")
+
+Multiple selectors: $("p, .highlight")
+
+Descendant selectors: $("#parent .child")
+
+Example:
+
+$("ul li:first").css("color", "red"); // First list item red
+
+4. Events
+
+jQuery makes event handling simpler than plain JS:
+
+click()
+
+dblclick()
+
+hover()
+
+keydown()
+
+submit()
+
+Example:
+
+$("#btn").click(function(){
+  $("#message").text("Button clicked!");
+});
+
+
+Mini Tip: Always wrap code in $(document).ready() to ensure DOM is loaded.
+
+5. DOM Manipulation
+
+Modify content and structure easily:
+
+html() – Get or set HTML content
+
+text() – Get or set text
+
+val() – Get or set input values
+
+append() / prepend() – Add content inside elements
+
+remove() – Remove elements
+
+Example:
+
+$("#content").append("<p>New paragraph added!</p>");
+$("#title").text("Updated Title");
+
+6. Effects & Animations
+
+jQuery simplifies animations:
+
+hide(), show(), toggle()
+
+fadeIn(), fadeOut(), fadeToggle()
+
+slideUp(), slideDown(), slideToggle()
+
+Example:
+
+$("#btnFade").click(function(){
+  $("#box").fadeToggle(500);
+});
+
+7. CSS & Attribute Manipulation
+
+css() – Change styles dynamically
+
+addClass() / removeClass() / toggleClass()
+
+attr() – Get or set attributes
+
+Example:
+
+$("#box").css("background-color", "blue");
+$("#link").attr("href", "https://example.com");
+
+8. AJAX with jQuery
+
+jQuery makes asynchronous requests easy:
+
+$.ajax({
+  url: "data.json",
+  method: "GET",
+  success: function(data){
+    console.log(data);
+  },
+  error: function(error){
+    console.error(error);
+  }
+});
+
+
+Other shortcuts:
+
+$.get()
+
+$.post()
+
+load()
+
+Mini Tip: AJAX allows updating pages without reloading.
+
+9. Mini Project Idea
+
+Interactive To-Do List with jQuery
+
+Add new tasks dynamically
+
+Mark tasks as complete
+
+Remove tasks
+
+Use animations like fadeIn/fadeOut
+
+10. Quick Tips
+
+Always include jQuery CDN or local file before using it.
+
+Use chaining for concise code: $("#box").fadeIn().css("color","red");
+
+Avoid using too many global selectors to improve performance.
+
+Practice by converting small JavaScript projects to jQuery for learning.

@@ -1,18 +1,93 @@
-<h1 class="text-3xl font-bold mb-6">{{ course.title }}</h1>
+{% load static %}
+{% load file_tags %}
 
-<div class="lessons-list grid gap-6">
-  {% for lesson in lessons %}
-    <div class="lesson-card p-4 border rounded-lg shadow-sm bg-white">
-      <h2 class="text-xl font-semibold mb-2">
-        Lesson {{ lesson.order_index }}: {{ lesson.title }}
-      </h2>
-      <div class="lesson-content mb-4 text-gray-700">
-        {{ lesson.content_text|linebreaks }}
-      </div>
-      <a href="{% url 'lessons:start_lesson' course.slug lesson.slug %}" 
-         class="start-btn inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
-         Start Lesson
-      </a>
-    </div>
-  {% endfor %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ course.title }} - Lessons</title>
+    <link href="{% static 'css/tailwind.css' %}" rel="stylesheet">
+
+    <style>
+        /* Progress Bar */
+        #progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background-color: #e5e7eb; /* gray-200 */
+            z-index: 50;
+        }
+        #progress-bar {
+            height: 100%;
+            width: 0%;
+            background-color: #3b82f6; /* blue-600 */
+            transition: width 0.2s ease-out;
+        }
+
+        /* Start Button */
+        #final-start-btn {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+<!-- Progress Bar -->
+<div id="progress-container">
+    <div id="progress-bar"></div>
 </div>
+
+<div class="container mx-auto py-10 px-4">
+    <h1 class="text-3xl font-bold mb-6">{{ course.title }}</h1>
+
+    <div class="lessons-list grid gap-6">
+        {% for lesson in lessons %}
+            <div class="lesson-card p-4 border rounded-lg shadow-sm bg-white">
+                <h2 class="text-xl font-semibold mb-2">
+                    Lesson {{ lesson.order_index }}: {{ lesson.title }}
+                </h2>
+                
+                <div class="lesson-content mb-4 text-gray-700 border p-4 rounded">
+                    {% if lesson.content_file %}
+                        {{ lesson.content_file.path|file_contents|linebreaks }}
+                    {% else %}
+                        {{ lesson.content_text|linebreaks }}
+                    {% endif %}
+                </div>
+
+                <a href="{% url 'lessons:start_lesson' course.slug lesson.slug %}" 
+                   class="start-btn inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
+                   Start Lesson
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Final Start Button (Visible after 100% scroll) -->
+<a id="final-start-btn" href="{% url 'lessons:start_lesson' course.slug lessons.first.slug %}"
+   class="fixed bottom-6 right-6 px-6 py-3 bg-green-600 text-white rounded-lg shadow-lg hover:bg-green-700 transition">
+   Start Lesson
+</a>
+
+<script>
+window.addEventListener('scroll', function() {
+    const docHeight = document.body.scrollHeight - window.innerHeight;
+    const scrollTop = window.scrollY;
+    const scrollPercent = Math.min(100, (scrollTop / docHeight) * 100);
+    
+    document.getElementById('progress-bar').style.width = scrollPercent + '%';
+
+    const startBtn = document.getElementById('final-start-btn');
+    if(scrollPercent >= 100){
+        startBtn.style.display = 'inline-block';
+    } else {
+        startBtn.style.display = 'none';
+    }
+});
+</script>
+
+</body>
+</html>

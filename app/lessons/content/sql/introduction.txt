@@ -1,0 +1,151 @@
+Title: Introduction to MySQL
+Course: MySQL Basics
+Slug: mysql-intro
+
+1. What is MySQL?
+
+MySQL is a relational database management system (RDBMS) that uses Structured Query Language (SQL) to manage and manipulate data. It is widely used for web applications, data storage, and backend systems.
+
+Key Points:
+
+Open-source and fast.
+
+Stores data in tables with rows and columns.
+
+Supports queries, transactions, indexing, and relationships.
+
+Example – Connect and show databases:
+
+SHOW DATABASES;
+
+2. Database Basics
+
+Database: Collection of related data.
+
+Table: Collection of rows (records) and columns (fields).
+
+Row: One record in a table.
+
+Column: Field storing a specific type of data.
+
+Example – Create a database and table:
+
+CREATE DATABASE school;
+USE school;
+
+CREATE TABLE students (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50),
+    age INT,
+    grade VARCHAR(5)
+);
+
+3. Data Types
+
+Common MySQL data types:
+
+Numeric: INT, FLOAT, DOUBLE, DECIMAL
+
+String: CHAR, VARCHAR, TEXT
+
+Date/Time: DATE, DATETIME, TIMESTAMP
+
+Boolean: TINYINT(1)
+
+4. Inserting Data
+
+Add records to tables:
+
+INSERT INTO students (name, age, grade)
+VALUES ('Amit', 22, 'A');
+
+5. Querying Data
+
+Retrieve information using SELECT:
+
+SELECT * FROM students;
+SELECT name, age FROM students WHERE grade='A';
+SELECT COUNT(*) FROM students;
+
+6. Updating Data
+
+Modify existing records:
+
+UPDATE students
+SET grade='A+'
+WHERE name='Amit';
+
+7. Deleting Data
+
+Remove records safely:
+
+DELETE FROM students
+WHERE name='Amit';
+
+
+Mini Tip: Always backup data before using DELETE.
+
+8. Table Relationships
+
+Primary Key (PK): Uniquely identifies a record.
+
+Foreign Key (FK): Links one table to another.
+
+One-to-Many: e.g., One class has many students.
+
+Many-to-Many: e.g., Students and Courses (using a join table).
+
+Example – Foreign key:
+
+CREATE TABLE courses (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(50)
+);
+
+CREATE TABLE enrollments (
+    student_id INT,
+    course_id INT,
+    FOREIGN KEY (student_id) REFERENCES students(id),
+    FOREIGN KEY (course_id) REFERENCES courses(id)
+);
+
+9. Advanced Queries
+
+Sorting: ORDER BY age DESC;
+
+Limiting results: LIMIT 5;
+
+Aggregation: SUM, AVG, MAX, MIN
+
+Grouping: GROUP BY grade;
+
+Joining tables:
+
+SELECT students.name, courses.title
+FROM students
+JOIN enrollments ON students.id = enrollments.student_id
+JOIN courses ON courses.id = enrollments.course_id;
+
+10. Mini Project Idea
+
+Student-Course Management
+
+Tables: students, courses, enrollments
+
+Add, update, and delete students & courses
+
+Enroll students in multiple courses
+
+Query to show students per course
+
+11. Quick Tips
+
+Always define primary keys for tables.
+
+Normalize data to reduce redundancy.
+
+Use INDEX to speed up queries.
+
+Regularly backup your databases.
+
+Practice CRUD operations to become comfortable with MySQL.

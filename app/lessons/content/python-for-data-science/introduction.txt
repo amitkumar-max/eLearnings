@@ -1,0 +1,160 @@
+Title: Introduction to Python for Data Science
+Course: Python for Data Science
+Slug: python-for-data-science-intro
+
+1. What is Python for Data Science?
+
+Python is the most popular language in data science due to its simplicity, readability, and rich ecosystem of data analysis, machine learning, and visualization libraries.
+
+Key Points:
+
+Used for data manipulation, cleaning, visualization, and predictive modeling.
+
+Works well with pandas, NumPy, matplotlib, seaborn, scikit-learn, and more.
+
+Ideal for data analysis, AI/ML, and statistics.
+
+Example – Importing libraries:
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+2. Python Basics for Data Science
+
+Even in data science, core Python is important:
+
+Variables and data types: int, float, str, bool, list, dict, tuple, set
+
+Loops: for, while
+
+Conditional statements: if, elif, else
+
+Functions for reusable logic:
+
+def square(x):
+    return x**2
+print(square(5))  # 25
+
+3. NumPy – Numerical Python
+
+NumPy is used for high-performance numerical computations.
+
+Key Features:
+
+N-dimensional arrays (ndarray)
+
+Vectorized operations (faster than loops)
+
+Mathematical functions: sum, mean, std
+
+Example:
+
+import numpy as np
+
+arr = np.array([1,2,3,4,5])
+print(arr.mean())  # 3.0
+print(arr + 10)   # [11 12 13 14 15]
+
+4. Pandas – Data Manipulation
+
+Pandas is used for structured data handling:
+
+Key Objects:
+
+Series – 1D labeled array
+
+DataFrame – 2D labeled table
+
+Example:
+
+import pandas as pd
+
+data = {'Name': ['Amit','Sara','John'], 'Age':[22,25,21]}
+df = pd.DataFrame(data)
+print(df)
+print(df['Age'].mean())  # Average age
+
+
+Load CSV files: pd.read_csv('data.csv')
+
+Filtering data: df[df['Age'] > 22]
+
+5. Data Cleaning
+
+Real-world data is messy:
+
+Handle missing values: df.dropna(), df.fillna(value)
+
+Remove duplicates: df.drop_duplicates()
+
+Convert data types: df['Age'] = df['Age'].astype(int)
+
+Example:
+
+df['Salary'].fillna(df['Salary'].mean(), inplace=True)
+
+6. Data Visualization
+
+Visualizing data helps insights:
+
+Matplotlib Example:
+
+import matplotlib.pyplot as plt
+
+x = [1,2,3,4]
+y = [10,20,25,30]
+plt.plot(x, y, label='Line')
+plt.xlabel('X-axis')
+plt.ylabel('Y-axis')
+plt.title('Line Chart')
+plt.legend()
+plt.show()
+
+
+Seaborn Example:
+
+import seaborn as sns
+sns.barplot(x='Name', y='Age', data=df)
+
+7. Mini Project Idea
+
+Analyzing a Sales Dataset
+
+Load CSV dataset of sales
+
+Explore data: mean, max, min, missing values
+
+Clean data: fill missing values, remove duplicates
+
+Visualize trends: monthly sales, top-selling products
+
+8. Introduction to Machine Learning
+
+Python provides libraries like scikit-learn:
+
+Supervised learning: regression, classification
+
+Unsupervised learning: clustering, PCA
+
+Example: Linear Regression
+
+from sklearn.linear_model import LinearRegression
+
+model = LinearRegression()
+X = [[1],[2],[3],[4]]
+y = [2,4,6,8]
+model.fit(X, y)
+print(model.predict([[5]]))  # 10
+
+9. Quick Tips
+
+Always use Jupyter Notebook for interactive analysis.
+
+Explore pandas, NumPy, matplotlib, seaborn first.
+
+Use vectorized operations for speed.
+
+Start with small datasets before large-scale data.
+
+Practice mini-projects: analysis, visualization, predictive modeling.

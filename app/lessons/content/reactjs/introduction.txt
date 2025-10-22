@@ -1,0 +1,148 @@
+Title: Introduction to React.js
+Course: React.js Basics
+Slug: reactjs-intro
+
+1. What is React.js?
+
+React.js is a JavaScript library for building user interfaces, primarily single-page applications (SPAs). It allows developers to create reusable UI components and efficiently update the DOM.
+
+Key Points:
+
+Developed by Facebook in 2013.
+
+Uses Virtual DOM for fast rendering.
+
+Component-based architecture for modular development.
+
+Often used with Redux, React Router, and Axios for full-featured apps.
+
+2. Setting Up React
+
+Install Node.js and npm.
+
+Create a React project using Create React App:
+
+npx create-react-app my-app
+cd my-app
+npm start
+
+
+Project structure:
+
+my-app/
+ ├─ node_modules/
+ ├─ public/
+ └─ src/
+      ├─ App.js
+      ├─ index.js
+      ├─ components/
+
+3. JSX – JavaScript XML
+
+JSX allows writing HTML-like syntax in JavaScript:
+
+const element = <h1>Hello, React!</h1>;
+
+
+Key Points:
+
+Use {} to insert JS expressions.
+
+Always return a single parent element (wrap with <div> or <> </>).
+
+Example:
+
+const name = "Amit";
+const greeting = <h1>Hello, {name}!</h1>;
+
+4. Components
+
+Components are reusable UI blocks:
+
+Function Component:
+
+function Welcome(props){
+  return <h1>Hello, {props.name}</h1>;
+}
+
+
+Class Component:
+
+class Welcome extends React.Component {
+  render() {
+    return <h1>Hello, {this.props.name}</h1>;
+  }
+}
+
+5. Props and State
+
+Props: Data passed from parent to child components.
+
+State: Data managed inside the component.
+
+Example – Functional component with state:
+
+import { useState } from 'react';
+
+function Counter(){
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={() => setCount(count + 1)}>Increment</button>
+    </div>
+  );
+}
+
+6. Event Handling
+
+React handles events using camelCase and functions:
+
+function Button(){
+  const handleClick = () => alert("Button clicked!");
+  return <button onClick={handleClick}>Click Me</button>;
+}
+
+7. Conditional Rendering
+
+Render UI conditionally:
+
+function Greeting({ isLoggedIn }){
+  return (
+    <div>
+      {isLoggedIn ? <h1>Welcome back!</h1> : <h1>Please log in.</h1>}
+    </div>
+  );
+}
+
+8. Lists & Keys
+
+Render lists dynamically using map() and unique key:
+
+const fruits = ["Apple","Banana","Cherry"];
+const fruitList = fruits.map((fruit, index) => <li key={index}>{fruit}</li>);
+
+9. Mini Project Idea
+
+Simple To-Do App
+
+Components: TodoList, TodoItem, AddTodo
+
+Add, delete, and mark tasks complete
+
+Manage state with useState
+
+Optional: Persist data with localStorage
+
+10. Quick Tips
+
+Keep components small and reusable.
+
+Use props for data flow from parent to child.
+
+Use state for dynamic data inside components.
+
+Learn React DevTools for debugging.
+
+Explore React Router for page navigation and Axios for API calls.

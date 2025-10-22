@@ -1,0 +1,173 @@
+Title: Introduction to JavaScript
+Course: JavaScript Basics
+Slug: javascript-intro
+
+1. What is JavaScript?
+
+JavaScript (JS) is a versatile, high-level programming language used primarily for web development. While HTML structures a page and CSS styles it, JavaScript makes it interactive and dynamic.
+
+Key Points:
+
+JS runs in the browser and on servers (Node.js).
+
+It is interpreted, not compiled.
+
+Enables DOM manipulation, event handling, animations, API calls, and more.
+
+Example:
+
+<button onclick="greet()">Click Me</button>
+<script>
+  function greet() {
+    alert("Hello, World!");
+  }
+</script>
+
+2. Basic Syntax
+
+Variables: let, const, var
+
+Data types: Number, String, Boolean, Object, Array, Null, Undefined
+
+Operators: + - * / %, comparison == === != !==, logical && || !
+
+Example:
+
+let name = "Amit";
+const age = 22;
+console.log(`Hello ${name}, you are ${age} years old.`);
+
+3. Functions
+
+Functions are blocks of reusable code:
+
+function add(a, b) {
+  return a + b;
+}
+console.log(add(5, 3)); // 8
+
+
+Arrow functions:
+
+const multiply = (a, b) => a * b;
+
+4. Conditional Statements
+
+Control flow with if, else if, else, and switch:
+
+Example:
+
+let score = 85;
+if(score >= 90) console.log("A+");
+else if(score >= 75) console.log("B");
+else console.log("C");
+
+5. Loops
+
+Loops repeat code efficiently:
+
+for loop:
+
+for(let i=0; i<5; i++){
+  console.log(i);
+}
+
+
+while loop:
+
+let i = 0;
+while(i < 5){
+  console.log(i);
+  i++;
+}
+
+
+forEach (Array):
+
+[1,2,3].forEach(num => console.log(num));
+
+6. Arrays & Objects
+
+Arrays: Ordered lists
+
+let fruits = ["Apple", "Banana", "Cherry"];
+console.log(fruits[1]); // Banana
+
+
+Objects: Key-value pairs
+
+let person = {name: "Amit", age: 22};
+console.log(person.name); // Amit
+
+
+Mini Tip: Objects model real-world entities effectively.
+
+7. DOM Manipulation
+
+JS can modify HTML elements dynamically:
+
+Example:
+
+document.getElementById("demo").innerHTML = "Hello JS!";
+
+
+getElementById, querySelector, getElementsByClassName
+
+Change styles: element.style.color = "red";
+
+Add/remove elements: appendChild, removeChild
+
+8. Events
+
+JavaScript reacts to user actions like clicks, mouse movements, and keyboard inputs:
+
+Example:
+
+document.getElementById("btn").addEventListener("click", () => {
+  alert("Button clicked!");
+});
+
+
+Common events: click, mouseover, keydown, submit.
+
+9. ES6 Features
+
+Modern JS (ES6+) introduces useful syntax:
+
+Template literals: `Hello ${name}`
+
+let & const
+
+Arrow functions: (a,b) => a+b
+
+Destructuring:
+
+const [x, y] = [10, 20];
+const {name, age} = person;
+
+
+Spread & Rest operators:
+
+const arr2 = [...arr1];
+
+10. Mini Project Idea
+
+Interactive To-Do List
+
+Input box to add tasks
+
+Display tasks in a list
+
+Add “delete” button for each task
+
+Style with CSS and dynamically update with JS
+
+11. Quick Tips
+
+Always use === instead of == for comparison.
+
+Keep JS in separate files (.js) for better maintainability.
+
+Debug using console.log() or browser developer tools.
+
+Practice with small interactive projects to learn faster.
