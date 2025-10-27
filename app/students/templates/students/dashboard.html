@@ -1,25 +1,13 @@
-<!--
-Files included in this document:
-1) base.html   -> main layout, preserves your original dashboard color variables and sidebar
-2) my_courses.html -> example upgraded page that extends base.html (Tailwind + green theme)
 
-Drop these into your Django templates folder (e.g. templates/students/).
--->
 
-<!-- ==========================
-     base.html
-     (Put as templates/students/base.html)
-     ========================== -->
-
-{% raw %}
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>{% block title %}Student Dashboard{% endblock %}</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Dashboard</title>
 
-  <!-- Tailwind CDN -->
+  <!-- ✅ Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
@@ -44,7 +32,7 @@ Drop these into your Django templates folder (e.g. templates/students/).
       color: var(--text-light);
     }
 
-    /* Sidebar styling kept consistent with your dashboard */
+    /* Sidebar */
     #sidebar {
       background: linear-gradient(180deg, var(--primary), var(--primary-dark));
       color: white;
@@ -52,7 +40,7 @@ Drop these into your Django templates folder (e.g. templates/students/).
       top: 0;
       left: 0;
       height: 100%;
-      width: 15rem; /* 240px */
+      width: 15rem;
       padding-top: 5rem;
       transform: translateX(0);
       transition: transform 0.3s ease;
@@ -68,15 +56,15 @@ Drop these into your Django templates folder (e.g. templates/students/).
       color: white;
       padding: 0.8rem 1rem;
       border-radius: 0.6rem;
-      transition: all 0.18s ease;
-      font-weight: 600;
+      transition: all 0.3s ease;
     }
 
-    #sidebar a:hover, #sidebar a.active {
-      background: rgba(255,255,255,0.12);
+    #sidebar a:hover {
+      background: rgba(255, 255, 255, 0.2);
       transform: translateX(4px);
     }
 
+    /* Header */
     header {
       position: fixed;
       top: 0;
@@ -92,74 +80,124 @@ Drop these into your Django templates folder (e.g. templates/students/).
       transition: background 0.3s;
     }
 
-    body.dark-mode header { background: #2b2b3b; }
-
-    main { margin-left: 15rem; padding: 6rem 2rem 2rem 2rem; transition: margin-left 0.3s ease; min-height: 100vh; }
-
-    @media (max-width: 768px) {
-      main { margin-left: 0; padding: 6rem 1rem 2rem 1rem; }
-      #sidebar { transform: translateX(-100%); }
-      #sidebar.show { transform: translateX(0); }
+    body.dark-mode header {
+      background: #2b2b3b;
     }
 
-    .card { background: white; color: var(--text-dark); border-radius: 1rem; padding: 1.5rem; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); transition: transform 0.3s, box-shadow 0.3s; }
-    .card:hover { transform: translateY(-4px); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); }
-    body.dark-mode .card { background: #2b2b3b; color: #e2e8f0; }
+    main {
+      margin-left: 15rem;
+      padding: 6rem 2rem 2rem 2rem;
+      transition: margin-left 0.3s ease;
+      min-height: 100vh;
+    }
 
-    .logout-btn { background-color: #ef4444; text-align: center; display: block; padding: 0.7rem; border-radius: 0.5rem; margin-top: 1rem; font-weight: 600; }
-    .logout-btn:hover { background-color: #dc2626; }
+    @media (max-width: 768px) {
+      main {
+        margin-left: 0;
+        padding: 6rem 1rem 2rem 1rem;
+      }
+      #sidebar {
+        transform: translateX(-100%);
+      }
+      #sidebar.show {
+        transform: translateX(0);
+      }
+    }
 
-    /* small helpers */
-    .muted { color: #6b7280; }
-    .pill { background: rgba(34,197,94,0.12); color: var(--primary-dark); padding: 0.25rem 0.6rem; border-radius: 999px; font-weight: 700; }
+    /* Cards */
+    .card {
+      background: white;
+      color: var(--text-dark);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    body.dark-mode .card {
+      background: #2b2b3b;
+      color: #e2e8f0;
+    }
+
+    /* Logout Button */
+    .logout-btn {
+      background-color: #ef4444;
+      text-align: center;
+      display: block;
+      padding: 0.7rem;
+      border-radius: 0.5rem;
+      margin-top: 1rem;
+      font-weight: 600;
+    }
+
+    .logout-btn:hover {
+      background-color: #dc2626;
+    }
   </style>
 </head>
+
 <body>
   <div class="flex">
+<!-- ✅ Sidebar -->
+<aside id="sidebar" class="fixed left-0 top-0 h-full w-56 bg-gradient-to-b from-green-400 to-green-700 text-white p-4 shadow-xl">
+  <nav class="sidebar-nav flex flex-col space-y-2">
+    <a href="{% url 'students:dashboard' %}" class="hover:bg-green-500 rounded-md py-2 px-3 transition">🏠 Dashboard</a>
+    <a href="{% url 'students:my_courses' %}" class="hover:bg-green-500 rounded-md py-2 px-3 transition">📖 My Courses</a>
+    <a href="{% url 'students:assignments' %}" class="hover:bg-green-500 rounded-md py-2 px-3 transition">📝 Assignments</a>
+    <a href="{% url 'students:progress' %}" class="hover:bg-green-500 rounded-md py-2 px-3 transition">📊 Progress</a>
+    <a href="{% url 'students:discussions' %}" class="hover:bg-green-500 rounded-md py-2 px-3 transition">💬 Discussions</a>
+    <a href="{% url 'students:notifications' %}" class="hover:bg-green-500 rounded-md py-2 px-3 transition">🔔 Notifications</a>
+   
+    <a href="#" class="hover:bg-green-500 rounded-md py-2 px-3 transition">📁 Study Resources</a>
+    <a  href="#" class="hover:bg-green-500 rounded-md py-2 px-3 transition">🗓️ Class Schedule</a>
+    <a  href="#" class="hover:bg-green-500 rounded-md py-2 px-3 transition">🏆 Leaderboard</a>
+    <a  href="#" class="hover:bg-green-500 rounded-md py-2 px-3 transition">💬 Feedback</a>
+    <a href="{% url 'students:settings' %}" class="hover:bg-green-500 rounded-md py-2 px-3 transition">⚙️ Settings</a>
+    <a href="{% url 'users:logout' %}"
+       class="block bg-red-600 text-white rounded-md text-center py-2 mt-3 hover:bg-red-700 transition">
+       🔴 Logout
+    </a>
+  </nav>
+</aside>
 
-    <!-- Sidebar (kept same green theme). Use 'active' class in views to highlight current url -->
-    <aside id="sidebar">
-      <nav class="sidebar-nav flex flex-col p-4 space-y-2">
-        <a href="{% url 'students:dashboard' %}" class="{% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">🏠 Dashboard</a>
-        <a href="{% url 'students:my_courses' %}" class="{% if request.resolver_match.url_name == 'my_courses' %}active{% endif %}">📖 My Courses</a>
-        <a href="{% url 'students:assignments' %}" class="{% if request.resolver_match.url_name == 'assignments' %}active{% endif %}">📝 Assignments</a>
-        <a href="{% url 'students:progress' %}" class="{% if request.resolver_match.url_name == 'progress' %}active{% endif %}">📊 Progress</a>
-        <a href="{% url 'students:discussions' %}" class="{% if request.resolver_match.url_name == 'discussions' %}active{% endif %}">💬 Discussions</a>
-        <a href="{% url 'students:notifications' %}" class="{% if request.resolver_match.url_name == 'notifications' %}active{% endif %}">🔔 Notifications</a>
-
-        <a href="#">📁 Study Resources</a>
-        <a href="#">🗓️ Class Schedule</a>
-        <a href="#">🏆 Leaderboard</a>
-        <a href="#">💬 Feedback</a>
-        <a href="{% url 'students:settings' %}">⚙️ Settings</a>
-
-        <a href="{% url 'users:logout' %}" class="logout-btn">🔴 Logout</a>
-      </nav>
-    </aside>
-
-    <!-- Main area -->
+    <!-- ✅ Main Content -->
     <main>
       <header>
         <div class="flex items-center gap-3">
           <button id="sidebarToggle" class="text-2xl md:hidden">☰</button>
-          <h1 class="text-lg font-semibold">{% block header_title %}Student Dashboard{% endblock %}</h1>
+          <h1 class="text-lg font-semibold">Student Dashboard</h1>
         </div>
-
         <div class="flex items-center gap-3">
-          <button onclick="toggleTheme()" title="Toggle theme" class="text-xl">🌗</button>
-          <div class="flex items-center gap-2">
-            <span class="muted text-sm">{{ request.user.get_full_name|default:request.user.username }}</span>
-            <img src="{% if request.user.profile.avatar_url %}{{ request.user.profile.avatar_url }}{% else %}https://placehold.co/40x40{% endif %}" class="w-10 h-10 rounded-full border border-gray-300" />
-          </div>
+          <button onclick="toggleTheme()" class="text-xl">🌗</button>
+          <img src="https://placehold.co/40x40" class="w-10 h-10 rounded-full border border-gray-300" />
         </div>
       </header>
 
-      <!-- Page content block -->
-      <div class="container mx-auto">
-        {% block content %}{% endblock %}
+      <!-- ✅ Stats -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+        <div class="card"><h3>📚 Courses</h3><p class="text-2xl font-bold text-green-700">5</p></div>
+        <div class="card"><h3>📝 Assignments</h3><p class="text-2xl font-bold text-green-700">3</p></div>
+        <div class="card"><h3>📊 Avg. Score</h3><p class="text-2xl font-bold text-green-700">88%</p></div>
+        <div class="card"><h3>💬 Discussions</h3><p class="text-2xl font-bold text-green-700">12</p></div>
       </div>
 
-      {% block extra_js %}{% endblock %}
+      <!-- ✅ Dashboard Cards -->
+      <div class="grid md:grid-cols-3 gap-4 mt-6">
+        <div class="card"><h3>📖 My Courses</h3><p>Access lessons & materials</p></div>
+        <div class="card"><h3>🕒 Upcoming Classes</h3><p>2 live sessions this week</p></div>
+        <div class="card"><h3>🏆 Achievements</h3><p>View your earned badges</p></div>
+      </div>
+
+      <!-- ✅ Extra Section -->
+      <div class="card mt-6">
+        <h2 class="text-lg font-semibold mb-2">💡 Community Updates</h2>
+        <p>New post in <span class="text-green-700 font-medium">Web Development</span> discussion.</p>
+      </div>
     </main>
   </div>
 
@@ -167,132 +205,21 @@ Drop these into your Django templates folder (e.g. templates/students/).
     const sidebar = document.getElementById('sidebar');
     const toggle = document.getElementById('sidebarToggle');
 
-    if(toggle) toggle.addEventListener('click', () => { sidebar.classList.toggle('show'); });
+    toggle.addEventListener('click', () => {
+      sidebar.classList.toggle('show');
+    });
 
     function toggleTheme() {
       document.body.classList.toggle('dark-mode');
-      localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+      localStorage.setItem(
+        'theme',
+        document.body.classList.contains('dark-mode') ? 'dark' : 'light'
+      );
     }
 
-    if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark-mode');
+    if (localStorage.getItem('theme') === 'dark') {
+      document.body.classList.add('dark-mode');
+    }
   </script>
 </body>
 </html>
-{% endraw %}
-
-
-<!-- ==========================
-     my_courses.html
-     (Put as templates/students/my_courses.html)
-     Example page that extends base.html and uses the same green theme.
-     ========================== -->
-
-{% raw %}
-{% extends 'students/base.html' %}
-
-{% block title %}My Courses — Student{% endblock %}
-
-{% block header_title %}My Courses{% endblock %}
-
-{% block content %}
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-    <!-- Left: quick stats -->
-    <div class="md:col-span-1 space-y-4">
-      <div class="card">
-        <h3 class="text-lg font-semibold">Welcome back, {{ request.user.first_name|default:request.user.username }}</h3>
-        <p class="muted mt-2">Continue your learning. Your student theme remains green 🔥</p>
-        <div class="mt-4 grid grid-cols-3 gap-2">
-          <div class="text-center">
-            <div class="text-sm muted">Courses</div>
-            <div class="text-xl font-bold text-green-700">{{ total_courses|default:0 }}</div>
-          </div>
-          <div class="text-center">
-            <div class="text-sm muted">Progress</div>
-            <div class="text-xl font-bold text-green-700">{{ overall_progress|default:0 }}%</div>
-          </div>
-          <div class="text-center">
-            <div class="text-sm muted">Assignments</div>
-            <div class="text-xl font-bold text-green-700">{{ pending_assignments|default:0 }}</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <h4 class="font-semibold">Quick Links</h4>
-        <ul class="mt-3 space-y-2 text-sm">
-          <li><a href="{% url 'students:assignments' %}" class="hover:underline">📝 My Assignments</a></li>
-          <li><a href="{% url 'students:progress' %}" class="hover:underline">📊 My Progress</a></li>
-          <li><a href="{% url 'students:discussions' %}" class="hover:underline">💬 Discussions</a></li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- Right: courses list -->
-    <div class="md:col-span-2 space-y-4">
-      <div class="card">
-        <div class="flex items-center justify-between">
-          <h2 class="text-xl font-semibold">My Enrolled Courses</h2>
-          <a href="{% url 'students:courses_list' %}" class="pill">Browse Courses</a>
-        </div>
-
-        <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {% if enrollments %}
-            {% for enrollment in enrollments %}
-              <div class="border rounded-lg p-4 bg-white shadow-sm">
-                <div class="flex items-start justify-between gap-4">
-                  <div>
-                    <h3 class="text-lg font-semibold">{{ enrollment.course.title }}</h3>
-                    <p class="text-sm muted mt-1">{{ enrollment.course.description|truncatewords:18 }}</p>
-                    <div class="mt-3 flex items-center gap-2">
-                      <a href="{% url 'students:start_course' slug=enrollment.course.slug %}" class="inline-flex items-center gap-2 px-3 py-1 rounded-md border font-semibold text-sm" style="background:rgba(34,197,94,0.08); color:var(--primary-dark)">▶️ Start</a>
-                      <a href="{% url 'course_detail' enrollment.course.id %}" class="inline-block text-sm muted hover:underline">View</a>
-                    </div>
-                  </div>
-
-                  <div class="text-right">
-                    <div class="text-sm muted">Progress</div>
-                    <div class="text-lg font-bold text-green-700">{{ enrollment.progress|default:0 }}%</div>
-                    <div class="mt-2 w-36 bg-gray-200 rounded-full h-2 overflow-hidden">
-                      <div style="width:{{ enrollment.progress|default:0 }}%" class="h-2 rounded-full" style="background:var(--primary-dark)"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            {% endfor %}
-          {% else %}
-            <div class="col-span-full text-center muted">You are not enrolled in any courses yet. <a href="{% url 'students:courses_list' %}" class="text-green-700 font-semibold">Browse available courses</a></div>
-          {% endif %}
-        </div>
-
-      </div>
-
-      <!-- Recent activity / announcements -->
-      <div class="card">
-        <h3 class="font-semibold">Recent Announcements</h3>
-        <div class="mt-3 space-y-3">
-          {% for ann in announcements|slice:":3" %}
-            <div class="p-3 bg-gray-50 rounded">
-              <div class="flex items-center justify-between">
-                <div>
-                  <div class="font-semibold">{{ ann.title }}</div>
-                  <div class="text-xs muted">{{ ann.date }}</div>
-                </div>
-                <a href="{% url 'students:announcements' %}" class="text-sm muted hover:underline">View all</a>
-              </div>
-            </div>
-          {% empty %}
-            <div class="muted">No announcements yet.</div>
-          {% endfor %}
-        </div>
-      </div>
-
-    </div>
-  </div>
-{% endblock %}
-
-{% block extra_js %}
-<script>
-  // small enhancement: keep sidebar active based on url_name (server-side sets class already)
-</script>
-{% endblock %}
-{% endraw %}
