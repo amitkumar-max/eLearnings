@@ -1,0 +1,38 @@
+[
+  {
+    "column_name": "user_id",
+    "data_type": "bigint"
+  },
+  {
+    "column_name": "id",
+    "data_type": "bigint"
+  },
+  {
+    "column_name": "progress",
+    "data_type": "jsonb"
+  },
+  {
+    "column_name": "exam_scores",
+    "data_type": "jsonb"
+  },
+  {
+    "column_name": "assignments_submitted",
+    "data_type": "jsonb"
+  },
+  {
+    "column_name": "last_login_ip",
+    "data_type": "inet"
+  },
+  {
+    "column_name": "points",
+    "data_type": "integer"
+  },
+  {
+    "column_name": "achievements",
+    "data_type": "jsonb"
+  },
+  {
+    "column_name": "bio",
+    "data_type": "text"
+  }
+]

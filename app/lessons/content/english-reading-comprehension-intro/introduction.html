@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reading Comprehension Slider</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  .scrollable {
+    max-height: 20rem;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #2563eb #dbeafe;
+  }
+  .scrollable::-webkit-scrollbar {
+    width: 8px;
+  }
+  .scrollable::-webkit-scrollbar-track {
+    background: #dbeafe;
+  }
+  .scrollable::-webkit-scrollbar-thumb {
+    background-color: #2563eb;
+    border-radius: 4px;
+  }
+</style>
+</head>
+<body class="bg-green-50 flex justify-center items-center min-h-screen">
+
+<div class="w-full max-w-5xl bg-white rounded-xl shadow-lg overflow-hidden">
+  <div id="slides" class="relative">
+
+    <!-- Slide 1: Title -->
+    <div class="slide p-8 active">
+      <h2 class="text-2xl font-bold text-green-600 mb-2">Reading Comprehension</h2>
+      <p class="mb-1"><strong>Course:</strong> English</p>
+      <p class="mb-1"><strong>Slug:</strong> english-reading-comprehension-intro</p>
+    </div>
+
+  </div>
+
+  <!-- Controls -->
+  <div class="flex justify-between bg-green-100 p-4">
+    <button id="prevBtn" class="bg-green-600 text-white px-4 py-2 rounded disabled:opacity-50" disabled>Previous</button>
+    <button id="nextBtn" class="bg-green-600 text-white px-4 py-2 rounded">Next</button>
+  </div>
+</div>
+
+<script>
+  const lessonContent = [
+    {
+      title: "1. Identifying Main Ideas and Supporting Details",
+      text: `Main idea: central concept or theme.\nSupporting details: facts, examples, explanations.\nStrategy: Ask “What is the author trying to convey?”\nExample: Solar energy is sustainable; supporting details: cost-effective, eco-friendly, advanced tech.`
+    },
+    {
+      title: "2. Understanding Context and Vocabulary",
+      text: `Context clues: words/phrases that hint meaning.\nVocabulary: broad vocabulary enhances accuracy.\nStrategy: Use synonyms, antonyms, examples.\nExample: “Arid desert” → context indicates dry.`
+    },
+    {
+      title: "3. Recognizing Tone, Style, and Author’s Purpose",
+      text: `Tone: attitude of author (persuasive, critical, humorous).\nStyle: sentence structure, word choice.\nPurpose: inform, persuade, entertain, explain.\nExample: Editorial urging policy change → persuasive tone with evidence.`
+    },
+    {
+      title: "4. Drawing Inferences and Conclusions",
+      text: `Inference: deduction from text evidence.\nConclusion: understanding broader meaning.\nStrategy: Combine evidence with prior knowledge.\nExample: Character shivering despite layers → weather is extremely cold.`
+    },
+    {
+      title: "5. Analyzing Arguments and Logic",
+      text: `Identify claims, evidence, reasoning, counterarguments.\nEvaluate argument strength and detect biases.\nStrategy: Look for cause-effect, comparisons, examples.\nExample: Recognize hypothesis, methods, results in a scientific article.`
+    },
+    {
+      title: "6. Summarizing and Note-Taking",
+      text: `Summarization: condense text while retaining essentials.\nAnnotation: highlight key ideas and questions.\nStrategy: Write brief notes, create mind maps.\nExample: Summarize long essay on climate change in 3-4 sentences.`
+    },
+    {
+      title: "7. Skimming and Scanning",
+      text: `Skimming: read quickly for general ideas.\nScanning: search for specific info/keywords.\nApplications: exams, research, info retrieval.\nExample: Skim news for headlines; scan for a specific statistic.`
+    },
+    {
+      title: "Applications of Reading Comprehension",
+      text: `Academic success: exams, research papers, textbooks.\nProfessional life: reports, emails, manuals, proposals.\nCritical thinking: evaluate info & arguments.\nProblem-solving: interpret data, instructions.\nLifelong learning: literature, science, history.`
+    },
+    {
+      title: "Strategies to Improve Reading Comprehension",
+      text: `- Read regularly across genres\n- Expand vocabulary\n- Ask questions while reading\n- Summarize paragraphs in own words\n- Annotate texts\n- Discuss readings with peers`
+    },
+    {
+      title: "Conclusion",
+      text: `Reading comprehension enables interpreting meaning, analyzing arguments, and evaluating information.\nStrong comprehension fosters critical thinking, lifelong learning, and effective communication.\nIt is essential for both personal and professional success.`
+    }
+  ];
+
+  const slidesContainer = document.getElementById("slides");
+
+  lessonContent.forEach(section => {
+    const slide = document.createElement("div");
+    slide.className = "slide p-8 hidden";
+    slide.innerHTML = `<h2 class="text-xl font-semibold text-green-600 mb-2">${section.title}</h2>
+    <p class="scrollable whitespace-pre-line">${section.text}</p>`;
+    slidesContainer.appendChild(slide);
+  });
+
+  const slides = document.querySelectorAll(".slide");
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+  let current = 0;
+
+  function showSlide(index) {
+    slides.forEach((slide, i) => slide.classList.toggle("hidden", i !== index));
+    prevBtn.disabled = index === 0;
+    nextBtn.disabled = index === slides.length - 1;
+  }
+
+  prevBtn.addEventListener("click", () => {
+    if (current > 0) current--;
+    showSlide(current);
+  });
+
+  nextBtn.addEventListener("click", () => {
+    if (current < slides.length - 1) current++;
+    showSlide(current);
+  });
+</script>
+
+</body>
+</html>

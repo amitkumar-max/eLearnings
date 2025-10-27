@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inorganic Chemistry Slider</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  .scrollable {
+    max-height: 20rem;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #2563eb #dbeafe;
+  }
+  .scrollable::-webkit-scrollbar {
+    width: 8px;
+  }
+  .scrollable::-webkit-scrollbar-track {
+    background: #dbeafe;
+  }
+  .scrollable::-webkit-scrollbar-thumb {
+    background-color: #2563eb;
+    border-radius: 4px;
+  }
+</style>
+</head>
+<body class="bg-blue-50 flex justify-center items-center min-h-screen">
+
+<div class="w-full max-w-5xl bg-white rounded-xl shadow-lg overflow-hidden">
+  <div id="slides" class="relative">
+
+    <!-- Slide 1: Title -->
+    <div class="slide p-8 active">
+      <h2 class="text-2xl font-bold text-blue-600 mb-2">Inorganic Chemistry</h2>
+      <p class="mb-1"><strong>Course:</strong> Chemistry</p>
+      <p class="mb-1"><strong>Slug:</strong> chemistry-inorganic-intro</p>
+    </div>
+
+  </div>
+
+  <!-- Controls -->
+  <div class="flex justify-between bg-blue-100 p-4">
+    <button id="prevBtn" class="bg-blue-600 text-white px-4 py-2 rounded disabled:opacity-50" disabled>Previous</button>
+    <button id="nextBtn" class="bg-blue-600 text-white px-4 py-2 rounded">Next</button>
+  </div>
+</div>
+
+<script>
+  // Inorganic Chemistry content
+  const lessonContent = [
+    {
+      title: "Introduction",
+      text: `Inorganic chemistry studies inorganic compounds including minerals, metals, non-metals, salts, and coordination complexes. It examines substances formed by various elements and their interactions, providing insight into atomic structure, bonding, reactivity, periodicity, and thermodynamics. Applications include materials science, catalysis, metallurgy, environmental chemistry, and industry.`
+    },
+    {
+      title: "Descriptive Inorganic Chemistry",
+      text: `Focuses on properties, reactions, and uses of elements and compounds.\nMetals: properties, extraction, alloys.\nNon-metals: oxides, acids, salts.\nSalts and oxides: formation, solubility, industrial use.\nExample: NaCl is used in food, chemicals, and as a raw material.`
+    },
+    {
+      title: "Structural Chemistry",
+      text: `Studies atomic arrangements, bonding patterns, and crystal structures.\nKey topics: ionic crystals (NaCl, KBr), covalent networks (Diamond, SiO2), metallic lattices (Cu, Al).\nHelps explain hardness, melting point, conductivity, solubility.`
+    },
+    {
+      title: "Coordination Chemistry",
+      text: `Examines complex ions with metal-ligand bonding.\nKey concepts: coordination number, geometry (octahedral, tetrahedral, square planar), ligands (mono-, bi-, polydentate).\nApplications: catalysts, medicines, dyes, materials.\nExample: Hemoglobin binds oxygen via an iron coordination complex.`
+    },
+    {
+      title: "Acid-Base & Redox Reactions",
+      text: `Acid-base concepts: Arrhenius, Bronsted-Lowry, Lewis.\nRedox reactions: energy production, metallurgy, corrosion.\nExample: Rusting of iron (Fe → Fe²⁺ → Fe³⁺) with oxygen and water.`
+    },
+    {
+      title: "Periodic Trends & Reactivity",
+      text: `Periodic table predicts atomic radius, electronegativity, ionization energy, and reactivity.\nExample: Alkali metals react with water; noble gases are inert.`
+    },
+    {
+      title: "Thermodynamic Properties",
+      text: `Studies energy changes in reactions: enthalpy (ΔH), entropy (ΔS), Gibbs free energy (ΔG).\nPredicts reaction spontaneity and equilibrium.\nExample: Haber process for ammonia formation optimized with temperature, pressure, and catalyst.`
+    },
+    {
+      title: "Important Elements",
+      text: `Transition metals: catalysts, electronics, pigments, alloys.\nLanthanides & Actinides: magnets, nuclear energy, electronics, specialized catalysts.\nNon-metals: acids, oxides, salts for fertilizers and chemical industry.`
+    },
+    {
+      title: "Applications",
+      text: `Catalysis: industrial reactions.\nMaterial Science: alloys, ceramics, superconductors, semiconductors.\nMetallurgy: extraction, purification, processing.\nEnvironmental Chemistry: water purification, pollutant monitoring.\nEnergy & Electronics: lithium-ion batteries, solar cells.\nAnalytical Chemistry: spectroscopy, titration, chromatography.\nExample: Lanthanides used in high-performance magnets and LEDs.`
+    },
+    {
+      title: "Historical Perspective",
+      text: `Ancient: metal extraction, minerals for dyes, tools, construction.\n18th–19th Century: chemical laws, systematic classification.\n20th Century: coordination chemistry, transition metals for catalysis.\nModern Era: computational chemistry, X-ray crystallography, spectroscopy.`
+    },
+    {
+      title: "Conclusion",
+      text: `Inorganic chemistry explains metals, non-metals, salts, and complex ions. It links chemical theory to practical innovations in technology, medicine, industry, and environment, enabling scientists to design materials, optimize processes, and address global challenges.`
+    }
+  ];
+
+  const slidesContainer = document.getElementById("slides");
+
+  // Create slides dynamically
+  lessonContent.forEach(section => {
+    const slide = document.createElement("div");
+    slide.className = "slide p-8 hidden";
+    slide.innerHTML = `
+      <h2 class="text-xl font-semibold text-blue-600 mb-2">${section.title}</h2>
+      <p class="scrollable whitespace-pre-line">${section.text}</p>
+    `;
+    slidesContainer.appendChild(slide);
+  });
+
+  // Slide navigation logic
+  const slides = document.querySelectorAll(".slide");
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+  let current = 0;
+
+  function showSlide(index) {
+    slides.forEach((slide, i) => slide.classList.toggle("hidden", i !== index));
+    prevBtn.disabled = index === 0;
+    nextBtn.disabled = index === slides.length - 1;
+  }
+
+  prevBtn.addEventListener("click", () => {
+    if (current > 0) current--;
+    showSlide(current);
+  });
+
+  nextBtn.addEventListener("click", () => {
+    if (current < slides.length - 1) current++;
+    showSlide(current);
+  });
+</script>
+
+</body>
+</html>

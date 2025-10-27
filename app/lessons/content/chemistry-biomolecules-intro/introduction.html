@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biomolecules Slider</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  .scrollable {
+    max-height: 20rem;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #3b82f6 #dbeafe;
+  }
+  .scrollable::-webkit-scrollbar {
+    width: 8px;
+  }
+  .scrollable::-webkit-scrollbar-track {
+    background: #dbeafe;
+  }
+  .scrollable::-webkit-scrollbar-thumb {
+    background-color: #3b82f6;
+    border-radius: 4px;
+  }
+</style>
+</head>
+<body class="bg-blue-50 flex justify-center items-center min-h-screen">
+
+<div class="w-full max-w-5xl bg-white rounded-xl shadow-lg overflow-hidden">
+  <div id="slides" class="relative">
+
+    <!-- Slide 1: Title -->
+    <div class="slide p-8 active">
+      <h2 class="text-2xl font-bold text-blue-600 mb-2">Biomolecules</h2>
+      <p class="mb-1"><strong>Course:</strong> Chemistry</p>
+      <p class="mb-1"><strong>Slug:</strong> chemistry-biomolecules-intro</p>
+    </div>
+
+  </div>
+
+  <!-- Controls -->
+  <div class="flex justify-between bg-blue-100 p-4">
+    <button id="prevBtn" class="bg-blue-600 text-white px-4 py-2 rounded disabled:opacity-50" disabled>Previous</button>
+    <button id="nextBtn" class="bg-blue-600 text-white px-4 py-2 rounded">Next</button>
+  </div>
+</div>
+
+<script>
+  // Biomolecules content
+  const lessonContent = [
+    {
+      title: "Introduction",
+      text: `Biomolecules are organic and inorganic compounds essential for life, forming both structural components and functional machinery of living organisms. They are involved in virtually every cellular process, from energy production to genetic information transfer and signal regulation.`
+    },
+    {
+      title: "Carbohydrates",
+      text: `Carbohydrates are organic compounds composed of carbon, hydrogen, and oxygen (C:H:O=1:2:1).\nFunctions: Energy source, structural support, recognition/signaling.\nTypes: Monosaccharides (glucose, fructose), Disaccharides (sucrose, lactose), Polysaccharides (starch, glycogen, cellulose, chitin).\nExample: Glucose provides energy for cellular respiration.`
+    },
+    {
+      title: "Proteins",
+      text: `Proteins are polymers of amino acids linked by peptide bonds.\nStructure Levels: Primary (amino acid sequence), Secondary (α-helix, β-sheet), Tertiary (3D folding), Quaternary (multiple chains).\nFunctions: Enzymes (catalysis), structural proteins (collagen), transport (hemoglobin), defense (antibodies), signaling (hormones).\nExample: Lipase breaks down fats into fatty acids and glycerol.`
+    },
+    {
+      title: "Lipids",
+      text: `Lipids are hydrophobic molecules serving as energy storage, membrane components, and signaling molecules.\nTypes: Fats & oils (triglycerides), Phospholipids (membranes), Steroids (cholesterol, sex hormones), Waxes (plant cuticle).\nFunctions: Energy storage, membrane structure, signaling.\nExample: Phospholipids form fluid mosaic cell membranes.`
+    },
+    {
+      title: "Nucleic Acids",
+      text: `DNA and RNA are polymers of nucleotides storing and transmitting genetic information.\nStructure: Nucleotide = nitrogenous base + pentose sugar + phosphate group.\nFunctions: DNA stores hereditary info, RNA directs protein synthesis (mRNA, tRNA, rRNA), some RNAs are catalytic.\nExample: DNA replication ensures accurate genetic transmission.`
+    },
+    {
+      title: "Vitamins and Hormones",
+      text: `Vitamins: Required in small amounts for coenzyme or regulatory functions. Water-soluble (B-complex, C), Fat-soluble (A, D, E, K).\nHormones: Chemical messengers regulating growth, metabolism, reproduction, homeostasis. Peptide hormones (insulin), Steroid hormones (cortisol, estrogen).\nExample: Vitamin K essential for clotting, insulin regulates blood glucose.`
+    },
+    {
+      title: "Importance",
+      text: `Biomolecules provide the structural and functional basis of life.\nRoles: Energy storage (carbs, lipids), genetic information (DNA, RNA), enzyme catalysis, signaling, defense.\nApplications: Medicine, pharmacology, biotechnology, agriculture, industrial enzymes, genetic engineering.`
+    },
+    {
+      title: "Biochemical Interactions",
+      text: `Enzyme-substrate interactions: Lower activation energy for reactions.\nSignal transduction: Hormones trigger cellular responses.\nMetabolic pathways: Maintain energy and biosynthesis.\nExample: Glycolysis converts glucose to pyruvate, producing ATP for cellular energy.`
+    },
+    {
+      title: "Conclusion",
+      text: `Biomolecules are the building blocks of life, performing diverse structural, regulatory, and metabolic functions. Understanding their chemical structure allows manipulation for medicine, agriculture, and industry, bridging chemistry and biology for metabolic and biotechnological insights.`
+    }
+  ];
+
+  const slidesContainer = document.getElementById("slides");
+
+  // Create slides dynamically
+  lessonContent.forEach(section => {
+    const slide = document.createElement("div");
+    slide.className = "slide p-8 hidden";
+    slide.innerHTML = `
+      <h2 class="text-xl font-semibold text-blue-600 mb-2">${section.title}</h2>
+      <p class="scrollable whitespace-pre-line">${section.text}</p>
+    `;
+    slidesContainer.appendChild(slide);
+  });
+
+  // Slide navigation logic
+  const slides = document.querySelectorAll(".slide");
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+  let current = 0;
+
+  function showSlide(index) {
+    slides.forEach((slide, i) => slide.classList.toggle("hidden", i !== index));
+    prevBtn.disabled = index === 0;
+    nextBtn.disabled = index === slides.length - 1;
+  }
+
+  prevBtn.addEventListener("click", () => {
+    if (current > 0) current--;
+    showSlide(current);
+  });
+
+  nextBtn.addEventListener("click", () => {
+    if (current < slides.length - 1) current++;
+    showSlide(current);
+  });
+</script>
+
+</body>
+</html>

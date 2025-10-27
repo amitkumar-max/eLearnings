@@ -1,0 +1,194 @@
+[
+  {
+    "table_name": "auth_permission",
+    "row_count": 176
+  },
+  {
+    "table_name": "courses_course",
+    "row_count": 103
+  },
+  {
+    "table_name": "students_enrollment",
+    "row_count": 93
+  },
+  {
+    "table_name": "lessons_lesson",
+    "row_count": 72
+  },
+  {
+    "table_name": "django_migrations",
+    "row_count": 56
+  },
+  {
+    "table_name": "django_content_type",
+    "row_count": 44
+  },
+  {
+    "table_name": "courses_courseinteraction",
+    "row_count": 27
+  },
+  {
+    "table_name": "users_customuser",
+    "row_count": 11
+  },
+  {
+    "table_name": "students_studentprofile",
+    "row_count": 11
+  },
+  {
+    "table_name": "django_session",
+    "row_count": 4
+  },
+  {
+    "table_name": "teachers_teacherprofile",
+    "row_count": 0
+  },
+  {
+    "table_name": "teachers_teacherprofile_courses_created",
+    "row_count": 0
+  },
+  {
+    "table_name": "teachers_schedule",
+    "row_count": 0
+  },
+  {
+    "table_name": "teachers_teacherassignment",
+    "row_count": 0
+  },
+  {
+    "table_name": "students_assignmentsubmission",
+    "row_count": 0
+  },
+  {
+    "table_name": "students_examprogress",
+    "row_count": 0
+  },
+  {
+    "table_name": "students_studentprofile_completed_lessons",
+    "row_count": 0
+  },
+  {
+    "table_name": "students_studentprofile_pending_assignments",
+    "row_count": 0
+  },
+  {
+    "table_name": "courses_exam",
+    "row_count": 0
+  },
+  {
+    "table_name": "courses_courseinteraction_completed_lessons",
+    "row_count": 0
+  },
+  {
+    "table_name": "courses_category",
+    "row_count": 0
+  },
+  {
+    "table_name": "downloads_file",
+    "row_count": 0
+  },
+  {
+    "table_name": "students_studentprofile_wishlist_courses",
+    "row_count": 0
+  },
+  {
+    "table_name": "exams_exam",
+    "row_count": 0
+  },
+  {
+    "table_name": "exams_examprogress",
+    "row_count": 0
+  },
+  {
+    "table_name": "lessons_quizquestion",
+    "row_count": 0
+  },
+  {
+    "table_name": "lessons_lessoncomment",
+    "row_count": 0
+  },
+  {
+    "table_name": "lessons_lessonfeedback",
+    "row_count": 0
+  },
+  {
+    "table_name": "lessons_lessonresource",
+    "row_count": 0
+  },
+  {
+    "table_name": "lessons_quizoption",
+    "row_count": 0
+  },
+  {
+    "table_name": "lessons_lessonprogress",
+    "row_count": 0
+  },
+  {
+    "table_name": "notifications_notification",
+    "row_count": 0
+  },
+  {
+    "table_name": "payments_transaction",
+    "row_count": 0
+  },
+  {
+    "table_name": "policies_policy",
+    "row_count": 0
+  },
+  {
+    "table_name": "payments_order",
+    "row_count": 0
+  },
+  {
+    "table_name": "progress_result",
+    "row_count": 0
+  },
+  {
+    "table_name": "progress_lessonprogress",
+    "row_count": 0
+  },
+  {
+    "table_name": "lessons_lessonprogress_completed_lessons",
+    "row_count": 0
+  },
+  {
+    "table_name": "students_notification",
+    "row_count": 0
+  },
+  {
+    "table_name": "auth_group",
+    "row_count": 0
+  },
+  {
+    "table_name": "auth_group_permissions",
+    "row_count": 0
+  },
+  {
+    "table_name": "users_customuser_groups",
+    "row_count": 0
+  },
+  {
+    "table_name": "users_customuser_user_permissions",
+    "row_count": 0
+  },
+  {
+    "table_name": "django_admin_log",
+    "row_count": 0
+  },
+  {
+    "table_name": "blogs_blog",
+    "row_count": 0
+  },
+  {
+    "table_name": "blogs_comment",
+    "row_count": 0
+  },
+  {
+    "table_name": "courses_courseassignment",
+    "row_count": 0
+  },
+  {
+    "table_name": "courses_enrollment",
+    "row_count": 0
+  }
+]

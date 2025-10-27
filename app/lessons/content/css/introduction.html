@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSS Basics Slider</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  .scrollable {
+    max-height: 20rem;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #2563eb #dbeafe;
+  }
+  .scrollable::-webkit-scrollbar {
+    width: 8px;
+  }
+  .scrollable::-webkit-scrollbar-track {
+    background: #dbeafe;
+  }
+  .scrollable::-webkit-scrollbar-thumb {
+    background-color: #2563eb;
+    border-radius: 4px;
+  }
+</style>
+</head>
+<body class="bg-blue-50 flex justify-center items-center min-h-screen">
+
+<div class="w-full max-w-5xl bg-white rounded-xl shadow-lg overflow-hidden">
+  <div id="slides" class="relative">
+
+    <!-- Slide 1: Title -->
+    <div class="slide p-8 active">
+      <h2 class="text-2xl font-bold text-blue-600 mb-2">Introduction to CSS</h2>
+      <p class="mb-1"><strong>Course:</strong> CSS Basics</p>
+      <p class="mb-1"><strong>Slug:</strong> css-intro</p>
+    </div>
+
+  </div>
+
+  <!-- Controls -->
+  <div class="flex justify-between bg-blue-100 p-4">
+    <button id="prevBtn" class="bg-blue-600 text-white px-4 py-2 rounded disabled:opacity-50" disabled>Previous</button>
+    <button id="nextBtn" class="bg-blue-600 text-white px-4 py-2 rounded">Next</button>
+  </div>
+</div>
+
+<script>
+  const lessonContent = [
+    {
+      title: "1. What is CSS?",
+      text: `CSS (Cascading Style Sheets) styles HTML content.\nSeparates content from design.\nCascading: styles override based on specificity.\nExample:\nbody { font-family: Arial; background-color: #f0f0f0; color: #333; }\nh1 { color: #0077cc; }`
+    },
+    {
+      title: "2. Ways to Apply CSS",
+      text: `Inline CSS: <p style="color:red;">Hello</p>\nInternal CSS: <style>p { color: blue; }</style>\nExternal CSS: <link rel="stylesheet" href="style.css">\nTip: Prefer external CSS for maintainability.`
+    },
+    {
+      title: "3. CSS Selectors",
+      text: `Element selector: p { color: green; }\nClass selector: .button { padding: 10px; }\nID selector: #header { font-size: 24px; }\nGroup selector: h1, h2 { font-family: Verdana; }\nExample:\n.navbar a { text-decoration: none; color: white; }`
+    },
+    {
+      title: "4. Common CSS Properties",
+      text: `Text: color, font-size, font-family, text-align\nBox Model: margin, padding, border, width, height\nBackgrounds: background-color, background-image, background-size\nPositioning: position, top, left, z-index\nDisplay & Flex: display, flex, grid, align-items, justify-content\nExample:\n.card { border: 1px solid #ccc; padding: 20px; margin: 10px; border-radius: 8px; background-color: white; }`
+    },
+    {
+      title: "5. The Box Model",
+      text: `Every HTML element is a box:\nContent -> Padding -> Border -> Margin\nTip: use box-sizing: border-box; to include padding and border in width calculations.`
+    },
+    {
+      title: "6. CSS Colors & Units",
+      text: `Colors: #hex, rgb(), rgba(), hsl()\nUnits: px, %, em, rem, vh, vw\nExample:\nh1 { color: rgba(255,0,0,0.8); font-size: 2rem; }`
+    },
+    {
+      title: "7. CSS Transitions & Animations",
+      text: `Transitions:\nbutton { background-color: blue; transition: background-color 0.3s ease; }\nbutton:hover { background-color: green; }\nKeyframe animation:\n@keyframes move { 0% { transform: translateX(0); } 100% { transform: translateX(100px); } }\n.box { animation: move 2s infinite alternate; }`
+    },
+    {
+      title: "8. Responsive Design",
+      text: `Media queries adjust layout based on screen size:\n@media (max-width:768px) { body { font-size: 14px; } }\nFlexbox & Grid simplify responsive layouts.\nTips:\nflex-direction: column for mobile layouts\ngrid-template-columns: repeat(auto-fit,minmax(200px,1fr))`
+    },
+    {
+      title: "9. Example Mini-Project",
+      text: `Create a Responsive Profile Card:\n- Use <div class="card">\n- Include image, name, bio\n- Add hover effect with transition\n- Use flexbox to center content`
+    },
+    {
+      title: "10. Quick Tips",
+      text: `Keep CSS organized: typography, layout, colors, components.\nUse comments: /* Header Styles */\nAvoid inline CSS for maintainability.\nTest responsiveness across devices.`
+    }
+  ];
+
+  const slidesContainer = document.getElementById("slides");
+
+  lessonContent.forEach(section => {
+    const slide = document.createElement("div");
+    slide.className = "slide p-8 hidden";
+    slide.innerHTML = `<h2 class="text-xl font-semibold text-blue-600 mb-2">${section.title}</h2>
+    <p class="scrollable whitespace-pre-line">${section.text}</p>`;
+    slidesContainer.appendChild(slide);
+  });
+
+  const slides = document.querySelectorAll(".slide");
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+  let current = 0;
+
+  function showSlide(index) {
+    slides.forEach((slide, i) => slide.classList.toggle("hidden", i !== index));
+    prevBtn.disabled = index === 0;
+    nextBtn.disabled = index === slides.length - 1;
+  }
+
+  prevBtn.addEventListener("click", () => {
+    if (current > 0) current--;
+    showSlide(current);
+  });
+
+  nextBtn.addEventListener("click", () => {
+    if (current < slides.length - 1) current++;
+    showSlide(current);
+  });
+</script>
+
+</body>
+</html>

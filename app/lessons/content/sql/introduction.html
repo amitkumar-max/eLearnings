@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MySQL Basics Slider</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  /* Custom scrollbar for code blocks */
+  pre {
+    scrollbar-width: thin;
+    scrollbar-color: #4ade80 #d1fae5;
+  }
+  pre::-webkit-scrollbar {
+    width: 8px;
+  }
+  pre::-webkit-scrollbar-track {
+    background: #d1fae5;
+  }
+  pre::-webkit-scrollbar-thumb {
+    background-color: #4ade80;
+    border-radius: 4px;
+  }
+</style>
+</head>
+<body class="bg-green-50 flex justify-center items-center min-h-screen">
+
+<div class="w-full max-w-4xl bg-white rounded-xl shadow-lg overflow-hidden">
+  <!-- Slides container -->
+  <div id="slides" class="relative">
+    <!-- Slide 1 -->
+    <div class="slide p-8 active">
+      <h2 class="text-2xl font-bold text-green-700 mb-2">Introduction to MySQL</h2>
+      <p class="mb-1"><strong>Course:</strong> MySQL Basics</p>
+      <p class="mb-1"><strong>Slug:</strong> mysql-intro</p>
+    </div>
+
+    <!-- Slide 2 -->
+    <div class="slide p-8 hidden">
+      <h2 class="text-xl font-semibold text-green-700 mb-2">1. What is MySQL?</h2>
+      <p>MySQL is a relational database management system (RDBMS) that uses SQL to manage data.</p>
+      <ul class="list-disc list-inside mt-2">
+        <li>Open-source and fast.</li>
+        <li>Stores data in tables with rows and columns.</li>
+        <li>Supports queries, transactions, indexing, and relationships.</li>
+      </ul>
+      <pre class="mt-2 p-2 bg-green-100 rounded">SHOW DATABASES;</pre>
+    </div>
+
+    <!-- Slide 3 -->
+    <div class="slide p-8 hidden">
+      <h2 class="text-xl font-semibold text-green-700 mb-2">2. Database Basics</h2>
+      <ul class="list-disc list-inside mt-2">
+        <li><strong>Database:</strong> Collection of related data.</li>
+        <li><strong>Table:</strong> Collection of rows and columns.</li>
+        <li><strong>Row:</strong> One record in a table.</li>
+        <li><strong>Column:</strong> Field storing a specific type of data.</li>
+      </ul>
+      <pre class="mt-2 p-2 bg-green-100 rounded">
+CREATE DATABASE school;
+USE school;
+
+CREATE TABLE students (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50),
+    age INT,
+    grade VARCHAR(5)
+);
+      </pre>
+    </div>
+
+    <!-- Slide 4 -->
+    <div class="slide p-8 hidden">
+      <h2 class="text-xl font-semibold text-green-700 mb-2">3. Data Types</h2>
+      <ul class="list-disc list-inside mt-2">
+        <li>Numeric: INT, FLOAT, DOUBLE, DECIMAL</li>
+        <li>String: CHAR, VARCHAR, TEXT</li>
+        <li>Date/Time: DATE, DATETIME, TIMESTAMP</li>
+        <li>Boolean: TINYINT(1)</li>
+      </ul>
+    </div>
+
+    <!-- Slide 5 -->
+    <div class="slide p-8 hidden">
+      <h2 class="text-xl font-semibold text-green-700 mb-2">4. Inserting Data</h2>
+      <pre class="mt-2 p-2 bg-green-100 rounded">
+INSERT INTO students (name, age, grade)
+VALUES ('Amit', 22, 'A');
+      </pre>
+    </div>
+
+    <!-- Slide 6 -->
+    <div class="slide p-8 hidden">
+      <h2 class="text-xl font-semibold text-green-700 mb-2">5. Querying Data</h2>
+      <pre class="mt-2 p-2 bg-green-100 rounded">
+SELECT * FROM students;
+SELECT name, age FROM students WHERE grade='A';
+SELECT COUNT(*) FROM students;
+      </pre>
+    </div>
+
+    <!-- Slide 7 -->
+    <div class="slide p-8 hidden">
+      <h2 class="text-xl font-semibold text-green-700 mb-2">6. Updating Data</h2>
+      <pre class="mt-2 p-2 bg-green-100 rounded">
+UPDATE students
+SET grade='A+'
+WHERE name='Amit';
+      </pre>
+    </div>
+
+    <!-- Slide 8 -->
+    <div class="slide p-8 hidden">
+      <h2 class="text-xl font-semibold text-green-700 mb-2">7. Deleting Data</h2>
+      <pre class="mt-2 p-2 bg-green-100 rounded">
+DELETE FROM students
+WHERE name='Amit';
+      </pre>
+      <p class="mt-2 italic text-green-600">Mini Tip: Always backup data before using DELETE.</p>
+    </div>
+
+    <!-- Slide 9 -->
+    <div class="slide p-8 hidden">
+      <h2 class="text-xl font-semibold text-green-700 mb-2">8. Table Relationships</h2>
+      <ul class="list-disc list-inside mt-2">
+        <li>Primary Key (PK): Uniquely identifies a record.</li>
+        <li>Foreign Key (FK): Links one table to another.</li>
+        <li>One-to-Many: One class has many students.</li>
+        <li>Many-to-Many: Students and Courses (join table).</li>
+      </ul>
+      <pre class="mt-2 p-2 bg-green-100 rounded">
+CREATE TABLE courses (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(50)
+);
+
+CREATE TABLE enrollments (
+    student_id INT,
+    course_id INT,
+    FOREIGN KEY (student_id) REFERENCES students(id),
+    FOREIGN KEY (course_id) REFERENCES courses(id)
+);
+      </pre>
+    </div>
+
+    <!-- Slide 10 -->
+    <div class="slide p-8 hidden">
+      <h2 class="text-xl font-semibold text-green-700 mb-2">9. Advanced Queries</h2>
+      <pre class="mt-2 p-2 bg-green-100 rounded">
+SELECT students.name, courses.title
+FROM students
+JOIN enrollments ON students.id = enrollments.student_id
+JOIN courses ON courses.id = enrollments.course_id;
+
+-- Sorting: ORDER BY age DESC;
+-- Limiting results: LIMIT 5;
+-- Aggregation: SUM, AVG, MAX, MIN
+-- Grouping: GROUP BY grade;
+      </pre>
+    </div>
+
+    <!-- Slide 11 -->
+    <div class="slide p-8 hidden">
+      <h2 class="text-xl font-semibold text-green-700 mb-2">10. Mini Project Idea</h2>
+      <ul class="list-disc list-inside mt-2">
+        <li>Tables: students, courses, enrollments</li>
+        <li>Add, update, and delete students & courses</li>
+        <li>Enroll students in multiple courses</li>
+        <li>Query to show students per course</li>
+      </ul>
+    </div>
+
+    <!-- Slide 12 -->
+    <div class="slide p-8 hidden">
+      <h2 class="text-xl font-semibold text-green-700 mb-2">11. Quick Tips</h2>
+      <ul class="list-disc list-inside mt-2">
+        <li>Always define primary keys for tables.</li>
+        <li>Normalize data to reduce redundancy.</li>
+        <li>Use INDEX to speed up queries.</li>
+        <li>Regularly backup your databases.</li>
+        <li>Practice CRUD operations to become comfortable with MySQL.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <div class="flex justify-between bg-green-100 p-4">
+    <button id="prevBtn" class="bg-green-600 text-white px-4 py-2 rounded disabled:opacity-50" disabled>Previous</button>
+    <button id="nextBtn" class="bg-green-600 text-white px-4 py-2 rounded">Next</button>
+  </div>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  let current = 0;
+
+  function showSlide(index) {
+    slides.forEach((slide, i) => slide.classList.toggle('hidden', i !== index));
+    prevBtn.disabled = index === 0;
+    nextBtn.disabled = index === slides.length - 1;
+  }
+
+  prevBtn.addEventListener('click', () => {
+    if (current > 0) current--;
+    showSlide(current);
+  });
+
+  nextBtn.addEventListener('click', () => {
+    if (current < slides.length - 1) current++;
+    showSlide(current);
+  });
+</script>
+
+</body>
+</html>

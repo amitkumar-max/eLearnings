@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chemistry Basics Slider</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  .scrollable {
+    max-height: 20rem;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #f87171 #fee2e2; /* Red shades for chemistry theme */
+  }
+  .scrollable::-webkit-scrollbar {
+    width: 8px;
+  }
+  .scrollable::-webkit-scrollbar-track {
+    background: #fee2e2;
+  }
+  .scrollable::-webkit-scrollbar-thumb {
+    background-color: #f87171;
+    border-radius: 4px;
+  }
+</style>
+</head>
+<body class="bg-red-50 flex justify-center items-center min-h-screen">
+
+<div class="w-full max-w-5xl bg-white rounded-xl shadow-lg overflow-hidden">
+  <!-- Slides container -->
+  <div id="slides" class="relative">
+
+    <!-- Slide 1: Title -->
+    <div class="slide p-8 active">
+      <h2 class="text-2xl font-bold text-red-600 mb-2">Basic Concepts of Chemistry</h2>
+      <p class="mb-1"><strong>Course:</strong> Chemistry</p>
+      <p class="mb-1"><strong>Slug:</strong> chemistry-basics-concepts-intro</p>
+    </div>
+
+  </div>
+
+  <!-- Controls -->
+  <div class="flex justify-between bg-red-100 p-4">
+    <button id="prevBtn" class="bg-red-600 text-white px-4 py-2 rounded disabled:opacity-50" disabled>Previous</button>
+    <button id="nextBtn" class="bg-red-600 text-white px-4 py-2 rounded">Next</button>
+  </div>
+</div>
+
+<script>
+  // Chemistry lesson content
+  const lessonContent = [
+    {
+      title: "Introduction",
+      text: `Chemistry is the study of matter, its composition, properties, structure, and changes. It connects physics, biology, and environmental science, explaining atomic and macroscopic interactions.`
+    },
+    {
+      title: "Matter and Its Classification",
+      text: `Matter: Anything with mass and volume.\nStates: Solid, liquid, gas, plasma.\nClassification:\n- Elements: Single type of atom (H, O).\n- Compounds: Two or more elements chemically combined (H₂O, NaCl).\n- Mixtures: Homogeneous or heterogeneous combinations.`
+    },
+    {
+      title: "Atomic Theory",
+      text: `Dalton's atomic theory:\n- Matter made of indivisible atoms.\n- Atoms of same element identical.\n- Compounds formed in fixed ratios.\n- Reactions rearrange atoms.\nModern theory includes protons, neutrons, electrons, quantum mechanics.`
+    },
+    {
+      title: "Mole Concept & Avogadro’s Number",
+      text: `Mole (mol): 6.022×10²³ particles.\nMolar mass: Mass of one mole in grams.\nApplications: Stoichiometry, solution preparation.\nExample: 1 mole H₂O = 18 g = 6.022×10²³ molecules.`
+    },
+    {
+      title: "Periodic Table",
+      text: `Elements arranged by atomic number (Mendeleev).\nTrends: Similar chemical behavior in groups.\nApplications: Predict reactions, discover new elements, understand electronegativity, atomic size, ionization energy.`
+    },
+    {
+      title: "Chemical Bonding",
+      text: `- Ionic: Transfer of electrons (NaCl).\n- Covalent: Sharing electrons (H₂O, CO₂).\n- Metallic: Electron cloud in metals (Fe, Cu).\n- Weak interactions: Hydrogen bonds, van der Waals forces.`
+    },
+    {
+      title: "Stoichiometry",
+      text: `Mathematical relationships in reactions.\nPredict amounts consumed/produced.\nExample: 2H₂ + O₂ → 2H₂O; 4 g H₂ + 32 g O₂ = 36 g H₂O.`
+    },
+    {
+      title: "Thermodynamics & Kinetics",
+      text: `Thermodynamics: Energy changes.\n- Exothermic: Releases energy.\n- Endothermic: Absorbs energy.\nKinetics: Reaction rates, influenced by temperature, concentration, surface area, catalysts.\nEquilibrium: Le Chatelier’s principle.`
+    },
+    {
+      title: "Importance of Chemistry",
+      text: `Foundational for advanced studies, industry, medicine, environmental science, and daily life. Helps understand reactions, design materials, and solve practical problems.`
+    },
+    {
+      title: "Historical Perspective",
+      text: `- Ancient Alchemy: Transforming materials.\n- 17th–18th Century: Boyle & Lavoisier.\n- 19th Century: Dalton, Mendeleev.\n- 20th Century: Quantum chemistry.`
+    },
+    {
+      title: "Conclusion",
+      text: `Chemistry bridges atoms and molecules with the observable world. Mastery of basic concepts enables scientific literacy, technological innovation, and real-world problem-solving in medicine, industry, and ecology.`
+    }
+  ];
+
+  const slidesContainer = document.getElementById("slides");
+
+  // Create slides dynamically
+  lessonContent.forEach(section => {
+    const slide = document.createElement("div");
+    slide.className = "slide p-8 hidden";
+    slide.innerHTML = `
+      <h2 class="text-xl font-semibold text-red-600 mb-2">${section.title}</h2>
+      <p class="scrollable whitespace-pre-line">${section.text}</p>
+    `;
+    slidesContainer.appendChild(slide);
+  });
+
+  // Slide navigation logic
+  const slides = document.querySelectorAll(".slide");
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+  let current = 0;
+
+  function showSlide(index) {
+    slides.forEach((slide, i) => slide.classList.toggle("hidden", i !== index));
+    prevBtn.disabled = index === 0;
+    nextBtn.disabled = index === slides.length - 1;
+  }
+
+  prevBtn.addEventListener("click", () => {
+    if (current > 0) current--;
+    showSlide(current);
+  });
+
+  nextBtn.addEventListener("click", () => {
+    if (current < slides.length - 1) current++;
+    showSlide(current);
+  });
+</script>
+
+</body>
+</html>

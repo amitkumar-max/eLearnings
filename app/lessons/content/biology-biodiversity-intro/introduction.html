@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diversity in Biology Slider</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  /* Custom scrollbar for long text blocks */
+  pre, .scrollable {
+    scrollbar-width: thin;
+    scrollbar-color: #4ade80 #d1fae5;
+  }
+  pre::-webkit-scrollbar, .scrollable::-webkit-scrollbar {
+    width: 8px;
+  }
+  pre::-webkit-scrollbar-track, .scrollable::-webkit-scrollbar-track {
+    background: #d1fae5;
+  }
+  pre::-webkit-scrollbar-thumb, .scrollable::-webkit-scrollbar-thumb {
+    background-color: #4ade80;
+    border-radius: 4px;
+  }
+</style>
+</head>
+<body class="bg-green-50 flex justify-center items-center min-h-screen">
+
+<div class="w-full max-w-5xl bg-white rounded-xl shadow-lg overflow-hidden">
+  <!-- Slides container -->
+  <div id="slides" class="relative">
+
+    <!-- Slide 1 -->
+    <div class="slide p-8 active">
+      <h2 class="text-2xl font-bold text-green-700 mb-2">Diversity in Biology</h2>
+      <p class="mb-1"><strong>Course:</strong> Biology</p>
+      <p class="mb-1"><strong>Slug:</strong> biology-diversity-intro</p>
+    </div>
+
+    <!-- Slide 2 -->
+    <div class="slide p-8 hidden">
+      <h2 class="text-xl font-semibold text-green-700 mb-2">Introduction</h2>
+      <p class="scrollable max-h-80 overflow-auto">
+        Biological diversity, commonly known as biodiversity, refers to the vast array of life forms on Earth.
+        It encompasses the variety of genes, species, ecosystems, and the interactions among them that support life.
+        Biodiversity results from millions of years of evolution, influenced by natural selection, genetic mutation,
+        migration, and environmental changes. Understanding biodiversity is crucial for ecosystem health and human well-being.
+      </p>
+    </div>
+
+    <!-- Slide 3 -->
+    <div class="slide p-8 hidden">
+      <h2 class="text-xl font-semibold text-green-700 mb-2">Levels of Biodiversity</h2>
+      <p class="mb-2">Biodiversity can be examined at three main levels, each critical for maintaining ecological balance:</p>
+
+      <h3 class="font-semibold text-green-600 mt-2">1. Genetic Diversity</h3>
+      <p class="scrollable max-h-64 overflow-auto">
+        Variation of genes within a species allows populations to adapt, resist diseases, and maintain reproductive success.
+        Example: In crops like wheat or rice, some varieties withstand droughts or pests. In animals, such as tigers,
+        genetic variation prevents inbreeding depression.
+      </p>
+
+      <h3 class="font-semibold text-green-600 mt-2">2. Species Diversity</h3>
+      <p class="scrollable max-h-64 overflow-auto">
+        Variety of species in an ecosystem, including species richness and evenness.
+        Tropical rainforests are highly diverse, while polar regions have fewer species due to extreme conditions.
+        Each species contributes to ecological functions and food web stability.
+      </p>
+
+      <h3 class="font-semibold text-green-600 mt-2">3. Ecosystem Diversity</h3>
+      <p class="scrollable max-h-64 overflow-auto">
+        Range of habitats, ecological processes, and communities. Forests, grasslands, wetlands, deserts, coral reefs, and tundras
+        support species adapted to their environments. Ecosystem diversity ensures resilience to disturbances and provides ecological services.
+      </p>
+    </div>
+
+    <!-- Slide 4 -->
+    <div class="slide p-8 hidden">
+      <h2 class="text-xl font-semibold text-green-700 mb-2">Importance of Biodiversity</h2>
+      <ul class="list-disc list-inside mt-2 scrollable max-h-96 overflow-auto">
+        <li><strong>Ecosystem Services:</strong> Oxygen production, nutrient cycling, soil formation, water purification, pollination.</li>
+        <li><strong>Food & Agriculture:</strong> Genetic diversity in crops and livestock ensures resilience.</li>
+        <li><strong>Medicines & Biotechnology:</strong> Plants, fungi, and microorganisms are sources of medicinal compounds.</li>
+        <li><strong>Climate Regulation:</strong> Forests, oceans, and wetlands act as carbon sinks.</li>
+        <li><strong>Cultural & Recreational Value:</strong> Natural landscapes, wildlife sanctuaries, coral reefs support tourism and well-being.</li>
+      </ul>
+    </div>
+
+    <!-- Slide 5 -->
+    <div class="slide p-8 hidden">
+      <h2 class="text-xl font-semibold text-green-700 mb-2">Threats to Biodiversity</h2>
+      <ul class="list-disc list-inside mt-2 scrollable max-h-96 overflow-auto">
+        <li>Habitat Loss: Deforestation, urbanization, agriculture reduce habitats and fragment populations.</li>
+        <li>Climate Change: Temperature rise, altered rainfall, extreme events affect species survival.</li>
+        <li>Pollution: Air, water, and soil pollution harm organisms and ecosystems.</li>
+        <li>Overexploitation: Unsustainable hunting, fishing, logging threaten species.</li>
+        <li>Invasive Species: Non-native species outcompete local species, destabilizing balance.</li>
+      </ul>
+    </div>
+
+    <!-- Slide 6 -->
+    <div class="slide p-8 hidden">
+      <h2 class="text-xl font-semibold text-green-700 mb-2">Conservation of Biodiversity</h2>
+      <ul class="list-disc list-inside mt-2 scrollable max-h-96 overflow-auto">
+        <li>Protected Areas: National parks, wildlife sanctuaries, biosphere reserves.</li>
+        <li>Species Conservation: Captive breeding, reintroduction, legal protection.</li>
+        <li>Restoration Ecology: Rehabilitate degraded ecosystems.</li>
+        <li>Sustainable Practices: Sustainable agriculture, forestry, fisheries.</li>
+        <li>Community Participation & Education: Raise awareness, involve local communities.</li>
+      </ul>
+    </div>
+
+    <!-- Slide 7 -->
+    <div class="slide p-8 hidden">
+      <h2 class="text-xl font-semibold text-green-700 mb-2">Biodiversity and Ethics</h2>
+      <p class="scrollable max-h-80 overflow-auto">
+        Biodiversity conservation is both a scientific concern and ethical responsibility.
+        Humans have a duty to protect the web of life. Preserving biodiversity ensures future generations
+        inherit a world rich in resources, ecological stability, and opportunities for learning and discovery.
+      </p>
+    </div>
+
+    <!-- Slide 8 -->
+    <div class="slide p-8 hidden">
+      <h2 class="text-xl font-semibold text-green-700 mb-2">Conclusion</h2>
+      <p class="scrollable max-h-80 overflow-auto">
+        Biodiversity represents the complexity, resilience, and beauty of life on Earth.
+        Understanding its levels, importance, and threats allows us to conserve and manage natural resources sustainably.
+        Every species, from microorganisms to large predators, maintains ecological balance, emphasizing global commitment to conservation.
+      </p>
+    </div>
+
+  </div>
+
+  <!-- Controls -->
+  <div class="flex justify-between bg-green-100 p-4">
+    <button id="prevBtn" class="bg-green-600 text-white px-4 py-2 rounded disabled:opacity-50" disabled>Previous</button>
+    <button id="nextBtn" class="bg-green-600 text-white px-4 py-2 rounded">Next</button>
+  </div>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  let current = 0;
+
+  function showSlide(index) {
+    slides.forEach((slide, i) => slide.classList.toggle('hidden', i !== index));
+    prevBtn.disabled = index === 0;
+    nextBtn.disabled = index === slides.length - 1;
+  }
+
+  prevBtn.addEventListener('click', () => {
+    if (current > 0) current--;
+    showSlide(current);
+  });
+
+  nextBtn.addEventListener('click', () => {
+    if (current < slides.length - 1) current++;
+    showSlide(current);
+  });
+</script>
+
+</body>
+</html>
