@@ -1,0 +1,117 @@
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3D Collage Effect — Photoshop Reaction Formula</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #a8e063, #56ab2f);
+      font-family: 'Poppins', sans-serif;
+      overflow-x: hidden;
+      color: #fff;
+    }
+    .slide {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 1s ease-in-out;
+    }
+    .slide.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+    h2 {
+      font-size: 1.3rem;
+      margin: 8px 0;
+      color: #d9ffd9;
+    }
+    p, li {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #eaffea;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    ul li::before {
+      content: '⚗️ ';
+    }
+    .arrow {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      font-size: 2rem;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 10px 15px;
+      border-radius: 50%;
+      transition: 0.3s;
+    }
+    .arrow:hover {
+      background: rgba(255, 255, 255, 0.4);
+    }
+  </style>
+</head>
+<body>
+  <div class="slide show">
+    <h1>⚗️ 3D Collage Effect — Photoshop Reaction Formula</h1>
+    <h2>Objective:</h2>
+    <p>To craft a 3D collage where multiple image layers pop out from the surface — creating a depth illusion using shadows, transforms, and clipping reactions 🧩</p>
+  </div>
+
+  <div class="slide">
+    <h2>🧪 Materials Required:</h2>
+    <ul>
+      <li>Multiple portrait/object photos</li>
+      <li>Background texture (paper, grid, or gradient)</li>
+      <li>Adobe Photoshop</li>
+      <li>Polygonal Lasso Tool, Drop Shadow, and Perspective Transform</li>
+    </ul>
+  </div>
+
+  <div class="slide">
+    <h2>🧬 Reaction Procedure:</h2>
+    <ol>
+      <li><b>Import Base Compounds:</b> Open background → import 3–5 photos as collage tiles.</li>
+      <li><b>Crop & Isolate:</b> Use Polygonal Lasso Tool → cut out and duplicate layers like puzzle pieces.</li>
+      <li><b>Arrange:</b> Scatter pieces and overlap them for natural placement.</li>
+      <li><b>3D Perspective:</b> Use Perspective/Distort to tilt each photo.</li>
+      <li><b>Shadow Bond Formation:</b> Drop Shadow (15px, 50–60%) for depth.</li>
+      <li><b>Frame Catalyst:</b> Stroke 2–3px white border for photo-like edges.</li>
+      <li><b>Main Pop-Out:</b> Duplicate subject, erase background — it pops out!</li>
+      <li><b>Lighting Reaction:</b> Add soft highlights and shadows for realism.</li>
+      <li><b>Crystallization Stage:</b> Merge layers → apply Camera Raw (Texture +10, Clarity +15).</li>
+    </ol>
+  </div>
+
+  <div class="slide">
+    <h2>⚡ Result:</h2>
+    <p>A multi-layered 3D collage with popping subjects, cinematic shadows, and depth illusion — like photo cubes floating in mid-air 🧱✨</p>
+  </div>
+
+  <div class="arrow" onclick="nextSlide()">➡️</div>
+
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+
+    function nextSlide() {
+      slides[currentSlide].classList.remove('show');
+      currentSlide = (currentSlide + 1) % slides.length;
+      slides[currentSlide].classList.add('show');
+    }
+  </script>
+</body>
+</html>

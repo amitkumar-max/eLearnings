@@ -1,8 +1,0 @@
-3. Chemistry — Inorganic
-
-Title: Inorganic Chemistry
-Course: Chemistry
-Slug: chemistry-inorganic-intro
-
-Lesson Content:
-Inorganic chemistry deals with the study of inorganic compounds, encompassing minerals, metals, non-metals, salts, and coordination complexes. Unlike organic chemistry, which focuses primarily on carbon-containing compounds, inorganic chemistry examines substances formed by a variety of elements and their interactions. Key areas include descriptive inorganic chemistry, which focuses on the properties and reactivity of elements and their compounds; structural chemistry, which studies atomic arrangements and crystal structures; and coordination chemistry, exploring the bonding and geometry of complex ions. Understanding acid-base behavior, redox reactions, periodic trends, and thermodynamic properties forms the foundation of inorganic chemistry. Applications of this branch span catalysis, material science, metallurgy, environmental chemistry, and industrial processes. Transition metals, lanthanides, and actinides play vital roles in catalysts, electronic devices, and energy storage. Inorganic chemistry also contributes to analytical techniques used to identify and quantify elements, ensuring the purity and quality of materials. The study of this discipline not only provides knowledge about the fundamental building blocks of matter but also connects chemistry to practical innovations in technology, medicine, and environmental management, making it an indispensable branch of chemical sciences.

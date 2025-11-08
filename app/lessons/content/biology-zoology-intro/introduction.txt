@@ -1,8 +1,0 @@
-5. Zoology — Introduction
-
-Title: Zoology
-Course: Biology
-Slug: biology-zoology-intro
-
-Lesson Content:
-Zoology is the scientific study of animals, their classification, structure, development, behavior, physiology, and interactions with the environment. It encompasses the diversity of animal life—from simple invertebrates like sponges and worms to complex vertebrates such as mammals and birds. Historically, zoology evolved from natural history, where early scientists observed and described animals, into a modern science integrating anatomy, physiology, genetics, ecology, and ethology (study of behavior). Key branches include entomology (study of insects), ichthyology (fish), herpetology (reptiles and amphibians), ornithology (birds), and mammalogy (mammals). Zoologists study anatomy to understand organ systems, physiology to uncover functional mechanisms, embryology for developmental patterns, and ecology to explore environmental interactions. With contemporary advances in molecular biology, zoology now investigates genetic evolution, species conservation, and adaptation to environmental stressors. Understanding zoology is crucial for biodiversity preservation, veterinary medicine, wildlife management, and ecological research, making it a central pillar of life sciences. Its study deepens appreciation for the complexity of life and the intricate balance of ecosystems sustaining the planet.

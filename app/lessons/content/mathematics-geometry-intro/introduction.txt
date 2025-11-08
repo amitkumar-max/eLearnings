@@ -1,8 +1,0 @@
-3. Mathematics — Geometry
-
-Title: Geometry
-Course: Mathematics
-Slug: mathematics-geometry-intro
-
-Lesson Content:
-Geometry is the branch of mathematics that studies shapes, sizes, positions, angles, lines, surfaces, and solids, along with their properties, relationships, and measurements. It originates from ancient civilizations, where it was developed to understand land measurement, architecture, and astronomy. Modern geometry encompasses Euclidean geometry, which deals with points, lines, planes, and figures in two and three dimensions, and non-Euclidean geometries, including hyperbolic and spherical geometries. Key concepts include congruence, similarity, circles, triangles, quadrilaterals, polygons, coordinate geometry, vectors, transformations, and loci. Geometry is fundamental in visualizing mathematical relationships, solving spatial problems, and connecting algebraic concepts with graphical representations. Applications of geometry extend to physics, engineering, computer graphics, architecture, robotics, and navigation. Mastery of geometry develops spatial reasoning, logical thinking, problem-solving abilities, and precision, making it an essential component of mathematics and its practical applications in the real world.

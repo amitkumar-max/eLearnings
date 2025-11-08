@@ -1,8 +1,0 @@
-3. Physics — Kinematics
-
-Title: Kinematics
-Course: Physics
-Slug: physics-kinematics-intro
-
-Lesson Content:
-Kinematics is the branch of physics that describes the motion of objects without considering the forces causing the motion. It provides mathematical frameworks and graphical representations to analyze position, velocity, acceleration, and time. Key concepts include displacement, speed, velocity, acceleration, uniform and non-uniform motion, and equations of motion for linear and rotational systems. Vectors play a crucial role in representing quantities with both magnitude and direction, allowing for precise descriptions of motion in one, two, and three dimensions. Kinematics also involves the study of projectile motion, relative motion, circular motion, and oscillatory motion, forming the basis for understanding more complex dynamics in classical mechanics. By focusing on measurable quantities, kinematics enables predictions of future positions and velocities, essential for engineering, robotics, aeronautics, and everyday applications. Understanding kinematics develops analytical skills, mathematical reasoning, and the ability to model real-world scenarios accurately, bridging theoretical physics and practical problem-solving in mechanics.

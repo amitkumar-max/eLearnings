@@ -1,8 +1,0 @@
-6. Mathematics — Trigonometry
-
-Title: Trigonometry
-Course: Mathematics
-Slug: mathematics-trigonometry-intro
-
-Lesson Content:
-Trigonometry is the branch of mathematics that studies the relationships between the angles and sides of triangles, along with periodic functions that model oscillatory behavior. It originated in ancient civilizations for astronomy, navigation, and surveying and now underpins modern mathematics, physics, and engineering. Core concepts include trigonometric ratios (sine, cosine, tangent), identities, inverse functions, and equations, as well as laws of sines and cosines, height and distance problems, and applications of angles of elevation and depression. Trigonometric functions are also extended to the unit circle, allowing analysis of periodic phenomena such as waves, sound, light, and circular motion. Advanced topics include polar coordinates, complex numbers, and Fourier series, connecting trigonometry with calculus and analysis. Mastery of trigonometry develops spatial reasoning, problem-solving skills, and mathematical modeling abilities. Its applications span architecture, physics, engineering, astronomy, computer graphics, and signal processing, making it a vital tool for both theoretical understanding and practical problem-solving.

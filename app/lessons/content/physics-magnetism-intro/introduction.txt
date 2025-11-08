@@ -1,8 +1,0 @@
-4. Physics — Magnetism
-
-Title: Magnetism
-Course: Physics
-Slug: physics-magnetism-intro
-
-Lesson Content:
-Magnetism is a branch of physics that studies the forces and fields associated with magnets, magnetic materials, and moving electric charges. It is one of the fundamental aspects of electromagnetism, manifesting as attraction or repulsion between objects and the alignment of magnetic domains in materials. The origin of magnetism lies in the motion of electrons, particularly their spin and orbital angular momentum, which generates magnetic moments at the atomic level. Key phenomena include magnetic fields, magnetic flux, magnetic induction, electromagnetism, and the interaction between currents and magnetic fields as described by Ampère’s and Faraday’s laws. Magnetism is foundational for understanding the Earth’s magnetic field, compass navigation, electric motors, generators, transformers, and data storage devices. Studies of magnetic materials, including ferromagnetic, paramagnetic, and diamagnetic substances, enable applications in electronics, engineering, and medical imaging technologies such as MRI. The principles of magnetism integrate theoretical concepts with practical applications, bridging the microscopic behavior of charged particles with macroscopic technologies that power modern life.

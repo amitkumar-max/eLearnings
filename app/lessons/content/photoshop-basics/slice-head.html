@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Slice Head Manipulation Effect — Photoshop Reaction Formula</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .fade-slide {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .fade-slide.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body class="bg-green-50 text-gray-900 flex flex-col items-center justify-center min-h-screen px-6">
+  <div class="max-w-3xl bg-white rounded-2xl shadow-lg p-8 fade-slide active">
+    
+    <h1 class="text-3xl font-bold text-green-600 mb-3 text-center">⚗️ Slice Head Manipulation Effect</h1>
+    <p class="text-center text-lg font-medium mb-6 text-gray-600">Photoshop Reaction Formula</p>
+
+    <section class="mb-6">
+      <h2 class="text-xl font-semibold text-green-700 mb-2">🎯 Objective:</h2>
+      <p>To create a sliced head illusion using layer masks, shadows, and 3D displacement reactions.</p>
+    </section>
+
+    <section class="mb-6">
+      <h2 class="text-xl font-semibold text-green-700 mb-2">🧪 Materials Required:</h2>
+      <ul class="list-disc pl-6 space-y-1">
+        <li>Portrait (front-facing)</li>
+        <li>Background texture (plain or gradient)</li>
+        <li>Adobe Photoshop</li>
+        <li>Rectangular Marquee Tool, Brush, and Drop Shadow</li>
+      </ul>
+    </section>
+
+    <section class="mb-6">
+      <h2 class="text-xl font-semibold text-green-700 mb-2">🧬 Reaction Procedure:</h2>
+      <ol class="list-decimal pl-6 space-y-3">
+        <li><b>Import Base Compound:</b> File → Open → <code>portrait.jpg</code><br>Duplicate layer (Ctrl + J) to preserve original.</li>
+        <li><b>Define Slice Reaction Zones:</b> Use Rectangular Marquee Tool → drag over small area → Ctrl + J for Slice Layer 1, repeat for 2–3 more.</li>
+        <li><b>Displacement Reaction:</b> Move each slice slightly up/down to create visible gaps — think of molecular separation 🧬.</li>
+        <li><b>Shadow Bond Formation:</b> Apply Drop Shadow (Distance 10–20px, Opacity 40–60%) for depth illusion.</li>
+        <li><b>Gap Filling Reaction:</b> Paint dark shadows under each slice for realistic 3D depth.</li>
+        <li><b>Add Internal Glow Catalyst:</b> Apply Inner Glow (light orange/blue) → Blend Mode = Screen for futuristic edge.</li>
+        <li><b>Fusion Balance:</b> Group slice layers → Apply Levels + Color Balance adjustments.</li>
+        <li><b>Crystallization Stage:</b> Merge visible → Filter → Sharpen or Motion Blur background for cinematic tone.</li>
+      </ol>
+    </section>
+
+    <section class="mt-6 text-center">
+      <h2 class="text-xl font-semibold text-green-700 mb-2">⚡ Result:</h2>
+      <p class="italic">Head looks sliced into floating sections with glowing edges and shadow gaps — futuristic cyber anatomy effect 🧠🔪✨</p>
+    </section>
+
+    <div class="mt-8 flex justify-between">
+      <button onclick="prevSlide()" class="px-5 py-2 bg-green-100 text-green-700 rounded-xl hover:bg-green-200">⬅ Prev</button>
+      <button onclick="nextSlide()" class="px-5 py-2 bg-green-100 text-green-700 rounded-xl hover:bg-green-200">Next ➡</button>
+    </div>
+
+  </div>
+
+  <script>
+    function nextSlide() {
+      document.querySelector('.fade-slide').classList.remove('active');
+      setTimeout(() => document.querySelector('.fade-slide').classList.add('active'), 100);
+    }
+    function prevSlide() {
+      document.querySelector('.fade-slide').classList.remove('active');
+      setTimeout(() => document.querySelector('.fade-slide').classList.add('active'), 100);
+    }
+  </script>
+</body>
+</html>

@@ -13,3 +13,9 @@ dj-database-url>=1.0.0      # Latest stable
 psycopg2-binary>=2.9,<3.0  # Prevent major breaking changes
 python-decouple>=3.8        # Latest stable
 django-extensions>=3.2      # Dev tools
+
+
+
+
+
+

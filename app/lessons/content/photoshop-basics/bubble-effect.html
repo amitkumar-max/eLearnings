@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bubble Effect — Photoshop Reaction Formula</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .fade-slide {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .fade-slide.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+
+<body class="bg-green-50 text-gray-900 flex flex-col items-center justify-center min-h-screen px-6">
+  <div class="max-w-3xl bg-white rounded-2xl shadow-lg p-8 fade-slide active">
+
+    <h1 class="text-3xl font-bold text-green-600 mb-3 text-center">⚗️ Bubble Effect</h1>
+    <p class="text-center text-lg font-medium mb-6 text-gray-600">Photoshop Reaction Formula</p>
+
+    <section class="mb-6">
+      <h2 class="text-xl font-semibold text-green-700 mb-2">🎯 Objective:</h2>
+      <p>To generate floating, transparent bubbles that reflect light and color — perfect for dreamy portraits, fantasy edits, or underwater themes 🌊</p>
+    </section>
+
+    <section class="mb-6">
+      <h2 class="text-xl font-semibold text-green-700 mb-2">🧪 Materials Required:</h2>
+      <ul class="list-disc pl-6 space-y-1">
+        <li>Portrait or background image</li>
+        <li>Adobe Photoshop</li>
+        <li>Soft Round Brush, Ellipse Tool, and Layer Styles</li>
+        <li>Optional: Bubble PNGs or custom brush set</li>
+      </ul>
+    </section>
+
+    <section class="mb-6">
+      <h2 class="text-xl font-semibold text-green-700 mb-2">🧬 Reaction Procedure:</h2>
+      <ol class="list-decimal pl-6 space-y-3">
+        <li><b>Import Base Compound:</b> File → Open → <code>base_image.jpg</code>.<br>Add new empty layer (Ctrl + Shift + N) — this is your Bubble Reaction Layer.</li>
+
+        <li><b>Form the Bubble Nucleus:</b> Ellipse Tool (U) → hold Shift to form a perfect circle ⚪<br>Double-click layer → open Layer Style Panel.</li>
+
+        <li><b>Transparency Reaction:</b>  
+          Fill Opacity = 0% → center becomes see-through.<br>
+          Stroke → Size = 2–3px, Color = White, Opacity = 50–70%.  
+          💡 Gives transparent shell of a bubble.
+        </li>
+
+        <li><b>Light Reflection Catalyst:</b>  
+          Inner Glow → White/Light Blue (Screen, 60%)<br>
+          Outer Glow → Pink/Cyan (Linear Dodge - Add).  
+          💥 Creates rainbow shimmer on bubble edges.
+        </li>
+
+        <li><b>Duplicate & Scatter Reaction:</b>  
+          Alt + Drag bubble layer multiple times → duplicate bubbles.<br>
+          Resize with Ctrl + T → vary bubble sizes floating around.
+        </li>
+
+        <li><b>Depth & Motion Formation:</b>  
+          Set some Opacity = 40–60% (background ones).<br>
+          Apply slight Gaussian Blur (2px) for depth illusion 💫
+        </li>
+
+        <li><b>Color Spectrum Boost:</b>  
+          Create Gradient Map Layer (pastel/rainbow tone 🌈)<br>
+          Set Blend Mode = Soft Light / Overlay for color reflection.
+        </li>
+
+        <li><b>Final Crystallization Stage:</b>  
+          Merge visible (Ctrl + Shift + Alt + E)<br>
+          Apply Filter → Sharpen → Smart Sharpen.  
+          💧 Result: crisp, glowing, floating bubbles!
+        </li>
+      </ol>
+    </section>
+
+    <section class="mt-6 text-center">
+      <h2 class="text-xl font-semibold text-green-700 mb-2">⚡ Result:</h2>
+      <p class="italic">Dreamy, glossy bubbles reflecting rainbow tones — floating gently in your scene 🫧🌈✨</p>
+    </section>
+
+    <div class="mt-8 flex justify-between">
+      <button onclick="prevSlide()" class="px-5 py-2 bg-green-100 text-green-700 rounded-xl hover:bg-green-200">⬅ Prev</button>
+      <button onclick="nextSlide()" class="px-5 py-2 bg-green-100 text-green-700 rounded-xl hover:bg-green-200">Next ➡</button>
+    </div>
+
+  </div>
+
+  <script>
+    function nextSlide() {
+      document.querySelector('.fade-slide').classList.remove('active');
+      setTimeout(() => document.querySelector('.fade-slide').classList.add('active'), 100);
+    }
+    function prevSlide() {
+      document.querySelector('.fade-slide').classList.remove('active');
+      setTimeout(() => document.querySelector('.fade-slide').classList.add('active'), 100);
+    }
+  </script>
+</body>
+</html>

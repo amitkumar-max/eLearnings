@@ -1,8 +1,0 @@
-3. Microbiology — Introduction
-
-Title: Microbiology
-Course: Biology
-Slug: biology-microbiology-intro
-
-Lesson Content:
-Microbiology is the scientific study of microorganisms, microscopic entities that are invisible to the naked eye, including bacteria, viruses, fungi, protozoa, and algae. These tiny organisms, despite their size, play pivotal roles in ecosystems, human health, industry, and biotechnology. Microbiology emerged as a distinct field during the 17th century with the invention of the microscope, allowing pioneers like Antonie van Leeuwenhoek to observe bacteria and protozoans for the first time. The field is broadly divided into medical microbiology, which studies pathogens and diseases; industrial microbiology, which explores fermentation and bioengineering; environmental microbiology, which examines microorganisms in soil, water, and air; and agricultural microbiology, which enhances soil fertility and plant health. Microbes can be both beneficial and harmful: while some bacteria aid digestion, nutrient cycling, and antibiotic production, others cause infections such as tuberculosis, malaria, and influenza. The study of microbiology also encompasses virology, mycology, parasitology, and microbial genetics, providing a foundation for medicine, epidemiology, and biotechnology. In contemporary science, microbiology integrates molecular biology, genomics, and synthetic biology to understand microbial mechanisms, combat diseases, and develop sustainable solutions for agriculture, medicine, and industry.

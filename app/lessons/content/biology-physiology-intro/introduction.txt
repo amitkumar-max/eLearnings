@@ -1,8 +1,0 @@
-4. Physiology — Introduction
-
-Title: Physiology
-Course: Biology
-Slug: biology-physiology-intro
-
-Lesson Content:
-Physiology is the branch of biology that studies the functions, mechanisms, and processes of living organisms at cellular, organ, system, and organismal levels. It focuses on understanding how biological systems operate, respond to stimuli, and maintain homeostasis, which is the stable internal environment essential for survival. Plant physiology investigates processes such as photosynthesis, respiration, transpiration, nutrient absorption, and hormonal regulation. Animal physiology encompasses cardiovascular, respiratory, digestive, excretory, and nervous system functions, exploring how organs and tissues interact to sustain life. Comparative physiology examines differences and similarities across species, revealing evolutionary adaptations. Modern physiology integrates molecular biology, biochemistry, and genetics to uncover mechanisms underlying disease, growth, metabolism, and reproduction. It also contributes to applied sciences such as medicine, sports science, agriculture, and biotechnology. By understanding physiological processes, scientists can develop therapeutic interventions, improve crop yields, enhance animal health, and predict responses to environmental changes. Physiology is not just a descriptive science; it is a dynamic discipline that reveals the principles governing life’s intricate balance and adaptability.

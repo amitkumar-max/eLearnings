@@ -1,8 +1,0 @@
-1. English — Grammar
-
-Title: English Grammar
-Course: English
-Slug: english-grammar-intro
-
-Lesson Content:
-English grammar is the structural foundation of the English language, encompassing the rules and conventions that govern sentence formation, word usage, and communication. Grammar enables speakers and writers to convey their thoughts clearly, accurately, and effectively. It includes the study of parts of speech, such as nouns, pronouns, verbs, adjectives, adverbs, prepositions, conjunctions, and interjections, each serving a unique function in constructing meaning. Sentence structure, including subjects, predicates, clauses, and phrases, allows for the formation of simple, compound, and complex sentences. Tenses, aspects, and moods express time, continuity, and attitude, while agreement between subjects and verbs ensures syntactical correctness. Grammar also examines voice, active and passive, as well as direct and indirect speech, which are essential for narrative and formal writing. Understanding punctuation, capitalization, and proper word choice enhances clarity and readability. Beyond rules, grammar provides a framework for comprehension, analysis, and expression, fostering precision and confidence in both spoken and written English. Mastery of grammar not only supports communication but also underpins higher-level skills such as creative writing, persuasive writing, literature analysis, and effective academic expression.

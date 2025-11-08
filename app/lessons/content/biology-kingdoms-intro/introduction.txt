@@ -1,8 +1,0 @@
-2. Kingdoms — Introduction
-
-Title: Kingdoms
-Course: Biology
-Slug: biology-kingdoms-intro
-
-Lesson Content:
-The concept of biological kingdoms is a fundamental principle in the classification of life forms. Kingdoms represent the highest taxonomic rank used to organize organisms based on fundamental structural and functional characteristics. Traditionally, life was classified into two kingdoms—Plantae and Animalia—but advances in microbiology, molecular biology, and phylogenetics led to the development of more sophisticated systems. Currently, the most widely accepted classification divides life into five to six kingdoms, including Monera (prokaryotic bacteria), Protista (unicellular eukaryotes), Fungi, Plantae, Animalia, and sometimes Chromista or Archaea, depending on the system. Each kingdom reflects unique cellular organization, modes of nutrition, reproduction, and ecological roles. Monera includes bacteria and cyanobacteria, organisms vital for nutrient cycling and ecological balance. Protists display incredible diversity, ranging from photosynthetic algae to pathogenic protozoans. Fungi, with their absorptive nutrition, decompose organic matter and form symbiotic relationships. Plants are autotrophic, producing their food through photosynthesis, whereas animals are heterotrophic, relying on other organisms for energy. Studying kingdoms helps understand evolutionary relationships, ecological interactions, and the biological diversity of life on Earth. Modern research integrates genetics, molecular biology, and bioinformatics to refine kingdom classifications and reveal the evolutionary history that connects all organisms.

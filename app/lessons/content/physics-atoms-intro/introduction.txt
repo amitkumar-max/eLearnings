@@ -1,8 +1,0 @@
-1. Physics — Atoms
-
-Title: Atoms
-Course: Physics
-Slug: physics-atoms-intro
-
-Lesson Content:
-Atoms are the fundamental building blocks of matter, forming the basis of all physical substances in the universe. The study of atoms is central to physics and chemistry, as understanding atomic structure explains the properties of elements, molecules, and the interactions between them. Atoms consist of a nucleus containing positively charged protons and neutral neutrons, surrounded by negatively charged electrons in defined energy levels or orbitals. The arrangement and behavior of these subatomic particles govern chemical bonding, reactivity, and the physical properties of materials. Key concepts in atomic physics include atomic models, from Dalton’s indivisible particles to Thomson’s plum pudding model, Rutherford’s nuclear model, and Bohr’s planetary model, culminating in the modern quantum mechanical model that incorporates wave-particle duality and probability distributions. Atomic theory explains phenomena such as ionization, isotopes, spectral lines, and radioactivity, forming the foundation for fields like quantum physics, nuclear physics, and solid-state physics. Understanding atoms enables the development of advanced technologies, including semiconductors, lasers, nuclear energy, and medical imaging, highlighting their significance in both scientific theory and practical applications.

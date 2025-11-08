@@ -1,8 +1,0 @@
-4. Mathematics — Set & Relations
-
-Title: Sets and Relations
-Course: Mathematics
-Slug: mathematics-sets-relations-intro
-
-Lesson Content:
-Sets and relations form the foundational concepts in mathematics for organizing elements and understanding relationships between them. A set is a collection of distinct objects, considered as an entity, and can be described using elements, notation, operations, and cardinality. Concepts such as subsets, power sets, union, intersection, difference, complement, and Venn diagrams enable systematic reasoning and problem-solving. Relations extend sets by defining how elements of one set are associated with elements of another set, capturing concepts such as functions, mappings, equivalence relations, and partial orders. Set theory and relations underpin logical reasoning, probability, algebra, combinatorics, and advanced mathematics. They provide a framework for abstract thinking, mathematical proofs, and modeling real-world phenomena. Understanding sets and relations strengthens analytical abilities, enabling precise communication of ideas, structured reasoning, and exploration of complex structures in mathematics, computer science, and engineering.

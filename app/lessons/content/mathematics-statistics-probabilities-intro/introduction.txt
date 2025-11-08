@@ -1,8 +1,0 @@
-5. Mathematics — Statistics & Probabilities
-
-Title: Statistics and Probabilities
-Course: Mathematics
-Slug: mathematics-statistics-probabilities-intro
-
-Lesson Content:
-Statistics and probability are branches of mathematics that deal with data analysis, uncertainty, and chance. Statistics involves collecting, organizing, summarizing, and interpreting data to draw meaningful conclusions and make informed decisions. Key concepts include measures of central tendency, dispersion, variance, standard deviation, correlation, regression, and data visualization. Probability quantifies the likelihood of events occurring and provides a mathematical framework for predicting outcomes under uncertainty. Core ideas include classical, empirical, and axiomatic probability, conditional probability, independence, random variables, probability distributions, and expected value. Applications of statistics and probability span science, engineering, economics, finance, social sciences, artificial intelligence, and quality control. Mastery of these concepts equips students to analyze patterns, assess risks, design experiments, model stochastic systems, and interpret real-world data accurately. Together, statistics and probability empower analytical reasoning, critical thinking, and decision-making skills essential for research, technology, and everyday life.

@@ -15,6 +15,25 @@
             "database": "elearning_db_uk14_5gmv",
             "username": "elearning_admin",
             "name": "Elearning_DB_New"
+        },
+        {
+            "pgOptions": {
+                "ssl": {
+                    "rejectUnauthorized": true
+                }
+            },
+            "ssh": "Disabled",
+            "previewLimit": 50,
+            "server": "dpg-d45h6kvdiees73895aag-a.oregon-postgres.render.com",
+            "port": 5432,
+            "sshOptions": {
+                "port": 22
+            },
+            "driver": "PostgreSQL",
+            "name": "RenderDB",
+            "database": "elearning_db_uk14_5gmv_5eug",
+            "username": "elearn_user",
+            "password": "ByZ8M4HA0brNPryKJurHeULRuDPoPePC"
         }
     ]
 }

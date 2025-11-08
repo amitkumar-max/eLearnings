@@ -59,7 +59,50 @@ def start_lesson(request, course_slug, lesson_slug):
 # --------------------------
 # FILE CONTENT HANDLER
 # --------------------------
+# def get_lesson_content_from_file(lesson, return_path=False):
+#     normalized_slug = lesson.course.slug.lower().replace(" ", "-")
+#     paths_to_try = [
+#         os.path.join(settings.MEDIA_ROOT, "lessons", normalized_slug),
+#         os.path.join(settings.BASE_DIR, "app", "lessons", "content", normalized_slug),
+#     ]
+
+#     for folder_path in paths_to_try:
+#         if not os.path.exists(folder_path):
+#             continue
+
+#         pattern = f"lesson_{lesson.order_index}_*.txt"
+#         matched_files = glob.glob(os.path.join(folder_path, pattern))
+#         if matched_files:
+#             path = matched_files[0]
+#             try:
+#                 with open(path, "r", encoding="utf-8") as f:
+#                     content = f.read()
+#                 content = content.replace("\n\n", "</p><p>").replace("\n", "<br>")
+#                 html_content = f"<p>{content}</p>"
+#                 return (html_content, path) if return_path else html_content
+#             except Exception as e:
+#                 print(f"[Error reading file] {e}")
+#                 return "Lesson content not available."
+
+#     # Placeholder fallback
+#     placeholder_path = os.path.join(
+#         settings.BASE_DIR, "app", "lessons", "content", "placeholder.txt"
+#     )
+#     if os.path.exists(placeholder_path):
+#         with open(placeholder_path, "r", encoding="utf-8") as f:
+#             content = f.read()
+#         content = content.replace("\n\n", "</p><p>").replace("\n", "<br>")
+#         html_content = f"<p>{content}</p>"
+#         return (html_content, placeholder_path) if return_path else html_content
+
+#     return (
+#         ("Lesson content not found.", None)
+#         if return_path
+#         else "Lesson content not found."
+#     )
+
 def get_lesson_content_from_file(lesson, return_path=False):
+    import re
     normalized_slug = lesson.course.slug.lower().replace(" ", "-")
     paths_to_try = [
         os.path.join(settings.MEDIA_ROOT, "lessons", normalized_slug),
@@ -70,36 +113,34 @@ def get_lesson_content_from_file(lesson, return_path=False):
         if not os.path.exists(folder_path):
             continue
 
-        pattern = f"lesson_{lesson.order_index}_*.txt"
-        matched_files = glob.glob(os.path.join(folder_path, pattern))
+        # 🔥 Try both .txt and .html patterns
+        pattern_txt = f"lesson_{lesson.order_index}_*.txt"
+        pattern_html = f"lesson_{lesson.order_index}_*.html"
+
+        matched_files = glob.glob(os.path.join(folder_path, pattern_html)) or glob.glob(os.path.join(folder_path, pattern_txt))
         if matched_files:
             path = matched_files[0]
             try:
                 with open(path, "r", encoding="utf-8") as f:
                     content = f.read()
-                content = content.replace("\n\n", "</p><p>").replace("\n", "<br>")
-                html_content = f"<p>{content}</p>"
+
+                # ✅ If HTML file, no conversion needed
+                if path.endswith(".html"):
+                    html_content = content
+                else:
+                    # for txt files → convert line breaks to HTML
+                    content = content.replace("\n\n", "</p><p>").replace("\n", "<br>")
+                    html_content = f"<p>{content}</p>"
+
                 return (html_content, path) if return_path else html_content
+
             except Exception as e:
                 print(f"[Error reading file] {e}")
                 return "Lesson content not available."
 
-    # Placeholder fallback
-    placeholder_path = os.path.join(
-        settings.BASE_DIR, "app", "lessons", "content", "placeholder.txt"
-    )
-    if os.path.exists(placeholder_path):
-        with open(placeholder_path, "r", encoding="utf-8") as f:
-            content = f.read()
-        content = content.replace("\n\n", "</p><p>").replace("\n", "<br>")
-        html_content = f"<p>{content}</p>"
-        return (html_content, placeholder_path) if return_path else html_content
+    return ("Lesson content not found.", None) if return_path else "Lesson content not found."
 
-    return (
-        ("Lesson content not found.", None)
-        if return_path
-        else "Lesson content not found."
-    )
+
 
 
 # --------------------------

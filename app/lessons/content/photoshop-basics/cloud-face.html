@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cloud Face Effect — Photoshop Reaction Formula</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .slide {
+      opacity: 0;
+      transform: translateY(25px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+      position: absolute;
+      inset: 0;
+      padding: 2rem;
+      background: white;
+      border-radius: 1rem;
+    }
+    .slide.active {
+      opacity: 1;
+      transform: translateY(0);
+      position: relative;
+    }
+  </style>
+</head>
+
+<body class="bg-green-50 flex justify-center items-center min-h-screen">
+  <div class="w-full max-w-4xl bg-white rounded-2xl shadow-xl border border-green-200 overflow-hidden relative">
+
+    <div id="slides" class="relative min-h-[550px] p-6">
+
+      <!-- Slide 1 -->
+      <section class="slide active">
+        <h1 class="text-2xl font-bold text-green-700 mb-3">⚗️ Cloud Face Effect — Photoshop Reaction Formula</h1>
+        <p class="text-gray-600 italic mb-4">
+          Objective: To fuse a human portrait with dreamy clouds — creating a heavenly double exposure effect using blend reactions.
+        </p>
+        <h2 class="text-lg font-semibold text-green-600 mb-2">🧪 Materials Required:</h2>
+        <ul class="list-disc pl-6 space-y-1 mb-4 text-gray-700">
+          <li>Portrait image (clear face)</li>
+          <li>Cloud or sky stock photo</li>
+          <li>Adobe Photoshop</li>
+          <li>Soft round brush + Eraser tool</li>
+        </ul>
+        <p class="text-gray-700">This effect demonstrates atmospheric fusion — merging human and nature elements into a single artistic form.</p>
+      </section>
+
+      <!-- Slide 2 -->
+      <section class="slide">
+        <h2 class="text-xl font-bold text-green-700 mb-2">1️⃣ Import Base Compounds</h2>
+        <p>File → Open → <code>portrait.jpg</code></p>
+        <p>File → Place Embedded → <code>clouds.jpg</code></p>
+        <p class="mt-2">⬇️ Keep portrait layer at the bottom and clouds layer on top.</p>
+        <p class="mt-4 text-gray-700">These two layers form the base compounds — ready for fusion reaction.</p>
+      </section>
+
+      <!-- Slide 3 -->
+      <section class="slide">
+        <h2 class="text-xl font-bold text-green-700 mb-2">2️⃣ Activate Fusion Reaction</h2>
+        <p>Select the <strong>clouds layer</strong> → Change Blending Mode ➡️ <code>Screen</code> / <code>Lighten</code></p>
+        <p>⬇️ Observe: clouds start merging into the skin tone.</p>
+        <p class="mt-4 text-gray-700">💡 Light areas of clouds react with facial highlights — forming luminous textures.</p>
+      </section>
+
+      <!-- Slide 4 -->
+      <section class="slide">
+        <h2 class="text-xl font-bold text-green-700 mb-2">3️⃣ Masking Reaction Chamber</h2>
+        <p>Click on <strong>Add Layer Mask</strong> icon on the cloud layer 🧪</p>
+        <p>⬇️ Use Soft Round Brush (black color) → erase unwanted clouds from eyes, mouth & edges.</p>
+        <p class="mt-4 text-gray-700">✨ Masking controls the diffusion — allowing clouds to blend smoothly with facial contours.</p>
+      </section>
+
+      <!-- Slide 5 -->
+      <section class="slide">
+        <h2 class="text-xl font-bold text-green-700 mb-2">4️⃣ Enhance Reaction Depth</h2>
+        <p>Create <strong>Adjustment Layer → Levels</strong></p>
+        <p>⬇️ Slightly darken shadows to bring back facial definition beneath the clouds.</p>
+        <p class="mt-4 text-gray-700">Adds contrast — ensuring the portrait remains visible through the cloud density.</p>
+      </section>
+
+      <!-- Slide 6 -->
+      <section class="slide">
+        <h2 class="text-xl font-bold text-green-700 mb-2">5️⃣ Add Color Catalyst</h2>
+        <p>Apply <strong>Gradient Map</strong> (blue-white / purple-pink tone)</p>
+        <p>⬇️ Change mode to <code>Soft Light</code></p>
+        <p class="mt-4 text-gray-700">This adds dreamlike glow — harmonizing color frequencies for calm visual energy.</p>
+      </section>
+
+      <!-- Slide 7 -->
+      <section class="slide">
+        <h2 class="text-xl font-bold text-green-700 mb-2">6️⃣ Atmospheric Balance</h2>
+        <p>Add a <strong>New Layer</strong> → use Soft Brush (white)</p>
+        <p>⬇️ Lightly paint around head → creates fog aura ☁️</p>
+        <p>Set Opacity = 30–40% for soft diffusion.</p>
+        <p class="mt-4 text-gray-700">This creates ambient mist — balancing highlights with environmental glow.</p>
+      </section>
+
+      <!-- Slide 8 -->
+      <section class="slide">
+        <h2 class="text-xl font-bold text-green-700 mb-2">7️⃣ Final Crystallization Stage</h2>
+        <p>Merge visible layers (<kbd>Ctrl + Shift + Alt + E</kbd>)</p>
+        <p>⬇️ Apply Filter → Blur → <strong>Gaussian Blur (2–3px)</strong></p>
+        <p class="mt-4 text-gray-700">Adds cinematic haze — finalizing the reaction with soft atmospheric blending.</p>
+      </section>
+
+      <!-- Slide 9 -->
+      <section class="slide">
+        <h2 class="text-xl font-bold text-green-700 mb-2">⚡ Result</h2>
+        <p>A surreal face half-merged with clouds — mystical, peaceful, and poetic ☁️✨</p>
+        <p class="mt-3 text-gray-700">The fusion symbolizes calm transformation — where human emotion meets sky serenity.</p>
+        <p class="italic mt-2 text-green-600">Next Reaction: Slice Head Manipulation 🧠✨</p>
+      </section>
+
+    </div>
+
+    <!-- Controls -->
+    <div class="flex justify-between bg-green-100 px-6 py-4 border-t border-green-200">
+      <button id="prevBtn" class="bg-green-600 text-white px-5 py-2 rounded disabled:opacity-50" disabled>← Previous</button>
+      <button id="nextBtn" class="bg-green-600 text-white px-5 py-2 rounded">Next →</button>
+    </div>
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    let current = 0;
+
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.remove('active');
+        slide.style.opacity = 0;
+        slide.style.transform = 'translateY(25px)';
+        if (i === index) {
+          setTimeout(() => {
+            slide.classList.add('active');
+            slide.style.opacity = 1;
+            slide.style.transform = 'translateY(0)';
+          }, 50);
+        }
+      });
+      prevBtn.disabled = index === 0;
+      nextBtn.disabled = index === slides.length - 1;
+    }
+
+    prevBtn.addEventListener('click', () => {
+      if (current > 0) current--;
+      showSlide(current);
+    });
+
+    nextBtn.addEventListener('click', () => {
+      if (current < slides.length - 1) current++;
+      showSlide(current);
+    });
+  </script>
+</body>
+</html>

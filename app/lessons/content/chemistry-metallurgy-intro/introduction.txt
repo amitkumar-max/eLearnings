@@ -1,8 +1,0 @@
-4. Chemistry — Metallurgy
-
-Title: Metallurgy
-Course: Chemistry
-Slug: chemistry-metallurgy-intro
-
-Lesson Content:
-Metallurgy is the branch of chemistry and materials science that focuses on the extraction, refining, and processing of metals from their ores. It encompasses a detailed understanding of chemical and physical principles to convert naturally occurring minerals into usable metals for industrial, technological, and commercial applications. The process of metallurgy involves mineralogy to identify ores, pyrometallurgy for high-temperature extraction, hydrometallurgy for solution-based recovery, and electrometallurgy for electrochemical methods. Properties such as melting point, ductility, malleability, and corrosion resistance determine the selection of metals for specific purposes. Metals like iron, aluminum, copper, and gold have distinct extraction methods and applications in construction, electronics, transportation, and jewelry. Alloy formation, surface treatment, and material testing are also integral to metallurgy, ensuring durability, strength, and functionality. Understanding metallurgical processes bridges chemistry, physics, and engineering, allowing the development of advanced materials, sustainable recycling methods, and innovative industrial applications. Metallurgy has historically driven civilization’s progress—from the Bronze Age and Iron Age to modern high-tech industries—and remains vital for technological advancement, resource management, and economic growth.

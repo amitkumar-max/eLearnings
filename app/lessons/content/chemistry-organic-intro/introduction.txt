@@ -1,8 +1,0 @@
-5. Chemistry — Organic
-
-Title: Organic Chemistry
-Course: Chemistry
-Slug: chemistry-organic-intro
-
-Lesson Content:
-Organic chemistry is the study of carbon-containing compounds, encompassing their structure, properties, synthesis, and reactions. It is central to understanding life’s chemistry, as most biological molecules—proteins, carbohydrates, lipids, nucleic acids—are organic in nature. Organic compounds are classified into alkanes, alkenes, alkynes, aromatics, alcohols, aldehydes, ketones, carboxylic acids, esters, amines, and polymers, each exhibiting unique reactivity and functional characteristics. Reaction mechanisms, including substitution, addition, elimination, and rearrangement reactions, explain how molecules transform and interact. Stereochemistry studies the spatial arrangement of atoms, which is crucial for understanding molecular behavior in biological and industrial contexts. Organic chemistry applications are vast, spanning pharmaceuticals, agrochemicals, dyes, polymers, fuels, and materials science. Mastery of this field requires understanding both theoretical principles and practical laboratory techniques, such as purification, spectroscopy, and synthesis. Organic chemistry serves as a bridge between chemistry and biology, allowing scientists to design drugs, create new materials, and manipulate molecules to achieve desired chemical and physical properties.
