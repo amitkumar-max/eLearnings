@@ -27,7 +27,7 @@
     "table_name": "django_admin_log"
   },
   {
-    "table_name": "blogs_blog"
+    "table_name": "blogs_blog" 
   },
   {
     "table_name": "blogs_comment"

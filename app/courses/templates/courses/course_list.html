@@ -128,7 +128,7 @@ $(document).ready(function(){
                         confirmButtonText: 'Go to Dashboard'
                     }).then(() => {
                         window.location.href = "{% url 'students:dashboard' %}";
-                    });
+                     });
                 } else if(response.status === 'enrolled'){
                     Swal.fire({
                         icon: 'info',
