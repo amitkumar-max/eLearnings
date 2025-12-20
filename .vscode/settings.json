@@ -34,6 +34,21 @@
             "database": "elearning_db_uk14_5gmv_5eug",
             "username": "elearn_user",
             "password": "ByZ8M4HA0brNPryKJurHeULRuDPoPePC"
+        },
+        {
+            "pgOptions": {
+                "ssl": {
+                    "rejectUnauthorized": true
+                }
+            },
+            "ssh": "Disabled",
+            "previewLimit": 50,
+            "server": "dpg-d4uec6u3jp1c73e0eqj0-a",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "ELearningDB",
+            "database": "elearning_db_uk14_5gmv_5g",
+            "username": "instinct_MINDS"
         }
     ]
 }
