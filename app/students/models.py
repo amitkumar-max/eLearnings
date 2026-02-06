@@ -298,3 +298,36 @@ class AssignmentSubmission(models.Model):
 
     def __str__(self):
         return f"{self.student.user.email} - {self.exam.title if self.exam else 'Unlinked'}"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

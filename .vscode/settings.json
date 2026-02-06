@@ -49,6 +49,22 @@
             "name": "ELearningDB",
             "database": "elearning_db_uk14_5gmv_5g",
             "username": "instinct_MINDS"
+        },
+        {
+            "pgOptions": {
+                "ssl": {
+                    "rejectUnauthorized": true
+                }
+            },
+            "ssh": "Disabled",
+            "previewLimit": 50,
+            "server": "dpg-d62pdm8nputs73ekfj8g-a.oregon-postgres.render.com",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "database": "elearning_db_0qpt",
+            "username": "elearning_admin",
+            "password": "QiBuV2QRSBgEv4lCS55dQYfsnpdMycaP",
+            "name": "elearning_db_uk14_5gmv_5g_m5k"
         }
     ]
 }
